@@ -1,0 +1,120 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BACKGROUND-COLOR: #FFF
+}
+TD {
+	FONT-SIZE: 11px; COLOR: #222222; LINE-HEIGHT: 14px; FONT-FAMILY: "verdana" , "sans-serif"
+}
+BLOCKQUOTE {
+	FONT-SIZE: 11px; COLOR: #222222; FONT-FAMILY: "verdana" , "sans-serif"
+}
+A:link {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #666666; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A:hover {
+	COLOR: #ff3300; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.menu:link {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.menu:visited {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.menu:active {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.menu:hover {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.white:link {
+	COLOR: #d9d9d9; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.white:visited {
+	COLOR: #d9d9d9; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.white:active {
+	COLOR: #d9d9d9; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.white:hover {
+	COLOR: #d9d9d9; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.gray:link {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.gray:visited {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.gray:active {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+A.gray:hover {
+	COLOR: #222222; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.grayunder:link {
+	COLOR: #454545; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.grayunder:visited {
+	COLOR: #454545; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.grayunder:active {
+	COLOR: #454545; LINE-HEIGHT: 18px; TEXT-DECORATION: underline
+}
+A.grayunder:hover {
+	COLOR: #454545; LINE-HEIGHT: 18px; TEXT-DECORATION: none
+}
+.tableborder {
+	BORDER-RIGHT: #cdcdcd 1px solid; BORDER-TOP: #cdcdcd 1px solid; BORDER-LEFT: #cdcdcd 1px solid; BORDER-BOTTOM: #cdcdcd 1px solid
+}
+.tableborderbottom {
+	BORDER-BOTTOM: #cdcdcd 1px solid
+}
+.fontgray12B {
+	FONT-WEIGHT: bold; COLOR: #555555
+}
+.fontyellow12B {
+	FONT-WEIGHT: bold; COLOR: #3a3a3a
+}
+.titlepagetd {
+	VERTICAL-ALIGN: middle; HEIGHT: 30px
+}
+.subtitletd {
+	VERTICAL-ALIGN: bottom; HEIGHT: 30px
+}
+.titlepage {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #fe8e14
+}
+.subtitle {
+	FONT-WEIGHT: 600; FONT-SIZE: 11px; VERTICAL-ALIGN: bottom; COLOR: #fe8e14; FONT-FAMILY: Verdana; HEIGHT: 20px; TEXT-ALIGN: left
+}
+.menuout {
+	PADDING-BOTTOM: 5px; CURSOR: hand; COLOR: #ffffff; BACKGROUND-COLOR: #fe8e14
+}
+.menuover {
+	CURSOR: hand; COLOR: #ffffff; BACKGROUND-COLOR: #5f6062
+}
+.menu_top_over {
+	PADDING-LEFT: 30px; FONT-SIZE: 11px; BACKGROUND: url(../images/menutop1.jpg) no-repeat 50% bottom; WIDTH: 151px; CURSOR: hand; COLOR: #353535; PADDING-TOP: 9px; FONT-FAMILY: "verdana"; HEIGHT: 48px
+}
+.menu_top_out {
+	PADDING-LEFT: 30px; FONT-SIZE: 11px; BACKGROUND: url(../images/menutop.jpg) no-repeat 50% bottom; WIDTH: 151px; CURSOR: hand; COLOR: #353535; PADDING-TOP: 9px; FONT-FAMILY: "verdana"; HEIGHT: 48px
+}
+.menu_over {
+	PADDING-LEFT: 30px; FONT-SIZE: 11px; BACKGROUND: url(../images/menuover.jpg) no-repeat 50% bottom; WIDTH: 151px; CURSOR: hand; COLOR: #353535; FONT-FAMILY: "verdana"; HEIGHT: 33px
+}
+.menu_out {
+	PADDING-LEFT: 30px; FONT-SIZE: 11px; BACKGROUND: url(../images/menuout.jpg) no-repeat 50% bottom; WIDTH: 151px; CURSOR: hand; COLOR: #353535; FONT-FAMILY: "verdana"; HEIGHT: 33px
+}
+.menu_blank {
+	BACKGROUND: url(../images/menublank.jpg) no-repeat 50% bottom; WIDTH: 151px; CURSOR: default; COLOR: #353535; HEIGHT: 33px
+}
+.body_Narrow_Width {
+	WIDTH: 1000px
+}
+.body_Broad_Width {
+	WIDTH: 984px
+}

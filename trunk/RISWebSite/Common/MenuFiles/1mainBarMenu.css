@@ -1,0 +1,46 @@
+/* blue grades - root level; text properties for states: normal, hover, click */
+.TM0i0 {
+	font: bold 12px Arial, Verdana, Helvetica, sans-serif;
+	color: #fff;
+}
+
+/* blue grades - root level; box properties for states: normal */
+.TM0o0 {
+	background: #1C92BA;
+	padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+/* blue grades - root level; table properties for states: normal, hover, click */
+.TM0t0 {
+	background: #8AE1FF;
+}
+
+/* blue grades - root level; box properties for states: hover, click */
+.TM0o1 {
+	background: #20A7D5;
+	padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+/* blue grades - sub levels; box properties for states: normal */
+.TM1o0 {
+	background: #1C92BA;
+	padding: 4px;
+	text-align: left;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+/* blue grades - sub levels; box properties for states: hover, click */
+.TM1o1 {
+	background: #20A7D5;
+	padding: 4px;
+	text-align: left;
+	vertical-align: middle;
+	text-decoration: none;
+}
