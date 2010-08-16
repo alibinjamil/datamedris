@@ -1,0 +1,172 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.00.50727.762 (93873341).
+//
+// e:\myprojects\ris\trunk\efilm\customemessageexample\debug\efilm.tli
+//
+// Wrapper implementations for Win32 type library E:\\MyProjects\\RIS\trunk\\eFilm\\CustomeMessageExample\\eFilm.tlb
+// compiler-generated file created 06/22/09 at 02:36:19 - DO NOT EDIT!
+
+#pragma once
+
+//
+// dispinterface IEFilm wrapper method implementations
+//
+
+inline VARIANT_BOOL IEFilm::oleOpenStudy ( _bstr_t strPatientID, _bstr_t strAccessionNo, VARIANT_BOOL bCloseCurWindow, VARIANT_BOOL bAddToWindow, short nSeriesRows, short nSeriesCols, short nImageRows, short nImageCols, VARIANT_BOOL bAutoSeriesFormat, VARIANT_BOOL bAutoImageFormat ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x1, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008\x000b\x000b\x0002\x0002\x0002\x0002\x000b\x000b", (BSTR)strPatientID, (BSTR)strAccessionNo, bCloseCurWindow, bAddToWindow, nSeriesRows, nSeriesCols, nImageRows, nImageCols, bAutoSeriesFormat, bAutoImageFormat);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleShowMainWindow ( long nCmdShow ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x2, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0003", nCmdShow);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleShowSearchWindow ( long nCmdShow ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x3, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0003", nCmdShow);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::olePositionMainWindow ( short left, short top, short right, short bottom ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x4, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0002\x0002\x0002\x0002", left, top, right, bottom);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleSetForegroundWindow ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x5, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleOpenSearchRemote ( _bstr_t strPatientID, _bstr_t strAccessionNo ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x6, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008", (BSTR)strPatientID, (BSTR)strAccessionNo);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleOpenStudy2 ( _bstr_t strPatientID, _bstr_t strAccessionNo, VARIANT_BOOL bCloseCurWindow, VARIANT_BOOL bAddToWindow, short nSeriesRows, short nSeriesCols, short nImageRows, short nImageCols, VARIANT_BOOL bAutoSeriesFormat, VARIANT_BOOL bAutoImageFormat, _bstr_t strImageSource ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x7, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008\x000b\x000b\x0002\x0002\x0002\x0002\x000b\x000b\x0008", (BSTR)strPatientID, (BSTR)strAccessionNo, bCloseCurWindow, bAddToWindow, nSeriesRows, nSeriesCols, nImageRows, nImageCols, bAutoSeriesFormat, bAutoImageFormat, (BSTR)strImageSource);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleCloseAllWindows ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x8, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleCloseCurrentWindow ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x9, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleOpenStudy3 ( _bstr_t strPatientID, _bstr_t strAccessionNo, _bstr_t strStudyInstanceUID, VARIANT_BOOL bCloseCurWindow, VARIANT_BOOL bAddToWindow, short nSeriesRows, short nSeriesCols, short nImageRows, short nImageCols, VARIANT_BOOL bAutoSeriesFormat, VARIANT_BOOL bAutoImageFormat, _bstr_t strImageSource ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0xa, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008\x0008\x000b\x000b\x0002\x0002\x0002\x0002\x000b\x000b\x0008", (BSTR)strPatientID, (BSTR)strAccessionNo, (BSTR)strStudyInstanceUID, bCloseCurWindow, bAddToWindow, nSeriesRows, nSeriesCols, nImageRows, nImageCols, bAutoSeriesFormat, bAutoImageFormat, (BSTR)strImageSource);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleSearch ( _bstr_t searchParams, VARIANT * searchResults, _bstr_t lpszImageSource ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0xb, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x400c\x0008", (BSTR)searchParams, searchResults, (BSTR)lpszImageSource);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleOpenSearch ( _bstr_t strPatientID, _bstr_t strAccessionNo, _bstr_t lpszImageSource ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0xc, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008\x0008", (BSTR)strPatientID, (BSTR)strAccessionNo, (BSTR)lpszImageSource);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleLoginViaDomain ( _bstr_t strUsername, _bstr_t strPassword, _bstr_t strDomainName ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0xd, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008\x0008", (BSTR)strUsername, (BSTR)strPassword, (BSTR)strDomainName);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleLoginViaFusion ( _bstr_t strUsername, _bstr_t strPassword, _bstr_t strWSDLFile ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0xe, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008\x0008", (BSTR)strUsername, (BSTR)strPassword, (BSTR)strWSDLFile);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleLoginViaFusionWithToken ( _bstr_t strUsername, _bstr_t strToken, _bstr_t strWSDLFile ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0xf, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008\x0008", (BSTR)strUsername, (BSTR)strToken, (BSTR)strWSDLFile);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleSaveCurrentUserProfile ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x10, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleOpenStudy4 ( _bstr_t strOpenStudyInfoXML, VARIANT_BOOL bCloseCurWindow, VARIANT_BOOL bFindRelatedStudies, unsigned long nNumPriors, _bstr_t strProtocolListXML ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x11, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x000b\x000b\x0003\x0008", (BSTR)strOpenStudyInfoXML, bCloseCurWindow, bFindRelatedStudies, nNumPriors, (BSTR)strProtocolListXML);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleExportAsBitmap ( _bstr_t destinationDirectory, short bitmapFormat ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x12, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0002", (BSTR)destinationDirectory, bitmapFormat);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleLogout ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x13, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleOpenStudy5 ( _bstr_t strOpenStudyInfoXML, short nRows, short nCols, short nImageRows, short nImageColumns, VARIANT_BOOL bShowStudyManager, VARIANT_BOOL bCloseCurWindow, VARIANT_BOOL bFindRelatedStudies, unsigned long nNumPriors, VARIANT_BOOL bApplyHP, _bstr_t strProtocolListXML ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x14, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0002\x0002\x0002\x0002\x000b\x000b\x000b\x0003\x000b\x0008", (BSTR)strOpenStudyInfoXML, nRows, nCols, nImageRows, nImageColumns, bShowStudyManager, bCloseCurWindow, bFindRelatedStudies, nNumPriors, bApplyHP, (BSTR)strProtocolListXML);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleLock ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x15, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleUnlock ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x16, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleIsLocked ( ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x17, DISPATCH_METHOD, VT_BOOL, (void*)&_result, NULL);
+    return _result;
+}
+
+inline VARIANT_BOOL IEFilm::oleSelectServers ( _bstr_t strImageSourceGUID, _bstr_t strServerList ) {
+    VARIANT_BOOL _result = 0;
+    _com_dispatch_method(this, 0x18, DISPATCH_METHOD, VT_BOOL, (void*)&_result, 
+        L"\x0008\x0008", (BSTR)strImageSourceGUID, (BSTR)strServerList);
+    return _result;
+}

@@ -1,0 +1,13 @@
+REGEDIT
+; This .REG file may be used by your SETUP program.
+;   If a SETUP program is not available, the entries below will be
+;   registered in your InitInstance automatically with a call to
+;   CWinApp::RegisterShellFileTypes and COleObjectFactory::UpdateRegistryAll.
+
+
+HKEY_CLASSES_ROOT\EFilmAutoClient.Application = EFilmAutoClient Application
+HKEY_CLASSES_ROOT\EFilmAutoClient.Application\CLSID = {17AE9AFA-1C3B-4714-8189-E62124E04A25}
+
+HKEY_CLASSES_ROOT\CLSID\{17AE9AFA-1C3B-4714-8189-E62124E04A25} = EFilmAutoClient Application
+HKEY_CLASSES_ROOT\CLSID\{17AE9AFA-1C3B-4714-8189-E62124E04A25}\ProgId = EFilmAutoClient.Application
+HKEY_CLASSES_ROOT\CLSID\{17AE9AFA-1C3B-4714-8189-E62124E04A25}\LocalServer32 = EFILMAUTOCLIENT.EXE

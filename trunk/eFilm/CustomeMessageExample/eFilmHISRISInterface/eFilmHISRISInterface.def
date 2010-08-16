@@ -1,0 +1,16 @@
+; eFilmHISRISInterface.def : Declares the module parameters for the DLL.
+
+LIBRARY      "efHRSmpl"
+DESCRIPTION  'eFilmHISRISInterface Windows Dynamic Link Library'
+
+EXPORTS
+    ; Explicit exports can go here
+	ViewReport
+	CreateReport
+	SetProperties
+	GetStudyStatus
+	OnStudyOpen
+	OnStudyClose
+	OnActivateApp
+	CanExit
+	FilterDllMsg
