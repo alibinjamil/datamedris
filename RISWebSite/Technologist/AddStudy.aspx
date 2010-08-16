@@ -13,26 +13,13 @@
 
     <script type="text/javascript" language="javascript">
         
-        function CopyDescClipboard()
-        {
-            var text = window.clipboardData.getData("Text");
-            var obj = document.getElementById("<%=tbDescription.ClientID%>");
-            obj.value = text;
+        function SetPreReleaseStatus(){
+            document.getElementById("<%=hfStatus.ClientID%>").value = "8";
         }
-
-        function CopyHeadingClipboard()
-        {
-            var text = window.clipboardData.getData("Text");
-            var obj = document.getElementById("<%=tbHeading.ClientID%>");
-            obj.value = text;
+        function SetNewStatus(){
+            document.getElementById("<%=hfStatus.ClientID%>").value = "1";
         }
-
-        function CopyImpressionClipboard()
-        {
-            var text = window.clipboardData.getData("Text");
-            var obj = document.getElementById("<%=tbImpression.ClientID%>");
-            obj.value = text;
-        }
+        
         
         function ValidateDOB(sender,args)
         {         
@@ -57,11 +44,13 @@
             window.location.replace("../Radiologist/StudyList.aspx");                   
       }
     </script>
-      
+
+    <asp:HiddenField ID="hfStatus" runat="server" Value="8" />
     <asp:Wizard ID="Wizard1" runat="server" Height="500px" Width="1000px" 
         BackColor="#F7F6F3" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" 
         Font-Names="Verdana" Font-Size="0.8em" ActiveStepIndex="0" 
-        OnFinishButtonClick="Wizard1_FinishButtonClick">
+        OnFinishButtonClick="Wizard1_FinishButtonClick" 
+        onactivestepchanged="Wizard1_ActiveStepChanged">
         <WizardSteps>
             <asp:WizardStep runat="server" StepType="Start" Title="Patient Information" >     
 
@@ -179,16 +168,6 @@
                     </tr>
                     <tr>
                         <td align="right" class="heading" style="width: 30%">
-                            Exam Time:</td>
-                        <td align="left" style="width: 60%; height: 20px;">
-                            <uc2:TimeControl ID="tcExamTime" runat="server">
-                            </uc2:TimeControl>
-                        </td>
-                        <td align="left" style="width: 10%">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%">
                             Modality:</td>
                         <td align="left" style="width: 60%; height: 20px">
                             <asp:DropDownList ID="ddlModality" runat="server" CssClass="dropDownListStyle" DataSourceID="ODSModalities"
@@ -213,20 +192,6 @@
                                 ErrorMessage="*" ControlToValidate="ddlProcedures"></asp:CustomValidator>
                         </td>
                     </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%;">
-                    Radiologist:</td>
-                        <td align="left" style="width: 60%; height: 20px">
-                            <div id="myAutoComplete" style="width:15em;padding-bottom:2em;">
-                                <asp:TextBox ID="tbRadiologist" runat="server" CssClass="textBoxStyle"></asp:TextBox>	                            
-	                            <div id="myContainer"></div>
-                            </div>
-                        </td>
-                        <td align="left" style="width: 50px; height: 10%">
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbRadiologist"
-                                ErrorMessage="*"></asp:RequiredFieldValidator>                    
-                        </td>
-                    </tr>
                     
                     <tr><td align="right" class="heading" style="width: 30%; height: 22px;">
                             Referring Physician:</td>
@@ -239,57 +204,138 @@
                                 ControlToValidate="ddlRef" ErrorMessage="*"></asp:CustomValidator>
                         </td>
                     </tr>
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 22px;">
+                            Tech Comments:&nbsp;
+                        </td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:TextBox ID="tbTechComments" runat="server" Rows="5" TextMode="MultiLine" 
+                                Width="500px"></asp:TextBox>
+                        </td>
+                        <td align="left" style="width: 10%; height: 22px;">
+                            &nbsp;</td>
+                    </tr>
                  </table>
             </asp:WizardStep>
-            <asp:WizardStep runat="server" StepType="Finish" Title="Finding Information" >
-                <table class="dataEntryTable" style="width:100%;height:100%;">
+            <asp:WizardStep runat="server" StepType="Finish" Title="Confirm Information" >
+               <table style="left: 0px; width: 100%; top: 0px;height:100%" >
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 20px;">
+                            Patient ID:</td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:Label ID="lblPatientID" runat="server" Text=""></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 20px;">
+                            First Name:</td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:Label ID="lblFirstName" runat="server"></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%; height: 22px;">
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 20px;">
+                            Last Name:</td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:Label ID="lblLastName" runat="server"></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%">
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 20px;">
+                            Date of Birth:</td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:Label ID="lblDOB" runat="server"></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%">
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 20px;">
+                            Gender:
+                        </td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:Label ID="lblGender" runat="server"></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%; height: 20px;">
+                            &nbsp;</td>
+                    </tr>
                 <tr>
-                <td align="center" class="heading" style="height: 16px;" colspan="3">
-                    Copy report from other system to clipboard and then click the appropriate "Copy from Clipboard"
-                    button to insert report below.</td>
+                <td align="right" class="heading" style="width: 30%;">
+                            Client:&nbsp; 
+                </td>
+                <td align="left" style="width: 60%; height: 20px;">
+                    <asp:Label ID="lblClient" runat="server"></asp:Label>
+                 </td>
+                <td align="left" style="width: 10%; height: 20px;">
+                    &nbsp;</td>
                  
                  </tr>
                     <tr>
-                        <td align="right" class="heading" style="height: 16px; text-align: center;" colspan="3">
-                            <input id="btnCopy" type="button" value="Copy Heading from Clipboard" class="buttonStyle" onclick="CopyHeadingClipboard();"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input id="Button1" type="button" value="Copy Description from Clipboard" class="buttonStyle" onclick="CopyDescClipboard();"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input id="Button2" type="button" value="Copy Impression from Clipboard" class="buttonStyle" onclick="CopyImpressionClipboard();"/>
+                        <td align="right" class="heading" style="width: 30%; ">
+                            Hospital:
                         </td>
-                    </tr>
-                     
-                   <tr>
-                        <td align="left" class="heading" style="text-align: left;" colspan="3">Heading:</td>
+                        <td align="left" style="width: 60%; height: 20px;">
+                            <asp:Label ID="lblHospital" runat="server"></asp:Label>
+                            </td>
+                        <td align="left" style="width: 10%; height: 20px;">
+                            &nbsp;</td>
                     </tr>
                     <tr>
-                        
-                         <td align="right" class="heading" style="text-align: left;" colspan="6"><asp:TextBox ID="tbHeading" runat="server" Rows="3" TextMode="MultiLine" Width="94%" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="tbHeading"
-                                ErrorMessage="*"></asp:RequiredFieldValidator>
+                        <td align="right" class="heading" style="width: 30%; ">
+                            Exam Date:
                         </td>
-                    </tr>
-                   <tr>
-                        <td align="left" class="heading" style="text-align: left;" colspan="3">Description:</td>
-                    </tr>
-                     
-                     <tr>
-                        <td align="right" class="heading" style="text-align: left;" colspan="3">
-                            &nbsp;<asp:TextBox ID="tbDescription" runat="server" Rows="14" TextMode="MultiLine" Width="94%" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="tbDescription"
-                                ErrorMessage="*"></asp:RequiredFieldValidator>
+                        <td align="left" style="width: 60%; height: 20px;">
+                            <asp:Label ID="lblExamDate" runat="server"></asp:Label>
                         </td>
+                        <td align="left" style="width: 10%; height: 20px;">
+                            &nbsp;</td>
                     </tr>
-                   <tr>
-                        <td align="left" class="heading" style="text-align: left;" colspan="3">Impression:</td>
-                    </tr>
-                   
                     <tr>
-                        <td align="right" class="heading" style="text-align: left;" colspan="3">
-                            &nbsp;<asp:TextBox ID="tbImpression" runat="server" Rows="6" TextMode="MultiLine" Width="94%" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="tbImpression"
-                                ErrorMessage="*"></asp:RequiredFieldValidator>
+                        <td align="right" class="heading" style="width: 30%">
+                            Modality:</td>
+                        <td align="left" style="width: 60%; height: 20px">
+                            <asp:Label ID="lblModality" runat="server"></asp:Label>
                         </td>
+                        <td align="left" style="width: 10%">
+                            &nbsp;</td>
                     </tr>
-                 </table>            
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 22px">
+                            Procedure:</td>
+                        <td align="left" style="width: 60%; height: 22px">
+                            <asp:Label ID="lblProcedure" runat="server"></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%; height: 22px">
+                            &nbsp;</td>
+                    </tr>
+                    
+                    <tr><td align="right" class="heading" style="width: 30%; height: 22px;">
+                            Referring Physician:</td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:Label ID="lblRefPhy" runat="server"></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%; height: 22px;">
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%; height: 22px;">
+                            Tech Comments:&nbsp;
+                        </td>
+                        <td align="left" style="width: 60%; height: 22px;">
+                            <asp:Label ID="lblTechComments" runat="server"></asp:Label>
+                        </td>
+                        <td align="left" style="width: 10%; height: 22px;">
+                            &nbsp;</td>
+                    </tr>
+                    
+                </table>            
             </asp:WizardStep>
         </WizardSteps>
         <StepStyle BorderWidth="0px" ForeColor="#5D7B9D" />
@@ -316,8 +362,10 @@
         <FinishNavigationTemplate>
             <asp:Button ID="FinishPreviousButton" runat="server" CausesValidation="False" CommandName="MovePrevious"
                 CssClass="buttonStyle" Text="Previous" />
+            <asp:Button ID="PrereleaseButton" runat="server" CommandName="MoveComplete" CssClass="buttonStyle"
+                Text="Save without Releasing to Radiologist" OnClientClick="SetPreReleaseStatus();" />
             <asp:Button ID="FinishButton" runat="server" CommandName="MoveComplete" CssClass="buttonStyle"
-                Text="Finish" />&nbsp;
+                Text="Save & Release to Radiologist" OnClientClick="SetNewStatus();"/>&nbsp;
             <input id="btnFinishCancel" class="buttonStyle" type="button" value="Cancel" onclick="redirect()"/>
         </FinishNavigationTemplate>
         
