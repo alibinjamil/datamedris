@@ -32,8 +32,8 @@ public partial class Technologist_AddStudy : AuthenticatedPage
             }
             if (loggedInUserRoleId == Constants.Roles.Radiologist)
             {
-                tbRadiologist.Text = (string)loggedInUser.Name.Value;
-                tbRadiologist.Enabled = false;
+                //tbRadiologist.Text = (string)loggedInUser.Name.Value;
+                //tbRadiologist.Enabled = false;
 
             }
             //BindDDL();
@@ -115,6 +115,8 @@ public partial class Technologist_AddStudy : AuthenticatedPage
     }
     protected void Wizard1_FinishButtonClick(object sender, WizardNavigationEventArgs e)
     {
+        string status = hfStatus.Value;
+        
         PatientObject patient = new PatientObject();
         patient.ExternalPatientId.Value = tbPatId.Text;
         patient.Load(loggedInUserId);
@@ -126,11 +128,11 @@ public partial class Technologist_AddStudy : AuthenticatedPage
         study.PatientId.Value = patient.PatientId.Value;
         Random rand = new Random();
         study.StudyInstance.Value = rand.Next().ToString();
-        DateTime dateTime = new DateTime(dcExamDate.Year, dcExamDate.Month, dcExamDate.Day, tcExamTime.Hour, tcExamTime.Minute, 0);
+        DateTime dateTime = new DateTime(dcExamDate.Year, dcExamDate.Month, dcExamDate.Day);
         study.StudyDate.Value = dateTime;
         study.ReferringPhysicianId.Value = ddlRef.SelectedValue;
         study.IsManual.Value = "Y";
-        study.StudyStatusId.Value = Constants.StudyStatusTypes.PendingVerification;
+        study.StudyStatusId.Value = hfStatus.Value;
         study.ModalityId.Value = ddlModality.SelectedValue;
         study.ProcedureId.Value = ddlProcedures.SelectedValue;
         if (ddlClient.SelectedIndex > 0)
@@ -142,36 +144,8 @@ public partial class Technologist_AddStudy : AuthenticatedPage
             study.HospitalId.Value = ddlHospital.SelectedValue;
         }
         study.Save(loggedInUserId);
-        FindingObject finding = new FindingObject();
-
-        if (loggedInUserRoleId == Constants.Roles.Radiologist)
-        {
-            finding.AudioUserId.Value = loggedInUserId;
-            finding.AudioUserName.Value = loggedInUser.Name.Value;
-        }
-        else
-        {
-            UserObject radiologist = new UserObject();
-            radiologist.Name.Value = tbRadiologist.Text;
-            radiologist.Load();
-            if (radiologist.IsLoaded)
-            {
-                finding.AudioUserId.Value = radiologist.UserId.Value;
-                finding.AudioUserName.Value = radiologist.Name.Value;
-            }
-            else
-            {
-                finding.AudioUserName.Value = tbRadiologist.Text;
-            }
-        }
         
-        finding.StudyId.Value = study.StudyId.Value;
-        //finding.TextualTranscript.Value = tbFinding.Text;
-        finding.TextualTranscript.Value = "<data><heading>" + tbHeading.Text + "</heading><description>" + tbDescription.Text + "</description><impression>" + tbImpression.Text + "</impression></data>";
-        //finding.TranscriptUserId.Value = loggedInUserId;
-        //finding.TranscriptionDate.Value = DateTime.Now;
-        finding.Save(loggedInUserId);
-        study.LatestFindingId.Value = finding.FindingId.Value;
+        study.TechComments.Value = tbTechComments.Text;
         study.Save(loggedInUserId);
         //code for logging
         LogObject log = new LogObject();
@@ -283,5 +257,23 @@ public partial class Technologist_AddStudy : AuthenticatedPage
     protected void ddlHospital_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindRefPhy();
+    }
+    protected void Wizard1_ActiveStepChanged(object sender, EventArgs e)
+    {
+        if (Wizard1.ActiveStepIndex == 2)
+        {
+            lblClient.Text = ddlClient.SelectedItem.Text;
+            lblDOB.Text = dcDOB.Date.ToShortDateString();
+            lblExamDate.Text = dcExamDate.Date.ToShortDateString();
+            lblFirstName.Text = tbPatFName.Text;
+            lblGender.Text = rblGender.SelectedItem.Text;
+            lblHospital.Text = ddlHospital.SelectedItem.Text;
+            lblLastName.Text = tbPatLName.Text;
+            lblModality.Text = ddlModality.SelectedItem.Text;
+            lblPatientID.Text = tbPatId.Text;
+            lblProcedure.Text = ddlProcedures.SelectedItem.Text;
+            lblRefPhy.Text = ddlRef.SelectedItem.Text;
+            lblTechComments.Text = tbTechComments.Text;
+        }
     }
 }

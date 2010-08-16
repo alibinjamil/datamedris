@@ -142,7 +142,7 @@ public class ReportObject : GenericUIObject
                         {
                             string space = " ";
                             if (isHTML) space = "&nbsp;" ;
-                            _radiologist = names[1] + space + names[0] + "," + space + "M.D";
+                            _radiologist = names[1] + space + names[0] + "," + space + "M.D.";
                         }
                         else
                         {
@@ -185,7 +185,7 @@ public class ReportObject : GenericUIObject
             {
                 html = "<b>" + xDoc.ChildNodes[0].ChildNodes[0].InnerText + "</b><br/><br/>";
                 html += ReplaceNewLine(xDoc.ChildNodes[0].ChildNodes[1].InnerText) + "<br/><br/>";
-                html += "<b>IMPRESSION:</b>" + xDoc.ChildNodes[0].ChildNodes[2].InnerText;
+                html += "<b>IMPRESSION:</b>&nbsp;" + xDoc.ChildNodes[0].ChildNodes[2].InnerText;
             }
             else
             {
