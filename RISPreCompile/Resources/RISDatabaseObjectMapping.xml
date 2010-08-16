@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<entities>
+<entity tableName="tCarriers" objectName="CarrierObject" HasAccessColumns="False"  >
+<field type="PrimaryKeyField" columnName="CarrierId" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="EmailServer" />
+</entity>
+<entity tableName="tLog" objectName="LogObject" HasAccessColumns="False"  >
+<field type="PrimaryKeyField" columnName="LogId" />
+<field type="IntField" columnName="StudyId" />
+<field type="IntField" columnName="PatientId" />
+<field type="IntField" columnName="UserId" />
+<field type="TextField" columnName="Action" />
+<field type="DateTimeField" columnName="ActionTime" />
+</entity>
+<entity tableName="tStudies" objectName="StudyObject" >
+<field type="PrimaryKeyField" columnName="StudyId" />
+<field type="TextField" columnName="StudyInstance" />
+<field type="DateTimeField" columnName="StudyDate" />
+<field type="IntField" columnName="ProcedureId" />
+<field type="IntField" columnName="ReferringPhysicianId" />
+<field type="IntField" columnName="PatientId" />
+<field type="TextField" columnName="PatientWeight" />
+<field type="IntField" columnName="ModalityId" />
+<field type="IntField" columnName="StationId" />
+<field type="IntField" columnName="StudyStatusId" />
+<field type="IntField" columnName="LatestSeriesId" />
+<field type="IntField" columnName="LatestFindingId" />
+<field type="TextField" columnName="IsManual" />
+<field type="TextField" columnName="AccessionNumber" />
+<field type="IntField" columnName="HospitalId" />
+<field type="TextField" columnName="TechComments" />
+<field type="IntField" columnName="ClientId" />
+<field type="TextField" columnName="BodyPartExamined" />
+<field type="IntField" columnName="TemplateId" />
+<field type="TextField" columnName="RejectionReason" />
+</entity>
+<entity tableName="tPatients" objectName="PatientObject" >
+<field type="PrimaryKeyField" columnName="PatientId" />
+<field type="TextField" columnName="ExternalPatientId" />
+<field type="TextField" columnName="Name" />
+<field type="DateTimeField" columnName="DateOfBirth" />
+<field type="TextField" columnName="Gender" />
+</entity>
+<entity tableName="tTemplateUsers" objectName="TemplateUserObject" HasAccessColumns="False"  >
+<field type="PrimaryKeyField" columnName="TemplateUserId" />
+<field type="IntField" columnName="UserId" />
+<field type="IntField" columnName="TemplateId" />
+</entity>
+<entity tableName="tAttachments" objectName="AttachmentObject" HasAccessColumns="False"  >
+<field type="PrimaryKeyField" columnName="AttachmentId" />
+<field type="IntField" columnName="StudyId" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="Description" />
+<field type="IntField" columnName="ScannedBy" />
+<field type="DateTimeField" columnName="ScannedTime" />
+<field type="BlobField" columnName="AttachmentData" />
+<field type="TextField" columnName="AttachmentType" />
+</entity>
+<entity tableName="tStudyStatusTypes" objectName="StudyStatusTypeObject" >
+<field type="PrimaryKeyField" columnName="StudyStatusTypeId" />
+<field type="TextField" columnName="Status" />
+<field type="IntField" columnName="ColumnOrder" />
+</entity>
+<entity tableName="FindingsCount" objectName="indingsCounObject" >
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="Modality" />
+<field type="DateTimeField" columnName="StudyDate" />
+</entity>
+<entity tableName="Volume_Report_Test" objectName="olume_Report_TesObject" >
+<field type="IntField" columnName="Number of Studies" />
+</entity>
+<entity tableName="tTypes" objectName="TypeObject" >
+<field type="PrimaryKeyField" columnName="TypeId" />
+<field type="TextField" columnName="Group" />
+<field type="TextField" columnName="Value" />
+<field type="TextField" columnName="Description" />
+</entity>
+<entity tableName="tSeries" objectName="SeriesObject" >
+<field type="PrimaryKeyField" columnName="SeriesId" />
+<field type="IntField" columnName="StudyId" />
+<field type="TextField" columnName="SeriesInstance" />
+<field type="TextField" columnName="SeriesNumber" />
+<field type="DateTimeField" columnName="SeriesDate" />
+<field type="TextField" columnName="Description" />
+<field type="IntField" columnName="ModalityDetailId" />
+<field type="TextField" columnName="PatientPosition" />
+<field type="TextField" columnName="Contrast" />
+<field type="TextField" columnName="BodyPartExamined" />
+<field type="TextField" columnName="ProtocolName" />
+<field type="TextField" columnName="FrameOfReference" />
+</entity>
+<entity tableName="tImages" objectName="ImageObject" >
+<field type="PrimaryKeyField" columnName="ImageId" />
+<field type="IntField" columnName="SeriesId" />
+<field type="TextField" columnName="ImageInstance" />
+<field type="TextField" columnName="ImageClassUI" />
+<field type="IntField" columnName="ImageNumber" />
+<field type="DateTimeField" columnName="ImageDate" />
+<field type="IntField" columnName="EchoNumber" />
+<field type="IntField" columnName="NumberOfFrames" />
+<field type="DateTimeField" columnName="AcquiredDate" />
+<field type="TextField" columnName="SliceLocation" />
+<field type="IntField" columnName="NumberOfSamples" />
+<field type="TextField" columnName="PhotoMetric" />
+<field type="IntField" columnName="Rows" />
+<field type="IntField" columnName="Columns" />
+<field type="IntField" columnName="BitsStored" />
+<field type="TextField" columnName="Path" />
+<field type="TextField" columnName="DeviceName" />
+</entity>
+<entity tableName="tModalityDetails" objectName="ModalityDetailObject" >
+<field type="PrimaryKeyField" columnName="ModalityDetailId" />
+<field type="IntField" columnName="ModalityId" />
+<field type="TextField" columnName="Manufacturer" />
+<field type="TextField" columnName="ModelName" />
+</entity>
+<entity tableName="tUserRoles" objectName="UserRoleObject" >
+<field type="PrimaryKeyField" columnName="UserRoleId" />
+<field type="IntField" columnName="UserId" />
+<field type="IntField" columnName="RoleId" />
+</entity>
+<entity tableName="tUsers" objectName="UserObject" >
+<field type="PrimaryKeyField" columnName="UserId" />
+<field type="TextField" columnName="LoginName" />
+<field type="TextField" columnName="Password" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="IsActive" />
+<field type="DateTimeField" columnName="LastLoginDate" />
+<field type="IntField" columnName="SecretQuestionId" />
+<field type="TextField" columnName="Answer" />
+<field type="TextField" columnName="ResetPassword" />
+<field type="TextField" columnName="Mobile" />
+<field type="IntField" columnName="CarrierId" />
+<field type="TextField" columnName="SendSMS" />
+</entity>
+<entity tableName="tStudyDetails" objectName="StudyDetailObject" >
+<field type="PrimaryKeyField" columnName="StudyDetailId" />
+<field type="IntField" columnName="StudyId" />
+<field type="TextField" columnName="TechComments" />
+</entity>
+<entity tableName="tUserHospitals" objectName="UserHospitalObject" HasAccessColumns="False"  >
+<field type="PrimaryKeyField" columnName="UserHospitalId" />
+<field type="IntField" columnName="UserId" />
+<field type="IntField" columnName="HospitalId" />
+</entity>
+<entity tableName="tHospitals" objectName="HospitalObject" >
+<field type="PrimaryKeyField" columnName="HospitalId" />
+<field type="IntField" columnName="ClientId" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="Address" />
+<field type="TextField" columnName="State" />
+<field type="TextField" columnName="Zip" />
+<field type="TextField" columnName="Code" />
+<field type="TextField" columnName="City" />
+<field type="TextField" columnName="Phone" />
+<field type="TextField" columnName="Fax" />
+</entity>
+<entity tableName="tUserClients" objectName="UserClientObject" HasAccessColumns="False"  >
+<field type="PrimaryKeyField" columnName="UserClientId" />
+<field type="IntField" columnName="ClientId" />
+<field type="IntField" columnName="UserId" />
+</entity>
+<entity tableName="tStations" objectName="StationObject" >
+<field type="PrimaryKeyField" columnName="StationId" />
+<field type="IntField" columnName="ModalityId" />
+<field type="TextField" columnName="StationName" />
+<field type="TextField" columnName="Instituition" />
+<field type="IntField" columnName="ClientId" />
+<field type="IntField" columnName="HospitalId" />
+</entity>
+<entity tableName="sysdiagrams" objectName="ysdiagramObject" >
+<field type="TextField" columnName="name" />
+<field type="IntField" columnName="principal_id" />
+<field type="IntField" columnName="diagram_id" />
+<field type="IntField" columnName="version" />
+<field type="BlobField" columnName="definition" />
+</entity>
+<entity tableName="tRoleManagements" objectName="RoleManagementObject" >
+<field type="PrimaryKeyField" columnName="RoleManagementId" />
+<field type="IntField" columnName="ManagerRoleId" />
+<field type="IntField" columnName="NormalRoleId" />
+</entity>
+<entity tableName="tModalities" objectName="ModalityObject" >
+<field type="PrimaryKeyField" columnName="ModalityId" />
+<field type="TextField" columnName="Name" />
+</entity>
+<entity tableName="tScreens" objectName="ScreenObject" >
+<field type="PrimaryKeyField" columnName="ScreenId" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="Path" />
+<field type="TextField" columnName="IsActive" />
+<field type="TextField" columnName="GroupName" />
+</entity>
+<entity tableName="tProcedures" objectName="ProcedureObject" >
+<field type="PrimaryKeyField" columnName="ProcedureId" />
+<field type="IntField" columnName="ModalityId" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="CPTCode" />
+</entity>
+<entity tableName="tWorkLists" objectName="WorkListObject" >
+<field type="PrimaryKeyField" columnName="WorkListId" />
+<field type="IntField" columnName="PatientId" />
+<field type="IntField" columnName="RequestingPhysicianId" />
+<field type="IntField" columnName="ModalityId" />
+<field type="IntField" columnName="ProcedureId" />
+<field type="IntField" columnName="StationId" />
+<field type="IntField" columnName="PerformingPhysicianId" />
+<field type="TextField" columnName="ExternalPatientId" />
+<field type="TextField" columnName="StudyInstance" />
+</entity>
+<entity tableName="tRoleScreens" objectName="RoleScreenObject" >
+<field type="PrimaryKeyField" columnName="RoleScreenId" />
+<field type="IntField" columnName="RoleId" />
+<field type="IntField" columnName="ScreenId" />
+</entity>
+<entity tableName="tClients" objectName="ClientObject" >
+<field type="PrimaryKeyField" columnName="ClientId" />
+<field type="TextField" columnName="ClientGUID" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="Address" />
+<field type="TextField" columnName="City" />
+<field type="TextField" columnName="State" />
+<field type="TextField" columnName="Zip" />
+<field type="TextField" columnName="Phone" />
+<field type="TextField" columnName="Fax" />
+<field type="TextField" columnName="Website" />
+</entity>
+<entity tableName="tTemplates" objectName="TemplateObject" HasAccessColumns="False"  >
+<field type="PrimaryKeyField" columnName="TemplateId" />
+<field type="IntField" columnName="ModalityId" />
+<field type="TextField" columnName="BodyPart" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="Text" />
+<field type="TextField" columnName="Heading" />
+<field type="TextField" columnName="Description" />
+<field type="TextField" columnName="Impression" />
+</entity>
+<entity tableName="tFindings" objectName="FindingObject" >
+<field type="PrimaryKeyField" columnName="FindingId" />
+<field type="IntField" columnName="StudyId" />
+<field type="IntField" columnName="AudioUserId" />
+<field type="TextField" columnName="AudioReportPath" />
+<field type="DateTimeField" columnName="AudioDate" />
+<field type="TextField" columnName="TextualTranscript" />
+<field type="IntField" columnName="TranscriptUserId" />
+<field type="DateTimeField" columnName="TranscriptionDate" />
+<field type="BlobField" columnName="AudioData" />
+<field type="TextField" columnName="AudioFileName" />
+<field type="TextField" columnName="AudioUserName" />
+</entity>
+<entity tableName="tRoles" objectName="RoleObject" >
+<field type="PrimaryKeyField" columnName="RoleId" />
+<field type="TextField" columnName="Name" />
+<field type="TextField" columnName="Description" />
+</entity>
+</entities>
