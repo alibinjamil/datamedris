@@ -29,8 +29,8 @@ public class FaxSender
 
     public bool SendFax(string recipientName, string recipientCompany, string recipientFax, string documentPath)
     {
-        try
-        {
+        /*try
+        {*/
             eFaxDeveloper.Outbound.IOutboundClient api = new eFaxDeveloper.Outbound.OutboundClient();
             api.SetXMLResponse(false);
             api.SetTransmissionID("123");
@@ -56,16 +56,18 @@ public class FaxSender
 
             api.PostRequest();
             return true;
+        /*}
+        catch (Exception ex){
+            int debog = 1;
         }
-        catch { }
-        return false;
+        return false;*/
     }
 
     public string SendFax(int studyId)
     {
-        try
+        /*try
         {
-            
+          */  
             StudyObject study = new StudyObject();
             study.StudyId.Value = studyId;
             study.Load();
@@ -84,8 +86,8 @@ public class FaxSender
                     }
                 }
             }            
-        }
-        catch { }
+        /*}
+        catch { }*/
         return null;
     }
 
