@@ -1,0 +1,56 @@
+// CustomeMessageExample.idl : type library source for ActiveX Control project.
+
+// This file will be processed by the MIDL compiler tool to
+// produce the type library (CustomeMessageExample.tlb) that will become a resource in
+// CustomeMessageExample.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(D5D93889-0F92-4927-8760-F6564F5409A1), version(1.0),
+  helpfile("CustomeMessageExample.hlp"),
+  helpstring("CustomeMessageExample ActiveX Control module"),
+  control ]
+library CustomeMessageExampleLib
+{
+	importlib(STDOLE_TLB);
+
+	//  Primary dispatch interface for CCustomeMessageExampleCtrl
+
+	[ uuid(9F9EDA34-703E-4F18-A9BB-28DDFC657D5D),
+	  helpstring("Dispatch interface for CustomeMessageExample Control")]
+	dispinterface _DCustomeMessageExample
+	{
+		properties:
+		methods:
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+			[id(1), helpstring("method getStudy")] VARIANT_BOOL getStudy(VARIANT id);
+			[id(2), helpstring("method openStudy")] VARIANT_BOOL openStudy(VARIANT strPatientID, VARIANT strAccessionNo);
+			[id(3), helpstring("method openStudy1")] VARIANT_BOOL openStudy1(VARIANT strPatientID, VARIANT strAccessionNo, VARIANT_BOOL bCloseCurWindow, VARIANT_BOOL bAddToWindow, SHORT nSeriesRows, SHORT nSeriesCols, SHORT nImageRows, SHORT nImageCols, VARIANT_BOOL bAutoSeriesFormat, VARIANT_BOOL bAutoImageFormat);
+			[id(4), helpstring("method closeSearchWindow")] HRESULT closeSearchWindow(void);
+	};
+
+	//  Event dispatch interface for CCustomeMessageExampleCtrl
+
+	[ uuid(408EF484-F278-4BE5-8C74-BDBA4112F8E5),
+	  helpstring("Event interface for CustomeMessageExample Control") ]
+	dispinterface _DCustomeMessageExampleEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+	};
+
+	//  Class information for CCustomeMessageExampleCtrl
+
+	[ uuid(023E9FAE-9641-49B6-95A0-24F19E43698D),
+	  helpstring("CustomeMessageExample Control"), control ]
+	coclass CustomeMessageExample
+	{
+		[default] dispinterface _DCustomeMessageExample;
+		[default, source] dispinterface _DCustomeMessageExampleEvents;
+	};
+
+};

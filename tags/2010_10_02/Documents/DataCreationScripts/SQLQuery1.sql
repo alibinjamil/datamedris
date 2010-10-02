@@ -1,0 +1,1 @@
+exec GetStudies 1
