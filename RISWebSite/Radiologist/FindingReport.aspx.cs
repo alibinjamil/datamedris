@@ -81,4 +81,9 @@ public partial class Radiologist_FindingReport : AuthenticatedPage
         }
         return "alert('No fax number is available for this facility.  Please ask your system administrator to enter a fax number for this facility from the Hospital Administration tab.');return false;";
     }
+
+    protected void viewBtn_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect("~/WebScan/AttachmentsList.aspx?" + ParameterNames.Request.StudyId + "=" + Request[ParameterNames.Request.StudyId]);
+    }
 }

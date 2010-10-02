@@ -3,6 +3,9 @@
     <table border="0" width="100%">
         <tr>
             <td colspan="2" align="right">
+                <asp:ImageButton ID="viewBtn" runat="server" 
+                    ImageUrl="~/Images/attach-big.png" AlternateText="List of Views for this Exam" 
+                    style="margin-bottom:7px;margin-right:10px;" onclick="viewBtn_Click" />
                 <asp:ImageButton ID="pdfBtn" runat="server" 
                     ImageUrl="~/Images/pdf-icon.gif" AlternateText="Get PDF for the Report" 
                     onclick="pdfBtn_Click"/>&nbsp;&nbsp;&nbsp;&nbsp;

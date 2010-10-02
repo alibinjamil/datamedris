@@ -16,16 +16,10 @@ public partial class TestPages_ConvertXML : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RIS.RISLibrary.Database.RISDatabaseAccessLayer dl = new RIS.RISLibrary.Database.RISDatabaseAccessLayer();
-        SqlConnection connection = (SqlConnection) dl.GetConnection();
-        connection.Open();
-        SqlCommand command = new SqlCommand();
-        command.CommandText = "SELECT * FROM tTemplates";
-        command.Connection = connection;
-        SqlDataReader reader =  command.ExecuteReader();
-        while(reader.Read())
-        {
-
-        }
+        string html = "FANNIE%20CARATHERS";
+        string temp = Server.HtmlDecode(html);
+        System.IO.StringWriter sw = new System.IO.StringWriter();
+        Server.HtmlDecode(html, sw);
+        temp = Server.UrlDecode(html);
     }
 }

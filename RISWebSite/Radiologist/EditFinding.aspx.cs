@@ -337,17 +337,17 @@ public partial class Radiologist_EditFinding : AuthenticatedPage
             template.Load(loggedInUserId);
             if (template.IsLoaded)
             {
-                try
+                if (template.Heading.Value != null)
                 {
-                    XmlDocument xDoc = new XmlDocument();
-                    xDoc.LoadXml(template.Text.Value.ToString());
-                    tbHeading.Text = xDoc.ChildNodes[0].ChildNodes[0].InnerText;
-                    tbDescription.Text = xDoc.ChildNodes[0].ChildNodes[1].InnerText;
-                    tbImpression.Text = xDoc.ChildNodes[0].ChildNodes[2].InnerText;
+                    tbHeading.Text = template.Heading.Value.ToString();
                 }
-                catch 
+                if (template.Description.Value != null)
                 {
-                    tbDescription.Text = template.Text.Value.ToString();
+                    tbDescription.Text = template.Description.Value.ToString();
+                }
+                if (template.Impression.Value != null)
+                {
+                    tbImpression.Text = template.Impression.Value.ToString();
                 }
             }
         }

@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Untitled Page</title>
+    <title>DataMed | Radiology Information System | List of Views</title>
 </head>
 <body>
         
@@ -25,8 +25,8 @@
                 </td>
                 
                 <td>
-                    <asp:HyperLink ID="hlAddAttachment2" runat="server">
-                        Attach a new document to this Exam
+                    <asp:HyperLink ID="hlAddAttachment2" runat="server" >
+                        Attach a new View to this Exam
                     </asp:HyperLink>
                 </td>
                 </tr>
@@ -41,7 +41,20 @@
                     GridLines="None">
                     <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                     <Columns>
-                        <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                        <asp:TemplateField ShowHeader="False">
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" 
+                                    CommandName="Update" Text="Update" Visible="<%#CanUpdate()%>"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" 
+                                    CommandName="Cancel" Text="Cancel" Visible="<%#CanUpdate()%>"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
+                                    CommandName="Edit" Text="Edit" Visible="<%#CanUpdate()%>"></asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" 
+                                    CommandName="Delete" Text="Delete" Visible="<%#CanUpdate()%>"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                         <asp:BoundField DataField="Description" HeaderText="Description" 
                             SortExpression="Description" />

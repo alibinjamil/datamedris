@@ -11,6 +11,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
+using RIS.RISLibrary.Objects.RIS;
+using RIS.RISLibrary.Utilities;
 public partial class WebScan_AddAttachment : AuthenticatedPage
 {
     protected override void Page_Load_Extended(object sender, EventArgs e)
@@ -18,6 +20,16 @@ public partial class WebScan_AddAttachment : AuthenticatedPage
         if (Request[ParameterNames.Request.StudyId] == null)
         {
             PagesFactory.Transfer(PagesFactory.Pages.ErrorPage);
+        }
+        else
+        {
+            StudyObject study = new StudyObject();
+            study.StudyId.Value = Request[ParameterNames.Request.StudyId];
+            study.Load();
+            if (study == null || study.IsLoaded == false || (int)study.StudyStatusId.Value == Constants.StudyStatusTypes.Verified)
+            {
+                Response.Redirect("~/WebScan/AttachmentsList.aspx?" + ParameterNames.Request.StudyId + "=" + Request[ParameterNames.Request.StudyId]);
+            }            
         }
         if (IsPostBack == false)
         {

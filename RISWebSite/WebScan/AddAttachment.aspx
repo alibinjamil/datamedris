@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-		<title>Dynamic Web TWAIN Online Demo</title>
+		<title>DataMed | Radiology Information System | Add View</title>
 		<meta content="False" name="vs_snapToGrid">
 		<meta http-equiv="Content-Language" content="en-us">
 		<LINK href="style.css" type="text/css" rel="stylesheet">
@@ -298,6 +298,7 @@ function btnSave_onclick(){
 
 /*-----------------Upload Image Group---------------------*/
 function btnUpload_onclick(){
+    
     if (frmScan.DynamicWebTwain1.HowManyImagesInBuffer == 0)
 	  {
 	  	  em = em + "There is no image in buffer.\n";
@@ -305,8 +306,8 @@ function btnUpload_onclick(){
         return;
 	  }
 	var i,strHTTPServer,strActionPage,strImageType;
-    if(document.all.tbFileName.value == ""){
-    	  em = em + "please input file name.\n";
+    if(document.getElementById("tbFileName").value == ""){
+    	em = em + "Please input file name.\n";
         document.all.emessage.innerText = em;
         return;
     }
@@ -457,7 +458,7 @@ function DynamicWebTwain1_OnMouseClick(index) {
                 
                 <td>
                     <asp:HyperLink ID="hlAddAttachment2" runat="server">
-                        Go Back to List of Attachments for this Exam
+                        Go Back to List of Views for this Exam
                     </asp:HyperLink>
                 </td>
                 </tr>
@@ -477,15 +478,15 @@ function DynamicWebTwain1_OnMouseClick(index) {
 							<table width ="90%">
 								<tr>
 									<td align ="center">
-										<object id="DynamicWebTwain1" codeBase="DynamicWebTWAIN.cab#version=6,0" height="528" width="100%"
-											classid="clsid:FFC6F181-A5CF-4ec4-A441-093D7134FBF2" viewastext>
+										<object id="DynamicWebTwain1" codeBase="DynamicWebTWAIN.cab#version=6.1" height="528" width="100%"
+											classid="clsid:E7DA7F8D-27AB-4EE9-8FC0-3FEC9ECFE758" viewastext>
 											<param name="_cx" value="3784" />
 											<param name="_cy" value="4128" />
 											<param name="JpgQuality" value="80" />
 											<param name="Manufacturer" value="DynamSoft Corporation" />
 											<param name="ProductFamily" value="Dynamic Web TWAIN" />
 											<param name="ProductName" value="Dynamic Web TWAIN" />
-											<param name="VersionInfo" value="Dynamic Web TWAIN 6.0" />
+											<param name="VersionInfo" value="Dynamic Web TWAIN 6.1" />
 											<param name="TransferMode" value="0" />
 											<param name="BorderStyle" value="0" />
 											<param name="FTPUserName" value="" />
@@ -493,7 +494,7 @@ function DynamicWebTwain1_OnMouseClick(index) {
 											<param name="FTPPort" value="21" />
 											<param name="HTTPUserName" value="" />
 											<param name="HTTPPassword" value="" />
-											<param name="HTTPPort" value="80" />
+											<param name="HTTPPort" value="443" />
 											<param name="ProxyServer" value="" />
 											<param name="IfDisableSourceAfterAcquire" value="0" />
 											<param name="IfShowUI" value="-1" />

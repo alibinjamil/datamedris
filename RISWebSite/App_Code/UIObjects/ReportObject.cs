@@ -73,11 +73,13 @@ public class ReportObject : GenericUIObject
                 {
                     _clientName = client.Name.Value.ToString();
                     if (client.Address.Value != null)
-                        _clientAddress = client.Address.Value.ToString() + " ";
+                        _clientAddress = client.Address.Value.ToString() + ", ";
                     if (client.City.Value != null)
-                        _clientAddress += client.City.Value.ToString() + " ";
+                        _clientAddress += client.City.Value.ToString() + ", ";
                     if (client.State.Value != null)
-                        _clientAddress += client.State.Value.ToString();
+                        _clientAddress += client.State.Value.ToString() + " ";
+                    if (client.Zip.Value != null)
+                        _clientAddress += client.Zip.Value.ToString();
                 }
             }
             ModalityObject modality = new ModalityObject();

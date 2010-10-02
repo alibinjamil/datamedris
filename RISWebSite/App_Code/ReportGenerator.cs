@@ -41,14 +41,18 @@ public class ReportGenerator
             string fileName = Guid.NewGuid().ToString();
             string completePath = filePath + "\\" + fileName + ".pdf";
             Document doc = new Document();
+            doc.SetMargins(103f,103f,103f,103f);
             PdfWriter.GetInstance(doc, new FileStream(completePath,FileMode.Create));
             doc.Open();
             PdfPTable table = new PdfPTable(2);
+            table.WidthPercentage = 100;
             table.DefaultCell.Colspan = 2;
+            table.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
             table.AddCell(report.ClientName);
             table.AddCell(report.ClientAddress);
             table.AddCell(report.HospitalName);
             table.DefaultCell.Colspan = 1;
+            table.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
             table.AddCell("PATIENT NAME:");
             table.AddCell(report.PatientName);
             table.AddCell("DATE OF BIRTH:");
