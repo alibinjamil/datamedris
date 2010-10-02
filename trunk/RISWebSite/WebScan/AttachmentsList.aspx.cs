@@ -11,13 +11,24 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
+using RIS.RISLibrary.Objects.RIS;
+using RIS.RISLibrary.Utilities;
 public partial class WebScan_AttachmentsList : AuthenticatedPage
 {
+    private StudyObject study = null;
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
         if (Request[ParameterNames.Request.StudyId] == null)
         {
             PagesFactory.Transfer(PagesFactory.Pages.ErrorPage);
+        }
+        else
+        {
+            study = new StudyObject();
+            study.StudyId.Value = Request[ParameterNames.Request.StudyId];
+            study.Load();
+            hlAddAttachment1.Visible = CanUpdate();
+            hlAddAttachment2.Visible = CanUpdate();
         }
         if (IsPostBack == false)
         {
@@ -44,5 +55,9 @@ public partial class WebScan_AttachmentsList : AuthenticatedPage
     protected string GetAddURL()
     {
         return "~/WebScan/AddAttachment.aspx?" + ParameterNames.Request.StudyId + "=" + Request[ParameterNames.Request.StudyId];
+    }
+    protected bool CanUpdate()
+    {
+        return (study != null && study.IsLoaded && (int)study.StudyStatusId.Value != Constants.StudyStatusTypes.Verified);
     }
 }

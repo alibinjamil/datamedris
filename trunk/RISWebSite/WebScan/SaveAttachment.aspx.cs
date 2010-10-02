@@ -42,8 +42,8 @@ public partial class WebScan_SaveAttachment : System.Web.UI.Page
             AttachmentObject attachment = new AttachmentObject();
             attachment.AttachmentData.Value = inputBuffer;
             attachment.AttachmentType.Value = "PDF";
-            attachment.Description.Value = Request.Form[ParameterNames.Request.Description];
-            attachment.Name.Value = Request.Form[ParameterNames.Request.Name];
+            attachment.Description.Value = Server.UrlDecode(Request.Form[ParameterNames.Request.Description]);
+            attachment.Name.Value = Server.UrlDecode(Request.Form[ParameterNames.Request.Name]);
             attachment.ScannedBy.Value = Request.Form[ParameterNames.Request.UserId];
             attachment.ScannedTime.Value = DateTime.Now;
             attachment.StudyId.Value = Request.Form[ParameterNames.Request.StudyId];

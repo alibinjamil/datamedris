@@ -1,0 +1,12 @@
+E:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\RISDataMigrationService.exe
+E:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\RISDataMigrationService.pdb
+F:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\RISDataMigrationService.exe
+F:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\RISDataMigrationService.pdb
+F:\MyProjects\RIS\trunk\RISDataMigrationService\bin\Release\RISDataMigrationService.exe
+F:\MyProjects\RIS\trunk\RISDataMigrationService\bin\Release\RISDataMigrationService.pdb
+F:\MyProjects\RIS\trunk\RISDataMigrationService\bin\Release\RISLibrary.dll
+F:\MyProjects\RIS\trunk\RISDataMigrationService\bin\Release\RISLibrary.pdb
+F:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\ResolveAssemblyReference.cache
+F:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\RISDataMigrationService.ProjectInstaller.resources
+F:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\RISDataMigrationService.RISDataMigrationService.resources
+F:\MyProjects\RIS\trunk\RISDataMigrationService\obj\Release\RISDataMigrationService.csproj.GenerateResource.Cache
