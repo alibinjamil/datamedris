@@ -1,0 +1,320 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\eFilmAutoClient.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\eFilmAutoClient.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG  0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About eFilmAutoClient"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "eFilmAutoClient Version 1.0",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2000",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_EFILMAUTOCLIENT_DIALOG DIALOGEX 0, 0, 333, 509
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "eFilm Automation Client"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Login to eFilm",IDC_STATIC,7,7,319,123
+    LTEXT           "Username",IDC_STATIC,15,17,35,13
+    EDITTEXT        IDC_USERNAME,15,26,115,14,ES_AUTOHSCROLL
+    LTEXT           "Password",IDC_STATIC,138,17,32,13
+    EDITTEXT        IDC_PASSWORD,138,26,114,14,ES_PASSWORD | ES_AUTOHSCROLL
+    PUSHBUTTON      "Login",IDC_LOGIN,261,26,56,14
+    LTEXT           "Token String",IDC_STATIC,15,45,45,13
+    EDITTEXT        IDC_TOKEN,15,54,237,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Login w/ Token",IDC_LOGIN_WITH_TOKEN,261,54,56,14
+    CONTROL         "Domain",IDC_DOMAIN,"Button",BS_AUTORADIOBUTTON,15,77,40,
+                    10
+    CONTROL         "FUSION",IDC_FUSION,"Button",BS_AUTORADIOBUTTON,15,91,43,
+                    10
+    LTEXT           "Domain Name or Fusion Authentication WSDL File",
+                    IDC_STATIC,62,76,162,13
+    EDITTEXT        IDC_DOMAIN_NAME_OR_WSDL_FILE,62,85,190,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Logout",IDC_LOGOUT,261,85,56,14
+    PUSHBUTTON      "Lock eFilm",IDC_LOCK,15,108,50,14
+    PUSHBUTTON      "Unlock eFilm",IDC_UNLOCK,72,108,50,14
+    PUSHBUTTON      "Is eFilm Locked",IDC_ISLOCKED,191,108,61,14
+    GROUPBOX        "Search/Open Study in eFilm",IDC_STATIC,7,135,319,203
+    GROUPBOX        "Study Info",IDC_STATIC,15,147,189,71
+    LTEXT           "Patient ID",IDC_STATIC,21,159,46,13
+    EDITTEXT        IDC_PATIENTID,21,168,68,14,ES_AUTOHSCROLL
+    LTEXT           "Accession Number(s)",IDC_STATIC,97,159,71,13
+    EDITTEXT        IDC_ACCNUM,97,168,99,14,ES_AUTOHSCROLL
+    LTEXT           "Study UID(s)",IDC_STATIC,21,187,41,8
+    EDITTEXT        IDC_STUDY_UIDS,21,196,175,14,ES_AUTOHSCROLL
+    GROUPBOX        "Series Format",IDC_STATIC,211,147,106,71
+    LTEXT           "Rows:",IDC_STATIC,219,162,24,13
+    EDITTEXT        IDC_SERIESROWS,253,160,36,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINSERIESROW,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,289,160,11,14
+    LTEXT           "Columns:",IDC_STATIC,219,179,32,13
+    EDITTEXT        IDC_SERIESCOLS,253,178,36,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINSERIESCOL,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,289,178,11,14
+    CONTROL         "Automatic Series Format",IDC_CHECKSERIES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,219,199,91,11
+    GROUPBOX        "Hanging Protocols",IDC_STATIC,15,221,189,71
+    CONTROL         "Apply Protocol",IDC_APPLY_PROTOCOL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,22,234,61,10
+    CONTROL         "Include Layout Information",IDC_INCLUDE_LAYOUT_INFO,
+                    "Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,100,
+                    234,100,10
+    CONTROL         "Find Related Studies",IDC_FIND_RELATED_STUDIES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,22,248,81,10
+    RTEXT           "#Priors:",IDC_STATIC,133,249,27,8
+    EDITTEXT        IDC_NUM_PRIORS,164,246,33,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_PRIORS,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,189,245,11,14
+    LTEXT           "Protocol Filename(s)",IDC_STATIC,22,262,64,8
+    EDITTEXT        IDC_PROTOCOLS,22,271,175,14,ES_AUTOHSCROLL
+    GROUPBOX        "Image Format",IDC_STATIC,211,221,106,71
+    LTEXT           "Rows:",IDC_STATIC,219,235,23,13
+    EDITTEXT        IDC_IMAGEROWS,253,233,36,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINIMAGEROW,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,289,233,11,14
+    LTEXT           "Columns:",IDC_STATIC,219,253,30,13
+    EDITTEXT        IDC_IMAGECOLS,253,251,36,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINIMAGECOL,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,289,251,11,14
+    CONTROL         "Automatic Image Format",IDC_CHECKIMAGE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,219,273,89,11
+    CONTROL         "Close Current Window",IDC_CHECKCLOSE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,299,86,11
+    CONTROL         "Add to Current Window",IDC_CHECKADD,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,299,89,11
+    CONTROL         "Suppress Search",IDC_SUPPRESS_SEARCH,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,196,299,70,11
+    LTEXT           "Image Source(s):",IDC_STATIC,15,318,55,13
+    EDITTEXT        IDC_IMAGE_SOURCE,74,316,186,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Search",IDC_SEARCH,267,298,50,14
+    PUSHBUTTON      "Open",ID_OPENSTUDY,267,316,50,14
+    GROUPBOX        "eFilm Appearance",IDC_STATIC,7,343,319,58
+    LTEXT           "Top:",IDC_STATIC,15,359,18,13
+    EDITTEXT        IDC_TOP,34,356,35,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINTOP,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,66,356,11,14
+    LTEXT           "Bottom:",IDC_STATIC,75,359,25,13
+    EDITTEXT        IDC_BOTTOM,103,357,35,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINBOTTOM,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,133,357,11,14
+    LTEXT           "Left:",IDC_STATIC,144,359,18,13
+    EDITTEXT        IDC_LEFT,162,357,35,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINLEFT,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,190,357,11,14
+    LTEXT           "Right:",IDC_STATIC,203,359,20,13
+    EDITTEXT        IDC_RIGHT,225,357,35,14,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPINRIGHT,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,258,357,11,14
+    PUSHBUTTON      "Reposition",ID_POSITION,267,357,50,14
+    PUSHBUTTON      "Show eFilm",ID_SHOW,15,380,50,14
+    PUSHBUTTON      "Hide eFilm",ID_HIDE,69,380,50,14
+    PUSHBUTTON      "Minimize eFilm",ID_MINIMIZE,123,380,50,14
+    PUSHBUTTON      "Show Search",ID_SHOWSEARCH,213,380,50,14
+    PUSHBUTTON      "Hide Search",ID_HIDESEARCH,267,380,50,14
+    GROUPBOX        "Image Export",IDC_STATIC,7,407,319,36
+    LTEXT           "Path:",IDC_STATIC,25,423,18,11
+    EDITTEXT        IDC_EXPORT_PATH,47,420,134,14,ES_AUTOHSCROLL
+    LTEXT           "Bitmap\r\nFormat",IDC_STATIC,190,418,26,20
+    EDITTEXT        IDC_BITMAP_FORMAT,217,421,29,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPIN_BITMAP_FORMAT,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,246,421,10,14
+    PUSHBUTTON      "Export",ID_EXPORT,266,420,50,14
+    PUSHBUTTON      "Close",IDCANCEL,276,488,50,14
+    GROUPBOX        "Server Selection",IDC_STATIC,7,447,319,36
+    EDITTEXT        IDC_EDIT_SELECT_SERVERS,47,459,210,14,ES_AUTOHSCROLL
+    LTEXT           "Server(s):",IDC_STATIC,14,461,32,11
+    PUSHBUTTON      "Select",ID_SELECTSERVERS,266,459,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "eFilmAutoClient MFC Application"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "eFilmAutoClient"
+            VALUE "LegalCopyright", "Copyright (C) 2000"
+            VALUE "OriginalFilename", "eFilmAutoClient.EXE"
+            VALUE "ProductName", "eFilmAutoClient Application"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_EFILMAUTOCLIENT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 326
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 502
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE initialization failed.  Make sure that the OLE libraries are the correct version."
+    IDS_ABOUTBOX            "&About eFilmAutoClient..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\eFilmAutoClient.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
