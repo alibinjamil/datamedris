@@ -102,46 +102,20 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_PerformingPhysicianId = value;
 			}
 		}
-		TextField m_ExternalPatientId = new TextField("ExternalPatientId",null);
-		public TextField ExternalPatientId
-		{
-			get
-			{
-				return this.m_ExternalPatientId;
-			}
-			set
-			{
-				this.m_ExternalPatientId = value;
-			}
-		}
-		TextField m_StudyInstance = new TextField("StudyInstance",null);
-		public TextField StudyInstance
-		{
-			get
-			{
-				return this.m_StudyInstance;
-			}
-			set
-			{
-				this.m_StudyInstance = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[8];
+			Field[] fields = new Field[6];
 			fields[0] = m_PatientId;
 			fields[1] = m_RequestingPhysicianId;
 			fields[2] = m_ModalityId;
 			fields[3] = m_ProcedureId;
 			fields[4] = m_StationId;
 			fields[5] = m_PerformingPhysicianId;
-			fields[6] = m_ExternalPatientId;
-			fields[7] = m_StudyInstance;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[9];
+			Field[] fields = new Field[7];
 			fields[0] = m_WorkListId;
 			fields[1] = m_PatientId;
 			fields[2] = m_RequestingPhysicianId;
@@ -149,8 +123,6 @@ namespace RIS.RISLibrary.Objects.RIS
 			fields[4] = m_ProcedureId;
 			fields[5] = m_StationId;
 			fields[6] = m_PerformingPhysicianId;
-			fields[7] = m_ExternalPatientId;
-			fields[8] = m_StudyInstance;
 			return fields;
 		}
 	}

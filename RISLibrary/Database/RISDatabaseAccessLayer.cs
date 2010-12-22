@@ -11,8 +11,10 @@ namespace RIS.RISLibrary.Database
     {
         public override DbConnection GetConnection()
         {
-            return new SqlConnection(@"Data Source=.\SQL2005;database=RIS;Persist Security Info=True;User ID=sa;Password=123;");            
-            //return new SqlConnection(@"Data Source=.;database=RIS;Persist Security Info=True;User ID=sa;Password=datamed;");
+            return new SqlConnection("Data Source=.\\SQLEXPRESS;database=RIS;Trusted_Connection=yes");
+            //return new SqlConnection("Data Source=cdocs-pak-d620\\SQLEXPRESS;User ID=sa;Password=123;database=RIS");
+            //return new SqlConnection("Data Source=lahore\\SQLEXPRESS;User ID=sa;Password=123;database=RIS");
+            //return new SqlConnection("Data Source=.\\SQLEXPRESS;database=RIS;Persist Security Info=True;User ID=sa;Password=new_password;Connect Timeout=30;User Instance=False");
         }
 
         protected override DbCommand GetCommand()
@@ -21,7 +23,8 @@ namespace RIS.RISLibrary.Database
         }
 
         protected override DbParameter GetParameter(DatabaseParameter parameter)
-        {     
+        {
+     
             SqlParameter sqlParameter = null;
             if (parameter.ParameterValue == null)
             {

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="RISVoiceControl_RISServer_AudioUpload" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost/WebServices/AudioUpload.asmx</Value>
+      <Value Profile="(Default)">http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

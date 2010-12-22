@@ -625,16 +625,16 @@
   </wsdl:binding>
   <wsdl:service name="AudioUpload">
     <wsdl:port name="AudioUploadSoap" binding="tns:AudioUploadSoap">
-      <soap:address location="http://localhost/WebServices/AudioUpload.asmx" />
+      <soap:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
     </wsdl:port>
     <wsdl:port name="AudioUploadSoap12" binding="tns:AudioUploadSoap12">
-      <soap12:address location="http://localhost/WebServices/AudioUpload.asmx" />
+      <soap12:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
     </wsdl:port>
     <wsdl:port name="AudioUploadHttpGet" binding="tns:AudioUploadHttpGet">
-      <http:address location="http://localhost/WebServices/AudioUpload.asmx" />
+      <http:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
     </wsdl:port>
     <wsdl:port name="AudioUploadHttpPost" binding="tns:AudioUploadHttpPost">
-      <http:address location="http://localhost/WebServices/AudioUpload.asmx" />
+      <http:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

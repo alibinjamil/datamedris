@@ -31,44 +31,19 @@ public class StudyListModal
     string patientId = null;
     string patientName = null;
     int modalityId = 0;
-    //int[] modalityIds;
-    //int[] statusIds;
-    int studyStatusId=0;
+    int studyStatusId = 0;
     string procedure = null;
     string radiologist = null;
     string physician = null;
     int examDate = 0;
-    DateTime fromDate = new DateTime(1900,1,1);
-    DateTime toDate = new DateTime(1900,1,1);
-    DateTime Default = new DateTime(1900,1,1);
     int loggedInUserRoleId = 0;
     int loggedInUserId = 0;
-    Nullable<int> clientId = null;
-    //Nullable<int> hospitalId = null;
-
-
+    
     private StudyListModal()
 	{
 	}
 
-    /*public StudyListModal(int currentPage, int sortBy, string isAsc, string hdPatientId, string patientId, string patientName, string procedure, string radiologist, string physician, int examDate, int loggedInUseRoleId, int loggedInUserId,int[] StatusIds,int[] ModalityIds)
-    {
-        this.currentPage = currentPage;
-        this.sortBy = sortBy;
-        this.isAsc = isAsc;
-        this.hdPatientId = hdPatientId;
-        this.patientId = patientId;
-        this.patientName = patientName;
-        this.modalityIds = ModalityIds;
-        this.statusIds = StatusIds;
-        this.procedure = procedure;
-        this.radiologist = radiologist;
-        this.physician = physician;
-        this.examDate = examDate;
-        this.loggedInUserRoleId = loggedInUserRoleId;
-        this.loggedInUserId = loggedInUserId; 
-    }*/
-    public StudyListModal(int currentPage, int sortBy, string isAsc, string hdPatientId, string patientId, string patientName, int modalityId,int studyStatusId, string procedure, string radiologist, string physician, int examDate, int loggedInUserRoleId, int loggedInUserId,Nullable<int> clientId/*,Nullable<int> hospitalId*/)
+    public StudyListModal(int currentPage,int sortBy,string isAsc,string hdPatientId,string patientId,string patientName,int modalityId,int studyStatusId,string procedure,string radiologist,string physician,int examDate,int loggedInUseRoleId,int loggedInUserId)
     {
         this.currentPage = currentPage;
         this.sortBy = sortBy;
@@ -83,30 +58,8 @@ public class StudyListModal
         this.physician = physician;
         this.examDate = examDate;
         this.loggedInUserRoleId = loggedInUserRoleId;
-        this.loggedInUserId = loggedInUserId;
-        this.clientId = clientId;
-        //this.hospitalId = hospitalId;
-
+        this.loggedInUserId = loggedInUserId; 
     }
-    //public StudyListModal(int currentPage,int sortBy,string isAsc,string hdPatientId,string patientId,string patientName,int modalityId,int studyStatusId,string procedure,string radiologist,string physician,DateTime fromDate,DateTime toDate,int loggedInUseRoleId,int loggedInUserId)
-    //{
-    //    this.currentPage = currentPage;
-    //    this.sortBy = sortBy;
-    //    this.isAsc = isAsc;
-    //    this.hdPatientId = hdPatientId;
-    //    this.patientId = patientId;
-    //    this.patientName = patientName;
-    //    this.modalityId = modalityId;
-    //    this.studyStatusId = studyStatusId;
-    //    this.procedure = procedure;
-    //    this.radiologist = radiologist;
-    //    this.physician = physician;
-    //    this.fromDate = fromDate;
-    //    this.examDate = -2;
-    //    this.toDate = toDate;
-    //    this.loggedInUserRoleId = loggedInUserRoleId;
-    //    this.loggedInUserId = loggedInUserId;
-    //}
 
     public int GetRecordCount()
     {
@@ -167,7 +120,7 @@ public class StudyListModal
                 break;
             case QueryType.SELECT:
                 sqlQuery.Append(" SELECT TOP ").Append(WebConstants.PageSize).Append(" * FROM ( ");
-                sqlQuery.Append(" SELECT ROW_NUMBER() OVER (").Append(orderByQuery).Append(") AS rowNum, tStudies.StudyId,tPatients.Name AS PatientName,tPatients.ExternalPatientId,tStudies.StudyStatusId,tStudyStatusTypes.Status,convert(varchar(10),tStudies.StudyDate,101) AS StudyDate,tStudies.StudyDate AS StudyTimestamp,tModalities.Name AS Modality,tProcedures.Name AS ProcedureName, ttFindings.RadiologistName, tUsers.Name AS ReferringPhysicianName,ttFindings.FindingId,ttPatients.PatRecCount,ttFindings.RadiologistId,tStudies.IsManual,tStudies.AccessionNumber,tStudies.TechComments from tStudies ");
+                sqlQuery.Append(" SELECT ROW_NUMBER() OVER (").Append(orderByQuery).Append(") AS rowNum, tStudies.StudyId,tPatients.Name AS PatientName,tPatients.ExternalPatientId,tStudies.StudyStatusId,tStudyStatusTypes.Status,convert(varchar(10),tStudies.StudyDate,101) AS StudyDate,tStudies.StudyDate AS StudyTimestamp,tModalities.Name AS Modality,tProcedures.Name AS ProcedureName, ttFindings.RadiologistName, tUsers.Name AS ReferringPhysicianName,ttFindings.FindingId,ttPatients.PatRecCount,ttFindings.RadiologistId,tStudies.IsManual from tStudies ");
                 //queryCommand.Parameters.Add(new SqlParameter("@PageSize", PageSize));
                 break;
             case QueryType.LOG:
@@ -231,7 +184,7 @@ public class StudyListModal
     private string GetWhereQuery(SqlCommand command)
     {
         StringBuilder whereQuery = new StringBuilder();
-        /*if (loggedInUserRoleId != Constants.Roles.Admin)
+        if (loggedInUserRoleId != Constants.Roles.Admin)
         {
             whereQuery.Append(" WHERE EXISTS ( ");
             whereQuery.Append("  SELECT tStudyGroups.StudyId ");
@@ -242,37 +195,14 @@ public class StudyListModal
             command.Parameters.Add(new SqlParameter("@UserId", loggedInUserId));
         }
         else
-        {*/
+        {
             whereQuery.Append(" WHERE 1 = 1 ");
-        //}
-        if (loggedInUserRoleId != Constants.Roles.ClientAdmin 
-            && loggedInUserRoleId != Constants.Roles.Admin 
-            && loggedInUserRoleId != Constants.Roles.ClientTechnologist)
-        {
-            //do not show PreRelease studies
-            whereQuery.Append(" AND tStudies.StudyStatusId NOT IN (8,9)");//Qaed and Prerelease
         }
-        if (loggedInUserRoleId == Constants.Roles.Radiologist && clientId != null)
+        if (this.hdPatientId.Length > 0)
         {
-            whereQuery.Append(" AND tStudies.ClientId = @ClientId");
-            command.Parameters.Add(new SqlParameter("@ClientId", clientId));
+            whereQuery.Append(" AND tPatients.ExternalPatientId = @PatientId ");
+            command.Parameters.Add(new SqlParameter("@PatientId", this.hdPatientId));
         }
-        /*if (loggedInUserRoleId == Constants.Roles.ClientTechnologist)//show studies 
-        {
-            whereQuery.Append(" AND tStudies.HospitalId IN (SELECT ");
-            command.Parameters.Add(new SqlParameter("@HospitalId", hospitalId));
-        }*/
-
-        if (loggedInUserRoleId == Constants.Roles.Radiologist || loggedInUserRoleId == Constants.Roles.ClientAdmin)
-        {
-            whereQuery.Append(" AND tUserClients.UserId = @UserId ");
-        }
-        else if (loggedInUserRoleId == Constants.Roles.ClientTechnologist || loggedInUserRoleId == Constants.Roles.HospitalAdmin
-            || loggedInUserRoleId == Constants.Roles.HospitalStaff || loggedInUserRoleId == Constants.Roles.ReferringPhysician)
-        {
-            whereQuery.Append(" AND tUserHospitals.UserId = @UserId ");
-        }
-
         if (this.patientName.Length > 0)
         {
             StringBuilder patientName = new StringBuilder();
@@ -280,84 +210,23 @@ public class StudyListModal
             whereQuery.Append(" AND UPPER(tPatients.Name) LIKE @PatientName ");
             command.Parameters.Add(new SqlParameter("@PatientName", patientName.ToString()));
         }
-        if (this.hdPatientId.Length > 0)
-        {
-            whereQuery.Append(" AND tPatients.ExternalPatientId = @PatientId ");
-            command.Parameters.Add(new SqlParameter("@PatientId", this.hdPatientId));
-        }
-        else if (this.patientId.Length > 0)
+        if (this.patientId.Length > 0)
         {
             StringBuilder patientId = new StringBuilder();
             patientId.Append("%").Append(this.patientId).Append("%");
             whereQuery.Append(" AND tPatients.ExternalPatientId LIKE @PatientId ");
             command.Parameters.Add(new SqlParameter("@PatientId", patientId.ToString()));
         }
-
         if (this.modalityId > 0)
         {
             whereQuery.Append(" AND tStudies.ModalityId = @ModalityId ");
             command.Parameters.Add(new SqlParameter("@ModalityId", this.modalityId));
         }
-        /*if(this.modalityIds.Length>0)
-        {
-            string param = "";
-            int i;
-            for (i = 0; i < modalityIds.Length; i++)
-            {
-                if (modalityIds[i] == 0)
-                    continue;
-                if (param != "")
-                    param += ",";
-                param += modalityIds[i].ToString();
-            }
-            if(param != "")
-                whereQuery.Append(" AND tStudies.ModalityId in ("+param+")");
-                //if (i != 0)
-                //{
-                //    param = "@ModalityId" + i.ToString();
-                //    whereQuery.Append(" OR tStudies.ModalityId=" + param);
-                //    command.Parameters.AddWithValue(param, modalityIds[i]);
-                //}
-                //else
-                //{
-                //    param = "@ModalityId" + i.ToString();
-                //    whereQuery.Append(" AND tStudies.ModalityId=" + param);
-                //    command.Parameters.AddWithValue(param, modalityIds[i]);
-                //}
-        }*/
         if (this.studyStatusId > 0)
         {
             whereQuery.Append(" AND tStudies.StudyStatusId = @StatusId ");
-            command.Parameters.Add(new SqlParameter("@StatusId", studyStatusId));
+            command.Parameters.Add(new SqlParameter("@StatusId", this.studyStatusId));
         }
-        /*if(this.statusIds.Length>0)
-        {
-            
-            string param = "";
-            int i;
-            for (i = 0; i < statusIds.Length; i++)
-            {
-                if (statusIds[i] == 0)
-                    continue;
-                if (param != "")
-                    param += ",";
-                param += statusIds[i].ToString();
-            }
-            if(param != "")
-                whereQuery.Append(" AND tStudies.StudyStatusId in ("+param+")");
-                //if (i != 0)
-                //{
-                //    param = "@StatusId" + i.ToString();
-                //    whereQuery.Append(" OR tStudies.StudyStatusId=" + param);
-                //    command.Parameters.AddWithValue(param, statusIds[i]);
-                //}
-                //else
-                //{
-                //    param = "@StatusId" + i.ToString();
-                //    whereQuery.Append(" AND tStudies.StudyStatusId=" + param);
-                //    command.Parameters.AddWithValue(param, statusIds[i]);
-                //}
-        }*/
         if (this.procedure.Length > 0)
         {
             StringBuilder procedure = new StringBuilder();
@@ -391,13 +260,6 @@ public class StudyListModal
             }
             command.Parameters.Add(new SqlParameter("@ExamDate", this.examDate));
         }
-        //if (DateTime.Compare(this.fromDate,Default) > 0 && DateTime.Compare(this.toDate, Default) > 0)
-        //{
-        //    whereQuery.Append(" AND tStudies.StudyDate>=@fromDate AND tStudies.StudyDate<=@toDate ");
-        //    command.Parameters.Add(new SqlParameter("@fromDate",this.fromDate));
-        //    command.Parameters.Add(new SqlParameter("@toDate",this.toDate));
-        //}
-        
         return whereQuery.ToString();
     }
 
@@ -405,36 +267,18 @@ public class StudyListModal
     {
         StringBuilder joinQuery = new StringBuilder();
         //Commeting this code as this is causing perfomance issue. Replacing by EXISTS in WHERE 
-
-        if (loggedInUserRoleId == Constants.Roles.Radiologist || loggedInUserRoleId == Constants.Roles.ClientAdmin)
+        /*if (loggedInUserRoleId != Constants.Roles.Admin)
         {
-            joinQuery.Append(" INNER JOIN tUserClients on tStudies.ClientId = tUserClients.ClientId ");
+            joinQuery.Append(" INNER JOIN ( ");
+            joinQuery.Append("  SELECT DISTINCT tStudies.StudyId AS UniqueStudyId FROM tStudies ");
+            joinQuery.Append("  INNER JOIN tStudyGroups ON tStudyGroups.StudyId = tStudies.StudyId ");
+            joinQuery.Append("  INNER JOIN tUserGroups ON tStudyGroups.GroupId = tUserGroups.GroupId ");
+            joinQuery.Append("  WHERE tUserGroups.UserId = @UserId ");
+            joinQuery.Append(" ) ttStudies ON ttStudies.UniqueStudyId = tStudies.StudyId ");
             command.Parameters.Add(new SqlParameter("@UserId", loggedInUserId));
-        }
-        else if (loggedInUserRoleId == Constants.Roles.ClientTechnologist || loggedInUserRoleId == Constants.Roles.HospitalAdmin
-            || loggedInUserRoleId == Constants.Roles.HospitalStaff || loggedInUserRoleId == Constants.Roles.ReferringPhysician)
-        {
-            joinQuery.Append(" INNER JOIN tUserHospitals on tStudies.HospitalId = tUserHospitals.HospitalId ");
-            command.Parameters.Add(new SqlParameter("@UserId", loggedInUserId));
-        }
-
+        }*/
         joinQuery.Append(" INNER JOIN tPatients ON tPatients.PatientId = tStudies.PatientId ");
-        joinQuery.Append(" INNER JOIN ");
-        joinQuery.Append(" (SELECT COUNT(0) AS PatRecCount,PatientId from tStudies ");
-        
-        if (loggedInUserRoleId == Constants.Roles.Radiologist || loggedInUserRoleId == Constants.Roles.ClientAdmin)
-        {
-            joinQuery.Append(" INNER JOIN tUserClients on tStudies.ClientId = tUserClients.ClientId ");
-            joinQuery.Append(" WHERE tUserClients.UserId = @UserId ");            
-        }
-        else if (loggedInUserRoleId == Constants.Roles.ClientTechnologist || loggedInUserRoleId == Constants.Roles.HospitalAdmin
-            || loggedInUserRoleId == Constants.Roles.HospitalStaff || loggedInUserRoleId == Constants.Roles.ReferringPhysician)
-        {
-            joinQuery.Append(" INNER JOIN tUserHospitals on tStudies.HospitalId = tUserHospitals.HospitalId ");
-            joinQuery.Append(" WHERE tUserHospitals.UserId = @UserId ");
-        }
-
-        joinQuery.Append(" GROUP BY PatientId) ttPatients ON ttPatients.PatientId=tStudies.PatientId ");
+        joinQuery.Append(" INNER JOIN (SELECT COUNT(0) AS PatRecCount,PatientId from tStudies GROUP BY PatientId) ttPatients ON ttPatients.PatientId=tStudies.PatientId ");
         joinQuery.Append(" INNER JOIN tStudyStatusTypes ON tStudyStatusTypes.StudyStatusTypeId = tStudies.StudyStatusId ");
         joinQuery.Append(" LEFT OUTER JOIN tModalities ON tStudies.ModalityId = tModalities.ModalityId ");
         joinQuery.Append(" LEFT OUTER JOIN tProcedures ON tProcedures.ProcedureId = tStudies.ProcedureId ");
@@ -459,14 +303,6 @@ public class StudyListModal
         if (reader.IsDBNull(reader.GetOrdinal("FindingId")) == false)
         {
             studyList.FindingId = (int)reader["FindingId"];
-        }
-        if (reader.IsDBNull(reader.GetOrdinal("AccessionNumber")) == false)
-        {
-            studyList.AccessionNumber = (string)reader["AccessionNumber"];
-        }
-        else
-        {
-            studyList.AccessionNumber = null;
         }
         studyList.PatientId = reader["ExternalPatientId"].ToString();
         studyList.PatientName = reader["PatientName"].ToString();
@@ -494,14 +330,9 @@ public class StudyListModal
         {
             studyList.IsManual = "N";
         }
-        if (reader.IsDBNull(reader.GetOrdinal("TechComments")) || reader["TechComments"].ToString().Trim().Length == 0)
-        {
-            studyList.TechComments = "[N/A]";
-        }
-        else
-        {
-            studyList.TechComments = (string)reader["TechComments"];
-        }
+
         return studyList;
-    } 
+    }
+
+ 
 }

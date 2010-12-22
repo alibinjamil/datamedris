@@ -1,19 +1,14 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{AB71670C-54BA-42F1-91AD-5881C49ED956}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RISLibrary</RootNamespace>
     <AssemblyName>RISLibrary</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,14 +58,9 @@
     <Compile Include="Objects\DICOM\DICOMStudyObject.cs" />
     <Compile Include="Objects\DICOM\DICOMWorklistObject.cs" />
     <Compile Include="Objects\GenericObject.cs" />
-    <Compile Include="Objects\RIS\AttachmentObject.cs" />
-    <Compile Include="Objects\RIS\CarrierObject.cs" />
-    <Compile Include="Objects\RIS\ClientObject.cs" />
     <Compile Include="Objects\RIS\FindingObject.cs" />
     <Compile Include="Objects\RIS\GroupObject.cs" />
     <Compile Include="Objects\RIS\GroupRelationObject.cs" />
-    <Compile Include="Objects\RIS\HospitalGroupObject.cs" />
-    <Compile Include="Objects\RIS\HospitalObject.cs" />
     <Compile Include="Objects\RIS\ImageObject.cs" />
     <Compile Include="Objects\RIS\LogObject.cs" />
     <Compile Include="Objects\RIS\ModalityDetailObject.cs" />
@@ -80,23 +70,16 @@
     <Compile Include="Objects\RIS\RISObject.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Objects\RIS\RoleManagementObject.cs" />
     <Compile Include="Objects\RIS\RoleObject.cs" />
-    <Compile Include="Objects\RIS\RoleScreenObject.cs" />
     <Compile Include="Objects\RIS\ScreenObject.cs" />
     <Compile Include="Objects\RIS\SeriesObject.cs" />
     <Compile Include="Objects\RIS\StationObject.cs" />
-    <Compile Include="Objects\RIS\StudyDetailObject.cs" />
     <Compile Include="Objects\RIS\StudyGroupObject.cs" />
     <Compile Include="Objects\RIS\StudyObject.cs" />
     <Compile Include="Objects\RIS\StudyStatusTypeObject.cs" />
-    <Compile Include="Objects\RIS\TemplateObject.cs" />
-    <Compile Include="Objects\RIS\TemplateUserObject.cs" />
     <Compile Include="Objects\RIS\TempObject.cs" />
     <Compile Include="Objects\RIS\TypeObject.cs" />
-    <Compile Include="Objects\RIS\UserClientObject.cs" />
     <Compile Include="Objects\RIS\UserGroupObject.cs" />
-    <Compile Include="Objects\RIS\UserHospitalObject.cs" />
     <Compile Include="Objects\RIS\UserObject.cs" />
     <Compile Include="Objects\RIS\UserRoleObject.cs" />
     <Compile Include="Objects\RIS\WorkListObject.cs" />

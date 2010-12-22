@@ -1,5 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="DateControl.ascx.cs" Inherits="Common_DateControl" %>
-<script language="javascript" type="text/javascript">
+<script language="javascript">
     function fillYear()
     {
         var i=0;
@@ -9,6 +9,7 @@
         {
             yearObj.options.add(new Option(""+i,""+i));            
         }
+        //yearObj.options[41].selected = true;    
     }
     function fillValues()
     {
@@ -124,8 +125,8 @@
 	<option value="30">30</option>
 	<option value="31">31</option>
 </select>
-<select name="<%=this.YearAttributeName%>" id="<%=this.YearAttributeName%>" class="dropDownListStyle" onchange="checkDate()" style="width: 56px"></select>
-<script language="javascript" type="text/javascript">
+<select name="<%=this.YearAttributeName%>" id="<%=this.YearAttributeName%>" class="dropDownListStyle" onchange="checkDate()"></select>
+<script language="javascript">
     fillYear();
     fillValues();
 </script>

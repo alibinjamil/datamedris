@@ -13,7 +13,6 @@ namespace RIS.RISService.DataMigrators
 {
     class StudiesDataMigrator : GenericDataMigrator
     {
-        private HospitalObject hospital = null;
         public StudiesDataMigrator()
         {
         }
@@ -39,7 +38,6 @@ namespace RIS.RISService.DataMigrators
             DICOMStudyObject dicomStudy = (DICOMStudyObject)dicomObject;
             risStudy.StudyStatusId.Value = Constants.StudyStatusTypes.New;
             risStudy.StudyInstance.Value = dicomStudy.StudyInstance.Value;
-            risStudy.AccessionNumber.Value = dicomStudy.AccessionNumber.Value;
             if (((string)dicomStudy.StudyInstance.Value).Equals("1.3.12.2.1107.5.1.4.29126.30000007122815364739000000004"))
             {
                 int debug = 0;
@@ -47,9 +45,8 @@ namespace RIS.RISService.DataMigrators
             risStudy.StudyDate.Value = DatabaseUtility.GetDateTime(dicomStudy.StudyDate.Value,dicomStudy.StudyTime.Value);
             
             //risStudy.Description.Value = dicomStudy.StudyDescription.Value;
-            //SetReferringPhysician(dicomStudy, risStudy);
-            AssignHospital(dicomStudy, risStudy);
-
+            SetReferringPhysician(dicomStudy, risStudy);
+            
             risStudy.PatientWeight.Value = dicomStudy.PatientsWeight.Value;
             
             ModalityObject modality = new ModalityObject();
@@ -61,7 +58,7 @@ namespace RIS.RISService.DataMigrators
             }
             risStudy.ModalityId.Value = modality.ModalityId.Value;
 
-            /*if (dicomStudy.StationName.Value != null)
+            if (dicomStudy.StationName.Value != null)
             {
                 StationObject station = new StationObject();
                 station.ModalityId.Value = modality.GetPrimaryKey().Value;
@@ -73,7 +70,7 @@ namespace RIS.RISService.DataMigrators
                     station.Save();
                 }
                 risStudy.StationId.Value = station.GetPrimaryKey().Value;
-            }*/
+            }
             
             if (dicomStudy.StudyDescription.Value != null)
             {
@@ -113,37 +110,25 @@ namespace RIS.RISService.DataMigrators
         }
         protected override void PerformPostSaveTasks(RISObject risObject)
         {
-            if (hospital != null)
+            StudyObject risStudy = (StudyObject)risObject;
+            //if (risStudy.ReferringPhysicianId.Value != null)
             {
-                StudyObject risStudy = (StudyObject)risObject;
-
                 RISDatabaseAccessLayer databaseAccessLayer = new RISDatabaseAccessLayer();
                 SqlConnection connection = (SqlConnection)databaseAccessLayer.GetConnection();
                 connection.Open();
                 SqlCommand command = new SqlCommand("sp_insert_study_group", connection);
                 command.Parameters.AddWithValue("@studyId", risStudy.GetPrimaryKey().Value);
-                command.Parameters.AddWithValue("@hospitalId", hospital.HospitalId.Value);
+                if(risStudy.ReferringPhysicianId.Value != null)
+                    command.Parameters.AddWithValue("@userId", risStudy.ReferringPhysicianId.Value);
+                else
+                    command.Parameters.AddWithValue("@userId", DBNull.Value);
                 command.Parameters.AddWithValue("@adminUserId", GenericDataMigrator.AdminUserId);
                 command.CommandType = CommandType.StoredProcedure;
                 command.ExecuteNonQuery();
                 connection.Close();
-            }            
-        }
-        private void AssignHospital(DICOMStudyObject dicomStudy, StudyObject risStudy)
-        {
-            if (dicomStudy.ReferringPhysician.Value != null)
-            {
-                hospital = new HospitalObject();
-                hospital.Code.Value = dicomStudy.ReferringPhysician.Value;
-                hospital.Load();
-                if (hospital.IsLoaded == false)
-                {
-                    hospital = null;
-                }
             }
         }
 
-        //not using this funciton. for the latest client hospital code will be passed on instead of ref phy
         private bool SetReferringPhysician(DICOMStudyObject dicomStudy,StudyObject risStudy)
         {
             //As our system is not being used to entrer work lists we can not pick up Referrring Physicians from our own worklist

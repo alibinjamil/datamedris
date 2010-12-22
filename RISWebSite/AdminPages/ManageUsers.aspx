@@ -3,11 +3,15 @@
 <div align="center">
  
       <table class="dataEntryTable">
+        <tr>
+            <td align="left" style="width: 526px">
+                </td>
+        </tr>
           <tr>
-              <td align="center" >
+              <td align="left" style="width: 526px">
       <asp:GridView ID="GridView1" AllowSorting="True" AllowPaging="True" Runat="server"
-        DataSourceID="odsClients" DataKeyNames="UserId"
-        AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="20" Width="100%">
+        DataSourceID="ObjectDataSource1" DataKeyNames="UserId"
+        AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="20">
         <Columns>
             <asp:HyperLinkField DataNavigateUrlFields="UserId" DataNavigateUrlFormatString="~/AdminPages/AddUsers.aspx?UserId={0}"
                 NavigateUrl="~/AdminPages/AddUsers.aspx" Text="Edit" />
@@ -28,13 +32,8 @@
           </tr>
           <tr>
               <td align="left" style="width: 526px">
-                  &nbsp;<asp:ObjectDataSource ID="odsClients" runat="server" SelectMethod="GetUsersByClient"
-                      TypeName="UsersTableAdapters.tUsersTableAdapter" OldValuesParameterFormatString="original_{0}">
-                      <SelectParameters>
-                          <asp:SessionParameter DefaultValue="0" Name="clientId" SessionField="LoggedInUserClientId"
-                              Type="Int32" />
-                      </SelectParameters>
-                  </asp:ObjectDataSource>
+                  &nbsp;<asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAllUsers"
+                      TypeName="RIS.RISLibrary.Database.RISProcedureCaller"></asp:ObjectDataSource>
 
 </td>
           </tr>

@@ -26,7 +26,7 @@ namespace RISVoiceControl.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/WebServices/AudioUpload.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx")]
         public string RISVoiceControl_RISServer_AudioUpload {
             get {
                 return ((string)(this["RISVoiceControl_RISServer_AudioUpload"]));

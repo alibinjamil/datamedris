@@ -16,25 +16,19 @@ namespace RIS.RISPreCompile.MappingGenerator
             mappingTable.Add("tSeries", "Series");
             mappingTable.Add("tLog", "Log");
             tablesWithNoAccessColumns.Add("tLog", null);
-            tablesWithNoAccessColumns.Add("tUserHospitals", null);
-            tablesWithNoAccessColumns.Add("tUserClients", null);
-            tablesWithNoAccessColumns.Add("tTemplates", null);
-            tablesWithNoAccessColumns.Add("tTemplateUsers", null);
-            tablesWithNoAccessColumns.Add("tCarriers", null);
-            tablesWithNoAccessColumns.Add("tAttachments", null);
         }
         
         
         public void Generate()
         {
-            string filePath = @"E:\MyProjects\RIS\trunk\RISPreCompile\Resources\RISDatabaseObjectMapping.xml";
+            string filePath = @"E:\MyProjects\RIS\tags\prod20081025\RISPreCompile\Resources\RISDatabaseObjectMapping.xml";
             if (File.Exists(filePath))
                 File.Delete(filePath);
             StreamWriter file = new StreamWriter(filePath);
             file.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
             file.WriteLine("<entities>");
             ArrayList tables = new ArrayList();
-            SqlConnection connection = new SqlConnection(@"Data Source=.\SQL2005;Initial Catalog=RIS;User Id=sa;Password=123;");
+            SqlConnection connection = new SqlConnection("Data Source=.\\SQLEXPRESS;Trusted_Connection=yes;database=RIS");
             connection.Open();
             SqlCommand command = new SqlCommand("select TABLE_NAME from INFORMATION_SCHEMA.TABLES", connection);
             SqlDataReader reader = command.ExecuteReader();
@@ -102,12 +96,12 @@ namespace RIS.RISPreCompile.MappingGenerator
 
         private bool IgnoreColumn(string columnName)
         {
-            string[] columns = {"CREATEDBY","CREATIONDATE","LASTUPDATEDBY","LASTUPDATEDATE"};
+            /*string[] columns = {"CREATEDBY","CREATIONDATE","LASTUPDATEDBY","LASTUPDATEDATE"};
             foreach (string column in columns)
             {
                 if (column.Equals(columnName.ToUpper()))
                     return true;
-            }
+            }*/
             return false;
         }
     }

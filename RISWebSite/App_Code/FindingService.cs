@@ -44,12 +44,12 @@ public class FindingService : System.Web.Services.WebService {
         return text.ToString();
     }
     [WebMethod]
-    public int SaveFinding(int studyId, int findingId,int userId,string heading,string description,string impression,int studyStatusId)
+    public int SaveFinding(int studyId, int findingId,int userId,string findingText)
     {
-        return UpdateStudy(studyId, findingId, userId, heading, description, impression, studyStatusId, false);
+        return UpdateFinding(studyId, findingId, userId, findingText,false,false);
     }
 
-    private int UpdateFinding(int studyId,int findingId, int userId, string heading,string description,string impression,bool isTran,bool removeAudioData)
+    private int UpdateFinding(int studyId,int findingId, int userId, string findingText,bool isTran,bool removeAudioData)
     {
         FindingObject finding = new FindingObject();
         if (findingId > 0)
@@ -65,67 +65,45 @@ public class FindingService : System.Web.Services.WebService {
         else
         {
             finding.StudyId.Value = studyId;
-            //adding this code to put in radiologist is and name. 
-            finding.AudioDate.Value = DateTime.Now;
-            finding.AudioUserId.Value = userId;
-            UserObject user = new UserObject();
-            user.UserId.Value = userId;
-            user.Load(userId);
-            if (user.IsLoaded)
-            {
-                finding.AudioUserName.Value = user.Name.Value;
-            }
         }
         if (isTran)
         {
             finding.TranscriptUserId.Value = userId;
             finding.TranscriptionDate.Value = DateTime.Now;
         }
-        finding.TextualTranscript.Value = "<data><heading>" + heading + "</heading><description>" + description + "</description><impression>"
-            + impression + "</impression></data>";
-        finding.Save(userId);
-        //very bad programming, but needs to be done for now. 
-        return int.Parse(finding.FindingId.Value.ToString());
+        finding.TextualTranscript.Value = findingText;
+        finding.Save();
+        return findingId;
     }
 
-    private int UpdateStudy(int studyId, int findingId, int userId, string heading, string description, string impression, int status, bool removeAudioData)
+    private void UpdateStudy(int studyId, int findingId, int userId, string findingText, int status,bool removeAudioData)
     {
+        bool isTran = false;
+        if (status == Constants.StudyStatusTypes.PendingVerification) isTran = true;
+        findingId = UpdateFinding(studyId,findingId, userId, findingText,isTran,removeAudioData);
         StudyObject study = new StudyObject();
         study.StudyId.Value = studyId;
         study.Load();
         if (study.IsLoaded)
         {
-            findingId = UpdateFinding(studyId, findingId, userId, heading, description, impression, false, removeAudioData);
-            study.LatestFindingId.Value = findingId;
+            if (study.LatestFindingId.Value == null)
+            {
+                study.LatestFindingId.Value = findingId;
+            }
             study.StudyStatusId.Value = status;
             study.Save(userId);
-            return findingId;
         }
-        return findingId;
     }
 
     [WebMethod]
-    public void ApproveStudy(int studyId, int findingId, int userId, string heading, string description, string impression)
+    public void ApproveStudy(int studyId, int findingId, int userId, string findingText)
     {
-        StudyObject study = new StudyObject();
-        study.StudyId.Value = studyId;
-        study.Load(userId);
-        if (study.IsLoaded)
-        {
-            UpdateStudy(studyId, findingId, userId, heading, description, impression, Constants.StudyStatusTypes.Verified, true);
-            LogObject log = new LogObject();
-            log.Action.Value = Constants.LogActions.VerifiedStudy;
-            log.ActionTime.Value = DateTime.Now;
-            log.PatientId.Value = study.PatientId.Value;
-            log.StudyId.Value = study.StudyId.Value;
-            log.UserId.Value = userId;
-            log.Save();
-        }
+        UpdateStudy(studyId, findingId, userId, findingText, Constants.StudyStatusTypes.Verified,true);
     }
     [WebMethod]
-    public void MarkStudy(int studyId, int findingId, int userId, string heading, string description, string impression)
+    public void MarkStudy(int studyId, int findingId, int userId, string findingText)
     {
-        UpdateStudy(studyId, findingId, userId, heading,description,impression, Constants.StudyStatusTypes.PendingVerification,false);
+        UpdateStudy(studyId, findingId, userId, findingText, Constants.StudyStatusTypes.PendingVerification,false);
     }
 
 }

@@ -61,8 +61,6 @@ namespace RIS.RISService.DataMigrators
             {
                 modalityDetail.Save();
             }
-
-
             risSeries.ModalityDetailId.Value = modalityDetail.GetPrimaryKey().Value;
             
             risStudy = new StudyObject();
@@ -71,20 +69,6 @@ namespace RIS.RISService.DataMigrators
             if (risStudy.IsLoaded)
             {
                 risSeries.StudyId.Value = risStudy.StudyId.Value;
-                if (dicomSeries.StationName.Value != null)
-                {
-                    StationObject station = new StationObject();
-                    station.ModalityId.Value = risModality.GetPrimaryKey().Value;
-                    station.StationName.Value = dicomSeries.StationName.Value;
-                    station.Instituition.Value = dicomSeries.Instituition.Value;
-                    station.Load();
-                    if (!station.IsLoaded)
-                    {
-                        station.Save();
-                    }
-                    risStudy.StationId.Value = station.GetPrimaryKey().Value;
-                    risStudy.Save();
-                }
             }
             else
             {

@@ -46,13 +46,13 @@ namespace TestAudioControl
             // 
             this.voiceControl1.BackColor = System.Drawing.Color.LightGray;
             this.voiceControl1.DownloadFile = true;
-            this.voiceControl1.FindingId = 16;
-            this.voiceControl1.IsTranscriptionist = true;
+            this.voiceControl1.FindingId = 0;
+            this.voiceControl1.IsTranscriptionist = false;
             this.voiceControl1.Location = new System.Drawing.Point(46, 39);
             this.voiceControl1.Name = "voiceControl1";
-            this.voiceControl1.ReadOnly = true;
+            this.voiceControl1.ReadOnly = false;
             this.voiceControl1.Size = new System.Drawing.Size(309, 126);
-            this.voiceControl1.StudyId = 613;
+            this.voiceControl1.StudyId = 1865;
             this.voiceControl1.TabIndex = 0;
             this.voiceControl1.UserId = 1;
             // 

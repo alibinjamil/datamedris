@@ -331,9 +331,11 @@ namespace RIS.RISVoiceControl.Handlers
                     {
                         m_Writer = null;
                     }
+                MessageBox.Show("Hello");
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.StackTrace);
                 Logging.Instance.WriteLine(ex.StackTrace);
             }
             Logging.Instance.WriteLine("Stopped Recording!");

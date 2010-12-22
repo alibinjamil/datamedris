@@ -4,7 +4,6 @@ using System.Text;
 
 using RIS.RISLibrary.Objects.DICOM;
 using RIS.RISLibrary.Objects.RIS;
-using RIS.RISLibrary.Utilities;
 
 namespace RIS.RISService.DataMigrators
 {
@@ -17,7 +16,10 @@ namespace RIS.RISService.DataMigrators
         {
             return new DICOMPatientObject();
         }
-
+        protected override string GetDICOMWhereClause()
+        {
+            return "";
+        }
         protected override RISObject GetRISObject()
         {
             return new PatientObject();
@@ -26,18 +28,10 @@ namespace RIS.RISService.DataMigrators
         {
             return "";
         }
-        protected override void UpdateDICOMObject(DICOMObject dicomObject)
-        {
-            DICOMPatientObject patient = (DICOMPatientObject)dicomObject;
-            patient.SyncTime.Value = DateTime.Now;
-            patient.Update(Constants.Database.SystemUserId);
-        }
-
         protected override RISObject GetRISObject(DICOMObject dicomObject)
         {
             PatientObject risPatient = new PatientObject();
             DICOMPatientObject dicomPatient = (DICOMPatientObject)dicomObject;
-            Console.WriteLine("Patient Synced:" + dicomPatient.PatientID);
             risPatient.ExternalPatientId.Value = dicomPatient.PatientID.Value;
             risPatient.Name.Value = dicomPatient.Name.Value;
             risPatient.DateOfBirth.Value = dicomPatient.DateOfBirth.Value;

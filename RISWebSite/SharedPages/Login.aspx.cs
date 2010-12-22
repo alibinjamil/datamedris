@@ -34,43 +34,34 @@ public partial class SharedPages_Login : System.Web.UI.Page
             log.Action.Value = Constants.LogActions.Login;
             log.ActionTime.Value = DateTime.Now;
             log.Save();
-            if (user.SecretQuestionId.Value == null || user.Answer.Value == null
-                || user.ResetPassword.Value == null || (bool)user.ResetPassword.Value)
+
+            Session.Add(ParameterNames.Session.LoggedInUser, user);
+            Session.Add(ParameterNames.Session.LoggedInUserId, user.UserId.Value);
+            if(user.LastLoginDate.Value != null)
+                Session.Add(ParameterNames.Session.LastLoginTime, user.LastLoginDate.Value.ToString());
+            else
+                Session.Add(ParameterNames.Session.LastLoginTime, DateTime.Now.ToString());
+            user.LastLoginDate.Value = DateTime.Now;
+            user.Save();
+            int numOfRoles = RISProcedureCaller.GetRoleCount((int)user.GetPrimaryKey().Value);
+            if (numOfRoles == 0)
             {
-                Session.Add("userId", user.UserId.Value);
-                Response.Redirect("~/SharedPages/ResetPassword.aspx");
+                Session[ParameterNames.Session.ExceptionString] = Messages.Error.NoRolesDefined;
+                Session[ParameterNames.Session.LoggedInUser] = null;
+                PagesFactory.Transfer(PagesFactory.Pages.ErrorPage);
+            }
+            else if (numOfRoles == 1)
+            {
+                UserRoleObject userRole = new UserRoleObject();
+                userRole.UserId.Value = user.GetPrimaryKey().Value;
+                userRole.Load(Constants.Database.NullUserId);
+                int roleId = (int)userRole.RoleId.Value;
+                Session[ParameterNames.Session.LoggedInUserRoleId] = roleId;
+                PagesFactory.TransferAfterLogin(roleId);
             }
             else
             {
-                Session.Add(ParameterNames.Session.LoggedInUser, user);
-                Session.Add(ParameterNames.Session.LoggedInUserId, user.UserId.Value);
-                //Session.Add(ParameterNames.Session.LoggedInUserClientId, user.ClientId.Value);
-                if (user.LastLoginDate.Value != null)
-                    Session.Add(ParameterNames.Session.LastLoginTime, user.LastLoginDate.Value.ToString());
-                else
-                    Session.Add(ParameterNames.Session.LastLoginTime, DateTime.Now.ToString());
-                user.LastLoginDate.Value = DateTime.Now;
-                user.Save();
-                int numOfRoles = RISProcedureCaller.GetRoleCount((int)user.GetPrimaryKey().Value);
-                if (numOfRoles == 0)
-                {
-                    Session[ParameterNames.Session.ExceptionString] = Messages.Error.NoRolesDefined;
-                    Session[ParameterNames.Session.LoggedInUser] = null;
-                    PagesFactory.Transfer(PagesFactory.Pages.ErrorPage);
-                }
-                else if (numOfRoles == 1)
-                {
-                    UserRoleObject userRole = new UserRoleObject();
-                    userRole.UserId.Value = user.GetPrimaryKey().Value;
-                    userRole.Load(Constants.Database.NullUserId);
-                    int roleId = (int)userRole.RoleId.Value;
-                    Session[ParameterNames.Session.LoggedInUserRoleId] = roleId;
-                    PagesFactory.TransferAfterLogin(roleId);
-                }
-                else
-                {
-                    PagesFactory.Transfer(PagesFactory.Pages.SelectRolePage);
-                }
+                PagesFactory.Transfer(PagesFactory.Pages.SelectRolePage);
             }
         }
         else

@@ -14,13 +14,13 @@ using RIS.RISLibrary.Objects.RIS;
 using RIS.RISLibrary.Database;
 using RIS.RISLibrary.Utilities;
 
-public partial class AdminPages_AddUsers : AuthenticatedPage
+public partial class AdminPages_AddUsers : System.Web.UI.Page
 {
     public static class Params
     {
         public static string UserId = "UserId";
     }
-    protected override void Page_Load_Extended(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (IsPostBack == false)
         {
@@ -42,7 +42,7 @@ public partial class AdminPages_AddUsers : AuthenticatedPage
                     RISUtility.GetFirstLastName(user.Name.Value.ToString(), ref strFirstName, ref strLastName);
                     tbFirstName.Text = strFirstName.Trim();
                     tbLastName.Text = strLastName.Trim();
-                    cbIsActive.Checked = (bool)user.IsActive.Value;
+                    cbIsActive.Checked = (user.IsActive.Value.ToString() == "Y" ? true : false);
 
                 }
                 RISDatabaseAccessLayer dataAccess = new RISDatabaseAccessLayer();
@@ -116,8 +116,7 @@ public partial class AdminPages_AddUsers : AuthenticatedPage
         }
         user.Password.Value = tbPassword.Text.Trim();
         user.Name.Value = RISUtility.GetFullName(tbFirstName.Text.Trim(), tbLastName.Text.Trim());
-        user.IsActive.Value = cbIsActive.Checked;
-        //user.ClientId.Value = loggedInUserClientId;
+        user.IsActive.Value = (cbIsActive.Checked)?"Y":"N";
         if (lbUserId.Text.Length == 0)
             user.Save();
         else
@@ -202,9 +201,5 @@ public partial class AdminPages_AddUsers : AuthenticatedPage
     protected void btnRemoveRole_Click(object sender, EventArgs e)
     {
         MoveItems(lbUserRoles,lbOtherRoles);
-    }
-    protected override bool IsPopUp()
-    {
-        return false;
     }
 }

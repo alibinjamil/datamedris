@@ -104,13 +104,12 @@ public class AudioUpload : System.Web.Services.WebService {
             finding.AudioFileName.Value = fileName;
             finding.AudioData.Value = data;
         }
-  
-        finding.AudioUserId.Value = radiologistId;
         UserObject radiologist = new UserObject();
         radiologist.UserId.Value = radiologistId;
         radiologist.Load();
-        if(radiologist.IsLoaded)
+        if (radiologist.IsLoaded)
         {
+            finding.AudioUserId.Value = radiologistId;
             finding.AudioUserName.Value = radiologist.Name.Value;
         }
         finding.AudioDate.Value = DateTime.Now;

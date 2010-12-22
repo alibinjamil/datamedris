@@ -12,6 +12,7 @@ using Microsoft.Win32;
 
 using RIS.RISVoiceControl.Utils;
 using RIS.RISVoiceControl.Handlers;
+using RIS.RISVoiceControl.Utils;
 
 namespace RIS.RISVoiceControl
 {
@@ -291,7 +292,8 @@ namespace RIS.RISVoiceControl
         }
 
         private void btnStop_Click(object sender, EventArgs e)
-        {         
+        {
+            MessageBox.Show("Stop Clicked");
             OnStopClick();
         }
         public void OnStopClick()
@@ -301,6 +303,7 @@ namespace RIS.RISVoiceControl
             {
                 if (currentState == State.RECORD)
                 {
+                    MessageBox.Show("Recording...");
                     audioHandler.StopRecording();
                 }
                 else

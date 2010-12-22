@@ -9,14 +9,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class AdminPages_ManageItemsList : AuthenticatedPage
+public partial class AdminPages_ManageItemsList : System.Web.UI.Page
 {
-    protected override void Page_Load_Extended(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
 
-    }
-    protected override bool IsPopUp()
-    {
-        return false;
     }
 }

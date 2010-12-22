@@ -1,0 +1,11 @@
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\bin\Debug\TestAudioControl.exe
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\bin\Debug\TestAudioControl.pdb
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\bin\Debug\RISVoiceControl.dll
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\bin\Debug\RISVoiceControl.pdb
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\bin\Debug\RISVoiceControl.XmlSerializers.dll
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\obj\Debug\ResolveAssemblyReference.cache
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\obj\Debug\TestAudioControl.Form1.resources
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\obj\Debug\TestAudioControl.Properties.Resources.resources
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\obj\Debug\TestAudioControl.csproj.GenerateResource.Cache
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\obj\Debug\TestAudioControl.exe
+E:\MyProjects\RIS\tags\prod20081025\TestAudioControl\obj\Debug\TestAudioControl.pdb

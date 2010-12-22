@@ -35,23 +35,6 @@ public static class DatabaseUtility
         connection.Close();        
     }
 
-    public static void BindModalitiesDDL(string addText, CheckBoxList ddl)
-    {
-        RISDatabaseAccessLayer dataAccess = new RISDatabaseAccessLayer();
-        SqlConnection connection = (SqlConnection)dataAccess.GetConnection();
-        connection.Open();
-        SqlCommand command = new SqlCommand("sp_get_modalities", connection);
-        command.CommandType = CommandType.StoredProcedure;
-        command.Parameters.AddWithValue("@addText", addText);
-        SqlDataReader reader = command.ExecuteReader();
-        ddl.DataSource = reader;
-        ddl.DataMember = "Name";
-        ddl.DataTextField = "Name";
-        ddl.DataValueField = "ModalityId";
-        ddl.DataBind();
-        reader.Close();
-        connection.Close();
-    }
     public static void BindModalitiesDDL(string addText, DropDownList ddl)
     {
         RISDatabaseAccessLayer dataAccess = new RISDatabaseAccessLayer();
@@ -69,6 +52,7 @@ public static class DatabaseUtility
         reader.Close();
         connection.Close();
     }
+
     public static void BindStudyStatusTypesDDL(string addText, DropDownList ddl)
     {
         RISDatabaseAccessLayer dataAccess = new RISDatabaseAccessLayer();

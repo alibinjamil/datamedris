@@ -13,14 +13,12 @@
 
     <script type="text/javascript" language="javascript">
         
-        function SetPreReleaseStatus(){
-            document.getElementById("<%=hfStatus.ClientID%>").value = "8";
+        function CopyClipboard()
+        {
+            var text = window.clipboardData.getData("Text");
+            var obj = document.getElementById("ctl00_ContentPlaceHolder1_Wizard1_tbFinding");
+            obj.value = text;
         }
-        function SetNewStatus(){
-            document.getElementById("<%=hfStatus.ClientID%>").value = "1";
-        }
-        
-        
         function ValidateDOB(sender,args)
         {         
             args.IsValid = ValidateDate("dcDOB");
@@ -44,17 +42,12 @@
             window.location.replace("../Radiologist/StudyList.aspx");                   
       }
     </script>
-
-    <asp:HiddenField ID="hfStatus" runat="server" Value="8" />
-    <asp:Wizard ID="Wizard1" runat="server" Height="500px" Width="1000px" 
-        BackColor="#F7F6F3" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" 
-        Font-Names="Verdana" Font-Size="0.8em" ActiveStepIndex="0" 
-        OnFinishButtonClick="Wizard1_FinishButtonClick" 
-        onactivestepchanged="Wizard1_ActiveStepChanged">
+      
+    <asp:Wizard ID="Wizard1" runat="server" Height="300px" Width="600px" BackColor="#F7F6F3" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em" ActiveStepIndex="0" OnFinishButtonClick="Wizard1_FinishButtonClick">
         <WizardSteps>
             <asp:WizardStep runat="server" StepType="Start" Title="Patient Information" >     
 
-                <table style="left: 0px; width: 100%; top: 0px;height:100%" >
+                <table class="dataEntryTable" style="left: 0px; width: 100%; top: 0px" >
                     <tr>
                         <td align="right" class="heading" style="width: 30%; height: 20px;">
                             Patient ID:</td>
@@ -122,49 +115,26 @@
                 <table class="dataEntryTable" style="left: 0px; top: 0px; width: 100%;">
                 <tr>
                 <td align="right" class="heading" style="width: 30%;">
-                            Client:&nbsp; 
+                            Exam Date: 
                 </td>
                 <td align="left" style="width: 60%; height: 20px;">
-                    <asp:DropDownList ID="ddlClient" runat="server" 
-                        CssClass="dropDownListStyle" DataSourceID="ODSClients" 
-                        DataTextField="Name" DataValueField="ClientId" 
-                        OnDataBound="ddlClient_DataBound" 
-                        OnSelectedIndexChanged="ddlClient_SelectedIndexChanged" >
-                    </asp:DropDownList>
+                    <uc1:DateControl ID="dcExamDate" runat="server" /> 
                  </td>
                 <td align="left" style="width: 10%; height: 20px;">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="ddlClient"
-                                ErrorMessage="*" InitialValue="0"></asp:RequiredFieldValidator>                    </td>
+                    <asp:CustomValidator ID="CustomValidator2" runat="server" ClientValidationFunction="ValidateExamDate"
+                        ErrorMessage="*"></asp:CustomValidator>
+                </td>
                  
                  </tr>
                     <tr>
-                        <td align="right" class="heading" style="width: 30%; ">
-                            Hospital:
-                        </td>
+                        <td align="right" class="heading" style="width: 30%">
+                            Exam Time:</td>
                         <td align="left" style="width: 60%; height: 20px;">
-                            <asp:DropDownList ID="ddlHospital" runat="server" 
-                                CssClass="dropDownListStyle" OnDataBound="ddlHospital_DataBound" 
-                                OnSelectedIndexChanged="ddlHospital_SelectedIndexChanged" 
-                                AutoPostBack="true" DataSourceID="ODSHospital" DataTextField="Name" 
-                                DataValueField="HospitalId">
-                            </asp:DropDownList>
-                            </td>
-                        <td align="left" style="width: 10%; height: 20px;">
-<asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="ddlHospital"
-                                ErrorMessage="*" InitialValue="0"></asp:RequiredFieldValidator>
+                            <uc2:TimeControl ID="tcExamTime" runat="server">
+                            </uc2:TimeControl>
                         </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; ">
-                            Exam Date:
-                        </td>
-                        <td align="left" style="width: 60%; height: 20px;">
-                            <uc1:DateControl ID="dcExamDate" runat="server" />
-                        </td>
-                        <td align="left" style="width: 10%; height: 20px;">
-                            <asp:CustomValidator ID="CustomValidator2" runat="server" 
-                                ClientValidationFunction="ValidateExamDate" ErrorMessage="*"></asp:CustomValidator>
-                        </td>
+                        <td align="left" style="width: 10%">
+                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td align="right" class="heading" style="width: 30%">
@@ -192,11 +162,25 @@
                                 ErrorMessage="*" ControlToValidate="ddlProcedures"></asp:CustomValidator>
                         </td>
                     </tr>
+                    <tr>
+                        <td align="right" class="heading" style="width: 30%;">
+                    Radiologist:</td>
+                        <td align="left" style="width: 60%; height: 20px">
+                            <div id="myAutoComplete" style="width:15em;padding-bottom:2em;">
+                                <asp:TextBox ID="tbRadiologist" runat="server" CssClass="textBoxStyle"></asp:TextBox>	                            
+	                            <div id="myContainer"></div>
+                            </div>
+                        </td>
+                        <td align="left" style="width: 50px; height: 10%">
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbRadiologist"
+                                ErrorMessage="*"></asp:RequiredFieldValidator>                    
+                        </td>
+                    </tr>
                     
                     <tr><td align="right" class="heading" style="width: 30%; height: 22px;">
                             Referring Physician:</td>
                         <td align="left" style="width: 60%; height: 22px;">
-                            <asp:DropDownList ID="ddlRef" runat="server" CssClass="dropDownListStyle" OnDataBound="ddlRef_DataBound" >
+                            <asp:DropDownList ID="ddlRef" runat="server" CssClass="dropDownListStyle" DataSourceID="ODSRefPhysician" DataTextField="Name" DataValueField="UserId" OnDataBound="ddlRef_DataBound">
                             </asp:DropDownList>
                         </td>
                         <td align="left" style="width: 10%; height: 22px;">
@@ -204,138 +188,28 @@
                                 ControlToValidate="ddlRef" ErrorMessage="*"></asp:CustomValidator>
                         </td>
                     </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 22px;">
-                            Tech Comments:&nbsp;
-                        </td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:TextBox ID="tbTechComments" runat="server" Rows="5" TextMode="MultiLine" 
-                                Width="500px"></asp:TextBox>
-                        </td>
-                        <td align="left" style="width: 10%; height: 22px;">
-                            &nbsp;</td>
-                    </tr>
                  </table>
             </asp:WizardStep>
-            <asp:WizardStep runat="server" StepType="Finish" Title="Confirm Information" >
-               <table style="left: 0px; width: 100%; top: 0px;height:100%" >
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 20px;">
-                            Patient ID:</td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:Label ID="lblPatientID" runat="server" Text=""></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 20px;">
-                            First Name:</td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:Label ID="lblFirstName" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%; height: 22px;">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 20px;">
-                            Last Name:</td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:Label ID="lblLastName" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 20px;">
-                            Date of Birth:</td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:Label ID="lblDOB" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 20px;">
-                            Gender:
-                        </td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:Label ID="lblGender" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%; height: 20px;">
-                            &nbsp;</td>
-                    </tr>
+            <asp:WizardStep runat="server" StepType="Finish" Title="Finding Information">
+                <table class="dataEntryTable">
                 <tr>
-                <td align="right" class="heading" style="width: 30%;">
-                            Client:&nbsp; 
-                </td>
-                <td align="left" style="width: 60%; height: 20px;">
-                    <asp:Label ID="lblClient" runat="server"></asp:Label>
-                 </td>
-                <td align="left" style="width: 10%; height: 20px;">
-                    &nbsp;</td>
+                <td align="center" class="heading" style="height: 16px;" colspan="3">
+                    Copy report from other system to clipboard and then click the "Copy from Clipboard"
+                    button to insert report below.</td>
                  
                  </tr>
                     <tr>
-                        <td align="right" class="heading" style="width: 30%; ">
-                            Hospital:
-                        </td>
-                        <td align="left" style="width: 60%; height: 20px;">
-                            <asp:Label ID="lblHospital" runat="server"></asp:Label>
-                            </td>
-                        <td align="left" style="width: 10%; height: 20px;">
-                            &nbsp;</td>
+                        <td align="right" class="heading" style="height: 16px; text-align: center;" colspan="3">
+                            <input id="btnCopy" type="button" value="Copy from Clipboard" class="buttonStyle" onclick="CopyClipboard();"/></td>
                     </tr>
                     <tr>
-                        <td align="right" class="heading" style="width: 30%; ">
-                            Exam Date:
+                        <td align="right" class="heading" style="text-align: left;" colspan="3">
+                            &nbsp;<asp:TextBox ID="tbFinding" runat="server" Rows="14" TextMode="MultiLine" Width="94%" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="tbFinding"
+                                ErrorMessage="*"></asp:RequiredFieldValidator>
                         </td>
-                        <td align="left" style="width: 60%; height: 20px;">
-                            <asp:Label ID="lblExamDate" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%; height: 20px;">
-                            &nbsp;</td>
                     </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%">
-                            Modality:</td>
-                        <td align="left" style="width: 60%; height: 20px">
-                            <asp:Label ID="lblModality" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 22px">
-                            Procedure:</td>
-                        <td align="left" style="width: 60%; height: 22px">
-                            <asp:Label ID="lblProcedure" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%; height: 22px">
-                            &nbsp;</td>
-                    </tr>
-                    
-                    <tr><td align="right" class="heading" style="width: 30%; height: 22px;">
-                            Referring Physician:</td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:Label ID="lblRefPhy" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%; height: 22px;">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="heading" style="width: 30%; height: 22px;">
-                            Tech Comments:&nbsp;
-                        </td>
-                        <td align="left" style="width: 60%; height: 22px;">
-                            <asp:Label ID="lblTechComments" runat="server"></asp:Label>
-                        </td>
-                        <td align="left" style="width: 10%; height: 22px;">
-                            &nbsp;</td>
-                    </tr>
-                    
-                </table>            
+                 </table>            
             </asp:WizardStep>
         </WizardSteps>
         <StepStyle BorderWidth="0px" ForeColor="#5D7B9D" />
@@ -362,10 +236,8 @@
         <FinishNavigationTemplate>
             <asp:Button ID="FinishPreviousButton" runat="server" CausesValidation="False" CommandName="MovePrevious"
                 CssClass="buttonStyle" Text="Previous" />
-            <asp:Button ID="PrereleaseButton" runat="server" CommandName="MoveComplete" CssClass="buttonStyle"
-                Text="Save without Releasing to Radiologist" OnClientClick="SetPreReleaseStatus();" />
             <asp:Button ID="FinishButton" runat="server" CommandName="MoveComplete" CssClass="buttonStyle"
-                Text="Save & Release to Radiologist" OnClientClick="SetNewStatus();"/>&nbsp;
+                Text="Finish" />&nbsp;
             <input id="btnFinishCancel" class="buttonStyle" type="button" value="Cancel" onclick="redirect()"/>
         </FinishNavigationTemplate>
         
@@ -380,58 +252,14 @@
                 PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="ODSHospital" runat="server" DeleteMethod="Delete" 
-        InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" 
-        SelectMethod="GetHospitalsForUser" 
-        TypeName="HospitalsTableAdapters.tHospitalsTableAdapter" UpdateMethod="Update">
-        <DeleteParameters>
-            <asp:Parameter Name="Original_HospitalId" Type="Int32" />
-        </DeleteParameters>
-        <UpdateParameters>
-            <asp:Parameter Name="ClientId" Type="Int32" />
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Address" Type="String" />
-            <asp:Parameter Name="State" Type="String" />
-            <asp:Parameter Name="Zip" Type="String" />
-            <asp:Parameter Name="Code" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="Int32" />
-            <asp:Parameter Name="CreationDate" Type="DateTime" />
-            <asp:Parameter Name="LastUpdatedBy" Type="Int32" />
-            <asp:Parameter Name="LastUpdateDate" Type="DateTime" />
-            <asp:Parameter Name="City" Type="String" />
-            <asp:Parameter Name="Phone" Type="String" />
-            <asp:Parameter Name="Fax" Type="String" />
-            <asp:Parameter Name="Original_HospitalId" Type="Int32" />
-        </UpdateParameters>
+    &nbsp;
+    <asp:ObjectDataSource ID="ODSRefPhysician" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetActiveUsersByRole"
+        TypeName="UsersTableAdapters.tUsersTableAdapter">
         <SelectParameters>
-            <asp:SessionParameter DefaultValue="0" Name="userId" 
-                SessionField="LoggedInUserId" Type="Int32" />
-        </SelectParameters>
-        <InsertParameters>
-            <asp:Parameter Name="ClientId" Type="Int32" />
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Address" Type="String" />
-            <asp:Parameter Name="State" Type="String" />
-            <asp:Parameter Name="Zip" Type="String" />
-            <asp:Parameter Name="Code" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="Int32" />
-            <asp:Parameter Name="CreationDate" Type="DateTime" />
-            <asp:Parameter Name="LastUpdatedBy" Type="Int32" />
-            <asp:Parameter Name="LastUpdateDate" Type="DateTime" />
-            <asp:Parameter Name="City" Type="String" />
-            <asp:Parameter Name="Phone" Type="String" />
-            <asp:Parameter Name="Fax" Type="String" />
-        </InsertParameters>
-    </asp:ObjectDataSource>
-    &nbsp;<asp:ObjectDataSource ID="ODSClients" runat="server" 
-        OldValuesParameterFormatString="original_{0}" SelectMethod="GetClientsForUser" 
-        TypeName="ClientTableAdapters.tClientsTableAdapter">
-        <SelectParameters>
-            <asp:SessionParameter DefaultValue="0" Name="userId" 
-                SessionField="LoggedInUserId" Type="Int32" />
+            <asp:Parameter DefaultValue="3" Name="RoleId" Type="Int32" />
         </SelectParameters>
     </asp:ObjectDataSource>
-&nbsp;<asp:ObjectDataSource ID="ODSRadiologist" runat="server" OldValuesParameterFormatString="original_{0}"
+    <asp:ObjectDataSource ID="ODSRadiologist" runat="server" OldValuesParameterFormatString="original_{0}"
         SelectMethod="GetActiveUsersByRole" TypeName="UsersTableAdapters.tUsersTableAdapter">
         <SelectParameters>
             <asp:Parameter DefaultValue="2" Name="RoleId" Type="Int32" />

@@ -10,12 +10,7 @@
 <a href="Search.aspx" >Search</a>
 <br />
 <a href="#" >Manage Groups</a>
-<br />
-<a href="AddGroup.aspx" >Add Group</a>
-<br />
-<a href="AddTemplate.aspx">Add Templates</a>
-<br />
-<a href="ManageTemplates.aspx">View Templates List</a>
+
 </div>
 </asp:Content>
 

@@ -15,7 +15,7 @@ namespace RIS.RISPreCompile.CodeGenerators
         }
         protected override string GetXMLFilePath()
         {
-            return @"E:\MyProjects\RIS\trunk\RISPreCompile\Resources\DICOMDatabaseObjectMapping.xml";
+            return @"E:\MyProjects\RIS\tags\prod20081025\RISPreCompile\Resources\DICOMDatabaseObjectMapping.xml";
         }
         protected override string[] GetIncludes()
         {
@@ -30,7 +30,7 @@ namespace RIS.RISPreCompile.CodeGenerators
         }
         protected override string GetOutputPath()
         {
-            return @"E:\MyProjects\RIS\trunk\RISLibrary\Objects\DICOM\"; 
+            return @"E:\MyProjects\RIS\tags\prod20081025\RISLibrary\Objects\DICOM\"; 
         }
     }
 }

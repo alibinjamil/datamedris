@@ -232,18 +232,4 @@ public class StudyListPageObject : GenericUIObject
             m_isManual = value;
         }
     }
-
-    private string m_accessionNumber;
-    public string AccessionNumber
-    {
-        get { return m_accessionNumber; }
-        set { m_accessionNumber = value; }
-    }
-
-    private string m_techComments;
-    public string TechComments
-    {
-        get { return m_techComments; }
-        set { m_techComments = value; }
-    }
 }

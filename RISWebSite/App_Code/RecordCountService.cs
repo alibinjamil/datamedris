@@ -42,23 +42,16 @@ public class RecordCountService : System.Web.Services.WebService {
     public string GetUserCounts(string loggedInUserName,int loggedInUserId, int loggedInUserRoleId)
     {
         StringBuilder counts = new StringBuilder();
-        try
+        int[] statusCounts = { 0, 4, 5, 7};
+        foreach (int statusCount in statusCounts)
         {
-            int[] statusCounts = { 0, 4, 5, 7 };
-            foreach (int statusCount in statusCounts)
-            {
-                StudyListModal modal = new StudyListModal(0, 0, "", "", "", "", 0, statusCount, "", loggedInUserName, "", 30, loggedInUserRoleId, loggedInUserId,null);
-                counts.Append(statusCount);
-                counts.Append("=");
-                counts.Append(modal.GetRecordCount());
-                counts.Append(",");
-            }
-            counts.Remove(counts.Length - 1, 1);
+            StudyListModal modal = new StudyListModal(0, 0, "", "", "", "", 0, statusCount, "", loggedInUserName, "", 30, loggedInUserRoleId, loggedInUserId);
+            counts.Append(statusCount);
+            counts.Append("=");
+            counts.Append(modal.GetRecordCount());
+            counts.Append(",");
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.StackTrace);
-        }
+        counts.Remove(counts.Length - 1, 1);
         return counts.ToString();
     }
 
@@ -68,7 +61,7 @@ public class RecordCountService : System.Web.Services.WebService {
         int[] dayCounts = { 0, 1, 3, 7, 30 };
         foreach (int dayCount in dayCounts)
         {
-            StudyListModal modal = new StudyListModal(0, 0,"","", "", "", 0,studyStatusTypeId,"", "", "", dayCount, loggedInUserRoleId, loggedInUserId,null);
+            StudyListModal modal = new StudyListModal(0, 0,"","", "", "", 0,studyStatusTypeId,"", "", "", dayCount, loggedInUserRoleId, loggedInUserId);
             counts.Append(dayCount);
             counts.Append("=");
             counts.Append(modal.GetRecordCount());

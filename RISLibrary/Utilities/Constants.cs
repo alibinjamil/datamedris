@@ -5,7 +5,7 @@ using System.Text;
 namespace RIS.RISLibrary.Utilities
 {
     public static class Constants
-    {        
+    {
         public static class Roles
         {
             public static int Admin = 1;
@@ -15,10 +15,6 @@ namespace RIS.RISLibrary.Utilities
             public static int Transcriptionist = 5;
             public static int PerformingPhysician = 6;
             public static int ChiefTechnologist = 7;
-            public static int ClientAdmin = 8;
-            public static int ClientTechnologist = 9;
-            public static int HospitalAdmin = 10;
-            public static int HospitalStaff = 11;
         }
 
         public static class StudyStatusTypes
@@ -30,9 +26,6 @@ namespace RIS.RISLibrary.Utilities
             public static int Verified = 5;
             public static int MarkForRetranscription = 6;
             public static int Redictated = 7;
-            public static int PreRelease = 8;
-            public static int Qaed = 9;
-            public static int Rejected = 10;
         }
         public static class Database
         {
@@ -42,7 +35,6 @@ namespace RIS.RISLibrary.Utilities
         public static class LogActions
         {
             public static string ViewedStudy = "Viewed Study";
-            public static string ViewedExam = "Viewed Exam";
             public static string Login = "Login";
             public static string Logout = "Logout";
             public static string DictatedStudy = "Dictated Study";

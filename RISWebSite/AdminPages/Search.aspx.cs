@@ -14,13 +14,13 @@ using RIS.RISLibrary.Objects.RIS;
 using RIS.RISLibrary.Database;
 using RIS.RISLibrary.Utilities;
 
-public partial class AdminPages_Search : AuthenticatedPage
+public partial class AdminPages_Search : System.Web.UI.Page
 {
     public static class Params
     {
         public static string UserId = "UserId";
     }
-    protected override void Page_Load_Extended(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
@@ -121,10 +121,6 @@ protected void  btnSearch_Click(object sender, EventArgs e)
             gvResult.DataSource = null;
             gvResult.DataBind();
         }
-    }
-    protected override bool IsPopUp()
-    {
-        return false;
     }
 }
   

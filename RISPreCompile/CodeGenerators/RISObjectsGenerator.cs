@@ -19,7 +19,7 @@ namespace RIS.RISPreCompile.CodeGenerators
 
         protected override string GetXMLFilePath()
         {
-            return @"E:\MyProjects\RIS\trunk\RISPreCompile\Resources\RISDatabaseObjectMapping.xml";
+            return @"E:\MyProjects\RIS\tags\prod20081025\RISPreCompile\Resources\RISDatabaseObjectMapping.xml";
         }
         protected override string[] GetIncludes()
         {
@@ -34,7 +34,7 @@ namespace RIS.RISPreCompile.CodeGenerators
         }
         protected override string GetOutputPath()
         {
-            return @"E:\MyProjects\RIS\trunk\RISLibrary\Objects\RIS\"; 
+            return @"E:\MyProjects\RIS\tags\prod20081025\RISLibrary\Objects\RIS\"; 
         }
     }
 }

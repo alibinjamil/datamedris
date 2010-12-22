@@ -14,19 +14,16 @@ using RIS.RISLibrary.Objects.RIS;
 using RIS.RISLibrary.Database;
 using RIS.RISLibrary.Utilities;
 
-public partial class AdminPages_ManageUsers : AuthenticatedPage
+public partial class AdminPages_ManageUsers : System.Web.UI.Page
 {
     public static class Params
     {
         public static string UserId = "UserId";
     }
-    protected override void Page_Load_Extended(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
        
     }
-    protected override bool IsPopUp()
-    {
-        return false;
-    }
+    
 
 }

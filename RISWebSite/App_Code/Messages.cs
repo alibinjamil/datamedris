@@ -19,11 +19,9 @@ public static class Messages
         public static string YouMustBeLoggedIn = "Please login to proceed further";
         public static string NoRolesDefined = "No roles defined for this user please contact admin";
         public static string LoginNameAlreadyExists = "The specified Login Name already exists";
-        public static string PasswordsDoNotMatch = "Passwords to no match";
+        public static string PasswordsDoNotMatch = "Passwords do not match";
         public static string ErrorSavingDataToDICOM = "Unable to save data on DICOM server. Please try again later";
-        public static string SessionExpired = "Your Session has expired please login again";
-        public static string ConnectionError = "Error in connection";
-public static string CannotDelete = "Unable to delete record as it has references else where";
+        public static string CannotDelete = "Unable to delete record as it has references else where";
     }
     public static class Information
     {

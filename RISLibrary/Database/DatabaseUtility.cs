@@ -62,7 +62,7 @@ namespace RIS.RISLibrary.Database
             while (!quit);
             user.Name.Value = name;
             user.Password.Value = "password";
-            user.IsActive.Value = 1;
+            user.IsActive.Value = "Y";
             user.Save();
             return user;
         }

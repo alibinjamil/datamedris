@@ -54,6 +54,18 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_AudioUserId = value;
 			}
 		}
+		TextField m_AudioUserName = new TextField("AudioUserName",null);
+		public TextField AudioUserName
+		{
+			get
+			{
+				return this.m_AudioUserName;
+			}
+			set
+			{
+				this.m_AudioUserName = value;
+			}
+		}
 		TextField m_AudioReportPath = new TextField("AudioReportPath",null);
 		public TextField AudioReportPath
 		{
@@ -64,6 +76,18 @@ namespace RIS.RISLibrary.Objects.RIS
 			set
 			{
 				this.m_AudioReportPath = value;
+			}
+		}
+		TextField m_AudioFileName = new TextField("AudioFileName",null);
+		public TextField AudioFileName
+		{
+			get
+			{
+				return this.m_AudioFileName;
+			}
+			set
+			{
+				this.m_AudioFileName = value;
 			}
 		}
 		DateTimeField m_AudioDate = new DateTimeField("AudioDate",null);
@@ -126,43 +150,19 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_AudioData = value;
 			}
 		}
-		TextField m_AudioFileName = new TextField("AudioFileName",null);
-		public TextField AudioFileName
-		{
-			get
-			{
-				return this.m_AudioFileName;
-			}
-			set
-			{
-				this.m_AudioFileName = value;
-			}
-		}
-		TextField m_AudioUserName = new TextField("AudioUserName",null);
-		public TextField AudioUserName
-		{
-			get
-			{
-				return this.m_AudioUserName;
-			}
-			set
-			{
-				this.m_AudioUserName = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
 			Field[] fields = new Field[10];
 			fields[0] = m_StudyId;
 			fields[1] = m_AudioUserId;
-			fields[2] = m_AudioReportPath;
-			fields[3] = m_AudioDate;
-			fields[4] = m_TextualTranscript;
-			fields[5] = m_TranscriptUserId;
-			fields[6] = m_TranscriptionDate;
-			fields[7] = m_AudioData;
-			fields[8] = m_AudioFileName;
-			fields[9] = m_AudioUserName;
+			fields[2] = m_AudioUserName;
+			fields[3] = m_AudioReportPath;
+			fields[4] = m_AudioFileName;
+			fields[5] = m_AudioDate;
+			fields[6] = m_TextualTranscript;
+			fields[7] = m_TranscriptUserId;
+			fields[8] = m_TranscriptionDate;
+			fields[9] = m_AudioData;
 			return fields;
 		}
 		override public Field[] GetAllFields()
@@ -171,14 +171,14 @@ namespace RIS.RISLibrary.Objects.RIS
 			fields[0] = m_FindingId;
 			fields[1] = m_StudyId;
 			fields[2] = m_AudioUserId;
-			fields[3] = m_AudioReportPath;
-			fields[4] = m_AudioDate;
-			fields[5] = m_TextualTranscript;
-			fields[6] = m_TranscriptUserId;
-			fields[7] = m_TranscriptionDate;
-			fields[8] = m_AudioData;
-			fields[9] = m_AudioFileName;
-			fields[10] = m_AudioUserName;
+			fields[3] = m_AudioUserName;
+			fields[4] = m_AudioReportPath;
+			fields[5] = m_AudioFileName;
+			fields[6] = m_AudioDate;
+			fields[7] = m_TextualTranscript;
+			fields[8] = m_TranscriptUserId;
+			fields[9] = m_TranscriptionDate;
+			fields[10] = m_AudioData;
 			return fields;
 		}
 	}

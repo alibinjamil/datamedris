@@ -31,8 +31,6 @@ public class PagesFactory
         public static string DataSavedPage = "DataSavedPage";
         public static string CloseWindowPage = "CloseWindowPage";
         public static string AddStudyPage = "AddStudyPage";
-        public static string DisplayStudyPage = "DisplayStudyPage";
-        public static string Dashboard = "Dashboard";
     }
 
     public PagesFactory()
@@ -57,8 +55,6 @@ public class PagesFactory
             pages.Add(Pages.DataSavedPage, "../Technologist/DataSave.aspx");
             pages.Add(Pages.CloseWindowPage, "../Radiologist/CloseWindow.htm");
             pages.Add(Pages.AddStudyPage, "../Technologist/AddStudy.aspx");
-            pages.Add(Pages.DisplayStudyPage, "../WebViewer/DisplayStudyPage.aspx");
-            pages.Add(Pages.Dashboard, "../SharedPages/Dashboard.aspx");
         }
     }
 
@@ -116,22 +112,6 @@ public class PagesFactory
             PagesFactory.Transfer(Pages.StudyListPage);
         }
         else if (roleId == Constants.Roles.ChiefTechnologist)
-        {
-            PagesFactory.Transfer(Pages.StudyListPage);
-        }
-        else if (roleId == Constants.Roles.ClientAdmin)
-        {
-            PagesFactory.Transfer(Pages.StudyListPage);
-        }
-        else if (roleId == Constants.Roles.ClientTechnologist)
-        {
-            PagesFactory.Transfer(Pages.StudyListPage);
-        }
-        else if (roleId == Constants.Roles.HospitalAdmin)
-        {
-            PagesFactory.Transfer(Pages.StudyListPage);
-        }
-        else if (roleId == Constants.Roles.HospitalStaff)
         {
             PagesFactory.Transfer(Pages.StudyListPage);
         }

@@ -42,8 +42,8 @@ public partial class Common_TimeControl : System.Web.UI.UserControl
         {
             if (ddlHour.SelectedIndex > 0)
             {
-            return int.Parse(ddlHour.SelectedValue);
-        }
+                return int.Parse(ddlHour.SelectedValue);
+            }
             else
             {
                 return 0;

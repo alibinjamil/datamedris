@@ -126,6 +126,30 @@ namespace RIS.RISLibrary.Objects.DICOM
 				this.m_StudyModal = value;
 			}
 		}
+		TextField m_StationName = new TextField("StationNam",null);
+		public TextField StationName
+		{
+			get
+			{
+				return this.m_StationName;
+			}
+			set
+			{
+				this.m_StationName = value;
+			}
+		}
+		TextField m_Instituition = new TextField("Institutio",null);
+		public TextField Instituition
+		{
+			get
+			{
+				return this.m_Instituition;
+			}
+			set
+			{
+				this.m_Instituition = value;
+			}
+		}
 		TextField m_PatientID = new TextField("PatientID",null);
 		public TextField PatientID
 		{
@@ -186,21 +210,9 @@ namespace RIS.RISLibrary.Objects.DICOM
 				this.m_PatientName = value;
 			}
 		}
-		DateTimeField m_SyncTime = new DateTimeField("SyncTime",null);
-		public DateTimeField SyncTime
-		{
-			get
-			{
-				return this.m_SyncTime;
-			}
-			set
-			{
-				this.m_SyncTime = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[14];
+			Field[] fields = new Field[15];
 			fields[0] = m_StudyDate;
 			fields[1] = m_StudyTime;
 			fields[2] = m_StudyID;
@@ -209,17 +221,18 @@ namespace RIS.RISLibrary.Objects.DICOM
 			fields[5] = m_PatientsAge;
 			fields[6] = m_PatientsWeight;
 			fields[7] = m_StudyModal;
-			fields[8] = m_PatientID;
-			fields[9] = m_StudyDescription;
-			fields[10] = m_PatientDateOfBirth;
-			fields[11] = m_PatientSex;
-			fields[12] = m_PatientName;
-			fields[13] = m_SyncTime;
+			fields[8] = m_StationName;
+			fields[9] = m_Instituition;
+			fields[10] = m_PatientID;
+			fields[11] = m_StudyDescription;
+			fields[12] = m_PatientDateOfBirth;
+			fields[13] = m_PatientSex;
+			fields[14] = m_PatientName;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[15];
+			Field[] fields = new Field[16];
 			fields[0] = m_StudyInstance;
 			fields[1] = m_StudyDate;
 			fields[2] = m_StudyTime;
@@ -229,12 +242,13 @@ namespace RIS.RISLibrary.Objects.DICOM
 			fields[6] = m_PatientsAge;
 			fields[7] = m_PatientsWeight;
 			fields[8] = m_StudyModal;
-			fields[9] = m_PatientID;
-			fields[10] = m_StudyDescription;
-			fields[11] = m_PatientDateOfBirth;
-			fields[12] = m_PatientSex;
-			fields[13] = m_PatientName;
-			fields[14] = m_SyncTime;
+			fields[9] = m_StationName;
+			fields[10] = m_Instituition;
+			fields[11] = m_PatientID;
+			fields[12] = m_StudyDescription;
+			fields[13] = m_PatientDateOfBirth;
+			fields[14] = m_PatientSex;
+			fields[15] = m_PatientName;
 			return fields;
 		}
 	}

@@ -9,32 +9,28 @@
 </head>
 <body>
     <form runat=server id="form1">
-    
-<table width="600" border="0" align="center" cellpadding="8" cellspacing="0"> 
-  <tr> 
-    <td height="100">&nbsp;</td> 
-    <td>&nbsp;</td> 
-  </tr> 
-  <tr> 
-    <td><img src="<%=GetLogoURL()%>" width="305" height="199"></td> 
-    <td><asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
-                            </asp:contentplaceholder> </td> 
-  </tr> 
-  <tr> 
-    <td>&nbsp;</td> 
-    <td width="271"><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
-    <asp:Label ID="lblError" runat="server" Text="" Visible="false" CssClass="errorText"></asp:Label></td> 
-  </tr> 
-  <tr> 
-    <td>&nbsp;</td> 
-    <td>&nbsp;</td> 
-  </tr> 
-  <tr> 
-    <td>&nbsp;</td> 
-    <td>&nbsp;</td> 
-  </tr> 
-</table>     
-
+    <table width=100% >
+        <tr>
+            <td align=center valign=top>
+                <table style="width: 600px;" >
+                    <tr valign=top style="height:52">
+                      <td height="52"><img src="../Images/Logo_Datamed.gif" border="0" alt="Scott Regional Hospital"/></td>
+                      <td><img src="../Images/Header.jpg" width="523" height="51" alt="Meridian Radiology Associates"/></td>
+                    </tr>
+                    <tr style="height:30px" valign="middle">
+                      <td colspan="2">
+                          <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" valign="top">
+                            <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+                            </asp:contentplaceholder>                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
     </form>
 </body>
 </html>

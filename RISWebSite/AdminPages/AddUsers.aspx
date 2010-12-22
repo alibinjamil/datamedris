@@ -96,7 +96,7 @@
               <td class="heading">
               </td>
               <td>
-                  <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" Width="40px" /></td>
+                  <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" /></td>
               <td>
               </td>
           </tr>

@@ -5,8 +5,7 @@ using System.Data.SqlClient;
 
 using RIS.RISLibrary.Objects.DICOM;
 using RIS.RISLibrary.Objects.RIS;
-using RIS.RISLibrary.Database; 
-using RIS.RISLibrary.Utilities;
+using RIS.RISLibrary.Database;
 
 namespace RIS.RISService.DataMigrators
 {
@@ -20,7 +19,10 @@ namespace RIS.RISService.DataMigrators
         {
             return new DICOMSeriesObject();
         }
-
+        protected override string GetDICOMWhereClause()
+        {
+            return "";
+        }
         protected override RISObject GetRISObject()
         {
             return new SeriesObject();
@@ -29,13 +31,6 @@ namespace RIS.RISService.DataMigrators
         {
             return "";
         }
-        protected override void UpdateDICOMObject(DICOMObject dicomObject)
-        {
-            DICOMSeriesObject series = (DICOMSeriesObject)dicomObject;
-            series.SyncTime.Value = DateTime.Now;
-            series.Update(Constants.Database.SystemUserId);
-        }
-
         protected override RISObject GetRISObject(DICOMObject dicomObject)
         {
             SeriesObject risSeries = new SeriesObject();
@@ -66,8 +61,6 @@ namespace RIS.RISService.DataMigrators
             {
                 modalityDetail.Save();
             }
-
-
             risSeries.ModalityDetailId.Value = modalityDetail.GetPrimaryKey().Value;
             
             risStudy = new StudyObject();
@@ -76,28 +69,6 @@ namespace RIS.RISService.DataMigrators
             if (risStudy.IsLoaded)
             {
                 risSeries.StudyId.Value = risStudy.StudyId.Value;
-                if (dicomSeries.StationName.Value != null)
-                {
-                    StationObject station = new StationObject();
-                    station.ModalityId.Value = risModality.GetPrimaryKey().Value;
-                    station.StationName.Value = dicomSeries.StationName.Value;
-                    station.Instituition.Value = dicomSeries.Instituition.Value;
-                    station.Load();
-                    if (!station.IsLoaded)
-                    {
-                        station.Save();
-                    }
-                    risStudy.StationId.Value = station.GetPrimaryKey().Value;
-                    if (station.HospitalId.Value != null)
-                    {
-                        risStudy.HospitalId.Value = station.HospitalId.Value;
-                    }
-                    if (station.ClientId.Value != null)
-                    {
-                        risStudy.ClientId.Value = station.ClientId.Value;
-                    }
-                    risStudy.Save();
-                }
             }
             else
             {

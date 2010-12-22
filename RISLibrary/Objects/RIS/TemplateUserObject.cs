@@ -12,7 +12,7 @@ namespace RIS.RISLibrary.Objects.RIS
 		}
 		override public bool HasAccessColumns()
 		{
-			return false;
+			return true;
 		}
 		PrimaryKeyField m_TemplateUserId = new PrimaryKeyField("TemplateUserId",null,true);
 		override public PrimaryKeyField GetPrimaryKey()

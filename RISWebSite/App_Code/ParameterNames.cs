@@ -21,8 +21,7 @@ public static class ParameterNames
         public static string LoggedInUserRoleId = "LoggedInUserRoleId";
         public static string ErrorMessage = "ErrorMessage";
         public static string InformationMessage = "InformationMessage";
-        public static string LastLoginTime = "LastLoginTime";
-        //public static string LoggedInUserClientId = "LoggedInUserClientId";
+        public static string LastLoginTime = "LastLoginTime";        
     }
     public static class Request
     {
@@ -33,15 +32,5 @@ public static class ParameterNames
         public static string PatientName = "PatientName";
         public static string ExternalPatientId = "ExternalPatientId";
         public static string ReturnPage = "ReturnPage";
-        public static string GroupId = "GroupId";
-        public static string ClientId = "ClientId";
-        public static string TemplateId = "TemplateId";
-        public static string UserId = "UserId";
-        public static string Name = "Name";
-        public static string Description = "Description";
-    }
-    public static class Cookie
-    {
-        public static string ClientId = "ClientId";
     }
 }

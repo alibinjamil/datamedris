@@ -65,7 +65,7 @@ namespace RIS.RISService.DataMigrators
             QueryBuilder query = dicomObject.GetSelectQuery();
             query.AddText(GetDICOMWhereClause());
             DICOMDatabaseAccessLayer dicomDataAccessLayer = new DICOMDatabaseAccessLayer();
-            SqlDataReader reader = (SqlDataReader)dicomDataAccessLayer.ExecuteQuery(query);
+            OleDbDataReader reader = (OleDbDataReader)dicomDataAccessLayer.ExecuteQuery(query);
             ArrayList dicomObjects = new ArrayList();
             while (reader.Read())
             {

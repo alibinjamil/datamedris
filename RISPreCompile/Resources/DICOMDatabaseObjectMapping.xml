@@ -5,7 +5,6 @@
     <field type="TextField" columnName="PatientNam" name="Name"/>
     <field type="TextField" columnName="PatientBir" name="DateOfBirth"/>
     <field type="TextField" columnName="PatientSex" name="Gender"/>
-    <field type="DateTimeField" columnName="SyncTime" name="SyncTime"/>
   </entity>
   <entity tableName="DICOMStudies" objectName="DICOMStudyObject" HasAccessColumns="False" IsSqlType="false">
     <field type="PrimaryKeyField" columnName="StudyInsta" name="StudyInstance" Auto="False"/>
@@ -17,12 +16,13 @@
     <field type="TextField" columnName="PatientsAg" name="PatientsAge"/>
     <field type="TextField" columnName="PatientsWe" name="PatientsWeight"/>
     <field type="TextField" columnName="StudyModal" />
+    <field type="TextField" columnName="StationNam" name="StationName"/>
+    <field type="TextField" columnName="Institutio" name="Instituition"/>
     <field type="TextField" columnName="PatientID" />
     <field type="TextField" columnName="StudyDescr" name="StudyDescription"/>
     <field type="TextField" columnName="PatientBir" name="PatientDateOfBirth"/>
     <field type="TextField" columnName="PatientSex" />
     <field type="TextField" columnName="PatientNam" name="PatientName"/>
-    <field type="DateTimeField" columnName="SyncTime" name="SyncTime"/>
   </entity>
   <entity tableName="DICOMSeries" objectName="DICOMSeriesObject" HasAccessColumns="False" IsSqlType="false">
     <field type="PrimaryKeyField" columnName="SeriesInst" name="SeriesInstance" Auto="False"/>
@@ -40,9 +40,6 @@
     <field type="TextField" columnName="FrameOfRef" />
     <field type="TextField" columnName="SeriesPat" />
     <field type="TextField" columnName="StudyInsta" />
-    <field type="TextField" columnName="StationNam" name="StationName"/>
-    <field type="TextField" columnName="Institutio" name="Instituition"/>
-    <field type="DateTimeField" columnName="SyncTime" name="SyncTime"/>
   </entity>
   <entity tableName="UIDMODS" objectName="DICOMMODObject" HasAccessColumns="False" IsSqlType="false">
     <field type="PrimaryKeyField" columnName="OldUID" Auto="False"/>
@@ -100,6 +97,6 @@
     <field type="TextField" columnName="SeriesInst" />
     <field type="TextField" columnName="ObjectFile" />
     <field type="TextField" columnName="DeviceName" />
-    <field type="DateTimeField" columnName="SyncTime" name="SyncTime"/>
+   
   </entity>
 </entities>

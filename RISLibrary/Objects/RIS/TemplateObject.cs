@@ -12,7 +12,7 @@ namespace RIS.RISLibrary.Objects.RIS
 		}
 		override public bool HasAccessColumns()
 		{
-			return false;
+			return true;
 		}
 		PrimaryKeyField m_TemplateId = new PrimaryKeyField("TemplateId",null,true);
 		override public PrimaryKeyField GetPrimaryKey()
@@ -28,30 +28,6 @@ namespace RIS.RISLibrary.Objects.RIS
 			set
 			{
 				this.m_TemplateId = value;
-			}
-		}
-		IntField m_ModalityId = new IntField("ModalityId",null);
-		public IntField ModalityId
-		{
-			get
-			{
-				return this.m_ModalityId;
-			}
-			set
-			{
-				this.m_ModalityId = value;
-			}
-		}
-		TextField m_BodyPart = new TextField("BodyPart",null);
-		public TextField BodyPart
-		{
-			get
-			{
-				return this.m_BodyPart;
-			}
-			set
-			{
-				this.m_BodyPart = value;
 			}
 		}
 		TextField m_Name = new TextField("Name",null);
@@ -78,65 +54,19 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_Text = value;
 			}
 		}
-		TextField m_Heading = new TextField("Heading",null);
-		public TextField Heading
-		{
-			get
-			{
-				return this.m_Heading;
-			}
-			set
-			{
-				this.m_Heading = value;
-			}
-		}
-		TextField m_Description = new TextField("Description",null);
-		public TextField Description
-		{
-			get
-			{
-				return this.m_Description;
-			}
-			set
-			{
-				this.m_Description = value;
-			}
-		}
-		TextField m_Impression = new TextField("Impression",null);
-		public TextField Impression
-		{
-			get
-			{
-				return this.m_Impression;
-			}
-			set
-			{
-				this.m_Impression = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[7];
-			fields[0] = m_ModalityId;
-			fields[1] = m_BodyPart;
-			fields[2] = m_Name;
-			fields[3] = m_Text;
-			fields[4] = m_Heading;
-			fields[5] = m_Description;
-			fields[6] = m_Impression;
+			Field[] fields = new Field[2];
+			fields[0] = m_Name;
+			fields[1] = m_Text;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[8];
+			Field[] fields = new Field[3];
 			fields[0] = m_TemplateId;
-			fields[1] = m_ModalityId;
-			fields[2] = m_BodyPart;
-			fields[3] = m_Name;
-			fields[4] = m_Text;
-			fields[5] = m_Heading;
-			fields[6] = m_Description;
-			fields[7] = m_Impression;
+			fields[1] = m_Name;
+			fields[2] = m_Text;
 			return fields;
 		}
 	}

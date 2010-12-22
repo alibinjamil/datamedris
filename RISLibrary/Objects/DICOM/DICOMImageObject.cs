@@ -294,21 +294,9 @@ namespace RIS.RISLibrary.Objects.DICOM
 				this.m_DeviceName = value;
 			}
 		}
-		DateTimeField m_SyncTime = new DateTimeField("SyncTime",null);
-		public DateTimeField SyncTime
-		{
-			get
-			{
-				return this.m_SyncTime;
-			}
-			set
-			{
-				this.m_SyncTime = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[23];
+			Field[] fields = new Field[22];
 			fields[0] = m_ImageClassUI;
 			fields[1] = m_ImageNumber;
 			fields[2] = m_ImageDate;
@@ -331,12 +319,11 @@ namespace RIS.RISLibrary.Objects.DICOM
 			fields[19] = m_SeriesInst;
 			fields[20] = m_ObjectFile;
 			fields[21] = m_DeviceName;
-			fields[22] = m_SyncTime;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[24];
+			Field[] fields = new Field[23];
 			fields[0] = m_ImageInstance;
 			fields[1] = m_ImageClassUI;
 			fields[2] = m_ImageNumber;
@@ -360,7 +347,6 @@ namespace RIS.RISLibrary.Objects.DICOM
 			fields[20] = m_SeriesInst;
 			fields[21] = m_ObjectFile;
 			fields[22] = m_DeviceName;
-			fields[23] = m_SyncTime;
 			return fields;
 		}
 	}

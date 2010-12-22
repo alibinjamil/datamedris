@@ -13,7 +13,7 @@ using RIS.RISLibrary.Objects.RIS;
 /// <summary>
 /// Summary description for AuthenticatedPage
 /// </summary>
-public abstract class AuthenticatedPage : GenericPage
+public abstract class AuthenticatedPage : System.Web.UI.Page
 {
 	public AuthenticatedPage()
 	{
@@ -26,8 +26,6 @@ public abstract class AuthenticatedPage : GenericPage
     protected UserObject loggedInUser = null;
     protected int loggedInUserId = 0;
     protected int loggedInUserRoleId = 0;
-    protected Nullable<int> loggedInUserClientId = 0;
-    //protected Nullable<int> loggedInUserHospitalId = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
         //Refresh the expiration on the user's authentication ticket
@@ -44,7 +42,6 @@ public abstract class AuthenticatedPage : GenericPage
                 }
                 else
                 {
-                    Session[ParameterNames.Session.ErrorMessage] = Messages.Error.SessionExpired;
                     //Session[ParameterNames.Session.ErrorMessage] = Messages.Error.YouMustBeLoggedIn;
                     PagesFactory.Transfer(PagesFactory.Pages.LoginPage);
                 }
@@ -53,14 +50,6 @@ public abstract class AuthenticatedPage : GenericPage
             {
                 loggedInUser = (UserObject)Session[ParameterNames.Session.LoggedInUser];
                 loggedInUserId = (int)loggedInUser.UserId.Value;
-                /*if (loggedInUser.ClientId != null && loggedInUser.ClientId.Value != null)
-                {
-                    loggedInUserClientId = (int)loggedInUser.ClientId.Value;
-                }*/
-                /*if (loggedInUser.HospitalId != null && loggedInUser.HospitalId.Value != null && (int)loggedInUser.HospitalId.Value != 0)
-                {
-                    loggedInUserHospitalId = (int)loggedInUser.HospitalId.Value;
-                }*/
                 if (Session[ParameterNames.Session.LoggedInUserRoleId] != null)
                 {
                     loggedInUserRoleId = (int)Session[ParameterNames.Session.LoggedInUserRoleId];

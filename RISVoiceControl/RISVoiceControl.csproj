@@ -93,10 +93,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost/WebServices/AudioUpload.asmx">
+    <WebReferenceUrl Include="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\RISServer\</RelPath>
-      <UpdateFromURL>http://localhost/WebServices/AudioUpload.asmx</UpdateFromURL>
+      <UpdateFromURL>http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
