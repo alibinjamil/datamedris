@@ -504,7 +504,7 @@ function DynamicWebTwain1_OnMouseClick(index) {
 											<param name="MaxImagesInBuffer" value="1" />
 											<param name="TIFFCompressionType" value="0" />
 											<param name="IfFitWindow" value="-1" />
-											<param name="IfSSL" value="0" />
+											<param name="IfSSL" value="true" />
 										</object>
 									</td>
 								</tr>
