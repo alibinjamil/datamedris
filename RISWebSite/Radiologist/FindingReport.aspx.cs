@@ -9,46 +9,96 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Text;
-using System.Xml;
+
 using RIS.RISLibrary.Objects.RIS;
 using RIS.RISLibrary.Utilities;
-using System.IO;
 
 public partial class Radiologist_FindingReport : AuthenticatedPage
 {
-    ReportObject report = null;
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
         int studyId = int.Parse(Request[ParameterNames.Request.StudyId]);
-        report = new ReportObject(studyId,true);
-        if (report.Load())
+        StudyObject study = new StudyObject();
+        study.GetPrimaryKey().Value = studyId;
+        study.Load();
+        if (study.IsLoaded)
         {
-            if (IsPostBack == false)
+            if (study.IsManual.Value != null && study.IsManual.Value.ToString().Equals("Y"))
             {
-                faxBtn.OnClientClick = ClientClickForFaxBtn();
+                lblManualStatus.Text = "This report was imported from another system.";
+            }
+            PatientObject patient = new PatientObject();
+            patient.GetPrimaryKey().Value = study.PatientId.Value;
+            patient.Load();
+            if (patient.IsLoaded)
+            {
+                lblPatientId.Text = (string)patient.ExternalPatientId.Value ;
+                lblPatientName.Text = (string)patient.Name.Value;
+                lblSex.Text = (string)patient.Gender.Value;
+                if(patient.DateOfBirth.Value != null)
+                {
+                    DateTime dob = (DateTime)patient.DateOfBirth.Value;
+                    lblAge.Text = (DateTime.Now.Year - dob.Year).ToString();
+                }
+            }
+            if (study.ReferringPhysicianId.Value != null)
+            {
+                UserObject requestingPhysician = new UserObject();
+                requestingPhysician.UserId.Value = study.ReferringPhysicianId.Value;
+                requestingPhysician.Load();
+                if (requestingPhysician.IsLoaded)
+                {
+                    lblDoctor.Text = (string)requestingPhysician.Name.Value;
+                }
+                else
+                {
+                    lblDoctor.Text = "(N/A)";
+                }
+            }
+            else
+            {
+                lblDoctor.Text = "(N/A)";
             }
 
-            lblClientName.Text = report.ClientName;
-            lblClientAddress.Text = report.ClientAddress;
-            lblModality.Text = report.Modality;
-            lblManualStatus.Text = report.ManualStatus;
-            lblPatientName.Text = report.PatientName;
-            lblDOB.Text = report.DateOfBirth;
-            lblRefPhy.Text = report.ReferringPhysician;
-            lblStudyDate.Text = report.StudyDate;
-            
-            lblTranscription.Text = report.Transcription;
-            lblReportDateTime.Text = report.ReportDateTime;
-            lblReportDate.Text = report.ReportDate;
-                
-            lblRadiologist.Text = report.Radiologist;
-            lblStatus.Text = report.Status;
-            lblHospitalName.Text = report.HospitalName;
+            lblStudyDate.Text = ((DateTime)study.StudyDate.Value).ToString();
+            FindingObject finding = new FindingObject();
+            finding.FindingId.Value = (int)study.LatestFindingId.Value;
+            finding.Load();
+            if(finding.IsLoaded)
+            {
+                if(finding.TranscriptionDate.Value != null)
+                    lblTranscriptionDate.Text = ((DateTime)finding.TranscriptionDate.Value).ToString();
+                lblTranscription.Text = GetTrascription((string)finding.TextualTranscript.Value);
+                UserObject transcriptionist = new UserObject();
+                transcriptionist.UserId.Value = finding.TranscriptUserId.Value;
+                transcriptionist.Load();
+                if (transcriptionist.IsLoaded)
+                {
+                    lblTranscriptionist.Text = (string)transcriptionist.Name.Value;
+                }
+                if (finding.AudioUserId.Value != null)
+                {
+                    UserObject radiologist = new UserObject();
+                    radiologist.UserId.Value = finding.AudioUserId.Value;
+                    radiologist.Load();
+                    if (radiologist.IsLoaded)
+                        lblRadiologist.Text = (string)radiologist.Name.Value;
+                }
+                if (finding.AudioDate.Value != null)
+                    lblDictationDate.Text = ((DateTime)finding.AudioDate.Value).ToString();
+            }
+            StudyStatusTypeObject studyStatus = new StudyStatusTypeObject();
+            studyStatus.StudyStatusTypeId.Value = study.StudyStatusId.Value;
+            studyStatus.Load();
+            if (studyStatus.IsLoaded)
+            {
+                lblStatus.Text = (string)studyStatus.Status.Value;
+            }
 
             LogObject log = new LogObject();
             log.UserId.Value = loggedInUserId;
-            log.StudyId.Value = studyId;
-            log.PatientId.Value = report.PatientId;
+            log.StudyId.Value = study.StudyId.Value;
+            log.PatientId.Value = study.PatientId.Value;
             log.Action.Value = Constants.LogActions.ViewedStudy;
             log.ActionTime.Value = DateTime.Now;
             log.Save();
@@ -59,31 +109,39 @@ public partial class Radiologist_FindingReport : AuthenticatedPage
         return true;
     }
 
-
-
-    protected void pdfBtn_Click(object sender, ImageClickEventArgs e)
+    private string GetTrascription(string transcription)
     {
-        Response.Redirect("~/Radiologist/DownloadReport.aspx?" + ParameterNames.Request.StudyId + "=" + Request[ParameterNames.Request.StudyId]);
-    }
-    protected void faxBtn_Click(object sender, ImageClickEventArgs e)
-    {
-        string fax = FaxSender.Instance.SendFax(int.Parse(Request[ParameterNames.Request.StudyId]));
-        if (fax != null)
+        StringBuilder newString = new StringBuilder();
+        bool skip = false;
+        for (int i = 0; i < transcription.Length; i++)
         {
-            RegisterStartupScript("FaxSent", "<script>alert('Selected report has been routed for fax to " + fax + "')</script>");
+            int currentChar = (int)transcription[i];
+            switch (currentChar)
+            {
+                case 10:
+                    if (skip == false)
+                    {
+                        newString.Append("<BR/>");
+                        skip = true;
+                    }
+                    else
+                        skip = false;
+                    break;
+                case 13:
+                    if (skip == false)
+                    {
+                        newString.Append("<BR/>");
+                        skip = true;
+                    }
+                    else
+                        skip = false;
+                    break;
+                default:
+                    skip = false;
+                    newString.Append((char)currentChar);
+                    break;
+            }
         }
-    }
-    protected string ClientClickForFaxBtn()
-    {
-        if (report != null && report.Fax != null)
-        {
-            return "return confirm('You have selected to fax this report to " + report.Fax + ".  Click OK to fax or Cancel to return.');";
-        }
-        return "alert('No fax number is available for this facility.  Please ask your system administrator to enter a fax number for this facility from the Hospital Administration tab.');return false;";
-    }
-
-    protected void viewBtn_Click(object sender, ImageClickEventArgs e)
-    {
-        Response.Redirect("~/WebScan/AttachmentsList.aspx?" + ParameterNames.Request.StudyId + "=" + Request[ParameterNames.Request.StudyId]);
+        return newString.ToString();
     }
 }

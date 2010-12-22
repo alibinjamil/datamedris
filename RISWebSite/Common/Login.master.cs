@@ -38,16 +38,4 @@ public partial class Common_Login : System.Web.UI.MasterPage
         lblMessage.CssClass = "informationText";
     }
 
-    public string GetLogoURL()
-    {
-        HttpCookie cookie = Request.Cookies[ParameterNames.Cookie.ClientId];
-        if (cookie != null)
-        {
-            return "../Images/" + cookie.Value + "_Login.jpg";
-        }
-        else
-        {
-            return "../Images/Datamed_login.jpg";
-        }
-    }
 }

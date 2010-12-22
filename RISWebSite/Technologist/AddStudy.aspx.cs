@@ -30,45 +30,17 @@ public partial class Technologist_AddStudy : AuthenticatedPage
                 tbPatId.Text = Request[ParameterNames.Request.ExternalPatientId];
                 LoadPatientData();
             }
-            if (loggedInUserRoleId == Constants.Roles.Radiologist)
-            {
-                //tbRadiologist.Text = (string)loggedInUser.Name.Value;
-                //tbRadiologist.Enabled = false;
-
-            }
             //BindDDL();
         }
     }
-    protected string Radiologists
-    {
-        get
-        {
-            StringBuilder radiologists = new StringBuilder();
-            UsersTableAdapters.tUsersTableAdapter rads = new UsersTableAdapters.tUsersTableAdapter();
-            IEnumerator iEnum = rads.GetActiveUsersByRole(Constants.Roles.Radiologist).GetEnumerator();
-            while (iEnum.MoveNext())
-            {
-                Users.tUsersRow rad = (Users.tUsersRow)iEnum.Current;
-                radiologists.Append("\"").Append(rad.Name).Append("\"").Append(",");
-            }
-            //radiologists.Append("\"Alabama\"","\"Alaska\"");
-            return radiologists.ToString();
-        }
-    }
-
     protected override bool IsPopUp()
     {
         return false;
     }
     private void BindDDL()
     {
-        /*ClientTableAdapters.tClientsTableAdapter ta = new ClientTableAdapters.tClientsTableAdapter();
-        ddlClients.DataSource = ta.GetClientsForUser(loggedInUserId);
-        ddlClients.DataTextField = "Name";
-        ddlClients.DataValueField = "ClientId";
-        ddlClients.DataBind();*/
-        //DatabaseUtility.BindUserDDL(Constants.Roles.ReferringPhysician, Labels.DDLTexts.PleaseSelect, ddlRef);
-        //DatabaseUtility.BindUserDDL(Constants.Roles.Radiologist, Labels.DDLTexts.PleaseSelect, ddlRadiologist);
+        DatabaseUtility.BindUserDDL(Constants.Roles.ReferringPhysician, Labels.DDLTexts.PleaseSelect, ddlRef);
+        DatabaseUtility.BindUserDDL(Constants.Roles.Radiologist, Labels.DDLTexts.PleaseSelect, ddlRadiologist);
     }
     protected void OnPatientIdChange(object sender, EventArgs e)
     {
@@ -115,8 +87,6 @@ public partial class Technologist_AddStudy : AuthenticatedPage
     }
     protected void Wizard1_FinishButtonClick(object sender, WizardNavigationEventArgs e)
     {
-        string status = hfStatus.Value;
-        
         PatientObject patient = new PatientObject();
         patient.ExternalPatientId.Value = tbPatId.Text;
         patient.Load(loggedInUserId);
@@ -128,25 +98,25 @@ public partial class Technologist_AddStudy : AuthenticatedPage
         study.PatientId.Value = patient.PatientId.Value;
         Random rand = new Random();
         study.StudyInstance.Value = rand.Next().ToString();
-        DateTime dateTime = new DateTime(dcExamDate.Year, dcExamDate.Month, dcExamDate.Day);
+        DateTime dateTime = new DateTime(dcExamDate.Year, dcExamDate.Month, dcExamDate.Day, tcExamTime.Hour, tcExamTime.Minute, 0);
         study.StudyDate.Value = dateTime;
         study.ReferringPhysicianId.Value = ddlRef.SelectedValue;
         study.IsManual.Value = "Y";
-        study.StudyStatusId.Value = hfStatus.Value;
+        study.StudyStatusId.Value = Constants.StudyStatusTypes.PendingVerification;
         study.ModalityId.Value = ddlModality.SelectedValue;
         study.ProcedureId.Value = ddlProcedures.SelectedValue;
-        if (ddlClient.SelectedIndex > 0)
-        {
-            study.ClientId.Value = ddlClient.SelectedValue;
-        }
-        if (ddlHospital.SelectedIndex > 0)
-        {
-            study.HospitalId.Value = ddlHospital.SelectedValue;
-        }
         study.Save(loggedInUserId);
-        
-        study.TechComments.Value = tbTechComments.Text;
+        FindingObject finding = new FindingObject();
+        finding.AudioUserId.Value = ddlRadiologist.SelectedValue;
+        finding.StudyId.Value = study.StudyId.Value;
+        finding.TextualTranscript.Value = tbFinding.Text;
+        finding.TranscriptUserId.Value = loggedInUserId;
+        finding.TranscriptionDate.Value = DateTime.Now;
+        finding.Save(loggedInUserId);
+        study.LatestFindingId.Value = finding.FindingId.Value;
         study.Save(loggedInUserId);
+        GroupsTableAdapters.tGroupsTableAdapter groupsTA = new GroupsTableAdapters.tGroupsTableAdapter();
+        groupsTA.InsertStudyDefaultGroup(int.Parse(study.StudyId.Value.ToString()), loggedInUserId);
         //code for logging
         LogObject log = new LogObject();
         log.UserId.Value = loggedInUserId;
@@ -218,62 +188,8 @@ public partial class Technologist_AddStudy : AuthenticatedPage
     {
         ddlRef.Items.Insert(0, new ListItem(Labels.DDLTexts.PleaseSelect, "0"));
     }
-    protected void ddlClient_SelectedIndexChanged(object sender, EventArgs e)
+    protected void ddlRadiologist_DataBound(object sender, EventArgs e)
     {
-        //BindHospital();
-    }
-    protected void ddlClient_DataBound(object sender, EventArgs e)
-    {
-        ddlClient.Items.Insert(0, new ListItem(Labels.DDLTexts.PleaseSelect, "0"));
-        /*if (IsPostBack == false)
-        {
-            BindHospital();
-        }*/
-    }
-    protected void ddlHospital_DataBound(object sender, EventArgs e)
-    {
-        ddlHospital.Items.Insert(0, new ListItem(Labels.DDLTexts.PleaseSelect, "0"));
-        if (IsPostBack == false)
-        {
-            BindRefPhy();
-        }
-    }
-    private void BindHospital()
-    {
-        HospitalsTableAdapters.tHospitalsTableAdapter ta = new HospitalsTableAdapters.tHospitalsTableAdapter();
-        ddlHospital.DataSource = ta.GetHospitalsForUser(loggedInUserId);
-        ddlHospital.DataTextField = "Name";
-        ddlHospital.DataValueField = "HospitalId";
-        ddlHospital.DataBind();
-    }
-    private void BindRefPhy()
-    {
-        UsersTableAdapters.tUsersTableAdapter ta = new UsersTableAdapters.tUsersTableAdapter();
-        ddlRef.DataSource = ta.GetUsersForHospital(int.Parse(ddlClient.SelectedValue), int.Parse(ddlHospital.SelectedValue), Constants.Roles.ReferringPhysician);
-        ddlRef.DataTextField = "Name";
-        ddlRef.DataValueField = "UserId";
-        ddlRef.DataBind();
-    }
-    protected void ddlHospital_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        BindRefPhy();
-    }
-    protected void Wizard1_ActiveStepChanged(object sender, EventArgs e)
-    {
-        if (Wizard1.ActiveStepIndex == 2)
-        {
-            lblClient.Text = ddlClient.SelectedItem.Text;
-            lblDOB.Text = dcDOB.Date.ToShortDateString();
-            lblExamDate.Text = dcExamDate.Date.ToShortDateString();
-            lblFirstName.Text = tbPatFName.Text;
-            lblGender.Text = rblGender.SelectedItem.Text;
-            lblHospital.Text = ddlHospital.SelectedItem.Text;
-            lblLastName.Text = tbPatLName.Text;
-            lblModality.Text = ddlModality.SelectedItem.Text;
-            lblPatientID.Text = tbPatId.Text;
-            lblProcedure.Text = ddlProcedures.SelectedItem.Text;
-            lblRefPhy.Text = ddlRef.SelectedItem.Text;
-            lblTechComments.Text = tbTechComments.Text;
-        }
+        ddlRadiologist.Items.Insert(0, new ListItem(Labels.DDLTexts.PleaseSelect, "0"));
     }
 }

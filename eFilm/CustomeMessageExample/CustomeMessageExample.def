@@ -1,9 +1,0 @@
-; CustomeMessageExample.def : Declares the module parameters.
-
-LIBRARY      "CustomeMessageExample.OCX"
-
-EXPORTS
-	DllCanUnloadNow     PRIVATE
-	DllGetClassObject   PRIVATE
-	DllRegisterServer   PRIVATE
-	DllUnregisterServer PRIVATE

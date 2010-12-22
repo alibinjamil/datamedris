@@ -1,1 +1,0 @@
-update tUsers SET ResetPassword = 1;

@@ -2,29 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <table border="0" width="100%">
         <tr>
-            <td colspan="2" align="right">
-                <asp:ImageButton ID="viewBtn" runat="server" 
-                    ImageUrl="~/Images/attach-big.png" AlternateText="List of Views for this Exam" 
-                    style="margin-bottom:7px;margin-right:10px;" onclick="viewBtn_Click" />
-                <asp:ImageButton ID="pdfBtn" runat="server" 
-                    ImageUrl="~/Images/pdf-icon.gif" AlternateText="Get PDF for the Report" 
-                    onclick="pdfBtn_Click"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="faxBtn" runat="server" 
-                    ImageUrl="~/Images/faxIcon.gif" AlternateText="Fax the report to Hopsital" 
-                    onclick="faxBtn_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="printBtn"
-                    runat="server" ImageUrl="~/Images/icon-print.jpg" OnClientClick="window.print();return false;" AlternateText="Print the report"/>
-            </td>
-        </tr>
-        <tr>
             <td colspan="2" class="heading">
                 <div style="width:90%;text-align:center">
-                    <asp:Label ID="lblClientName" runat="server" Text=""></asp:Label>
-                    <br />                    
-                    <asp:Label ID="lblClientAddress" runat="server" Text=""></asp:Label>
-                    <br />
-                    <asp:Label ID="lblHospitalName" runat="server" Text=""></asp:Label>
-                    
+                Scott Regional Hospital <br /> 317 Highway 13 S <br /> Morton, MS 39117 <br /> (601) 732-6301
                 </div>
             </td>
         </tr>
@@ -39,45 +19,26 @@
             </td>
         </tr>        
         <tr>
-            <td style="width:50%"><b>PATIENT NAME:
-            </b>
+            <td style="width:50%">Name:&nbsp;<asp:Label ID="lblPatientName" runat="server" Text=""></asp:Label>
             </td>
-            <td style="width:50%"><asp:Label ID="lblPatientName" runat="server" Text=""></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td style="width:50%"><b>DATE OF BIRTH:
-            </b>
-            </td>
-            <td style="width:50%"><asp:Label ID="lblDOB" runat="server" Text=""></asp:Label>
+            <td style="width:50%">Patient ID:&nbsp;<asp:Label ID="lblPatientId" runat="server" Text=""></asp:Label>
             </td>
         </tr>
         <tr>
-            <td style="width:50%"><b>DATE OF EXAM:
-            </b>
+            <td style="width:50%">Gender:&nbsp;<asp:Label ID="lblSex" runat="server" Text=""></asp:Label>
             </td>
-            <td style="width:50%"><asp:Label ID="lblStudyDate" runat="server" Text=""></asp:Label>
+            <td style="width:50%">Age:&nbsp;<asp:Label ID="lblAge" runat="server" Text=""></asp:Label>
             </td>
         </tr>
-         <tr>
-            <td style="width:50%"><b>TYPE OF EXAM:</b></td>
-            <td style="width:50%"><asp:Label ID="lblModality" runat="server" Text=""></asp:Label>
-            </td>            
-        </tr>
-         <tr>
-            <td style="width:50%"><b>REFERRING PHYSICAN:</b></td>
-            <td style="width:50%"><asp:Label ID="lblRefPhy" runat="server" Text=""></asp:Label>
-            </td>            
-        </tr>
-         <tr>
-            <td style="width:50%"><b>REPORT DATE:</b></td>
-            <td style="width:50%"><asp:Label ID="lblReportDate" runat="server" Text=""></asp:Label>
-            </td>            
+        <tr>
+            <td style="width:50%">Physician:&nbsp;<asp:Label ID="lblDoctor" runat="server" Text=""></asp:Label>
+            </td>
+            <td style="width:50%">Study Date:&nbsp;<asp:Label ID="lblStudyDate" runat="server" Text=""></asp:Label>
+            </td>
         </tr>
          <tr>
             <td colspan="2">&nbsp;</td>
         </tr>
-        
         <tr>
             <td colspan="2"><asp:Label ID="lblTranscription" runat="server" Text=""></asp:Label></td>
         </tr>
@@ -88,17 +49,14 @@
             <td colspan="2">&nbsp;</td>
         </tr>
          <tr>
+            <td colspan="2"><asp:Label ID="lblRadiologist" runat="server" Text=""></asp:Label>:&nbsp;<asp:Label ID="lblTranscriptionist" runat="server" Text=""></asp:Label>&nbsp;DD:&nbsp;<asp:Label ID="lblDictationDate" runat="server" Text=""></asp:Label>&nbsp;DT:&nbsp;<asp:Label ID="lblTranscriptionDate" runat="server" Text=""></asp:Label></td>
+        </tr>        
+         <tr>
             <td colspan="2">&nbsp;</td>
-        </tr>        
-         <tr>
-            <td colspan="2"><asp:Label ID="lblRadiologist" runat="server" Text=""></asp:Label></td>
-        </tr>        
-         <tr>
-            <td colspan="2"><asp:Label ID="lblReportDateTime" runat="server" Text=""></asp:Label></td>
         </tr>
 
          <tr>
-            <td colspan="2"><b>Report Status: <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label></b></td>
+            <td colspan="2"><asp:Label ID="lblStatus" runat="server" Text=""></asp:Label></td>
         </tr>
          <tr>
             <td colspan="2">&nbsp;</td>

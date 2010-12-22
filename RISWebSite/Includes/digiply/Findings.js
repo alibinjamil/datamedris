@@ -15,14 +15,10 @@ var statusDialog=null;
 var modalityDialog=null;
 var loadingVoiceControl = false;
 var loadingFinding = false;
-var saveFindingTimer = null;
-/*var callback = {
+var callback = {
     success : function(o) {
         if(o.responseXML.documentElement.firstChild != null)
-        {
            document.getElementById('findingTextArea').value = o.responseXML.documentElement.firstChild.nodeValue;                                
-           $("#findingTextArea").htmlarea("updateHtmlArea");
-        }
         loadingFinding = false;
         hideLoading();
     },
@@ -30,7 +26,7 @@ var saveFindingTimer = null;
         loadingFinding = false;
         hideLoading();
     }
-}*/
+}
 
 var saveFindingCallback = {
     success : function(o) {
@@ -44,12 +40,12 @@ var saveFindingCallback = {
             {                
                 studyList[currentIndex].FindingId = parseInt(o.responseXML.documentElement.firstChild.nodeValue);            
             }
-            //saveFindingTimer = setTimeout("saveFinding()",30000);
+            setTimeout("saveFinding()",30000);
         }
     },
     failure : function(o) {
-        if(document.getElementById("currentIndex").value != "-1");
-            //saveFindingTimer = setTimeout("saveFinding()",30000);
+        if(document.getElementById("currentIndex").value != "-1")
+            setTimeout("saveFinding()",30000);
     }
 }
 
@@ -66,7 +62,7 @@ var approveFindingCallback = {
 
 var allCountCallback = {
     success : function(o) {
-        //showCounts(o,"spanAll");
+        showCounts(o,"spanAll");
         callCountURL("GetNewCounts",newCountCallback,"");
     },
     failure : function(o) {
@@ -90,7 +86,7 @@ function showCounts(o,spanName)
 
 var newCountCallback = {
     success : function(o) {
-        //showCounts(o,"spanNew");
+        showCounts(o,"spanNew");
         callCountURL("GetUserCounts",userCountCallback,"loggedInUserName=" + document.getElementById("ctl00_ContentPlaceHolder1_hfLoggedInUserName").value);
     },
     failure : function(o) {
@@ -100,25 +96,16 @@ var newCountCallback = {
 
 var userCountCallback = {
     success : function(o) {
-        //showCounts(o,"spanUser");
+        showCounts(o,"spanUser");
     },
     failure : function(o) {
     }
 }
-//--------------------------logging Call back does nothing
-var logCallback = {
-    success : function(o) {
-    },
-    failure : function(o) {
-    }
-}
-
 //--------------------------------------------------------------
 var templateTextCallBack={
     success : function(o){  if(o.responseText!== undefined)
                                {
                                  document.getElementById("findingTextArea").value= o.responseXML.documentElement.firstChild.nodeValue;
-                                 $("#findingTextArea").htmlarea("updateHtmlArea");
                                }
                          },
     failure : function(o){  if(o.responseText!== undefined)
@@ -184,21 +171,10 @@ function getTimeString(data)
         return "0" + data;
     return "" + data;
 }
-function closeFindingWindow()
-{
-    jQuery("#findingDialogDiv").dialog('close'); 
-}
-
 function showFindingDialog(currentIndex,data)
 {   
-
-    document.getElementById("editFindingContentsDiv").src = "EditFinding.aspx?StudyId=" + studyList[currentIndex].StudyId;
-    
-    $("#findingDialogDiv").dialog({ title: "Report | " + studyList[currentIndex].PatientId + " | " + studyList[currentIndex].PatientName });
-    jQuery("#findingDialogDiv").dialog('open'); 
     //if(studyList[currentIndex].FindingId > 0)
-    /*
-    document.getElementById("findingDialogDiv").style.display = "block";
+    
     loadingDialog.show();
     document.getElementById("savedMessage").innerText = "";
     loadingVoiceControl = false;    
@@ -212,33 +188,26 @@ function showFindingDialog(currentIndex,data)
     document.getElementById("lblRadiologist").innerText = studyList[currentIndex].Radiologist;
     document.getElementById("lblPhysician").innerText = studyList[currentIndex].Physician;
     document.getElementById("currentIndex").value = currentIndex;
-    document.getElementById("techComments").value = studyList[currentIndex].TechComments;
     var loggedInUserRoleId = parseInt(document.getElementById("ctl00_ContentPlaceHolder1_hfLoggedInUserRoleId").value);
     var loggedInUserId = parseInt(document.getElementById("ctl00_ContentPlaceHolder1_hfLoggedInUserId").value);
     document.getElementById("tranTextDiv").innerHTML = "";
     //showViewer();
     if(studyList[currentIndex].Status != "Verified")
     {
-        //showVoiceControl(studyList[currentIndex],loggedInUserId,loggedInUserRoleId);        
+        showVoiceControl(studyList[currentIndex],loggedInUserId,loggedInUserRoleId);        
         
         if(loggedInUserRoleId == 2) // Rad
-        {            
+        {
             
-            //get the templates list
-            
-            //get templates only if it is not verified
-            if(studyList[currentIndex].Status != "Verified")
+            if(studyList[currentIndex].Status == "Pending Verification")
             {
-                
-                if(studyList[currentIndex].RadiologistId != 0 && studyList[currentIndex].RadiologistId != loggedInUserId)
+                if(studyList[currentIndex].RadiologistId != loggedInUserId)
                 {
                     document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Verify & Close' class='buttonStyle' onclick='alert(\"Verification of this report is limited to dictating radiologist\");' />";
                 }
                 else
                 {
-                    document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Save & Close without Verification' class='buttonStyle' onclick='markStudy();' />";
-                    document.getElementById("buttonsDiv").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;";
-                    document.getElementById("buttonsDiv").innerHTML += "<input type='button' value='Verify & Close' class='buttonStyle' onclick='approveStudy();' />";
+                    document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Verify & Close' class='buttonStyle' onclick='approveStudy();' />";
                 }
             }
         }
@@ -246,63 +215,48 @@ function showFindingDialog(currentIndex,data)
         {
             if(studyList[currentIndex].Status != "New")
             {            
-                //saveFindingTimer = setTimeout("saveFinding()",5000);
+                setTimeout("saveFinding()",30000);
                 document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Mark for Verification' class='buttonStyle' onclick='markStudy();' />";
-                document.getElementById("findingHeaderTran").style.display = "";
+                document.getElementById("tranTextDiv").innerHTML = "<input type='button' value='Spell Check' onclick='onSpellCheckClick();' /><br/>"
             }
         }
         else if(loggedInUserRoleId == 7) // Chief Tech
         {
             if(studyList[currentIndex].IsManual == "Y")
             {
-                document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Verify & Close' class='buttonStyle' onclick='approveStudy();' />";
-            }
+            document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Verify & Close' class='buttonStyle' onclick='approveStudy();' />";
+}
         }
     }
     if(loggedInUserRoleId == 2 && studyList[currentIndex].Status != "Verified")
     {
-        //Change this if you enable templates
-        //document.getElementById("findingHeaderRad").style.display = "";    
+        document.getElementById("ctl00_ContentPlaceHolder1_ddlTemplates").style.display="";
+        document.getElementById("ctl00_ContentPlaceHolder1_lblTemplate").style.display="";
+        document.getElementById("btnLoadTemplate").style.display="";    
     }
-    //if(studyList[currentIndex].FindingId > 0)
+    else
+    {
+        document.getElementById("ctl00_ContentPlaceHolder1_ddlTemplates").style.display="none";
+        document.getElementById("ctl00_ContentPlaceHolder1_lblTemplate").style.display="none";
+        document.getElementById("btnLoadTemplate").style.display="none";
+    }
+    if(studyList[currentIndex].FindingId > 0)
     {
         loadingFinding = true;
-        var data = "findingId=" + studyList[currentIndex].FindingId;
-        $.post('FindingText.aspx',data, function(data) {            
-            $('#tranTextDiv').html(data);
-            //make the post to load templates
-            if(loggedInUserRoleId == 2 && studyList[currentIndex].Status != "Verified")
-            {            
-                var templateData = 'userId=' + document.getElementById("ctl00_ContentPlaceHolder1_hfLoggedInUserId").value
-                    + "&modalityName=" + studyList[currentIndex].Modality            
-                $.post('TemplateList.aspx',templateData, function(data) {                   
-                    $('#divTemplates').html(data);
-                    loadingFinding = false;
-                    hideLoading();
-                    //saveFindingTimer = setTimeout("saveFinding()",5000);
-                });
-            }
-            else
-            {
-                loadingFinding = false;
-                hideLoading();            
-            }
-        });   
-        //var sURL = document.getElementById("ctl00_ContentPlaceHolder1_hfSURL").value + "/GetFindingData";
-        //var conn = YAHOO.util.Connect.asyncRequest("POST", sURL, callback,data);        
+        var sURL = document.getElementById("ctl00_ContentPlaceHolder1_hfSURL").value + "/GetFindingData";
+        var conn = YAHOO.util.Connect.asyncRequest("POST", sURL, callback,data);        
     }
     if(loggedInUserRoleId == 2) // Rad
     {   
-        //var imagesDiv = document.getElementById("tabImages");
-        //var url = "../WebViewer/DisplayStudyPage.aspx?StudyId=" + studyList[currentIndex].StudyId;
-        //imagesDiv.innerHTML ="<table style='width:100%' cellpadding='0' cellspacing='0' border='0'><tr><td align='left' valign='top'><iframe src='" + url + "'name='MyIFrame' height='490px' width='920px' FRAMEBORDER='0' MARGINWIDTH='0px' MARGINHEIGHT='0px' ></iframe></td><td align='right' valign='top'><img src='../Images/zoom.png' style='cursor:hand;' alt='Click to enlarge' onclick='goToStudyDisplay();'/></td></tr></table>";
+        var imagesDiv = document.getElementById("tabImages");
+        var url = "../WebViewer/DisplayStudyPage.aspx?StudyId=" + studyList[currentIndex].StudyId;
+        imagesDiv.innerHTML ="<table style='width:100%' cellpadding='0' cellspacing='0' border='0'><tr><td align='left' valign='top'><iframe src='" + url + "'name='MyIFrame' height='490px' width='920px' FRAMEBORDER='0' MARGINWIDTH='0px' MARGINHEIGHT='0px' ></iframe></td><td align='right' valign='top'><img src='../Images/zoom.png' style='cursor:hand;' alt='Click to enlarge' onclick='goToStudyDisplay();'/></td></tr></table>";
                               //+"<iframe src='" + url + "' width='100%' height='95%' FRAMEBORDER='0' MARGINWIDTH='0px' MARGINHEIGHT='0px' ></iframe><img src='../Images/zoom.png' style='cursor:hand;' alt='Click to enlarge' onclick='goToStudyDisplay();'/>";
     }
-    
-    //$("#findingTextArea").htmlarea();
+    document.getElementById("tranTextDiv").innerHTML += "<textarea rows='14' cols='95' id='findingTextArea' class='textBoxStyle'></textarea>";
     hideLoading();
-    //document.getElementById("tabButtons").style.display="none";
-    //document.getElementById("header").style.display="none";*/
+    document.getElementById("tabButtons").style.display="none";
+    document.getElementById("header").style.display="none";
 }
 
 function saveFinding()
@@ -311,8 +265,7 @@ function saveFinding()
     if(currentIndex >= 0)
     {
         var sURL = document.getElementById("ctl00_ContentPlaceHolder1_hfSURL").value + "/SaveFinding";
-        var data = getData(currentIndex) + "&studyStatusId=" + studyList[currentIndex].StatusId;
-        YAHOO.util.Connect.asyncRequest("POST",sURL,saveFindingCallback,data);
+        YAHOO.util.Connect.asyncRequest("POST",sURL,saveFindingCallback,getData(currentIndex));
     }        
 }
 
@@ -320,17 +273,13 @@ function getData(currentIndex)
 {
     var data = "studyId=" + studyList[currentIndex].StudyId + "&findingId=" + studyList[currentIndex].FindingId;
     data += "&userId=" + document.getElementById("ctl00_ContentPlaceHolder1_hfLoggedInUserId").value; 
-    data += "&heading=" + $("#headingTextBox").val() + "&description=" + $("#descriptionTextBox").val() + "&impression=" + $("#impressionTextBox").val();    
+    data += "&findingText=" + document.getElementById("findingTextArea").value;    
     return data;
 }
 
 function approveStudy()
 {
-    if(verifyFindingText())
-    {
-        //clearTimeout(saveFindingTimer);
-        updateStudy("ApproveStudy");
-    }
+    updateStudy("ApproveStudy");
 }
 function goToStudyDisplay()
 {
@@ -341,20 +290,16 @@ function goToStudyDisplay()
 //Function to request server for report text
 function getReportText()
 {
-        alert("here");
        var currentIndex = parseInt(document.getElementById("currentIndex").value);
-       var templateId = document.getElementById("ddlTemplates").value;
-       alert(templateId);
-       if(templateId > 0)
+       var templateId=document.getElementById("ctl00_ContentPlaceHolder1_ddlTemplates").value;
+       if(templateId>0)
        { 
-            var data="templateId="+templateId;
-            $.post('FindingText.aspx',data, function(data) {
-                    $('#tranTextDiv').html(data);
-            });           
-           /*var sUrl= document.getElementById("ctl00_ContentPlaceHolder1_hfWebServicesHomeURL").value+"/TemplatesData.asmx/TemplateText";
-           YAHOO.util.Connect.asyncRequest("Post",sUrl,templateTextCallBack,data);
-           if(studyList[currentIndex].Status == "New")
-           document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Verify & Close' class='buttonStyle' onclick='approveStudy();' />"; */
+       var data="templateId="+templateId;
+       var sUrl= document.getElementById("ctl00_ContentPlaceHolder1_hfWebServicesHomeURL").value+"/TemplatesData.asmx/TemplateText";
+       YAHOO.util.Connect.asyncRequest("Post",sUrl,templateTextCallBack,data);
+       if(studyList[currentIndex].Status == "New")
+       document.getElementById("buttonsDiv").innerHTML = "<input type='button' value='Verify & Close' class='buttonStyle' onclick='approveStudy();' />";
+ 
        }
 }
 
@@ -373,29 +318,9 @@ function updateStudy(url)
 
 function markStudy()
 {
-    if(verifyFindingText())
-    {
-        //clearTimeout(saveFindingTimer);
-        updateStudy("MarkStudy");
-    }
+    updateStudy("MarkStudy");
 }
 
-function verifyFindingText()
-{
-    return verifyText($("#headingTextBox").val()) 
-        && verifyText($("#descriptionTextBox").val()) 
-        && verifyText($("#impressionTextBox").val()) ;
-}
-function verifyText(findingText)
-{
-    findingText.replace(/^\s+|\s+$/g,"");
-    if(findingText.length <= 0)
-    {
-        document.getElementById("errorMessage").innerText = "Please enter valid transcription text."
-        return false;
-    }    
-    return true;
-}
 function hideLoading()
 {
     if(!loadingFinding && !loadingVoiceControl)
@@ -414,7 +339,7 @@ function showVoiceControl(currentStudyList,loggedInUserId,loggedInUserRoleId)
     if(loggedInUserRoleId == 2)
       {
         isRadiologist = true;
-        voiceControlObj.innerHTML = "<OBJECT  visible='false' id='VoiceControl' name='VoiceControl' classid='clsid:A3993B96-F2DF-4dd9-8D37-5C55E59FF553' VIEWASTEXT codebase='VoiceControl.cab'>";
+        voiceControlObj.innerHTML = "<OBJECT height='40px' visible='false' width='120px' id='VoiceControl' name='VoiceControl' classid='clsid:A3993B96-F2DF-4dd9-8D37-5C55E59FF553' VIEWASTEXT codebase='VoiceControl.cab'>";
       }
     else if(loggedInUserRoleId == 5)
       {
@@ -621,26 +546,25 @@ function init()
 
     loadingDialog.setHeader("Loading, please wait...");
     loadingDialog.setBody('<img src="../../Images/rel_interstitial_loading.gif" />');
-    loadingDialog.render();
+    loadingDialog.render(document.body);
     
-     /*findingDialog = new YAHOO.widget.Dialog("findingDialogDiv", 
-							{ width : "950px",
-						       fixedcenter: true,
-						       visible: false,
-						       draggable: false,
-						       close: true,
-						       modal: true,
-						       text: "Do you want to continue?",
-						       icon: YAHOO.widget.SimpleDialog.ICON_HELP,
-						       constraintoviewport: true
-							});*/
+     findingDialog = new YAHOO.widget.Dialog("findingDialogDiv", 
+							{ width : "990px",
+							  height : "575px",
+							  //fixedcenter : true,
+							  close : false,
+			                  zindex:3,
+			                  modal:true,							  
+							  visible : false, 
+							  constraintoviewport : true
+							});
 
     // findingDialog.setHeader("Add Finding"); 
-     //findingDialog.setHeader('<div style="float:left;">Finding</div><div style="float:right;text-align:right;"><input type="button" value=" X " onclick="closeWindow();"/></div>');
-     //findingDialog.render("container");
-     //YAHOO.util.Event.addListener(findingDialog,"close","test");
-     //callCountURL("GetAllCounts",allCountCallback,"");
-     /*
+     findingDialog.setHeader('<div><table width="100%"><tr><td align="left" width="50%">Add Finding</td><td align="right" width="50%"><a id="tabsLink" href="#" onclick="showHideTabs();">Show Tabs</a>&nbsp;&nbsp;<a id="controlLink" href="#" onclick="showHideControl();">Show VoiceControl</a>&nbsp;&nbsp;<input type="button" value=" x " onclick="closeWindow();"></td></tr></table></div>');
+     findingDialog.render(document.body);
+     YAHOO.util.Event.addListener(findingDialog,"close","test");
+     callCountURL("GetAllCounts",allCountCallback,"");
+     
      customDateDialog=new YAHOO.widget.Dialog("customDateDialogeDiv",
                                                  { width:"500px",
                                                    fixedcenter:true,
@@ -681,12 +605,9 @@ function init()
 							                      }
 							                     );
      modalityDialog.setHeader('<table width="100%"><tr><td align="left"><td>Modality</td><td width="100%" align="right"><input type="button" value="Apply" onclick="applyModality();">&nbsp;&nbsp;<input type="button" value="cancel" onclick="cancelModality();"></td></tr></table>');
-     modalityDialog.render(document.body);*/
+     modalityDialog.render(document.body);
      
-     //commenting tab view as this is not needed. We are opening RadScaper from main window
-     //var tabView = new YAHOO.widget.TabView('reportDiv'); 
-     showSearchBar();
-
+     var tabView = new YAHOO.widget.TabView('reportDiv'); 
 }
 function closeWindow()
 {
@@ -699,69 +620,5 @@ function closeWindow()
     document.aspnetForm.submit();
 }
 
-function log(studyId,patientId,action){
-    var data="studyId=" + studyId + "&patientId=" + patientId + "&action=" + action;
-    var sUrl= document.getElementById("ctl00_ContentPlaceHolder1_hfWebServicesHomeURL").value+"/LoggingService.asmx/Log";
-    YAHOO.util.Connect.asyncRequest("Post",sUrl,logCallback,data);
-}
-
-function invokeEFilm(patientId,accessionNumber,studyId)
-{
-    createEFilmAX(patientId,accessionNumber);
-    var eFilmDiv = document.getElementById("eFilmDiv");
-    var eFilmControl = document.getElementById('eFilmControl');
-    if(eFilmControl != null && eFilmControl.openStudy != null)
-    {        		
-		var result = eFilmControl.openStudy();
-		if(result)
-		{		
-			log(studyId,patientId,"Viewed Exam");
-			eFilmDiv.innerHTML = "";		
-		}
-		else
-		{
-            eFilmDiv.innerHTML = "eFilm could not be loaded for the selected study.";		
-		}
-    }
-    else
-    {
-        //invokeEFilm(patientId,
-		eFilmDiv.innerHTML = "ActiveX not installed. Please click here to install it.";
-    }
-}
-function createEFilmAX(patientId,accessionNumber)
-{
-	var eFilmDiv = document.getElementById("eFilmDiv");
-	var obj = " <OBJECT ID='eFilmControl' WIDTH=0 HEIGHT=0 CLASSID='CLSID:023E9FAE-9641-49B6-95A0-24F19E43698D' VIEWASTEXT CODEBASE='EFlimActiveX.CAB'> ";  
-    obj += " <PARAM NAME='_Version' VALUE='65536'/> ";
-    obj += " <PARAM NAME='_ExtentX' VALUE='2646'/> ";
-    obj += " <PARAM NAME='_ExtentY' VALUE='1323'/> ";
-    obj += " <PARAM NAME='_StockProps' VALUE='0'/>  ";
-	obj += " <PARAM NAME='patientId' VALUE='" + patientId + "'/>  ";
-	obj += " <PARAM NAME='accessionNo' VALUE='" + accessionNumber + "'/>  ";
-	obj += " </OBJECT> ";	
-	eFilmDiv.innerHTML = obj;
-}
-
-function openRadscaper(studyId)
-{
-    if(confirm("The image(s) you are about to view is/are provided for NON-DIAGNOSTIC purposes only.  Click OK to acknowledge and continue, or, Cancel to return"))
-    {   
-        var wOpen;
-        var sOptions;
-
-        sOptions = 'status=yes,menubar=no,scrollbars=yes,resizable=yes,toolbar=no';
-        sOptions = sOptions + ',width=' + (screen.availWidth - 10).toString();
-        sOptions = sOptions + ',height=' + (screen.availHeight - 122).toString();
-        sOptions = sOptions + ',screenX=0,screenY=0,left=0,top=0';
-
-        wOpen = window.open( '', 'Radscaper', sOptions );
-        wOpen.location = '../WebViewer/DisplayStudyPage.aspx?StudyId=' + studyId;
-        wOpen.focus();
-        wOpen.moveTo( 0, 0 );
-        wOpen.resizeTo( screen.availWidth, screen.availHeight );
-        return wOpen;
-    }
-}
 
 YAHOO.util.Event.onDOMReady(init);

@@ -39,7 +39,7 @@ public partial class Main : System.Web.UI.MasterPage
                 int loggedInUserRoleId = (int)Session[ParameterNames.Session.LoggedInUserRoleId];
                 if (loggedInUserRoleId == Constants.Roles.Admin)
                 {
-                    //hlScreens.Visible = true;
+                    hlScreens.Visible = true;
                 }
             }
             if (Session[ParameterNames.Session.LoggedInUserRoleId] != null)
@@ -47,16 +47,7 @@ public partial class Main : System.Web.UI.MasterPage
                 int loggedInUserRoleId = (int)Session[ParameterNames.Session.LoggedInUserRoleId];
                 if (loggedInUserRoleId == Constants.Roles.Technologist)
                 {
-                    //MenuTechnologist.Visible = true;
-                }
-                else if (loggedInUserRoleId == Constants.Roles.Admin)
-                {
-                    //MenuAdmin.Visible = true;
-                }
-                if (loggedInUserRoleId == Constants.Roles.Admin || loggedInUserRoleId == Constants.Roles.ClientAdmin
-                    || loggedInUserRoleId == Constants.Roles.HospitalAdmin )
-                {
-                    //hlDashBoard.Visible = true;
+                    MenuTechnologist.Visible = true;
                 }
             }
         }
@@ -101,18 +92,5 @@ public partial class Main : System.Web.UI.MasterPage
         Session.RemoveAll();
         Session.Abandon();
         PagesFactory.Transfer(PagesFactory.Pages.LoginPage);
-    }
-
-    protected string GetHeaderURL()
-    {
-        HttpCookie cookie = Request.Cookies[ParameterNames.Cookie.ClientId];
-        if (cookie != null)
-        {
-            return "../Images/" + cookie.Value + "_Header.jpg";
-        }
-        else
-        {
-            return "../Images/Datamed_Header.jpg";
-        }
     }
 }
