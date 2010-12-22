@@ -1,0 +1,153 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.00.50727.762 (93873341).
+//
+// e:\myprojects\ris\trunk\efilm\customemessageexample\debug\efilm.tlh
+//
+// C++ source equivalent of Win32 type library E:\\MyProjects\\RIS\trunk\\eFilm\\CustomeMessageExample\\eFilm.tlb
+// compiler-generated file created 06/22/09 at 02:36:19 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("c8cf03e5-fd1f-11d3-8c03-0080c8d3c5d3"))
+/* LIBID */ __EFilm;
+struct __declspec(uuid("c8cf03e6-fd1f-11d3-8c03-0080c8d3c5d3"))
+/* dispinterface */ IEFilm;
+struct /* coclass */ Document;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IEFilm, __uuidof(IEFilm));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("c8cf03e6-fd1f-11d3-8c03-0080c8d3c5d3"))
+IEFilm : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    // Methods:
+    VARIANT_BOOL oleOpenStudy (
+        _bstr_t strPatientID,
+        _bstr_t strAccessionNo,
+        VARIANT_BOOL bCloseCurWindow,
+        VARIANT_BOOL bAddToWindow,
+        short nSeriesRows,
+        short nSeriesCols,
+        short nImageRows,
+        short nImageCols,
+        VARIANT_BOOL bAutoSeriesFormat,
+        VARIANT_BOOL bAutoImageFormat );
+    VARIANT_BOOL oleShowMainWindow (
+        long nCmdShow );
+    VARIANT_BOOL oleShowSearchWindow (
+        long nCmdShow );
+    VARIANT_BOOL olePositionMainWindow (
+        short left,
+        short top,
+        short right,
+        short bottom );
+    VARIANT_BOOL oleSetForegroundWindow ( );
+    VARIANT_BOOL oleOpenSearchRemote (
+        _bstr_t strPatientID,
+        _bstr_t strAccessionNo );
+    VARIANT_BOOL oleOpenStudy2 (
+        _bstr_t strPatientID,
+        _bstr_t strAccessionNo,
+        VARIANT_BOOL bCloseCurWindow,
+        VARIANT_BOOL bAddToWindow,
+        short nSeriesRows,
+        short nSeriesCols,
+        short nImageRows,
+        short nImageCols,
+        VARIANT_BOOL bAutoSeriesFormat,
+        VARIANT_BOOL bAutoImageFormat,
+        _bstr_t strImageSource );
+    VARIANT_BOOL oleCloseAllWindows ( );
+    VARIANT_BOOL oleCloseCurrentWindow ( );
+    VARIANT_BOOL oleOpenStudy3 (
+        _bstr_t strPatientID,
+        _bstr_t strAccessionNo,
+        _bstr_t strStudyInstanceUID,
+        VARIANT_BOOL bCloseCurWindow,
+        VARIANT_BOOL bAddToWindow,
+        short nSeriesRows,
+        short nSeriesCols,
+        short nImageRows,
+        short nImageCols,
+        VARIANT_BOOL bAutoSeriesFormat,
+        VARIANT_BOOL bAutoImageFormat,
+        _bstr_t strImageSource );
+    VARIANT_BOOL oleSearch (
+        _bstr_t searchParams,
+        VARIANT * searchResults,
+        _bstr_t lpszImageSource );
+    VARIANT_BOOL oleOpenSearch (
+        _bstr_t strPatientID,
+        _bstr_t strAccessionNo,
+        _bstr_t lpszImageSource );
+    VARIANT_BOOL oleLoginViaDomain (
+        _bstr_t strUsername,
+        _bstr_t strPassword,
+        _bstr_t strDomainName );
+    VARIANT_BOOL oleLoginViaFusion (
+        _bstr_t strUsername,
+        _bstr_t strPassword,
+        _bstr_t strWSDLFile );
+    VARIANT_BOOL oleLoginViaFusionWithToken (
+        _bstr_t strUsername,
+        _bstr_t strToken,
+        _bstr_t strWSDLFile );
+    VARIANT_BOOL oleSaveCurrentUserProfile ( );
+    VARIANT_BOOL oleOpenStudy4 (
+        _bstr_t strOpenStudyInfoXML,
+        VARIANT_BOOL bCloseCurWindow,
+        VARIANT_BOOL bFindRelatedStudies,
+        unsigned long nNumPriors,
+        _bstr_t strProtocolListXML );
+    VARIANT_BOOL oleExportAsBitmap (
+        _bstr_t destinationDirectory,
+        short bitmapFormat );
+    VARIANT_BOOL oleLogout ( );
+    VARIANT_BOOL oleOpenStudy5 (
+        _bstr_t strOpenStudyInfoXML,
+        short nRows,
+        short nCols,
+        short nImageRows,
+        short nImageColumns,
+        VARIANT_BOOL bShowStudyManager,
+        VARIANT_BOOL bCloseCurWindow,
+        VARIANT_BOOL bFindRelatedStudies,
+        unsigned long nNumPriors,
+        VARIANT_BOOL bApplyHP,
+        _bstr_t strProtocolListXML );
+    VARIANT_BOOL oleLock ( );
+    VARIANT_BOOL oleUnlock ( );
+    VARIANT_BOOL oleIsLocked ( );
+    VARIANT_BOOL oleSelectServers (
+        _bstr_t strImageSourceGUID,
+        _bstr_t strServerList );
+};
+
+struct __declspec(uuid("c8cf03e4-fd1f-11d3-8c03-0080c8d3c5d3"))
+Document;
+    // [ default ] dispinterface IEFilm
+
+//
+// Wrapper method implementations
+//
+
+#include "e:\myprojects\ris\trunk\efilm\customemessageexample\debug\efilm.tli"
+
+#pragma pack(pop)

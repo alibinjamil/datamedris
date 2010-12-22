@@ -1,0 +1,5 @@
+E:\MyProjects\RIS\trunk\RISPreCompile\obj\Debug\RISPreCompile.exe
+E:\MyProjects\RIS\trunk\RISPreCompile\obj\Debug\RISPreCompile.pdb
+E:\MyProjects\RIS\trunk\RISPreCompile\bin\Debug\RISPreCompile.exe
+E:\MyProjects\RIS\trunk\RISPreCompile\bin\Debug\RISPreCompile.pdb
+E:\MyProjects\RIS\trunk\RISPreCompile\obj\Debug\ResolveAssemblyReference.cache
