@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://tempuri.org/AbstractTypes" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadCompleteFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="buffer" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="studyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="radiologistId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="findingId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadCompleteFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadCompleteFileResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="buffer" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="studyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="radiologistId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="findingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="isEnd" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="isStart" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UploadFileResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsFindingPresent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="findingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="radiologistId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsFindingPresentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsFindingPresentResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFileSize">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="findingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="radiologistId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFileSizeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFileSizeResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompleteFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="findingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="radiologistId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompleteFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompleteFileResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChunkSize">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetChunkSizeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetChunkSizeResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="anyType" nillable="true" />
+      <s:element name="int" type="s:int" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="long" type="s:long" />
+      <s:element name="base64Binary" nillable="true" type="s:base64Binary" />
+    </s:schema>
+    <s:schema targetNamespace="http://tempuri.org/AbstractTypes">
+      <s:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <s:complexType name="StringArray">
+        <s:complexContent mixed="false">
+          <s:restriction base="soapenc:Array">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="String" type="s:string" />
+            </s:sequence>
+          </s:restriction>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadCompleteFileSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadCompleteFile" />
+  </wsdl:message>
+  <wsdl:message name="UploadCompleteFileSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadCompleteFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFile" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsFindingPresentSoapIn">
+    <wsdl:part name="parameters" element="tns:IsFindingPresent" />
+  </wsdl:message>
+  <wsdl:message name="IsFindingPresentSoapOut">
+    <wsdl:part name="parameters" element="tns:IsFindingPresentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSizeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFileSize" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSizeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFileSizeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCompleteFileSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompleteFile" />
+  </wsdl:message>
+  <wsdl:message name="GetCompleteFileSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompleteFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChunkSizeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChunkSize" />
+  </wsdl:message>
+  <wsdl:message name="GetChunkSizeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChunkSizeResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpGetIn" />
+  <wsdl:message name="HelloWorldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadCompleteFileHttpGetIn">
+    <wsdl:part name="buffer" type="s1:StringArray" />
+    <wsdl:part name="fileName" type="s:string" />
+    <wsdl:part name="studyId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+    <wsdl:part name="findingId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadCompleteFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:anyType" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileHttpGetIn">
+    <wsdl:part name="buffer" type="s1:StringArray" />
+    <wsdl:part name="fileName" type="s:string" />
+    <wsdl:part name="studyId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="isEnd" type="s:string" />
+    <wsdl:part name="isStart" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="IsFindingPresentHttpGetIn">
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="IsFindingPresentHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSizeHttpGetIn">
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSizeHttpGetOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:message name="GetCompleteFileHttpGetIn">
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCompleteFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="GetChunkSizeHttpGetIn" />
+  <wsdl:message name="GetChunkSizeHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpPostIn" />
+  <wsdl:message name="HelloWorldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadCompleteFileHttpPostIn">
+    <wsdl:part name="buffer" type="s1:StringArray" />
+    <wsdl:part name="fileName" type="s:string" />
+    <wsdl:part name="studyId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+    <wsdl:part name="findingId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadCompleteFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:anyType" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileHttpPostIn">
+    <wsdl:part name="buffer" type="s1:StringArray" />
+    <wsdl:part name="fileName" type="s:string" />
+    <wsdl:part name="studyId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="isEnd" type="s:string" />
+    <wsdl:part name="isStart" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="IsFindingPresentHttpPostIn">
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="IsFindingPresentHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSizeHttpPostIn">
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSizeHttpPostOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:message name="GetCompleteFileHttpPostIn">
+    <wsdl:part name="findingId" type="s:string" />
+    <wsdl:part name="radiologistId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCompleteFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="GetChunkSizeHttpPostIn" />
+  <wsdl:message name="GetChunkSizeHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="AudioUploadSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadCompleteFile">
+      <wsdl:input message="tns:UploadCompleteFileSoapIn" />
+      <wsdl:output message="tns:UploadCompleteFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <wsdl:input message="tns:UploadFileSoapIn" />
+      <wsdl:output message="tns:UploadFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsFindingPresent">
+      <wsdl:input message="tns:IsFindingPresentSoapIn" />
+      <wsdl:output message="tns:IsFindingPresentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <wsdl:input message="tns:GetFileSizeSoapIn" />
+      <wsdl:output message="tns:GetFileSizeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteFile">
+      <wsdl:input message="tns:GetCompleteFileSoapIn" />
+      <wsdl:output message="tns:GetCompleteFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChunkSize">
+      <wsdl:input message="tns:GetChunkSizeSoapIn" />
+      <wsdl:output message="tns:GetChunkSizeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AudioUploadHttpGet">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpGetIn" />
+      <wsdl:output message="tns:HelloWorldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadCompleteFile">
+      <wsdl:input message="tns:UploadCompleteFileHttpGetIn" />
+      <wsdl:output message="tns:UploadCompleteFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <wsdl:input message="tns:UploadFileHttpGetIn" />
+      <wsdl:output message="tns:UploadFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsFindingPresent">
+      <wsdl:input message="tns:IsFindingPresentHttpGetIn" />
+      <wsdl:output message="tns:IsFindingPresentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <wsdl:input message="tns:GetFileSizeHttpGetIn" />
+      <wsdl:output message="tns:GetFileSizeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteFile">
+      <wsdl:input message="tns:GetCompleteFileHttpGetIn" />
+      <wsdl:output message="tns:GetCompleteFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChunkSize">
+      <wsdl:input message="tns:GetChunkSizeHttpGetIn" />
+      <wsdl:output message="tns:GetChunkSizeHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AudioUploadHttpPost">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpPostIn" />
+      <wsdl:output message="tns:HelloWorldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadCompleteFile">
+      <wsdl:input message="tns:UploadCompleteFileHttpPostIn" />
+      <wsdl:output message="tns:UploadCompleteFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <wsdl:input message="tns:UploadFileHttpPostIn" />
+      <wsdl:output message="tns:UploadFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsFindingPresent">
+      <wsdl:input message="tns:IsFindingPresentHttpPostIn" />
+      <wsdl:output message="tns:IsFindingPresentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <wsdl:input message="tns:GetFileSizeHttpPostIn" />
+      <wsdl:output message="tns:GetFileSizeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteFile">
+      <wsdl:input message="tns:GetCompleteFileHttpPostIn" />
+      <wsdl:output message="tns:GetCompleteFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChunkSize">
+      <wsdl:input message="tns:GetChunkSizeHttpPostIn" />
+      <wsdl:output message="tns:GetChunkSizeHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AudioUploadSoap" type="tns:AudioUploadSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadCompleteFile">
+      <soap:operation soapAction="http://tempuri.org/UploadCompleteFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <soap:operation soapAction="http://tempuri.org/UploadFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsFindingPresent">
+      <soap:operation soapAction="http://tempuri.org/IsFindingPresent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <soap:operation soapAction="http://tempuri.org/GetFileSize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteFile">
+      <soap:operation soapAction="http://tempuri.org/GetCompleteFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChunkSize">
+      <soap:operation soapAction="http://tempuri.org/GetChunkSize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AudioUploadSoap12" type="tns:AudioUploadSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadCompleteFile">
+      <soap12:operation soapAction="http://tempuri.org/UploadCompleteFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <soap12:operation soapAction="http://tempuri.org/UploadFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsFindingPresent">
+      <soap12:operation soapAction="http://tempuri.org/IsFindingPresent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <soap12:operation soapAction="http://tempuri.org/GetFileSize" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteFile">
+      <soap12:operation soapAction="http://tempuri.org/GetCompleteFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChunkSize">
+      <soap12:operation soapAction="http://tempuri.org/GetChunkSize" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AudioUploadHttpGet" type="tns:AudioUploadHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadCompleteFile">
+      <http:operation location="/UploadCompleteFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <http:operation location="/UploadFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsFindingPresent">
+      <http:operation location="/IsFindingPresent" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <http:operation location="/GetFileSize" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteFile">
+      <http:operation location="/GetCompleteFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChunkSize">
+      <http:operation location="/GetChunkSize" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AudioUploadHttpPost" type="tns:AudioUploadHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadCompleteFile">
+      <http:operation location="/UploadCompleteFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <http:operation location="/UploadFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsFindingPresent">
+      <http:operation location="/IsFindingPresent" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <http:operation location="/GetFileSize" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteFile">
+      <http:operation location="/GetCompleteFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChunkSize">
+      <http:operation location="/GetChunkSize" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AudioUpload">
+    <wsdl:port name="AudioUploadSoap" binding="tns:AudioUploadSoap">
+      <soap:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AudioUploadSoap12" binding="tns:AudioUploadSoap12">
+      <soap12:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AudioUploadHttpGet" binding="tns:AudioUploadHttpGet">
+      <http:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AudioUploadHttpPost" binding="tns:AudioUploadHttpPost">
+      <http:address location="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

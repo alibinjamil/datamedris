@@ -1,0 +1,11 @@
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\obj\Release\ResolveAssemblyReference.cache
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\obj\Release\RIS.RISVoiceControl.VoiceControl.resources
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\obj\Release\RISVoiceControl.csproj.GenerateResource.Cache
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\bin\Release\RISVoiceControl.dll.config
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\bin\Release\RISVoiceControl.dll
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\bin\Release\RISVoiceControl.XmlSerializers.dll
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\bin\Release\RISVoiceControl.pdb
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\obj\Release\RISVoiceControl.Properties.Resources.resources
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\obj\Release\RISVoiceControl.dll
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\obj\Release\RISVoiceControl.pdb
+E:\MyProjects\RIS\tags\prod20081025\RISVoiceControl\obj\Release\RISVoiceControl.XmlSerializers.dll

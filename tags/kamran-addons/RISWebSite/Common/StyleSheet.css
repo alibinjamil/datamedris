@@ -1,0 +1,405 @@
+body span
+{
+	font-size: 8pt;
+	color: black;
+	font-family: Arial, Garamond, 'Century Gothic';
+}
+
+.filterText
+{
+	cursor: hand;
+	color: royalblue;
+	font-family: Arial, Garamond, 'Century Gothic';
+	font-size: 7pt;
+	text-decoration: underline;
+	float: left;
+}
+.filterArea
+{
+	border-right:#FFFFFF 2px solid;
+	width:200px;
+	text-align:left;
+	vertical-align:top;
+	background-color:lightgrey;
+	padding-right:2px;
+}
+.filterTextSpan
+{
+	cursor: hand;
+	color: royalblue;
+	font-family: Arial, Garamond, 'Century Gothic';
+	font-size: 7pt;
+	text-decoration: underline;	
+}
+.filterTextHeading
+{
+	color: black;
+	font-family: Arial, Garamond, 'Century Gothic';
+	font-size: 7pt;
+	font-weight: bold;
+	float: left;
+}
+.filterTextBlank
+{
+	color: white;
+	font-family: Arial, Garamond, 'Century Gothic';
+	font-size: 7pt;
+	float: left;
+}
+
+.heading
+{
+	font-weight: bold;
+	font-size: 8pt;
+	color: black;
+	font-family: Arial, Garamond, 'Century Gothic';
+}
+.normal
+{
+	font-size: 8pt;
+	color: black;
+	font-family: Arial, Garamond, 'Century Gothic';
+}
+
+.labelStyle
+{
+	color: #009233;
+	font-family: Arial, 'Century Gothic' , Garamond;
+	font-size: 12pt;
+}
+.errorText
+{
+	font-weight: bold;
+	color: red;
+	font-size: 10pt;
+	font-family: Garamond;
+}
+.informationText
+{
+	font-weight: bold;
+	color: black;
+	font-size: 10pt;
+	font-family: Garamond;
+}
+.pageHeading
+{
+	font-size: 12pt;
+	color: black;
+	font-family: Arial, Garamond, 'Century Gothic';
+	font-weight: bold;
+}
+.headingRow
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: white;
+	font-family: Arial;
+	background-color: gray;
+	text-align: left;
+	height: 25px;
+}
+.headingLink
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: #000000;
+	font-family: Arial;
+	cursor: hand;
+	text-decoration: underline;
+}
+.footerRow
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: white;
+	font-family: Arial;
+	background-color: gray;
+	text-align: left;
+	height: 25px;
+}
+.searchCell
+{
+	font-size: 8pt;
+	color: black;
+	font-family: 'Arial Narrow' , Arial;
+	background-color: #ffffff;
+	text-align: center;
+	border-top: #000000 1px solid;
+	border-bottom: #000000 1px solid;
+}
+.firstSearchCell
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: white;
+	font-family: Arial;
+	background-color: #ffffff;
+	text-align: center;
+	height: 26px;
+	border-top: #000000 1px solid;
+	border-left: #000000 1px solid;
+	border-bottom: #000000 1px solid;
+	vertical-align: middle;
+}
+.lastSearchCell
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: white;
+	font-family: Arial;
+	background-color: #ffffff;
+	text-align: center;
+	height: 26px;
+	border-right: #000000 1px solid;
+	border-top: #000000 1px solid;
+	border-bottom: #000000 1px solid;
+}
+.dataCell
+{
+	font-size: 8pt;
+	color: black;
+	font-family: 'Arial Narrow' , Arial;
+	background-color: lightgrey;
+	text-align: left;
+	height: 20px;
+	border-bottom: #000000 1px solid;
+}
+.emptyRow
+{
+	height: 750px;
+}
+.dataTable
+{
+	left: 0px;
+	width: 970px;	
+	top: 0px;
+	padding : 0px;
+	table-layout: fixed
+}
+.dataTable a
+{
+	cursor: hand;
+	color: midnightblue;
+	font-family: 'Arial Narrow';
+	font-size: 8pt;
+}
+
+.normalPageLink
+{
+	color: #ffffff;
+	font-size: 10pt;
+	cursor: hand;
+	font-family: 'Arial Narrow';
+}
+
+.selectedPageLink
+{
+	color: #000000;
+	font-size: 10pt;
+	cursor: hand;
+	font-family: 'Arial Narrow';
+	font-weight: bold;
+}
+.dataEntryTable
+{
+	left: 0px;
+	width: 500px;
+	position: relative;
+	top: 0px;
+	padding : 0px;
+}
+.refreshImageClass
+{
+	border-right: #ffffff 0px solid;
+	border-top: #ffffff 2x solid;
+	border-left: #ffffff 0px solid;
+	border-bottom: #ffffff 2px solid;
+}
+.navBar
+{
+	background-color: silver;
+	font-size: 10pt;
+	color: black;
+	font-family: Arial;
+	height: 20px;	
+}
+.navBar .UserName
+{
+	font-size: 10pt;
+	color: black;
+	font-family: Arial;
+	font-weight: bold;
+}
+.navBar .Role
+{
+	font-size: 10pt;
+	color: black;
+	font-family: Arial;
+	font-style: italic;
+}
+.navBar .navLink
+{
+	font-size: 10pt;
+	color: black;
+	font-family: Arial;
+	font-style: normal;
+	text-decoration: underline;
+	cursor: hand;
+}
+a
+{
+	font-size: 10pt;
+	color: black;
+	font-family: Arial;
+	font-style: normal;
+	text-decoration: underline;
+	cursor: hand;
+}
+.whiteLink
+{
+	font-size: 10pt;
+	color: white;
+	font-family: Arial;
+	font-style: normal;
+	cursor: hand;
+	background-color: white;
+}
+.textBoxStyle
+{
+	font-size: 8pt;
+	font-family: Arial;
+	border-right: black 1px solid;
+	border-top: black 1px solid;
+	border-left: black 1px solid;
+	border-bottom: black 1px solid;
+	margin-left:-1
+}
+.buttonStyle
+{
+	font-size: 9pt;
+	font-family: Arial;
+	font-weight: bold;
+	cursor: hand;	
+}
+.dropDownListStyle
+{
+	font-size: 8pt;
+	font-family: Arial;
+	border-right: #000000 1px solid;
+	border-top: #000000 1px solid;
+	border-left: #000000 1px solid;
+	border-bottom: #000000 1px solid;
+}
+.selectListStyle
+{
+	font-size: 8pt;
+	font-family: Arial;
+    border-right: #000000 1px solid;
+	border-top: #000000 1px solid;
+	border-left: #000000 1px solid;
+	border-bottom: #000000 1px solid;
+	height: 20px;
+	width: 90px;
+	text-align:justify;
+}
+.radioButtonStyle
+{
+	font-size: 8pt;
+	font-family: Arial;
+}
+
+.hiddenLabel
+{
+	width: 0px;
+	color: white;
+}
+.headingCell
+{
+	border-right: black 1px outset;
+	border-top: black 1px outset;
+	border-left: black 1px outset;
+	border-bottom: black 1px outset;
+	font-weight: bold;
+	font-size: 10pt;
+	color: white;
+	font-family: Arial;
+	background-color: gray;
+	text-align: center;
+	cursor: hand;
+}
+.selectedHeadingCell
+{
+	border-right: black 1px inset;
+	border-top: black 1px inset;
+	border-left: black 1px inset;
+	border-bottom: black 1px inset;
+	font-weight: bold;
+	font-size: 10pt;
+	color: black;
+	font-family: Arial;
+	background-color: gray;
+	text-align: center;
+	cursor: hand;
+}
+.reportTable
+{
+	left: 0px;
+	width: 8.5in;
+	position: absolute;
+	top: 0px;
+	height: 11.5in;	
+}
+.linkImage
+{
+	cursor: hand;
+}
+.warningText
+{
+	font-size: 7pt;
+	color: red;
+	font-family: Arial;
+	width:95%;
+}
+.popupTable
+{ 
+	width:95%;
+	padding-right: 0px; padding-left: 0px; padding-bottom: 0px; margin: 0px; padding-top: 0px; 
+	margin-right:100px;
+}
+.closeBar
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color: white;
+	font-family: Arial;
+	background-color: gray;
+	text-align: right;
+	height: 25px;
+}
+.lastLoginTime
+{
+	font-size: 7pt;
+	color: whitesmoke;
+	font-family: Arial;
+	font-style: italic;
+	vertical-align: middle;
+	text-align: left;
+}
+.imageColumn
+{
+	width: 10px;
+	vertical-align: middle;
+	text-align: center;
+}
+.currentPageOfTotal
+{
+       color: #ffffff;
+       font-size: 10pt;
+       font-family: 'Arial Narrow';
+}.saveFinding
+{
+	font-size: 7pt;
+	color: Silver;
+	font-family: Arial;
+	font-style: italic;	
+}

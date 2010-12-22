@@ -1,0 +1,36 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Login.master.cs" Inherits="Common_Login" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="../Common/StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form runat=server id="form1">
+    <table width=100% >
+        <tr>
+            <td align=center valign=top>
+                <table style="width: 600px;" >
+                    <tr valign=top style="height:52">
+                      <td height="52"><img src="../Images/Logo_Datamed.gif" border="0" alt="Scott Regional Hospital"/></td>
+                      <td><img src="../Images/Header.jpg" width="523" height="51" alt="Meridian Radiology Associates"/></td>
+                    </tr>
+                    <tr style="height:30px" valign="middle">
+                      <td colspan="2">
+                          <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" valign="top">
+                            <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+                            </asp:contentplaceholder>                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

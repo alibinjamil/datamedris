@@ -1,0 +1,147 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8985CF49-8896-421D-AE2B-E94FE158FAEE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RISVoiceControl</RootNamespace>
+    <AssemblyName>RISVoiceControl</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handlers\AudioHandler.cs">
+    </Compile>
+    <Compile Include="Handlers\DisplayHandler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Handlers\KeyboardHandler.cs" />
+    <Compile Include="Handlers\RequestHandler.cs" />
+    <Compile Include="Handlers\Keyboard.cs" />
+    <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Logging.cs" />
+    <Compile Include="Utils\VoiceControlExcpetion.cs" />
+    <Compile Include="VoiceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VoiceControl.Designer.cs">
+      <DependentUpon>VoiceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AudioLibrary\AudioWriter.cs" />
+    <Compile Include="AudioLibrary\Lame.cs" />
+    <Compile Include="AudioLibrary\Mp3Writer.cs" />
+    <Compile Include="AudioLibrary\Mp3WriterConfig.cs" />
+    <Compile Include="AudioLibrary\WaveIn.cs" />
+    <Compile Include="AudioLibrary\WaveNative.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AudioLibrary\WriterConfig.cs" />
+    <Compile Include="Web References\RISServer\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VoiceControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VoiceControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\RISServer\</RelPath>
+      <UpdateFromURL>http://localhost:1046/RISWebSite/WebServices/AudioUpload.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>RISVoiceControl_RISServer_AudioUpload</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Pause.JPG" />
+    <None Include="Resources\Play.JPG" />
+    <None Include="Resources\Record.JPG" />
+    <None Include="Resources\Save.JPG" />
+    <None Include="Resources\Stop.JPG" />
+    <None Include="Web References\RISServer\AudioUpload.disco" />
+    <None Include="Web References\RISServer\AudioUpload.wsdl" />
+    <None Include="Web References\RISServer\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\fast-forward-48x48.png" />
+    <Content Include="Resources\FootPedal.jpg" />
+    <Content Include="Resources\Forward.JPG" />
+    <Content Include="Resources\pause-48x48.png" />
+    <Content Include="Resources\play-48x48.png" />
+    <Content Include="Resources\record-48x48.png" />
+    <Content Include="Resources\rewind-48x48.png" />
+    <Content Include="Resources\Rewind.JPG" />
+    <Content Include="Resources\save-48x48.png" />
+    <Content Include="Resources\StartPedal.JPG" />
+    <Content Include="Resources\stop-48x48.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
