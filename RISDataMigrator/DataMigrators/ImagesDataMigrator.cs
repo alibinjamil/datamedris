@@ -6,7 +6,6 @@ using System.Data.SqlClient;
 using RIS.RISLibrary.Objects.DICOM;
 using RIS.RISLibrary.Objects.RIS;
 using RIS.RISLibrary.Database;
-using RIS.RISLibrary.Utilities;
 
 namespace RIS.RISService.DataMigrators
 {
@@ -19,6 +18,10 @@ namespace RIS.RISService.DataMigrators
         {
             return new DICOMImageObject();
         }
+        protected override string GetDICOMWhereClause()
+        {
+            return "";
+        }
         protected override RISObject GetRISObject()
         {
             return new ImageObject();
@@ -27,21 +30,11 @@ namespace RIS.RISService.DataMigrators
         {
             return "";
         }
-        protected override void UpdateDICOMObject(DICOMObject dicomObject)
-        {
-            DICOMImageObject image = (DICOMImageObject)dicomObject;
-            image.SyncTime.Value = DateTime.Now;
-            image.Update(Constants.Database.SystemUserId);
-        }
-
         protected override RISObject GetRISObject(DICOMObject dicomObject)
         {
             ImageObject risImage = new ImageObject();
-           
             DICOMImageObject dicomImage = (DICOMImageObject)dicomObject;
-            Console.WriteLine("Syncing Image:" + dicomImage.ImageInstance.Value);
             risImage.ImageInstance.Value = dicomImage.ImageInstance.Value;
-
             risImage.ImageClassUI.Value = dicomImage.ImageClassUI.Value;
             risImage.ImageNumber.Value = dicomImage.ImageNumber.Value;
             risImage.ImageDate.Value = DatabaseUtility.GetDateTime(dicomImage.ImageDate.Value, dicomImage.ImageTime.Value);

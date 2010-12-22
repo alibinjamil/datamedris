@@ -16,20 +16,14 @@ namespace RIS.RISService.DataMigrators
     {
         abstract protected DICOMObject GetDICOMObject();
         abstract protected RISObject GetRISObject();
-        protected string GetDICOMWhereClause()
-        {
-            return "where SyncTime is null";
-        }
+        abstract protected string GetDICOMWhereClause();
         abstract protected string GetRISWhereClause();
         abstract protected bool AreEqual(DICOMObject dicomObject,RISObject risObject);
         abstract protected RISObject GetRISObject(DICOMObject dicomObject);
         abstract protected void PerformPostSaveTasks(RISObject risObject);
-        abstract protected void UpdateDICOMObject(DICOMObject dicomObject);
 
         public static int AdminUserId = 0;
-        protected void PerformPostSaveDICOMTasks(DICOMObject dicomObject)
-        {
-        }
+
         public void Migrate()
         {
             ArrayList dicomObjects = GetDICOMList();
@@ -54,10 +48,8 @@ namespace RIS.RISService.DataMigrators
                         {
                             risObject.Save(Constants.Database.SystemUserId);
                             PerformPostSaveTasks(risObject);
-                            //PerformPostSaveDICOMTasks(dicomObject);
                         }
                     }
-                    UpdateDICOMObject(dicomObject);
                 }
                 catch (Exception ex)
                 {
@@ -73,7 +65,7 @@ namespace RIS.RISService.DataMigrators
             QueryBuilder query = dicomObject.GetSelectQuery();
             query.AddText(GetDICOMWhereClause());
             DICOMDatabaseAccessLayer dicomDataAccessLayer = new DICOMDatabaseAccessLayer();
-            SqlDataReader reader = (SqlDataReader)dicomDataAccessLayer.ExecuteQuery(query);
+            OleDbDataReader reader = (OleDbDataReader)dicomDataAccessLayer.ExecuteQuery(query);
             ArrayList dicomObjects = new ArrayList();
             while (reader.Read())
             {

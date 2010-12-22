@@ -174,93 +174,9 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_IsManual = value;
 			}
 		}
-		TextField m_AccessionNumber = new TextField("AccessionNumber",null);
-		public TextField AccessionNumber
-		{
-			get
-			{
-				return this.m_AccessionNumber;
-			}
-			set
-			{
-				this.m_AccessionNumber = value;
-			}
-		}
-		IntField m_HospitalId = new IntField("HospitalId",null);
-		public IntField HospitalId
-		{
-			get
-			{
-				return this.m_HospitalId;
-			}
-			set
-			{
-				this.m_HospitalId = value;
-			}
-		}
-		TextField m_TechComments = new TextField("TechComments",null);
-		public TextField TechComments
-		{
-			get
-			{
-				return this.m_TechComments;
-			}
-			set
-			{
-				this.m_TechComments = value;
-			}
-		}
-		IntField m_ClientId = new IntField("ClientId",null);
-		public IntField ClientId
-		{
-			get
-			{
-				return this.m_ClientId;
-			}
-			set
-			{
-				this.m_ClientId = value;
-			}
-		}
-		TextField m_BodyPartExamined = new TextField("BodyPartExamined",null);
-		public TextField BodyPartExamined
-		{
-			get
-			{
-				return this.m_BodyPartExamined;
-			}
-			set
-			{
-				this.m_BodyPartExamined = value;
-			}
-		}
-		IntField m_TemplateId = new IntField("TemplateId",null);
-		public IntField TemplateId
-		{
-			get
-			{
-				return this.m_TemplateId;
-			}
-			set
-			{
-				this.m_TemplateId = value;
-			}
-		}
-		TextField m_RejectionReason = new TextField("RejectionReason",null);
-		public TextField RejectionReason
-		{
-			get
-			{
-				return this.m_RejectionReason;
-			}
-			set
-			{
-				this.m_RejectionReason = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[19];
+			Field[] fields = new Field[12];
 			fields[0] = m_StudyInstance;
 			fields[1] = m_StudyDate;
 			fields[2] = m_ProcedureId;
@@ -273,18 +189,11 @@ namespace RIS.RISLibrary.Objects.RIS
 			fields[9] = m_LatestSeriesId;
 			fields[10] = m_LatestFindingId;
 			fields[11] = m_IsManual;
-			fields[12] = m_AccessionNumber;
-			fields[13] = m_HospitalId;
-			fields[14] = m_TechComments;
-			fields[15] = m_ClientId;
-			fields[16] = m_BodyPartExamined;
-			fields[17] = m_TemplateId;
-			fields[18] = m_RejectionReason;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[20];
+			Field[] fields = new Field[13];
 			fields[0] = m_StudyId;
 			fields[1] = m_StudyInstance;
 			fields[2] = m_StudyDate;
@@ -298,13 +207,6 @@ namespace RIS.RISLibrary.Objects.RIS
 			fields[10] = m_LatestSeriesId;
 			fields[11] = m_LatestFindingId;
 			fields[12] = m_IsManual;
-			fields[13] = m_AccessionNumber;
-			fields[14] = m_HospitalId;
-			fields[15] = m_TechComments;
-			fields[16] = m_ClientId;
-			fields[17] = m_BodyPartExamined;
-			fields[18] = m_TemplateId;
-			fields[19] = m_RejectionReason;
 			return fields;
 		}
 	}

@@ -66,35 +66,21 @@ namespace RIS.RISLibrary.Objects.DICOM
 				this.m_Gender = value;
 			}
 		}
-		DateTimeField m_SyncTime = new DateTimeField("SyncTime",null);
-		public DateTimeField SyncTime
-		{
-			get
-			{
-				return this.m_SyncTime;
-			}
-			set
-			{
-				this.m_SyncTime = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[4];
+			Field[] fields = new Field[3];
 			fields[0] = m_Name;
 			fields[1] = m_DateOfBirth;
 			fields[2] = m_Gender;
-			fields[3] = m_SyncTime;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[5];
+			Field[] fields = new Field[4];
 			fields[0] = m_PatientID;
 			fields[1] = m_Name;
 			fields[2] = m_DateOfBirth;
 			fields[3] = m_Gender;
-			fields[4] = m_SyncTime;
 			return fields;
 		}
 	}

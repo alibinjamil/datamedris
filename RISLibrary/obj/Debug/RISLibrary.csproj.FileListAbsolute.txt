@@ -1,5 +1,0 @@
-E:\MyProjects\RIS\trunk\RISLibrary\bin\Debug\RISLibrary.dll
-E:\MyProjects\RIS\trunk\RISLibrary\bin\Debug\RISLibrary.pdb
-E:\MyProjects\RIS\trunk\RISLibrary\obj\Debug\ResolveAssemblyReference.cache
-E:\MyProjects\RIS\trunk\RISLibrary\obj\Debug\RISLibrary.dll
-E:\MyProjects\RIS\trunk\RISLibrary\obj\Debug\RISLibrary.pdb

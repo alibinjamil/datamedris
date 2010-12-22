@@ -1,7 +1,0 @@
-E:\MyProjects\RIS\trunk\RISDataMigrator\bin\Release\RISDataMigrator.exe
-E:\MyProjects\RIS\trunk\RISDataMigrator\bin\Release\RISDataMigrator.pdb
-E:\MyProjects\RIS\trunk\RISDataMigrator\bin\Release\RISLibrary.dll
-E:\MyProjects\RIS\trunk\RISDataMigrator\bin\Release\RISLibrary.pdb
-E:\MyProjects\RIS\trunk\RISDataMigrator\obj\Release\ResolveAssemblyReference.cache
-E:\MyProjects\RIS\trunk\RISDataMigrator\obj\Release\RISDataMigrator.exe
-E:\MyProjects\RIS\trunk\RISDataMigrator\obj\Release\RISDataMigrator.pdb

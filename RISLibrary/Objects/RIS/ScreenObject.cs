@@ -66,35 +66,21 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_IsActive = value;
 			}
 		}
-		TextField m_GroupName = new TextField("GroupName",null);
-		public TextField GroupName
-		{
-			get
-			{
-				return this.m_GroupName;
-			}
-			set
-			{
-				this.m_GroupName = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[4];
+			Field[] fields = new Field[3];
 			fields[0] = m_Name;
 			fields[1] = m_Path;
 			fields[2] = m_IsActive;
-			fields[3] = m_GroupName;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[5];
+			Field[] fields = new Field[4];
 			fields[0] = m_ScreenId;
 			fields[1] = m_Name;
 			fields[2] = m_Path;
 			fields[3] = m_IsActive;
-			fields[4] = m_GroupName;
 			return fields;
 		}
 	}

@@ -138,21 +138,9 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_AudioFileName = value;
 			}
 		}
-		TextField m_AudioUserName = new TextField("AudioUserName",null);
-		public TextField AudioUserName
-		{
-			get
-			{
-				return this.m_AudioUserName;
-			}
-			set
-			{
-				this.m_AudioUserName = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[10];
+			Field[] fields = new Field[9];
 			fields[0] = m_StudyId;
 			fields[1] = m_AudioUserId;
 			fields[2] = m_AudioReportPath;
@@ -162,12 +150,11 @@ namespace RIS.RISLibrary.Objects.RIS
 			fields[6] = m_TranscriptionDate;
 			fields[7] = m_AudioData;
 			fields[8] = m_AudioFileName;
-			fields[9] = m_AudioUserName;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[11];
+			Field[] fields = new Field[10];
 			fields[0] = m_FindingId;
 			fields[1] = m_StudyId;
 			fields[2] = m_AudioUserId;
@@ -178,7 +165,6 @@ namespace RIS.RISLibrary.Objects.RIS
 			fields[7] = m_TranscriptionDate;
 			fields[8] = m_AudioData;
 			fields[9] = m_AudioFileName;
-			fields[10] = m_AudioUserName;
 			return fields;
 		}
 	}

@@ -66,49 +66,21 @@ namespace RIS.RISLibrary.Objects.RIS
 				this.m_Instituition = value;
 			}
 		}
-		IntField m_ClientId = new IntField("ClientId",null);
-		public IntField ClientId
-		{
-			get
-			{
-				return this.m_ClientId;
-			}
-			set
-			{
-				this.m_ClientId = value;
-			}
-		}
-		IntField m_HospitalId = new IntField("HospitalId",null);
-		public IntField HospitalId
-		{
-			get
-			{
-				return this.m_HospitalId;
-			}
-			set
-			{
-				this.m_HospitalId = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[5];
+			Field[] fields = new Field[3];
 			fields[0] = m_ModalityId;
 			fields[1] = m_StationName;
 			fields[2] = m_Instituition;
-			fields[3] = m_ClientId;
-			fields[4] = m_HospitalId;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[6];
+			Field[] fields = new Field[4];
 			fields[0] = m_StationId;
 			fields[1] = m_ModalityId;
 			fields[2] = m_StationName;
 			fields[3] = m_Instituition;
-			fields[4] = m_ClientId;
-			fields[5] = m_HospitalId;
 			return fields;
 		}
 	}

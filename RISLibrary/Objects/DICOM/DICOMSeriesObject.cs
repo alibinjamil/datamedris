@@ -198,45 +198,9 @@ namespace RIS.RISLibrary.Objects.DICOM
 				this.m_StudyInsta = value;
 			}
 		}
-		TextField m_StationName = new TextField("StationNam",null);
-		public TextField StationName
-		{
-			get
-			{
-				return this.m_StationName;
-			}
-			set
-			{
-				this.m_StationName = value;
-			}
-		}
-		TextField m_Instituition = new TextField("Institutio",null);
-		public TextField Instituition
-		{
-			get
-			{
-				return this.m_Instituition;
-			}
-			set
-			{
-				this.m_Instituition = value;
-			}
-		}
-		DateTimeField m_SyncTime = new DateTimeField("SyncTime",null);
-		public DateTimeField SyncTime
-		{
-			get
-			{
-				return this.m_SyncTime;
-			}
-			set
-			{
-				this.m_SyncTime = value;
-			}
-		}
 		override public Field[] GetFields()
 		{
-			Field[] fields = new Field[17];
+			Field[] fields = new Field[14];
 			fields[0] = m_SeriesDate;
 			fields[1] = m_SeriesTime;
 			fields[2] = m_SeriesNumber;
@@ -251,14 +215,11 @@ namespace RIS.RISLibrary.Objects.DICOM
 			fields[11] = m_FrameOfRef;
 			fields[12] = m_SeriesPat;
 			fields[13] = m_StudyInsta;
-			fields[14] = m_StationName;
-			fields[15] = m_Instituition;
-			fields[16] = m_SyncTime;
 			return fields;
 		}
 		override public Field[] GetAllFields()
 		{
-			Field[] fields = new Field[18];
+			Field[] fields = new Field[15];
 			fields[0] = m_SeriesInstance;
 			fields[1] = m_SeriesDate;
 			fields[2] = m_SeriesTime;
@@ -274,9 +235,6 @@ namespace RIS.RISLibrary.Objects.DICOM
 			fields[12] = m_FrameOfRef;
 			fields[13] = m_SeriesPat;
 			fields[14] = m_StudyInsta;
-			fields[15] = m_StationName;
-			fields[16] = m_Instituition;
-			fields[17] = m_SyncTime;
 			return fields;
 		}
 	}
