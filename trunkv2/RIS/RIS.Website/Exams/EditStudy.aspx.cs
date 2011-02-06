@@ -49,6 +49,23 @@ public partial class Radiologist_EditStudy : StudyPage
                 if (study != null)
                 {
                     BindBodyPart((int)study.ModalityId);
+                    if (study.PatientDOB.HasValue)
+                    {
+                        tbDOB.SelectedDate = study.PatientDOB.Value;
+                    }
+                    else
+                    {
+                        tbDOB.SelectedDate = new DateTime(1960, 1, 1);
+                    }
+                    tbPatientId.Text = study.ExternalPatientId;
+                    tbPatientName.Text = study.PatientName;
+                    if (study.PatientWeight != null)
+                    {
+                        tbPatientWeight.Text = study.PatientWeight;
+                    }
+                    rbGender.SelectedValue = study.PatientGender;
+                   
+
                     if (study.RejectionReason != null)
                     {
                         tbRejectionReason.Text = study.RejectionReason;
@@ -152,6 +169,12 @@ public partial class Radiologist_EditStudy : StudyPage
             {
                 study.StudyStatusId = studyStatusId;
             }
+
+            study.ExternalPatientId = tbPatientId.Text;
+            study.PatientDOB = tbDOB.SelectedDate;
+            study.PatientGender = rbGender.SelectedValue;
+            study.PatientWeight = tbPatientWeight.Text;
+            study.PatientName = tbPatientName.Text;
             DatabaseContext.SaveChanges();
             /*RISDatabaseAccessLayer databaseAccessLayer = new RISDatabaseAccessLayer();
             SqlConnection connection = (SqlConnection)databaseAccessLayer.GetConnection();

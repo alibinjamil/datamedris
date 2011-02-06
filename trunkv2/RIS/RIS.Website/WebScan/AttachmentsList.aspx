@@ -35,87 +35,58 @@
    
             <div >
             
-                <asp:GridView ID="gvAttachments" runat="server" AllowPaging="True" 
-                    AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" 
-                    DataKeyNames="AttachmentId" DataSourceID="odsAttachments" ForeColor="#333333" 
-                    GridLines="None">
-                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                
+            
+                <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+                    AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
+                    BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" 
+                    DataKeyNames="AttachmentId" DataSourceID="edsAttachments" ForeColor="Black" 
+                    GridLines="Vertical">
+                    <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:TemplateField ShowHeader="False">
-                            <EditItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" 
-                                    CommandName="Update" Text="Update" Visible="<%#CanUpdate()%>"></asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" 
-                                    CommandName="Cancel" Text="Cancel" Visible="<%#CanUpdate()%>"></asp:LinkButton>
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
-                                    CommandName="Edit" Text="Edit" Visible="<%#CanUpdate()%>"></asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" 
-                                    CommandName="Delete" Text="Delete" Visible="<%#CanUpdate()%>"></asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                        <asp:BoundField DataField="AttachmentId" HeaderText="AttachmentId" 
+                            ReadOnly="True" SortExpression="AttachmentId" />
+                        <asp:BoundField DataField="StudyId" HeaderText="StudyId" 
+                            SortExpression="StudyId" />
                         <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                         <asp:BoundField DataField="Description" HeaderText="Description" 
                             SortExpression="Description" />
-                        <asp:BoundField DataField="UserName" HeaderText="Scanned By" 
-                            SortExpression="UserName" ReadOnly="True" />
-                        <asp:BoundField DataField="ScannedTime" HeaderText="Scan Time" 
-                            SortExpression="ScannedTime" ReadOnly="True" />
-                        <asp:TemplateField HeaderText="AttachmentId" InsertVisible="False" 
-                            SortExpression="AttachmentId">
-                            <EditItemTemplate>
-                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%#"DownloadAttachment.aspx?attachmentId=" + Eval("AttachmentId") %>' Target="_blank">Attachment</asp:HyperLink>
-                                
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%#"DownloadAttachment.aspx?attachmentId=" + Eval("AttachmentId") %>' Target="_blank">Attachment</asp:HyperLink>                            
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                        <asp:BoundField DataField="ScannedBy" HeaderText="ScannedBy" 
+                            SortExpression="ScannedBy" />
+                        <asp:BoundField DataField="ScannedTime" HeaderText="ScannedTime" 
+                            SortExpression="ScannedTime" />
+                        <asp:BoundField DataField="AttachmentType" HeaderText="AttachmentType" 
+                            SortExpression="AttachmentType" />
                     </Columns>
-                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                    <EmptyDataTemplate>
-                        Nothing attached with this Exam.
-                    </EmptyDataTemplate>
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <EditRowStyle BackColor="#999999" />
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <FooterStyle BackColor="#CCCC99" />
+                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                    <RowStyle BackColor="#F7F7DE" />
+                    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                    <SortedAscendingCellStyle BackColor="#FBFBF2" />
+                    <SortedAscendingHeaderStyle BackColor="#848384" />
+                    <SortedDescendingCellStyle BackColor="#EAEAD3" />
+                    <SortedDescendingHeaderStyle BackColor="#575357" />
                 </asp:GridView>
+            
+                
+            
+                <asp:EntityDataSource ID="edsAttachments" runat="server" 
+                    ConnectionString="name=RISEntities" DefaultContainerName="RISEntities" 
+                    EnableDelete="True" EnableFlattening="False" EntitySetName="Attachments" 
+                    EnableUpdate="True" EntityTypeFilter="Attachment" Where="" 
+                    AutoGenerateWhereClause="True">
+                    <WhereParameters>
+                        <asp:QueryStringParameter DefaultValue="0" Name="StudyId" 
+                            QueryStringField="studyId" DbType="Int32" />
+                    </WhereParameters>
+                </asp:EntityDataSource>
             
             </div>
             
         </div>
     
     </center>
-            <asp:ObjectDataSource ID="odsAttachments" runat="server" DeleteMethod="Delete" 
-                InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" 
-                SelectMethod="GetAttachmentsForStudy" 
-                TypeName="AttachmentsTableAdapters.tAttachmentsTableAdapter" 
-                UpdateMethod="Update">
-                <DeleteParameters>
-                    <asp:Parameter Name="Original_AttachmentId" Type="Int32" />
-                </DeleteParameters>
-                <UpdateParameters>
-                    <asp:Parameter Name="Name" Type="String" />
-                    <asp:Parameter Name="Description" Type="String" />
-                    <asp:Parameter Name="Original_AttachmentId" Type="Int32" />
-                    <asp:Parameter Name="AttachmentId" Type="Int32" />
-                </UpdateParameters>
-                <SelectParameters>
-                    <asp:QueryStringParameter DefaultValue="0" Name="studyId" 
-                        QueryStringField="studyId" Type="Int32" />
-                </SelectParameters>
-                <InsertParameters>
-                    <asp:Parameter Name="StudyId" Type="Int32" />
-                    <asp:Parameter Name="Name" Type="String" />
-                    <asp:Parameter Name="Description" Type="String" />
-                    <asp:Parameter Name="ScannedBy" Type="Int32" />
-                    <asp:Parameter Name="ScannedTime" Type="DateTime" />
-                    <asp:Parameter Name="AttachmentData" Type="Object" />
-                </InsertParameters>
-            </asp:ObjectDataSource>
     </form>
     
     </body>

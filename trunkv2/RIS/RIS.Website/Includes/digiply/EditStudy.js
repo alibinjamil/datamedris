@@ -1,7 +1,7 @@
 ﻿var editStudyDialog; 
 $(document).ready(function() {
     jQuery("#editStudyDiv").dialog({
-          bgiframe: true, autoOpen: false, height: 450, width:600, modal: true,
+          bgiframe: true, autoOpen: false, height: 550, width:600, modal: true,
           close: function(ev, ui) {
              //do some thing
         }

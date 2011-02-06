@@ -11,22 +11,22 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-using RIS.RISLibrary.Objects.RIS;
-public partial class WebScan_DownloadAttachment : System.Web.UI.Page
+using RIS.Common;
+
+public partial class WebScan_DownloadAttachment : GenericPage
 {
     protected void Page_Load(object sender, EventArgs e)
-    {    
-        AttachmentObject attachment = new AttachmentObject();
-        attachment.AttachmentId.Value = Request["attachmentId"];
-        attachment.Load();
-        if(attachment.IsLoaded)
+    {          
+        int attachmentId = int.Parse(Request["attachmentId"]);
+        Attachment attachment = (from a in DatabaseContext.Attachments where a.AttachmentId == attachmentId select a).FirstOrDefault();
+        if(attachment != null)
         {
             Response.Clear();
             Response.Buffer = true;
             Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=" + attachment.Name.Value + ".pdf");
+            Response.AddHeader("content-disposition", "attachment;filename=" + attachment.Name + ".pdf");
             Response.Charset = "";
-            Response.BinaryWrite((byte[])attachment.AttachmentData.Value);
+            Response.BinaryWrite((byte[])attachment.AttachmentData);
             Response.End();
         }        
     }

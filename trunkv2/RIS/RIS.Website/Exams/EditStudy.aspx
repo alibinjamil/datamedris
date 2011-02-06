@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EditStudy.aspx.cs" Inherits="Radiologist_EditStudy" %>
 
+<%@ Register Assembly="eWorld.UI" Namespace="eWorld.UI" TagPrefix="ew" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,6 +12,30 @@
 <body>
     <form id="form1" runat="server">   
   
+    <div>
+        <asp:Label ID="Label6" runat="server" Text="Patient ID:" Font-Bold="true" Width="200px"></asp:Label>
+        <asp:TextBox ID="tbPatientId" runat="server"></asp:TextBox>
+    </div>
+    <div>
+        <asp:Label ID="Label7" runat="server" Text="Patient Name:" Font-Bold="true" Width="200px"></asp:Label>
+        <asp:TextBox ID="tbPatientName" runat="server"></asp:TextBox>
+    </div>
+    <div>
+        <asp:Label ID="Label8" runat="server" Text="Patient Date of Birth:" Font-Bold="true" Width="200px"></asp:Label>
+        <ew:CalendarPopup ID="tbDOB" runat="server"></ew:CalendarPopup>
+    </div>
+    <div>
+        <asp:Label ID="Label9" runat="server" Text="Patient Gender:" Font-Bold="true" Width="200px"></asp:Label>
+        <asp:RadioButtonList ID="rbGender"   runat="server" 
+            RepeatDirection="Horizontal" RepeatLayout="Flow">
+            <asp:ListItem Selected="True">M</asp:ListItem>
+            <asp:ListItem>F</asp:ListItem>
+        </asp:RadioButtonList>
+    </div>
+    <div>
+        <asp:Label ID="Label10" runat="server" Text="Patient Weight:" Font-Bold="true" Width="200px"></asp:Label>
+        <ew:NumericBox ID="tbPatientWeight"  runat="server"></ew:NumericBox>
+    </div>
     <div>
         <asp:Label ID="lblClient" runat="server" Text="Client:" Font-Bold="true" Width="200px"></asp:Label>
         <asp:DropDownList ID="ddlClient" runat="server" DataSourceID="odsClients"

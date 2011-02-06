@@ -775,4 +775,4 @@ function openRadscaper(studyId)
     }
 }
 
-YAHOO.util.Event.onDOMReady(init);
+//YAHOO.util.Event.onDOMReady(init);

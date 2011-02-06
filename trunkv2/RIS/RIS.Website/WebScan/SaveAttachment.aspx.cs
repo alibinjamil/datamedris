@@ -12,9 +12,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.IO;
 
-using RIS.RISLibrary.Objects.RIS;
+using RIS.Common;
 
-public partial class WebScan_SaveAttachment : System.Web.UI.Page
+public partial class WebScan_SaveAttachment : GenericPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -39,15 +39,15 @@ public partial class WebScan_SaveAttachment : System.Web.UI.Page
             inputStream = uploadfile.InputStream;
             inputStream.Read(inputBuffer, 0, iFileLength);
 
-            AttachmentObject attachment = new AttachmentObject();
-            attachment.AttachmentData.Value = inputBuffer;
-            attachment.AttachmentType.Value = "PDF";
-            attachment.Description.Value = Server.UrlDecode(Request.Form[ParameterNames.Request.Description]);
-            attachment.Name.Value = Server.UrlDecode(Request.Form[ParameterNames.Request.Name]);
-            attachment.ScannedBy.Value = Request.Form[ParameterNames.Request.UserId];
-            attachment.ScannedTime.Value = DateTime.Now;
-            attachment.StudyId.Value = Request.Form[ParameterNames.Request.StudyId];
-            attachment.Save();
+            Attachment attachment = new Attachment();
+            attachment.AttachmentData = inputBuffer;
+            attachment.AttachmentType = "PDF";
+            attachment.Description = Server.UrlDecode(Request.Form[ParameterNames.Request.Description]);
+            attachment.Name = Server.UrlDecode(Request.Form[ParameterNames.Request.Name]);
+            attachment.ScannedBy = int.Parse(Request.Form[ParameterNames.Request.UserId]);
+            attachment.ScannedTime = DateTime.Now;
+            attachment.StudyId = int.Parse(Request.Form[ParameterNames.Request.StudyId]);
+            DatabaseContext.AddToAttachments(attachment);
 
         }
         catch (Exception ex)
