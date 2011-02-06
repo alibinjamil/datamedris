@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ConquestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ConquestModelStoreContainer">
+    <EntitySet Name="DICOMImages" EntityType="ConquestModel.Store.DICOMImages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DICOMPatients" EntityType="ConquestModel.Store.DICOMPatients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DICOMSeries" EntityType="ConquestModel.Store.DICOMSeries" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DICOMStudies" EntityType="ConquestModel.Store.DICOMStudies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DICOMWorkList" EntityType="ConquestModel.Store.DICOMWorkList" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UIDMODS" EntityType="ConquestModel.Store.UIDMODS" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="DICOMImages">
+    <Key>
+      <PropertyRef Name="SOPInstanc" />
+    </Key>
+    <Property Name="SOPInstanc" Type="varchar" Nullable="false" MaxLength="64" />
+    <Property Name="SOPClassUI" Type="varchar" MaxLength="64" />
+    <Property Name="ImageNumbe" Type="varchar" MaxLength="12" />
+    <Property Name="ImageDate" Type="char" MaxLength="8" />
+    <Property Name="ImageTime" Type="varchar" MaxLength="16" />
+    <Property Name="EchoNumber" Type="varchar" MaxLength="64" />
+    <Property Name="NumberOfFr" Type="varchar" MaxLength="12" />
+    <Property Name="AcqDate" Type="char" MaxLength="8" />
+    <Property Name="AcqTime" Type="varchar" MaxLength="16" />
+    <Property Name="ReceivingC" Type="varchar" MaxLength="16" />
+    <Property Name="AcqNumber" Type="varchar" MaxLength="12" />
+    <Property Name="SliceLocat" Type="varchar" MaxLength="16" />
+    <Property Name="SamplesPer" Type="varchar" MaxLength="5" />
+    <Property Name="PhotoMetri" Type="varchar" MaxLength="16" />
+    <Property Name="Rows" Type="varchar" MaxLength="5" />
+    <Property Name="Colums" Type="varchar" MaxLength="5" />
+    <Property Name="BitsStored" Type="varchar" MaxLength="5" />
+    <Property Name="ImageType" Type="varchar" MaxLength="128" />
+    <Property Name="ImageID" Type="varchar" MaxLength="16" />
+    <Property Name="ImagePat" Type="varchar" MaxLength="64" />
+    <Property Name="SeriesInst" Type="varchar" MaxLength="64" />
+    <Property Name="AccessTime" Type="int" />
+    <Property Name="qTimeStamp" Type="int" />
+    <Property Name="qFlags" Type="int" />
+    <Property Name="qSpare" Type="varchar" MaxLength="64" />
+    <Property Name="ObjectFile" Type="varchar" MaxLength="254" />
+    <Property Name="DeviceName" Type="varchar" MaxLength="32" />
+    <Property Name="SyncTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DICOMPatients">
+    <Key>
+      <PropertyRef Name="PatientID" />
+    </Key>
+    <Property Name="PatientID" Type="varchar" Nullable="false" MaxLength="64" />
+    <Property Name="PatientNam" Type="varchar" MaxLength="64" />
+    <Property Name="PatientBir" Type="char" MaxLength="8" />
+    <Property Name="PatientSex" Type="varchar" MaxLength="16" />
+    <Property Name="AccessTime" Type="int" />
+    <Property Name="qTimeStamp" Type="int" />
+    <Property Name="qFlags" Type="int" />
+    <Property Name="qSpare" Type="varchar" MaxLength="64" />
+    <Property Name="SyncTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DICOMSeries">
+    <Key>
+      <PropertyRef Name="SeriesInst" />
+    </Key>
+    <Property Name="SeriesInst" Type="varchar" Nullable="false" MaxLength="64" />
+    <Property Name="SeriesNumb" Type="varchar" MaxLength="12" />
+    <Property Name="SeriesDate" Type="char" MaxLength="8" />
+    <Property Name="SeriesTime" Type="varchar" MaxLength="16" />
+    <Property Name="SeriesDesc" Type="varchar" MaxLength="64" />
+    <Property Name="Modality" Type="varchar" MaxLength="16" />
+    <Property Name="PatientPos" Type="varchar" MaxLength="16" />
+    <Property Name="ContrastBo" Type="varchar" MaxLength="64" />
+    <Property Name="Manufactur" Type="varchar" MaxLength="64" />
+    <Property Name="ModelName" Type="varchar" MaxLength="64" />
+    <Property Name="BodyPartEx" Type="varchar" MaxLength="64" />
+    <Property Name="ProtocolNa" Type="varchar" MaxLength="64" />
+    <Property Name="StationNam" Type="varchar" MaxLength="16" />
+    <Property Name="Institutio" Type="varchar" MaxLength="64" />
+    <Property Name="FrameOfRef" Type="varchar" MaxLength="64" />
+    <Property Name="SeriesPat" Type="varchar" MaxLength="64" />
+    <Property Name="StudyInsta" Type="varchar" MaxLength="64" />
+    <Property Name="AccessTime" Type="int" />
+    <Property Name="qTimeStamp" Type="int" />
+    <Property Name="qFlags" Type="int" />
+    <Property Name="qSpare" Type="varchar" MaxLength="64" />
+    <Property Name="SyncTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DICOMStudies">
+    <Key>
+      <PropertyRef Name="StudyInsta" />
+    </Key>
+    <Property Name="StudyInsta" Type="varchar" Nullable="false" MaxLength="64" />
+    <Property Name="StudyDate" Type="char" MaxLength="8" />
+    <Property Name="StudyTime" Type="varchar" MaxLength="16" />
+    <Property Name="StudyID" Type="varchar" MaxLength="16" />
+    <Property Name="StudyDescr" Type="varchar" MaxLength="64" />
+    <Property Name="AccessionN" Type="varchar" MaxLength="16" />
+    <Property Name="ReferPhysi" Type="varchar" MaxLength="64" />
+    <Property Name="PatientsAg" Type="varchar" MaxLength="16" />
+    <Property Name="PatientsWe" Type="varchar" MaxLength="16" />
+    <Property Name="StudyModal" Type="varchar" MaxLength="64" />
+    <Property Name="PatientNam" Type="varchar" MaxLength="64" />
+    <Property Name="PatientBir" Type="char" MaxLength="8" />
+    <Property Name="PatientSex" Type="varchar" MaxLength="16" />
+    <Property Name="PatientID" Type="varchar" MaxLength="64" />
+    <Property Name="AccessTime" Type="int" />
+    <Property Name="qTimeStamp" Type="int" />
+    <Property Name="qFlags" Type="int" />
+    <Property Name="qSpare" Type="varchar" MaxLength="64" />
+    <Property Name="SyncTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DICOMWorkList">
+    <Key>
+      <PropertyRef Name="AccessionN" />
+    </Key>
+    <Property Name="AccessionN" Type="varchar" Nullable="false" MaxLength="16" />
+    <Property Name="PatientID" Type="varchar" MaxLength="64" />
+    <Property Name="PatientNam" Type="varchar" MaxLength="64" />
+    <Property Name="PatientBir" Type="char" MaxLength="8" />
+    <Property Name="PatientSex" Type="varchar" MaxLength="16" />
+    <Property Name="MedicalAle" Type="varchar" MaxLength="64" />
+    <Property Name="ContrastAl" Type="varchar" MaxLength="64" />
+    <Property Name="StudyInsta" Type="varchar" MaxLength="64" />
+    <Property Name="ReqPhysici" Type="varchar" MaxLength="64" />
+    <Property Name="ReqProcDes" Type="varchar" MaxLength="64" />
+    <Property Name="Modality" Type="varchar" MaxLength="16" />
+    <Property Name="ReqContras" Type="varchar" MaxLength="64" />
+    <Property Name="ScheduledA" Type="varchar" MaxLength="16" />
+    <Property Name="StartDate" Type="char" MaxLength="8" />
+    <Property Name="StartTime" Type="varchar" MaxLength="16" />
+    <Property Name="PerfPhysic" Type="varchar" MaxLength="64" />
+    <Property Name="SchedPSDes" Type="varchar" MaxLength="64" />
+    <Property Name="SchedPSID" Type="varchar" MaxLength="16" />
+    <Property Name="SchedStati" Type="varchar" MaxLength="16" />
+    <Property Name="SchedPSLoc" Type="varchar" MaxLength="16" />
+    <Property Name="PreMedicat" Type="varchar" MaxLength="64" />
+    <Property Name="SchedPSCom" Type="varchar" MaxLength="64" />
+    <Property Name="ReqProcID" Type="varchar" MaxLength="16" />
+    <Property Name="ReqProcPri" Type="varchar" MaxLength="16" />
+    <Property Name="AccessTime" Type="int" />
+    <Property Name="qTimeStamp" Type="int" />
+    <Property Name="qFlags" Type="int" />
+    <Property Name="qSpare" Type="varchar" MaxLength="64" />
+  </EntityType>
+  <EntityType Name="UIDMODS">
+    <Key>
+      <PropertyRef Name="OldUID" />
+    </Key>
+    <Property Name="MODTime" Type="int" />
+    <Property Name="OldUID" Type="varchar" Nullable="false" MaxLength="64" />
+    <Property Name="MODType" Type="varchar" MaxLength="32" />
+    <Property Name="NewUID" Type="varchar" MaxLength="64" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,2769 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RISModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="RISModelStoreContainer">
+          <EntitySet Name="Attachments" EntityType="RISModel.Store.Attachments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BodyParts" EntityType="RISModel.Store.BodyParts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Carriers" EntityType="RISModel.Store.Carriers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Clients" EntityType="RISModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Hospitals" EntityType="RISModel.Store.Hospitals" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Images" EntityType="RISModel.Store.Images" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Logs" EntityType="RISModel.Store.Logs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Modalities" EntityType="RISModel.Store.Modalities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ModalityDetails" EntityType="RISModel.Store.ModalityDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Procedures" EntityType="RISModel.Store.Procedures" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RoleManagements" EntityType="RISModel.Store.RoleManagements" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Roles" EntityType="RISModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RoleScreens" EntityType="RISModel.Store.RoleScreens" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Screens" EntityType="RISModel.Store.Screens" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Series" EntityType="RISModel.Store.Series" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Stations" EntityType="RISModel.Store.Stations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Studies" EntityType="RISModel.Store.Studies" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="StudyStatusTypes" EntityType="RISModel.Store.StudyStatusTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Templates" EntityType="RISModel.Store.Templates" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TemplateUsers" EntityType="RISModel.Store.TemplateUsers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Types" EntityType="RISModel.Store.Types" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserClients" EntityType="RISModel.Store.UserClients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserHospitals" EntityType="RISModel.Store.UserHospitals" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRoles" EntityType="RISModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="RISModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WorkLists" EntityType="RISModel.Store.WorkLists" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Attachments_Studies" Association="RISModel.Store.FK_Attachments_Studies">
+            <End Role="Studies" EntitySet="Studies" />
+            <End Role="Attachments" EntitySet="Attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BodyParts_Modalities" Association="RISModel.Store.FK_BodyParts_Modalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="BodyParts" EntitySet="BodyParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreens_Roles" Association="RISModel.Store.FK_RoleScreens_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleScreens" EntitySet="RoleScreens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreens_Screens" Association="RISModel.Store.FK_RoleScreens_Screens">
+            <End Role="Screens" EntitySet="Screens" />
+            <End Role="RoleScreens" EntitySet="RoleScreens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Series_ModalityDetail" Association="RISModel.Store.FK_Series_ModalityDetail">
+            <End Role="ModalityDetails" EntitySet="ModalityDetails" />
+            <End Role="Series" EntitySet="Series" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_BodyParts" Association="RISModel.Store.FK_Studies_BodyParts">
+            <End Role="BodyParts" EntitySet="BodyParts" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Clients" Association="RISModel.Store.FK_Studies_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Hospitals" Association="RISModel.Store.FK_Studies_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Radiologist" Association="RISModel.Store.FK_Studies_Radiologist">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Studies" Association="RISModel.Store.FK_Studies_Studies">
+            <End Role="Studies" EntitySet="Studies" />
+            <End Role="Studies1" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_StudyStatusTypes" Association="RISModel.Store.FK_Studies_StudyStatusTypes">
+            <End Role="StudyStatusTypes" EntitySet="StudyStatusTypes" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Templates" Association="RISModel.Store.FK_Studies_Templates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Templates_BodyParts" Association="RISModel.Store.FK_Templates_BodyParts">
+            <End Role="BodyParts" EntitySet="BodyParts" />
+            <End Role="Templates" EntitySet="Templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tHospitals_tClients" Association="RISModel.Store.FK_tHospitals_tClients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Hospitals" EntitySet="Hospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tImages_tSeries" Association="RISModel.Store.FK_tImages_tSeries">
+            <End Role="Series" EntitySet="Series" />
+            <End Role="Images" EntitySet="Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tLog_tStudies" Association="RISModel.Store.FK_tLog_tStudies">
+            <End Role="Studies" EntitySet="Studies" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tLog_tUsers" Association="RISModel.Store.FK_tLog_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tModalityDetails_tModalities" Association="RISModel.Store.FK_tModalityDetails_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="ModalityDetails" EntitySet="ModalityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tProcedures_tModalities" Association="RISModel.Store.FK_tProcedures_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="Procedures" EntitySet="Procedures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tSeries_tStudies" Association="RISModel.Store.FK_tSeries_tStudies">
+            <End Role="Studies" EntitySet="Studies" />
+            <End Role="Series" EntitySet="Series" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStations_tClients" Association="RISModel.Store.FK_tStations_tClients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStations_tHospitals" Association="RISModel.Store.FK_tStations_tHospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStations_tModalities" Association="RISModel.Store.FK_tStations_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tModalities" Association="RISModel.Store.FK_tStudies_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tProcedures" Association="RISModel.Store.FK_tStudies_tProcedures">
+            <End Role="Procedures" EntitySet="Procedures" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tStations" Association="RISModel.Store.FK_tStudies_tStations">
+            <End Role="Stations" EntitySet="Stations" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tUsers" Association="RISModel.Store.FK_tStudies_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tTemplateUsers_tTemplates" Association="RISModel.Store.FK_tTemplateUsers_tTemplates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="TemplateUsers" EntitySet="TemplateUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tTemplateUsers_tUsers" Association="RISModel.Store.FK_tTemplateUsers_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TemplateUsers" EntitySet="TemplateUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserHospitals_tHospitals" Association="RISModel.Store.FK_tUserHospitals_tHospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserHospitals_tUsers" Association="RISModel.Store.FK_tUserHospitals_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserRoles_tRoles" Association="RISModel.Store.FK_tUserRoles_tRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserRoles_tUsers" Association="RISModel.Store.FK_tUserRoles_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUsers_tCarriers" Association="RISModel.Store.FK_tUsers_tCarriers">
+            <End Role="Carriers" EntitySet="Carriers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClients_Users" Association="RISModel.Store.FK_UserClients_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserClients" EntitySet="UserClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHospitals_Hospitals" Association="RISModel.Store.FK_UserHospitals_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHospitals_Users" Association="RISModel.Store.FK_UserHospitals_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Attachments">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StudyId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="ScannedBy" Type="int" Nullable="false" />
+          <Property Name="ScannedTime" Type="datetime" Nullable="false" />
+          <Property Name="AttachmentData" Type="varbinary(max)" />
+          <Property Name="AttachmentType" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BodyParts">
+          <Key>
+            <PropertyRef Name="BodyPartId" />
+          </Key>
+          <Property Name="BodyPartId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ModalityId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Carriers">
+          <Key>
+            <PropertyRef Name="CarrierId" />
+          </Key>
+          <Property Name="CarrierId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="EmailServer" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ClientGUID" Type="varchar" MaxLength="36" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="2" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="int" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+          <Property Name="Website" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Hospitals">
+          <Key>
+            <PropertyRef Name="HospitalId" />
+          </Key>
+          <Property Name="HospitalId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+          <Property Name="State" Type="varchar" MaxLength="2" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Images">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SeriesId" Type="int" Nullable="false" />
+          <Property Name="ImageInstance" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="ImageClassUI" Type="varchar" MaxLength="64" />
+          <Property Name="ImageNumber" Type="varchar" MaxLength="16" />
+          <Property Name="ImageDate" Type="datetime" />
+          <Property Name="EchoNumber" Type="varchar" MaxLength="64" />
+          <Property Name="NumberOfFrames" Type="varchar" MaxLength="64" />
+          <Property Name="AcquiredDate" Type="datetime" />
+          <Property Name="SliceLocation" Type="varchar" MaxLength="16" />
+          <Property Name="NumberOfSamples" Type="varchar" MaxLength="5" />
+          <Property Name="PhotoMetric" Type="varchar" MaxLength="64" />
+          <Property Name="Rows" Type="varchar" MaxLength="5" />
+          <Property Name="Columns" Type="varchar" MaxLength="5" />
+          <Property Name="BitsStored" Type="varchar" MaxLength="5" />
+          <Property Name="Path" Type="varchar" MaxLength="256" />
+          <Property Name="DeviceName" Type="varchar" MaxLength="32" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StudyId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Action" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ActionTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modalities">
+          <Key>
+            <PropertyRef Name="ModalityId" />
+          </Key>
+          <Property Name="ModalityId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModalityDetails">
+          <Key>
+            <PropertyRef Name="ModalityDetailId" />
+          </Key>
+          <Property Name="ModalityDetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ModalityId" Type="int" Nullable="false" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="64" />
+          <Property Name="ModelName" Type="varchar" MaxLength="64" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedby" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Procedures">
+          <Key>
+            <PropertyRef Name="ProcedureId" />
+          </Key>
+          <Property Name="ProcedureId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ModalityId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="CPTCode" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleManagements">
+          <Key>
+            <PropertyRef Name="RoleManagementId" />
+          </Key>
+          <Property Name="RoleManagementId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ManagerRoleId" Type="int" Nullable="false" />
+          <Property Name="NormalRoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleScreens">
+          <Key>
+            <PropertyRef Name="RoleScreenId" />
+          </Key>
+          <Property Name="RoleScreenId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="ScreenId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Screens">
+          <Key>
+            <PropertyRef Name="ScreenId" />
+          </Key>
+          <Property Name="ScreenId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Path" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="IsActive" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="GroupName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Series">
+          <Key>
+            <PropertyRef Name="SeriesId" />
+          </Key>
+          <Property Name="SeriesId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StudyId" Type="int" Nullable="false" />
+          <Property Name="SeriesInstance" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="SeriesNumber" Type="varchar" MaxLength="12" />
+          <Property Name="SeriesDate" Type="datetime" />
+          <Property Name="Description" Type="varchar" MaxLength="64" />
+          <Property Name="ModalityDetailId" Type="int" />
+          <Property Name="PatientPosition" Type="varchar" MaxLength="16" />
+          <Property Name="Contrast" Type="varchar" MaxLength="64" />
+          <Property Name="BodyPartExamined" Type="varchar" MaxLength="64" />
+          <Property Name="ProtocolName" Type="varchar" MaxLength="64" />
+          <Property Name="FrameOfReference" Type="varchar" MaxLength="64" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stations">
+          <Key>
+            <PropertyRef Name="StationId" />
+          </Key>
+          <Property Name="StationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ModalityId" Type="int" />
+          <Property Name="StationName" Type="varchar" MaxLength="64" />
+          <Property Name="Instituition" Type="varchar" MaxLength="64" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="HospitalId" Type="int" />
+        </EntityType>
+        <EntityType Name="Studies">
+          <Key>
+            <PropertyRef Name="StudyId" />
+          </Key>
+          <Property Name="StudyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StudyInstance" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="StudyDate" Type="datetime" />
+          <Property Name="ProcedureId" Type="int" />
+          <Property Name="ReferringPhysicianId" Type="int" />
+          <Property Name="PatientWeight" Type="varchar" MaxLength="16" />
+          <Property Name="ModalityId" Type="int" />
+          <Property Name="StationId" Type="int" />
+          <Property Name="StudyStatusId" Type="int" />
+          <Property Name="LatestSeriesId" Type="int" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="IsManual" Type="char" MaxLength="1" />
+          <Property Name="AccessionNumber" Type="varchar" MaxLength="100" />
+          <Property Name="HospitalId" Type="int" />
+          <Property Name="TechComments" Type="varchar" MaxLength="1000" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="TemplateId" Type="int" />
+          <Property Name="RejectionReason" Type="varchar" MaxLength="500" />
+          <Property Name="ParentStudyId" Type="int" />
+          <Property Name="BodyPartId" Type="int" />
+          <Property Name="RadiologistId" Type="int" />
+          <Property Name="ReportDate" Type="datetime" />
+          <Property Name="Heading" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Impression" Type="varchar(max)" />
+          <Property Name="OriginalPatientId" Type="varchar" MaxLength="64" />
+          <Property Name="ExternalPatientId" Type="varchar" MaxLength="64" />
+          <Property Name="PatientName" Type="varchar" MaxLength="64" />
+          <Property Name="PatientDOB" Type="datetime" />
+          <Property Name="PatientGender" Type="char" MaxLength="1" />
+          <Property Name="IsLatest" Type="bit" Nullable="false" />
+          <Property Name="Amendment" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="StudyStatusTypes">
+          <Key>
+            <PropertyRef Name="StudyStatusTypeId" />
+          </Key>
+          <Property Name="StudyStatusTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="ColumnOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="Text" Type="varchar(max)" Nullable="false" />
+          <Property Name="Heading" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Impression" Type="varchar(max)" />
+          <Property Name="BodyPartId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateUsers">
+          <Key>
+            <PropertyRef Name="TemplateUserId" />
+          </Key>
+          <Property Name="TemplateUserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="TemplateId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Group" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="Value" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserClients">
+          <Key>
+            <PropertyRef Name="UserClientId" />
+          </Key>
+          <Property Name="UserClientId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserHospitals">
+          <Key>
+            <PropertyRef Name="UserHospitalId" />
+          </Key>
+          <Property Name="UserHospitalId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="HospitalId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="SecretQuestionId" Type="int" />
+          <Property Name="Answer" Type="varchar" MaxLength="100" />
+          <Property Name="ResetPassword" Type="bit" />
+          <Property Name="Mobile" Type="varchar" MaxLength="100" />
+          <Property Name="CarrierId" Type="int" />
+          <Property Name="SendSMS" Type="bit" />
+          <Property Name="AllowOthers" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkLists">
+          <Key>
+            <PropertyRef Name="WorkListId" />
+          </Key>
+          <Property Name="WorkListId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PatientId" Type="int" />
+          <Property Name="RequestingPhysicianId" Type="int" />
+          <Property Name="ModalityId" Type="int" />
+          <Property Name="ProcedureId" Type="int" />
+          <Property Name="StationId" Type="int" />
+          <Property Name="PerformingPhysicianId" Type="int" />
+          <Property Name="ExternalPatientId" Type="varchar" MaxLength="64" />
+          <Property Name="StudyInstance" Type="varchar" MaxLength="64" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="int" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Attachments_Studies">
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="1" />
+          <End Role="Attachments" Type="RISModel.Store.Attachments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studies">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Attachments">
+              <PropertyRef Name="StudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BodyParts_Modalities">
+          <End Role="Modalities" Type="RISModel.Store.Modalities" Multiplicity="1" />
+          <End Role="BodyParts" Type="RISModel.Store.BodyParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="BodyParts">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreens_Roles">
+          <End Role="Roles" Type="RISModel.Store.Roles" Multiplicity="1" />
+          <End Role="RoleScreens" Type="RISModel.Store.RoleScreens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleScreens">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreens_Screens">
+          <End Role="Screens" Type="RISModel.Store.Screens" Multiplicity="1" />
+          <End Role="RoleScreens" Type="RISModel.Store.RoleScreens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Screens">
+              <PropertyRef Name="ScreenId" />
+            </Principal>
+            <Dependent Role="RoleScreens">
+              <PropertyRef Name="ScreenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Series_ModalityDetail">
+          <End Role="ModalityDetails" Type="RISModel.Store.ModalityDetails" Multiplicity="0..1" />
+          <End Role="Series" Type="RISModel.Store.Series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModalityDetails">
+              <PropertyRef Name="ModalityDetailId" />
+            </Principal>
+            <Dependent Role="Series">
+              <PropertyRef Name="ModalityDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_BodyParts">
+          <End Role="BodyParts" Type="RISModel.Store.BodyParts" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BodyParts">
+              <PropertyRef Name="BodyPartId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="BodyPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Clients">
+          <End Role="Clients" Type="RISModel.Store.Clients" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Hospitals">
+          <End Role="Hospitals" Type="RISModel.Store.Hospitals" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Radiologist">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="RadiologistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Studies">
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="0..1" />
+          <End Role="Studies1" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studies">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Studies1">
+              <PropertyRef Name="ParentStudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_StudyStatusTypes">
+          <End Role="StudyStatusTypes" Type="RISModel.Store.StudyStatusTypes" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyStatusTypes">
+              <PropertyRef Name="StudyStatusTypeId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="StudyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Templates">
+          <End Role="Templates" Type="RISModel.Store.Templates" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Templates_BodyParts">
+          <End Role="BodyParts" Type="RISModel.Store.BodyParts" Multiplicity="1" />
+          <End Role="Templates" Type="RISModel.Store.Templates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BodyParts">
+              <PropertyRef Name="BodyPartId" />
+            </Principal>
+            <Dependent Role="Templates">
+              <PropertyRef Name="BodyPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tHospitals_tClients">
+          <End Role="Clients" Type="RISModel.Store.Clients" Multiplicity="1" />
+          <End Role="Hospitals" Type="RISModel.Store.Hospitals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Hospitals">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tImages_tSeries">
+          <End Role="Series" Type="RISModel.Store.Series" Multiplicity="1" />
+          <End Role="Images" Type="RISModel.Store.Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Series">
+              <PropertyRef Name="SeriesId" />
+            </Principal>
+            <Dependent Role="Images">
+              <PropertyRef Name="SeriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tLog_tStudies">
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="0..1" />
+          <End Role="Logs" Type="RISModel.Store.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studies">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="StudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tLog_tUsers">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Logs" Type="RISModel.Store.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tModalityDetails_tModalities">
+          <End Role="Modalities" Type="RISModel.Store.Modalities" Multiplicity="1" />
+          <End Role="ModalityDetails" Type="RISModel.Store.ModalityDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="ModalityDetails">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tProcedures_tModalities">
+          <End Role="Modalities" Type="RISModel.Store.Modalities" Multiplicity="1" />
+          <End Role="Procedures" Type="RISModel.Store.Procedures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="Procedures">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tSeries_tStudies">
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="1" />
+          <End Role="Series" Type="RISModel.Store.Series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studies">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Series">
+              <PropertyRef Name="StudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStations_tClients">
+          <End Role="Clients" Type="RISModel.Store.Clients" Multiplicity="0..1" />
+          <End Role="Stations" Type="RISModel.Store.Stations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStations_tHospitals">
+          <End Role="Hospitals" Type="RISModel.Store.Hospitals" Multiplicity="0..1" />
+          <End Role="Stations" Type="RISModel.Store.Stations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStations_tModalities">
+          <End Role="Modalities" Type="RISModel.Store.Modalities" Multiplicity="0..1" />
+          <End Role="Stations" Type="RISModel.Store.Stations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tModalities">
+          <End Role="Modalities" Type="RISModel.Store.Modalities" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tProcedures">
+          <End Role="Procedures" Type="RISModel.Store.Procedures" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Procedures">
+              <PropertyRef Name="ProcedureId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="ProcedureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tStations">
+          <End Role="Stations" Type="RISModel.Store.Stations" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stations">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="StationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tUsers">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="ReferringPhysicianId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tTemplateUsers_tTemplates">
+          <End Role="Templates" Type="RISModel.Store.Templates" Multiplicity="1" />
+          <End Role="TemplateUsers" Type="RISModel.Store.TemplateUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="TemplateUsers">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tTemplateUsers_tUsers">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="1" />
+          <End Role="TemplateUsers" Type="RISModel.Store.TemplateUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TemplateUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserHospitals_tHospitals">
+          <End Role="Hospitals" Type="RISModel.Store.Hospitals" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.Store.UserHospitals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserHospitals_tUsers">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.Store.UserHospitals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserRoles_tRoles">
+          <End Role="Roles" Type="RISModel.Store.Roles" Multiplicity="1" />
+          <End Role="UserRoles" Type="RISModel.Store.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserRoles_tUsers">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="1" />
+          <End Role="UserRoles" Type="RISModel.Store.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUsers_tCarriers">
+          <End Role="Carriers" Type="RISModel.Store.Carriers" Multiplicity="0..1" />
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carriers">
+              <PropertyRef Name="CarrierId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CarrierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClients_Users">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="1" />
+          <End Role="UserClients" Type="RISModel.Store.UserClients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserClients">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHospitals_Hospitals">
+          <End Role="Hospitals" Type="RISModel.Store.Hospitals" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.Store.UserHospitals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHospitals_Users">
+          <End Role="Users" Type="RISModel.Store.Users" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.Store.UserHospitals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RISModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="RISEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attachments" EntityType="RISModel.Attachment" />
+          <EntitySet Name="Carriers" EntityType="RISModel.Carrier" />
+          <EntitySet Name="Clients" EntityType="RISModel.Client" />
+          <EntitySet Name="Hospitals" EntityType="RISModel.Hospital" />
+          <EntitySet Name="Logs" EntityType="RISModel.Log" />
+          <EntitySet Name="Modalities" EntityType="RISModel.Modality" />
+          <EntitySet Name="ModalityDetails" EntityType="RISModel.ModalityDetail" />
+          <EntitySet Name="Procedures" EntityType="RISModel.Procedure" />
+          <EntitySet Name="RoleManagements" EntityType="RISModel.RoleManagement" />
+          <EntitySet Name="Roles" EntityType="RISModel.Role" />
+          <EntitySet Name="RoleScreens" EntityType="RISModel.RoleScreen" />
+          <EntitySet Name="Screens" EntityType="RISModel.Screen" />
+          <EntitySet Name="Series" EntityType="RISModel.Series" />
+          <EntitySet Name="Stations" EntityType="RISModel.Station" />
+          <EntitySet Name="Studies" EntityType="RISModel.Study" />
+          <EntitySet Name="StudyStatusTypes" EntityType="RISModel.StudyStatusType" />
+          <EntitySet Name="Templates" EntityType="RISModel.Template" />
+          <EntitySet Name="TemplateUsers" EntityType="RISModel.TemplateUser" />
+          <EntitySet Name="Types" EntityType="RISModel.Type" />
+          <EntitySet Name="UserClients" EntityType="RISModel.UserClient" />
+          <EntitySet Name="UserHospitals" EntityType="RISModel.UserHospital" />
+          <EntitySet Name="UserRoles" EntityType="RISModel.UserRole" />
+          <EntitySet Name="Users" EntityType="RISModel.User" />
+          <EntitySet Name="WorkLists" EntityType="RISModel.WorkList" />
+          <AssociationSet Name="FK_Attachments_Studies" Association="RISModel.FK_Attachments_Studies">
+            <End Role="Studies" EntitySet="Studies" />
+            <End Role="Attachments" EntitySet="Attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUsers_tCarriers" Association="RISModel.FK_tUsers_tCarriers">
+            <End Role="Carriers" EntitySet="Carriers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tHospitals_tClients" Association="RISModel.FK_tHospitals_tClients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Hospitals" EntitySet="Hospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStations_tClients" Association="RISModel.FK_tStations_tClients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStations_tHospitals" Association="RISModel.FK_tStations_tHospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserHospitals_tHospitals" Association="RISModel.FK_tUserHospitals_tHospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHospitals_Hospitals" Association="RISModel.FK_UserHospitals_Hospitals">
+            <End Role="Hospitals" EntitySet="Hospitals" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tLog_tStudies" Association="RISModel.FK_tLog_tStudies">
+            <End Role="Studies" EntitySet="Studies" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tLog_tUsers" Association="RISModel.FK_tLog_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tModalityDetails_tModalities" Association="RISModel.FK_tModalityDetails_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="ModalityDetails" EntitySet="ModalityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tProcedures_tModalities" Association="RISModel.FK_tProcedures_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="Procedures" EntitySet="Procedures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStations_tModalities" Association="RISModel.FK_tStations_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tModalities" Association="RISModel.FK_tStudies_tModalities">
+            <End Role="Modalities" EntitySet="Modalities" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tProcedures" Association="RISModel.FK_tStudies_tProcedures">
+            <End Role="Procedures" EntitySet="Procedures" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreens_Roles" Association="RISModel.FK_RoleScreens_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleScreens" EntitySet="RoleScreens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserRoles_tRoles" Association="RISModel.FK_tUserRoles_tRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreens_Screens" Association="RISModel.FK_RoleScreens_Screens">
+            <End Role="Screens" EntitySet="Screens" />
+            <End Role="RoleScreens" EntitySet="RoleScreens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tSeries_tStudies" Association="RISModel.FK_tSeries_tStudies">
+            <End Role="Studies" EntitySet="Studies" />
+            <End Role="Series" EntitySet="Series" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tStations" Association="RISModel.FK_tStudies_tStations">
+            <End Role="Stations" EntitySet="Stations" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tStudies_tUsers" Association="RISModel.FK_tStudies_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Studies" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tTemplateUsers_tTemplates" Association="RISModel.FK_tTemplateUsers_tTemplates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="TemplateUsers" EntitySet="TemplateUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tTemplateUsers_tUsers" Association="RISModel.FK_tTemplateUsers_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TemplateUsers" EntitySet="TemplateUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClients_Users" Association="RISModel.FK_UserClients_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserClients" EntitySet="UserClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserHospitals_tUsers" Association="RISModel.FK_tUserHospitals_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHospitals_Users" Association="RISModel.FK_UserHospitals_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserHospitals" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUserRoles_tUsers" Association="RISModel.FK_tUserRoles_tUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_StudyStatusTypes" Association="RISModel.FK_Studies_StudyStatusTypes">
+            <End Role="StudyStatusType" EntitySet="StudyStatusTypes" />
+            <End Role="Study" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Hospitals" Association="RISModel.FK_Studies_Hospitals">
+            <End Role="Hospital" EntitySet="Hospitals" />
+            <End Role="Study" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Clients" Association="RISModel.FK_Studies_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Study" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Templates" Association="RISModel.FK_Studies_Templates">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="Study" EntitySet="Studies" />
+          </AssociationSet>
+          <EntitySet Name="BodyParts" EntityType="RISModel.BodyPart" />
+          <AssociationSet Name="FK_Templates_BodyParts" Association="RISModel.FK_Templates_BodyParts">
+            <End Role="BodyPart" EntitySet="BodyParts" />
+            <End Role="Template" EntitySet="Templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_BodyParts" Association="RISModel.FK_Studies_BodyParts">
+            <End Role="BodyPart" EntitySet="BodyParts" />
+            <End Role="Study" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BodyParts_Modalities" Association="RISModel.FK_BodyParts_Modalities">
+            <End Role="Modality" EntitySet="Modalities" />
+            <End Role="BodyPart" EntitySet="BodyParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Radiologist" Association="RISModel.FK_Studies_Radiologist">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Study" EntitySet="Studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Series_ModalityDetail" Association="RISModel.FK_Series_ModalityDetail">
+            <End Role="ModalityDetail" EntitySet="ModalityDetails" />
+            <End Role="Series" EntitySet="Series" />
+          </AssociationSet>
+          <EntitySet Name="Images" EntityType="RISModel.Image" />
+          <AssociationSet Name="FK_tImages_tSeries" Association="RISModel.FK_tImages_tSeries">
+            <End Role="Series" EntitySet="Series" />
+            <End Role="Image" EntitySet="Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studies_Studies" Association="RISModel.FK_Studies_Studies">
+            <End Role="Study" EntitySet="Studies" />
+            <End Role="Study1" EntitySet="Studies" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudyId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="ScannedBy" Type="Int32" Nullable="false" />
+          <Property Name="ScannedTime" Type="DateTime" Nullable="false" />
+          <Property Name="AttachmentData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AttachmentType" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Study" Relationship="RISModel.FK_Attachments_Studies" FromRole="Attachments" ToRole="Studies" />
+        </EntityType>
+        <EntityType Name="Carrier">
+          <Key>
+            <PropertyRef Name="CarrierId" />
+          </Key>
+          <Property Name="CarrierId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="EmailServer" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Users" Relationship="RISModel.FK_tUsers_tCarriers" FromRole="Carriers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ClientGUID" Type="String" MaxLength="36" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" />
+          <Property Name="LastUpdatedBy" Type="Int32" />
+          <Property Name="LastUpdateDate" Type="DateTime" />
+          <Property Name="Website" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Hospitals" Relationship="RISModel.FK_tHospitals_tClients" FromRole="Clients" ToRole="Hospitals" />
+          <NavigationProperty Name="Stations" Relationship="RISModel.FK_tStations_tClients" FromRole="Clients" ToRole="Stations" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Clients" FromRole="Client" ToRole="Study" />
+        </EntityType>
+        <EntityType Name="Hospital">
+          <Key>
+            <PropertyRef Name="HospitalId" />
+          </Key>
+          <Property Name="HospitalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Client" Relationship="RISModel.FK_tHospitals_tClients" FromRole="Hospitals" ToRole="Clients" />
+          <NavigationProperty Name="Stations" Relationship="RISModel.FK_tStations_tHospitals" FromRole="Hospitals" ToRole="Stations" />
+          <NavigationProperty Name="UserHospitals" Relationship="RISModel.FK_tUserHospitals_tHospitals" FromRole="Hospitals" ToRole="UserHospitals" />
+          <NavigationProperty Name="UserHospitals1" Relationship="RISModel.FK_UserHospitals_Hospitals" FromRole="Hospitals" ToRole="UserHospitals" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Hospitals" FromRole="Hospital" ToRole="Study" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudyId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ActionTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Study" Relationship="RISModel.FK_tLog_tStudies" FromRole="Logs" ToRole="Studies" />
+          <NavigationProperty Name="User" Relationship="RISModel.FK_tLog_tUsers" FromRole="Logs" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Modality">
+          <Key>
+            <PropertyRef Name="ModalityId" />
+          </Key>
+          <Property Name="ModalityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ModalityDetails" Relationship="RISModel.FK_tModalityDetails_tModalities" FromRole="Modalities" ToRole="ModalityDetails" />
+          <NavigationProperty Name="Procedures" Relationship="RISModel.FK_tProcedures_tModalities" FromRole="Modalities" ToRole="Procedures" />
+          <NavigationProperty Name="Stations" Relationship="RISModel.FK_tStations_tModalities" FromRole="Modalities" ToRole="Stations" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_tStudies_tModalities" FromRole="Modalities" ToRole="Studies" />
+          <NavigationProperty Name="BodyParts" Relationship="RISModel.FK_BodyParts_Modalities" FromRole="Modality" ToRole="BodyPart" />
+        </EntityType>
+        <EntityType Name="ModalityDetail">
+          <Key>
+            <PropertyRef Name="ModalityDetailId" />
+          </Key>
+          <Property Name="ModalityDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModalityId" Type="Int32" Nullable="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="ModelName" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedby" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modality" Relationship="RISModel.FK_tModalityDetails_tModalities" FromRole="ModalityDetails" ToRole="Modalities" />
+          <NavigationProperty Name="Series" Relationship="RISModel.FK_Series_ModalityDetail" FromRole="ModalityDetail" ToRole="Series" />
+        </EntityType>
+        <EntityType Name="Procedure">
+          <Key>
+            <PropertyRef Name="ProcedureId" />
+          </Key>
+          <Property Name="ProcedureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModalityId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CPTCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Modality" Relationship="RISModel.FK_tProcedures_tModalities" FromRole="Procedures" ToRole="Modalities" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_tStudies_tProcedures" FromRole="Procedures" ToRole="Studies" />
+        </EntityType>
+        <EntityType Name="RoleManagement">
+          <Key>
+            <PropertyRef Name="RoleManagementId" />
+          </Key>
+          <Property Name="RoleManagementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManagerRoleId" Type="Int32" Nullable="false" />
+          <Property Name="NormalRoleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="RoleScreens" Relationship="RISModel.FK_RoleScreens_Roles" FromRole="Roles" ToRole="RoleScreens" />
+          <NavigationProperty Name="UserRoles" Relationship="RISModel.FK_tUserRoles_tRoles" FromRole="Roles" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="RoleScreen">
+          <Key>
+            <PropertyRef Name="RoleScreenId" />
+          </Key>
+          <Property Name="RoleScreenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="ScreenId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="RISModel.FK_RoleScreens_Roles" FromRole="RoleScreens" ToRole="Roles" />
+          <NavigationProperty Name="Screen" Relationship="RISModel.FK_RoleScreens_Screens" FromRole="RoleScreens" ToRole="Screens" />
+        </EntityType>
+        <EntityType Name="Screen">
+          <Key>
+            <PropertyRef Name="ScreenId" />
+          </Key>
+          <Property Name="ScreenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="IsActive" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="RoleScreens" Relationship="RISModel.FK_RoleScreens_Screens" FromRole="Screens" ToRole="RoleScreens" />
+        </EntityType>
+        <EntityType Name="Series">
+          <Key>
+            <PropertyRef Name="SeriesId" />
+          </Key>
+          <Property Name="SeriesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudyId" Type="Int32" Nullable="false" />
+          <Property Name="SeriesInstance" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="SeriesNumber" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="SeriesDate" Type="DateTime" />
+          <Property Name="Description" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="ModalityDetailId" Type="Int32" />
+          <Property Name="PatientPosition" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="Contrast" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="BodyPartExamined" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="ProtocolName" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="FrameOfReference" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Study" Relationship="RISModel.FK_tSeries_tStudies" FromRole="Series" ToRole="Studies" />
+          <NavigationProperty Name="ModalityDetail" Relationship="RISModel.FK_Series_ModalityDetail" FromRole="Series" ToRole="ModalityDetail" />
+          <NavigationProperty Name="Images" Relationship="RISModel.FK_tImages_tSeries" FromRole="Series" ToRole="Image" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="StationId" />
+          </Key>
+          <Property Name="StationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModalityId" Type="Int32" />
+          <Property Name="StationName" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="Instituition" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="HospitalId" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="RISModel.FK_tStations_tClients" FromRole="Stations" ToRole="Clients" />
+          <NavigationProperty Name="Hospital" Relationship="RISModel.FK_tStations_tHospitals" FromRole="Stations" ToRole="Hospitals" />
+          <NavigationProperty Name="Modality" Relationship="RISModel.FK_tStations_tModalities" FromRole="Stations" ToRole="Modalities" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_tStudies_tStations" FromRole="Stations" ToRole="Studies" />
+        </EntityType>
+        <EntityType Name="Study">
+          <Key>
+            <PropertyRef Name="StudyId" />
+          </Key>
+          <Property Name="StudyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudyInstance" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="StudyDate" Type="DateTime" />
+          <Property Name="ProcedureId" Type="Int32" />
+          <Property Name="ReferringPhysicianId" Type="Int32" />
+          <Property Name="PatientWeight" Type="String" />
+          <Property Name="ModalityId" Type="Int32" />
+          <Property Name="StationId" Type="Int32" />
+          <Property Name="StudyStatusId" Type="Int32" />
+          <Property Name="LatestSeriesId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <Property Name="IsManual" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="AccessionNumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="HospitalId" Type="Int32" />
+          <Property Name="TechComments" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="TemplateId" Type="Int32" />
+          <Property Name="RejectionReason" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Attachments" Relationship="RISModel.FK_Attachments_Studies" FromRole="Studies" ToRole="Attachments" />
+          <NavigationProperty Name="Logs" Relationship="RISModel.FK_tLog_tStudies" FromRole="Studies" ToRole="Logs" />
+          <NavigationProperty Name="Modality" Relationship="RISModel.FK_tStudies_tModalities" FromRole="Studies" ToRole="Modalities" />
+          <NavigationProperty Name="Procedure" Relationship="RISModel.FK_tStudies_tProcedures" FromRole="Studies" ToRole="Procedures" />
+          <NavigationProperty Name="Series" Relationship="RISModel.FK_tSeries_tStudies" FromRole="Studies" ToRole="Series" />
+          <NavigationProperty Name="Station" Relationship="RISModel.FK_tStudies_tStations" FromRole="Studies" ToRole="Stations" />
+          <NavigationProperty Name="ReferringPhysician" Relationship="RISModel.FK_tStudies_tUsers" FromRole="Studies" ToRole="Users" />
+          <NavigationProperty Name="StudyStatusType" Relationship="RISModel.FK_Studies_StudyStatusTypes" FromRole="Study" ToRole="StudyStatusType" />
+          <NavigationProperty Name="Hospital" Relationship="RISModel.FK_Studies_Hospitals" FromRole="Study" ToRole="Hospital" />
+          <NavigationProperty Name="Client" Relationship="RISModel.FK_Studies_Clients" FromRole="Study" ToRole="Client" />
+          <NavigationProperty Name="Template" Relationship="RISModel.FK_Studies_Templates" FromRole="Study" ToRole="Template" />
+          <Property Type="Int32" Name="ParentStudyId" />
+          <Property Type="Int32" Name="BodyPartId" />
+          <NavigationProperty Name="BodyPart" Relationship="RISModel.FK_Studies_BodyParts" FromRole="Study" ToRole="BodyPart" />
+          <Property Type="Int32" Name="RadiologistId" />
+          <Property Type="DateTime" Name="ReportDate" />
+          <Property Type="String" Name="Heading" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Impression" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Radiologist" Relationship="RISModel.FK_Studies_Radiologist" FromRole="Study" ToRole="User" />
+          <Property Type="String" Name="OriginalPatientId" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ExternalPatientId" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PatientName" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="PatientDOB" />
+          <Property Type="String" Name="PatientGender" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Amendment" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ChildStudies" Relationship="RISModel.FK_Studies_Studies" FromRole="Study" ToRole="Study1" />
+          <NavigationProperty Name="ParentStudy" Relationship="RISModel.FK_Studies_Studies" FromRole="Study1" ToRole="Study" />
+          <Property Type="Boolean" Name="IsLatest" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudyStatusType">
+          <Key>
+            <PropertyRef Name="StudyStatusTypeId" />
+          </Key>
+          <Property Name="StudyStatusTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="ColumnOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_StudyStatusTypes" FromRole="StudyStatusType" ToRole="Study" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Heading" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Impression" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TemplateUsers" Relationship="RISModel.FK_tTemplateUsers_tTemplates" FromRole="Templates" ToRole="TemplateUsers" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Templates" FromRole="Template" ToRole="Study" />
+          <Property Type="Int32" Name="BodyPartId" Nullable="false" />
+          <NavigationProperty Name="BodyPart" Relationship="RISModel.FK_Templates_BodyParts" FromRole="Template" ToRole="BodyPart" />
+        </EntityType>
+        <EntityType Name="TemplateUser">
+          <Key>
+            <PropertyRef Name="TemplateUserId" />
+          </Key>
+          <Property Name="TemplateUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Template" Relationship="RISModel.FK_tTemplateUsers_tTemplates" FromRole="TemplateUsers" ToRole="Templates" />
+          <NavigationProperty Name="User" Relationship="RISModel.FK_tTemplateUsers_tUsers" FromRole="TemplateUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserClient">
+          <Key>
+            <PropertyRef Name="UserClientId" />
+          </Key>
+          <Property Name="UserClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="RISModel.FK_UserClients_Users" FromRole="UserClients" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserHospital">
+          <Key>
+            <PropertyRef Name="UserHospitalId" />
+          </Key>
+          <Property Name="UserHospitalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="HospitalId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hospital" Relationship="RISModel.FK_tUserHospitals_tHospitals" FromRole="UserHospitals" ToRole="Hospitals" />
+          <NavigationProperty Name="Hospital1" Relationship="RISModel.FK_UserHospitals_Hospitals" FromRole="UserHospitals" ToRole="Hospitals" />
+          <NavigationProperty Name="User" Relationship="RISModel.FK_tUserHospitals_tUsers" FromRole="UserHospitals" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="RISModel.FK_UserHospitals_Users" FromRole="UserHospitals" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="RISModel.FK_tUserRoles_tRoles" FromRole="UserRoles" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="RISModel.FK_tUserRoles_tUsers" FromRole="UserRoles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="LastLoginDate" Type="DateTime" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+          <Property Name="SecretQuestionId" Type="Int32" />
+          <Property Name="Answer" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ResetPassword" Type="Boolean" />
+          <Property Name="Mobile" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CarrierId" Type="Int32" />
+          <Property Name="SendSMS" Type="Boolean" />
+          <NavigationProperty Name="Carrier" Relationship="RISModel.FK_tUsers_tCarriers" FromRole="Users" ToRole="Carriers" />
+          <NavigationProperty Name="Logs" Relationship="RISModel.FK_tLog_tUsers" FromRole="Users" ToRole="Logs" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_tStudies_tUsers" FromRole="Users" ToRole="Studies" />
+          <NavigationProperty Name="TemplateUsers" Relationship="RISModel.FK_tTemplateUsers_tUsers" FromRole="Users" ToRole="TemplateUsers" />
+          <NavigationProperty Name="UserClients" Relationship="RISModel.FK_UserClients_Users" FromRole="Users" ToRole="UserClients" />
+          <NavigationProperty Name="UserHospitals" Relationship="RISModel.FK_tUserHospitals_tUsers" FromRole="Users" ToRole="UserHospitals" />
+          <NavigationProperty Name="UserHospitals1" Relationship="RISModel.FK_UserHospitals_Users" FromRole="Users" ToRole="UserHospitals" />
+          <NavigationProperty Name="UserRoles" Relationship="RISModel.FK_tUserRoles_tUsers" FromRole="Users" ToRole="UserRoles" />
+          <Property Type="Boolean" Name="AllowOthers" Nullable="false" />
+          <NavigationProperty Name="Studies_1" Relationship="RISModel.FK_Studies_Radiologist" FromRole="User" ToRole="Study" />
+        </EntityType>
+        <EntityType Name="WorkList">
+          <Key>
+            <PropertyRef Name="WorkListId" />
+          </Key>
+          <Property Name="WorkListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientId" Type="Int32" />
+          <Property Name="RequestingPhysicianId" Type="Int32" />
+          <Property Name="ModalityId" Type="Int32" />
+          <Property Name="ProcedureId" Type="Int32" />
+          <Property Name="StationId" Type="Int32" />
+          <Property Name="PerformingPhysicianId" Type="Int32" />
+          <Property Name="ExternalPatientId" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="StudyInstance" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" />
+          <Property Name="LastUpdatedBy" Type="Int32" />
+          <Property Name="LastUpdateDate" Type="DateTime" />
+        </EntityType>
+        <Association Name="FK_Attachments_Studies">
+          <End Role="Studies" Type="RISModel.Study" Multiplicity="1" />
+          <End Role="Attachments" Type="RISModel.Attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studies">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Attachments">
+              <PropertyRef Name="StudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUsers_tCarriers">
+          <End Role="Carriers" Type="RISModel.Carrier" Multiplicity="0..1" />
+          <End Role="Users" Type="RISModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carriers">
+              <PropertyRef Name="CarrierId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CarrierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tHospitals_tClients">
+          <End Role="Clients" Type="RISModel.Client" Multiplicity="1" />
+          <End Role="Hospitals" Type="RISModel.Hospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Hospitals">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStations_tClients">
+          <End Role="Clients" Type="RISModel.Client" Multiplicity="0..1" />
+          <End Role="Stations" Type="RISModel.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStations_tHospitals">
+          <End Role="Hospitals" Type="RISModel.Hospital" Multiplicity="0..1" />
+          <End Role="Stations" Type="RISModel.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserHospitals_tHospitals">
+          <End Role="Hospitals" Type="RISModel.Hospital" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.UserHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHospitals_Hospitals">
+          <End Role="Hospitals" Type="RISModel.Hospital" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.UserHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospitals">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tLog_tStudies">
+          <End Role="Studies" Type="RISModel.Study" Multiplicity="0..1" />
+          <End Role="Logs" Type="RISModel.Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studies">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="StudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tLog_tUsers">
+          <End Role="Users" Type="RISModel.User" Multiplicity="0..1" />
+          <End Role="Logs" Type="RISModel.Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tModalityDetails_tModalities">
+          <End Role="Modalities" Type="RISModel.Modality" Multiplicity="1" />
+          <End Role="ModalityDetails" Type="RISModel.ModalityDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="ModalityDetails">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tProcedures_tModalities">
+          <End Role="Modalities" Type="RISModel.Modality" Multiplicity="1" />
+          <End Role="Procedures" Type="RISModel.Procedure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="Procedures">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStations_tModalities">
+          <End Role="Modalities" Type="RISModel.Modality" Multiplicity="0..1" />
+          <End Role="Stations" Type="RISModel.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tModalities">
+          <End Role="Modalities" Type="RISModel.Modality" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalities">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tProcedures">
+          <End Role="Procedures" Type="RISModel.Procedure" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Procedures">
+              <PropertyRef Name="ProcedureId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="ProcedureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreens_Roles">
+          <End Role="Roles" Type="RISModel.Role" Multiplicity="1" />
+          <End Role="RoleScreens" Type="RISModel.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleScreens">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserRoles_tRoles">
+          <End Role="Roles" Type="RISModel.Role" Multiplicity="1" />
+          <End Role="UserRoles" Type="RISModel.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreens_Screens">
+          <End Role="Screens" Type="RISModel.Screen" Multiplicity="1" />
+          <End Role="RoleScreens" Type="RISModel.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Screens">
+              <PropertyRef Name="ScreenId" />
+            </Principal>
+            <Dependent Role="RoleScreens">
+              <PropertyRef Name="ScreenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tSeries_tStudies">
+          <End Role="Studies" Type="RISModel.Study" Multiplicity="1" />
+          <End Role="Series" Type="RISModel.Series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studies">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Series">
+              <PropertyRef Name="StudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tStations">
+          <End Role="Stations" Type="RISModel.Station" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stations">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="StationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tStudies_tUsers">
+          <End Role="Users" Type="RISModel.User" Multiplicity="0..1" />
+          <End Role="Studies" Type="RISModel.Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Studies">
+              <PropertyRef Name="ReferringPhysicianId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tTemplateUsers_tTemplates">
+          <End Role="Templates" Type="RISModel.Template" Multiplicity="1" />
+          <End Role="TemplateUsers" Type="RISModel.TemplateUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="TemplateUsers">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tTemplateUsers_tUsers">
+          <End Role="Users" Type="RISModel.User" Multiplicity="1" />
+          <End Role="TemplateUsers" Type="RISModel.TemplateUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TemplateUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClients_Users">
+          <End Role="Users" Type="RISModel.User" Multiplicity="1" />
+          <End Role="UserClients" Type="RISModel.UserClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserClients">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserHospitals_tUsers">
+          <End Role="Users" Type="RISModel.User" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.UserHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHospitals_Users">
+          <End Role="Users" Type="RISModel.User" Multiplicity="1" />
+          <End Role="UserHospitals" Type="RISModel.UserHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserHospitals">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUserRoles_tUsers">
+          <End Role="Users" Type="RISModel.User" Multiplicity="1" />
+          <End Role="UserRoles" Type="RISModel.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_StudyStatusTypes">
+          <End Type="RISModel.StudyStatusType" Role="StudyStatusType" Multiplicity="0..1" />
+          <End Type="RISModel.Study" Role="Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyStatusType">
+              <PropertyRef Name="StudyStatusTypeId" />
+            </Principal>
+            <Dependent Role="Study">
+              <PropertyRef Name="StudyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Hospitals">
+          <End Type="RISModel.Hospital" Role="Hospital" Multiplicity="0..1" />
+          <End Type="RISModel.Study" Role="Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="HospitalId" />
+            </Principal>
+            <Dependent Role="Study">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Clients">
+          <End Type="RISModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="RISModel.Study" Role="Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Study">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Templates">
+          <End Type="RISModel.Template" Role="Template" Multiplicity="0..1" />
+          <End Type="RISModel.Study" Role="Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="Study">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BodyPart">
+          <Key>
+            <PropertyRef Name="BodyPartId" />
+          </Key>
+          <Property Type="Int32" Name="BodyPartId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Templates" Relationship="RISModel.FK_Templates_BodyParts" FromRole="BodyPart" ToRole="Template" />
+          <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_BodyParts" FromRole="BodyPart" ToRole="Study" />
+          <Property Type="Int32" Name="ModalityId" Nullable="false" />
+          <NavigationProperty Name="Modality" Relationship="RISModel.FK_BodyParts_Modalities" FromRole="BodyPart" ToRole="Modality" />
+        </EntityType>
+        <Association Name="FK_Templates_BodyParts">
+          <End Type="RISModel.BodyPart" Role="BodyPart" Multiplicity="1" />
+          <End Type="RISModel.Template" Role="Template" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BodyPart">
+              <PropertyRef Name="BodyPartId" />
+            </Principal>
+            <Dependent Role="Template">
+              <PropertyRef Name="BodyPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_BodyParts">
+          <End Type="RISModel.BodyPart" Role="BodyPart" Multiplicity="0..1" />
+          <End Type="RISModel.Study" Role="Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BodyPart">
+              <PropertyRef Name="BodyPartId" />
+            </Principal>
+            <Dependent Role="Study">
+              <PropertyRef Name="BodyPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BodyParts_Modalities">
+          <End Type="RISModel.Modality" Role="Modality" Multiplicity="1" />
+          <End Type="RISModel.BodyPart" Role="BodyPart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modality">
+              <PropertyRef Name="ModalityId" />
+            </Principal>
+            <Dependent Role="BodyPart">
+              <PropertyRef Name="ModalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Radiologist">
+          <End Type="RISModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="RISModel.Study" Role="Study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Study">
+              <PropertyRef Name="RadiologistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Series_ModalityDetail">
+          <End Type="RISModel.ModalityDetail" Role="ModalityDetail" Multiplicity="0..1" />
+          <End Type="RISModel.Series" Role="Series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModalityDetail">
+              <PropertyRef Name="ModalityDetailId" />
+            </Principal>
+            <Dependent Role="Series">
+              <PropertyRef Name="ModalityDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Type="Int32" Name="ImageId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="SeriesId" Nullable="false" />
+          <Property Type="String" Name="ImageInstance" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ImageClassUI" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ImageNumber" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ImageDate" />
+          <Property Type="String" Name="EchoNumber" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NumberOfFrames" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AcquiredDate" />
+          <Property Type="String" Name="SliceLocation" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NumberOfSamples" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhotoMetric" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Rows" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Columns" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BitsStored" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Path" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DeviceName" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" />
+          <Property Type="Int32" Name="LastUpdatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="LastUpdateDate" Nullable="false" />
+          <NavigationProperty Name="Series" Relationship="RISModel.FK_tImages_tSeries" FromRole="Image" ToRole="Series" />
+        </EntityType>
+        <Association Name="FK_tImages_tSeries">
+          <End Type="RISModel.Series" Role="Series" Multiplicity="1" />
+          <End Type="RISModel.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Series">
+              <PropertyRef Name="SeriesId" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="SeriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studies_Studies">
+          <End Type="RISModel.Study" Role="Study" Multiplicity="0..1" />
+          <End Type="RISModel.Study" Role="Study1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Study">
+              <PropertyRef Name="StudyId" />
+            </Principal>
+            <Dependent Role="Study1">
+              <PropertyRef Name="ParentStudyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RISModelStoreContainer" CdmEntityContainer="RISEntities">
+          <EntitySetMapping Name="Attachments"><EntityTypeMapping TypeName="RISModel.Attachment"><MappingFragment StoreEntitySet="Attachments">
+            <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+            <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ScannedBy" ColumnName="ScannedBy" />
+            <ScalarProperty Name="ScannedTime" ColumnName="ScannedTime" />
+            <ScalarProperty Name="AttachmentData" ColumnName="AttachmentData" />
+            <ScalarProperty Name="AttachmentType" ColumnName="AttachmentType" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Carriers"><EntityTypeMapping TypeName="RISModel.Carrier"><MappingFragment StoreEntitySet="Carriers">
+            <ScalarProperty Name="CarrierId" ColumnName="CarrierId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="EmailServer" ColumnName="EmailServer" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Clients"><EntityTypeMapping TypeName="RISModel.Client"><MappingFragment StoreEntitySet="Clients">
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="ClientGUID" ColumnName="ClientGUID" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="State" ColumnName="State" />
+            <ScalarProperty Name="Zip" ColumnName="Zip" />
+            <ScalarProperty Name="Phone" ColumnName="Phone" />
+            <ScalarProperty Name="Fax" ColumnName="Fax" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+            <ScalarProperty Name="Website" ColumnName="Website" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Hospitals"><EntityTypeMapping TypeName="RISModel.Hospital"><MappingFragment StoreEntitySet="Hospitals">
+            <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="State" ColumnName="State" />
+            <ScalarProperty Name="Zip" ColumnName="Zip" />
+            <ScalarProperty Name="Code" ColumnName="Code" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="Phone" ColumnName="Phone" />
+            <ScalarProperty Name="Fax" ColumnName="Fax" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Logs"><EntityTypeMapping TypeName="RISModel.Log"><MappingFragment StoreEntitySet="Logs">
+            <ScalarProperty Name="LogId" ColumnName="LogId" />
+            <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Action" ColumnName="Action" />
+            <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Modalities"><EntityTypeMapping TypeName="RISModel.Modality"><MappingFragment StoreEntitySet="Modalities">
+            <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ModalityDetails"><EntityTypeMapping TypeName="RISModel.ModalityDetail"><MappingFragment StoreEntitySet="ModalityDetails">
+            <ScalarProperty Name="ModalityDetailId" ColumnName="ModalityDetailId" />
+            <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+            <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+            <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+            <ScalarProperty Name="LastUpdatedby" ColumnName="LastUpdatedby" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Procedures"><EntityTypeMapping TypeName="RISModel.Procedure"><MappingFragment StoreEntitySet="Procedures">
+            <ScalarProperty Name="ProcedureId" ColumnName="ProcedureId" />
+            <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="CPTCode" ColumnName="CPTCode" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="RoleManagements"><EntityTypeMapping TypeName="RISModel.RoleManagement"><MappingFragment StoreEntitySet="RoleManagements">
+            <ScalarProperty Name="RoleManagementId" ColumnName="RoleManagementId" />
+            <ScalarProperty Name="ManagerRoleId" ColumnName="ManagerRoleId" />
+            <ScalarProperty Name="NormalRoleId" ColumnName="NormalRoleId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="RISModel.Role"><MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="RoleScreens"><EntityTypeMapping TypeName="RISModel.RoleScreen"><MappingFragment StoreEntitySet="RoleScreens">
+            <ScalarProperty Name="RoleScreenId" ColumnName="RoleScreenId" />
+            <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Screens"><EntityTypeMapping TypeName="RISModel.Screen"><MappingFragment StoreEntitySet="Screens">
+            <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Path" ColumnName="Path" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+            <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Series"><EntityTypeMapping TypeName="RISModel.Series"><MappingFragment StoreEntitySet="Series">
+            <ScalarProperty Name="SeriesId" ColumnName="SeriesId" />
+            <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+            <ScalarProperty Name="SeriesInstance" ColumnName="SeriesInstance" />
+            <ScalarProperty Name="SeriesNumber" ColumnName="SeriesNumber" />
+            <ScalarProperty Name="SeriesDate" ColumnName="SeriesDate" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ModalityDetailId" ColumnName="ModalityDetailId" />
+            <ScalarProperty Name="PatientPosition" ColumnName="PatientPosition" />
+            <ScalarProperty Name="Contrast" ColumnName="Contrast" />
+            <ScalarProperty Name="BodyPartExamined" ColumnName="BodyPartExamined" />
+            <ScalarProperty Name="ProtocolName" ColumnName="ProtocolName" />
+            <ScalarProperty Name="FrameOfReference" ColumnName="FrameOfReference" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Stations"><EntityTypeMapping TypeName="RISModel.Station"><MappingFragment StoreEntitySet="Stations">
+            <ScalarProperty Name="StationId" ColumnName="StationId" />
+            <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+            <ScalarProperty Name="StationName" ColumnName="StationName" />
+            <ScalarProperty Name="Instituition" ColumnName="Instituition" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Studies"><EntityTypeMapping TypeName="RISModel.Study"><MappingFragment StoreEntitySet="Studies">
+                <ScalarProperty Name="IsLatest" ColumnName="IsLatest" />
+                <ScalarProperty Name="Amendment" ColumnName="Amendment" />
+                <ScalarProperty Name="PatientGender" ColumnName="PatientGender" />
+                <ScalarProperty Name="PatientDOB" ColumnName="PatientDOB" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="ExternalPatientId" ColumnName="ExternalPatientId" />
+                <ScalarProperty Name="OriginalPatientId" ColumnName="OriginalPatientId" />
+                <ScalarProperty Name="Impression" ColumnName="Impression" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Heading" ColumnName="Heading" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="RadiologistId" ColumnName="RadiologistId" />
+                <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+                <ScalarProperty Name="ParentStudyId" ColumnName="ParentStudyId" />
+                <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+            <ScalarProperty Name="StudyInstance" ColumnName="StudyInstance" />
+            <ScalarProperty Name="StudyDate" ColumnName="StudyDate" />
+            <ScalarProperty Name="ProcedureId" ColumnName="ProcedureId" />
+            <ScalarProperty Name="ReferringPhysicianId" ColumnName="ReferringPhysicianId" />
+            <ScalarProperty Name="PatientWeight" ColumnName="PatientWeight" />
+            <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+            <ScalarProperty Name="StationId" ColumnName="StationId" />
+            <ScalarProperty Name="StudyStatusId" ColumnName="StudyStatusId" />
+            <ScalarProperty Name="LatestSeriesId" ColumnName="LatestSeriesId" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+            <ScalarProperty Name="IsManual" ColumnName="IsManual" />
+            <ScalarProperty Name="AccessionNumber" ColumnName="AccessionNumber" />
+            <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+            <ScalarProperty Name="TechComments" ColumnName="TechComments" />
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+            <ScalarProperty Name="RejectionReason" ColumnName="RejectionReason" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="StudyStatusTypes"><EntityTypeMapping TypeName="RISModel.StudyStatusType"><MappingFragment StoreEntitySet="StudyStatusTypes">
+            <ScalarProperty Name="StudyStatusTypeId" ColumnName="StudyStatusTypeId" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+            <ScalarProperty Name="ColumnOrder" ColumnName="ColumnOrder" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Templates"><EntityTypeMapping TypeName="RISModel.Template"><MappingFragment StoreEntitySet="Templates">
+            <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Text" ColumnName="Text" />
+            <ScalarProperty Name="Heading" ColumnName="Heading" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Impression" ColumnName="Impression" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TemplateUsers"><EntityTypeMapping TypeName="RISModel.TemplateUser"><MappingFragment StoreEntitySet="TemplateUsers">
+            <ScalarProperty Name="TemplateUserId" ColumnName="TemplateUserId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Types"><EntityTypeMapping TypeName="RISModel.Type"><MappingFragment StoreEntitySet="Types">
+            <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+            <ScalarProperty Name="Group" ColumnName="Group" />
+            <ScalarProperty Name="Value" ColumnName="Value" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserClients"><EntityTypeMapping TypeName="RISModel.UserClient"><MappingFragment StoreEntitySet="UserClients">
+            <ScalarProperty Name="UserClientId" ColumnName="UserClientId" />
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserHospitals"><EntityTypeMapping TypeName="RISModel.UserHospital"><MappingFragment StoreEntitySet="UserHospitals">
+            <ScalarProperty Name="UserHospitalId" ColumnName="UserHospitalId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserRoles"><EntityTypeMapping TypeName="RISModel.UserRole"><MappingFragment StoreEntitySet="UserRoles">
+            <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="RISModel.User"><MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="AllowOthers" ColumnName="AllowOthers" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+            <ScalarProperty Name="Password" ColumnName="Password" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+            <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+            <ScalarProperty Name="SecretQuestionId" ColumnName="SecretQuestionId" />
+            <ScalarProperty Name="Answer" ColumnName="Answer" />
+            <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
+            <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+            <ScalarProperty Name="CarrierId" ColumnName="CarrierId" />
+            <ScalarProperty Name="SendSMS" ColumnName="SendSMS" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WorkLists"><EntityTypeMapping TypeName="RISModel.WorkList"><MappingFragment StoreEntitySet="WorkLists">
+            <ScalarProperty Name="WorkListId" ColumnName="WorkListId" />
+            <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+            <ScalarProperty Name="RequestingPhysicianId" ColumnName="RequestingPhysicianId" />
+            <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+            <ScalarProperty Name="ProcedureId" ColumnName="ProcedureId" />
+            <ScalarProperty Name="StationId" ColumnName="StationId" />
+            <ScalarProperty Name="PerformingPhysicianId" ColumnName="PerformingPhysicianId" />
+            <ScalarProperty Name="ExternalPatientId" ColumnName="ExternalPatientId" />
+            <ScalarProperty Name="StudyInstance" ColumnName="StudyInstance" />
+            <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+            <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="BodyParts">
+            <EntityTypeMapping TypeName="RISModel.BodyPart">
+              <MappingFragment StoreEntitySet="BodyParts">
+                <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="RISModel.Image">
+              <MappingFragment StoreEntitySet="Images">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="BitsStored" ColumnName="BitsStored" />
+                <ScalarProperty Name="Columns" ColumnName="Columns" />
+                <ScalarProperty Name="Rows" ColumnName="Rows" />
+                <ScalarProperty Name="PhotoMetric" ColumnName="PhotoMetric" />
+                <ScalarProperty Name="NumberOfSamples" ColumnName="NumberOfSamples" />
+                <ScalarProperty Name="SliceLocation" ColumnName="SliceLocation" />
+                <ScalarProperty Name="AcquiredDate" ColumnName="AcquiredDate" />
+                <ScalarProperty Name="NumberOfFrames" ColumnName="NumberOfFrames" />
+                <ScalarProperty Name="EchoNumber" ColumnName="EchoNumber" />
+                <ScalarProperty Name="ImageDate" ColumnName="ImageDate" />
+                <ScalarProperty Name="ImageNumber" ColumnName="ImageNumber" />
+                <ScalarProperty Name="ImageClassUI" ColumnName="ImageClassUI" />
+                <ScalarProperty Name="ImageInstance" ColumnName="ImageInstance" />
+                <ScalarProperty Name="SeriesId" ColumnName="SeriesId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="RISDataModel" ZoomLevel="55">
+        <EntityTypeShape EntityType="RISModel.Attachment" Width="1.5" PointX="13.5" PointY="13.75" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Carrier" Width="1.5" PointX="0.75" PointY="17.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Client" Width="1.5" PointX="3.75" PointY="5.125" Height="4.0956022135416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Hospital" Width="1.5" PointX="6" PointY="4.875" Height="4.4802050781250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Log" Width="1.5" PointX="8.25" PointY="16.75" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Modality" Width="1.5" PointX="0.75" PointY="10.5" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.ModalityDetail" Width="1.5" PointX="3" PointY="0.75" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Procedure" Width="1.5" PointX="9" PointY="24.375" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.RoleManagement" Width="1.5" PointX="0.75" PointY="4.875" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Role" Width="1.5" PointX="6" PointY="21.75" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.RoleScreen" Width="1.5" PointX="11.25" PointY="23.125" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Screen" Width="1.5" PointX="9" PointY="33" Height="2.1725878906250102" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Series" Width="1.5" PointX="13.5" PointY="17.625" Height="4.480205078124996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Station" Width="1.5" PointX="9" PointY="28" Height="3.7109993489583388" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Study" Width="1.5" PointX="11.25" PointY="14.5" Height="10.441549479166667" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.StudyStatusType" Width="1.5" PointX="5.75" PointY="1.875" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Template" Width="1.5" PointX="3.5" PointY="10.5" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.TemplateUser" Width="1.5" PointX="5.25" PointY="13.125" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Type" Width="1.5" PointX="8.75" PointY="1.875" Height="2.5571907552083282" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.UserClient" Width="1.5" PointX="5.25" PointY="38.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.UserHospital" Width="1.5" PointX="8.25" PointY="13" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.UserRole" Width="1.5" PointX="8.25" PointY="20.75" Height="2.7494921875000102" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.User" Width="1.5" PointX="3" PointY="15.125" Height="6.2109179687500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.WorkList" Width="1.5" PointX="10.75" PointY="1.875" Height="3.5186979166666674" IsExpanded="true" />
+        <AssociationConnector Association="RISModel.FK_Attachments_Studies" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.75" PointY="15.49974609375" />
+          <ConnectorPoint PointX="13.166666666666666" PointY="15.49974609375" />
+          <ConnectorPoint PointX="13.333333333333334" PointY="15.49974609375" />
+          <ConnectorPoint PointX="13.5" PointY="15.49974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tUsers_tCarriers" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="18.143992513020834" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="18.143992513020834" />
+          <ConnectorPoint PointX="2.8020833333333335" PointY="18.143992513020834" />
+          <ConnectorPoint PointX="3" PointY="18.143992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tHospitals_tClients" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="7.2689518229166667" />
+          <ConnectorPoint PointX="6" PointY="7.2689518229166667" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tStations_tClients" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.125" PointY="9.4129036458333335" />
+          <ConnectorPoint PointX="5.125" PointY="29.252596266312544" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="29.252596266312544" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="29.252596266312544" />
+          <ConnectorPoint PointX="9" PointY="29.252596266312544" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tStations_tHospitals" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.47576923076923" PointY="9.5475065104166656" />
+          <ConnectorPoint PointX="8" PointY="10.071737279647437" />
+          <ConnectorPoint PointX="8" PointY="30.513049807635433" />
+          <ConnectorPoint PointX="9" PointY="30.513049807635433" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tUserHospitals_tHospitals" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.0000119261169438" PointY="9.5475065104166656" />
+          <ConnectorPoint PointX="7.0000119261169438" PointY="15.21340144831732" />
+          <ConnectorPoint PointX="7.1666726297251389" PointY="15.21340144831732" />
+          <ConnectorPoint PointX="7.3333392963918049" PointY="15.21340144831732" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="15.213401448317319" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="15.21340144831732" />
+          <ConnectorPoint PointX="8.25" PointY="15.21340144831732" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_UserHospitals_Hospitals" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.2500059630584719" PointY="9.5475065104166656" />
+          <ConnectorPoint PointX="7.2500059630584719" PointY="15.321521438301289" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="15.321521438301287" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="15.321521438301289" />
+          <ConnectorPoint PointX="8.25" PointY="15.321521438301289" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tLog_tStudies" ManuallyRouted="false">
+          <ConnectorPoint PointX="11.25" PointY="17.932444661458334" />
+          <ConnectorPoint PointX="9.75" PointY="17.932444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tLog_tUsers" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="18.142001496887211" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="18.142001496887211" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="18.142001496887211" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="18.142001496887211" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="18.142001496887211" />
+          <ConnectorPoint PointX="8.25" PointY="18.142001496887211" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tModalityDetails_tModalities" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="13.5691943359375" />
+          <ConnectorPoint PointX="3.21875" PointY="13.5691943359375" />
+          <ConnectorPoint PointX="3.21875" PointY="3.6917936197916661" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tProcedures_tModalities" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="13.57755559054487" />
+          <ConnectorPoint PointX="2.71875" PointY="14.04630559054487" />
+          <ConnectorPoint PointX="2.71875" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="9" PointY="25.939392403645833" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tStations_tModalities" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.2257692307692305" PointY="13.634095052083332" />
+          <ConnectorPoint PointX="2.625" PointY="14.0333258213141" />
+          <ConnectorPoint PointX="2.625" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="9" PointY="28.595046133156281" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tStudies_tModalities" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="12.035173591045673" />
+          <ConnectorPoint PointX="3.1354166666666665" PointY="12.035173591045673" />
+          <ConnectorPoint PointX="3.3020833333333335" PointY="12.035173591045673" />
+          <ConnectorPoint PointX="3.375" PointY="12.035173591045673" />
+          <ConnectorPoint PointX="3.375" PointY="13.691793619791667" />
+          <ConnectorPoint PointX="5" PointY="13.691793619791667" />
+          <ConnectorPoint PointX="5" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="7.9375" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="7.9375" PointY="12.75" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="12.75" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="12.75" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="12.75" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="12.75" />
+          <ConnectorPoint PointX="11.393073883233635" PointY="12.75" />
+          <ConnectorPoint PointX="11.559740549900303" PointY="12.75" />
+          <ConnectorPoint PointX="11.619481099800606" PointY="12.75" />
+          <ConnectorPoint PointX="11.786147766467273" PointY="12.75" />
+          <ConnectorPoint PointX="11.982921079879866" PointY="12.75" />
+          <ConnectorPoint PointX="11.982921079879866" PointY="14.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tStudies_tProcedures" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.5" PointY="24.658274739583334" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="24.658274739583334" />
+          <ConnectorPoint PointX="10.958333333333334" PointY="24.658274739583334" />
+          <ConnectorPoint PointX="11.25" PointY="24.658274739583334" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_RoleScreens_Roles" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="23.937246093750005" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="23.937246093750005" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="23.937246093750005" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="23.937246093750005" />
+          <ConnectorPoint PointX="10.958333333333334" PointY="23.937246093750005" />
+          <ConnectorPoint PointX="11.25" PointY="23.937246093750005" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tUserRoles_tRoles" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="22.624746093750005" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="22.624746093750005" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="22.624746093750005" />
+          <ConnectorPoint PointX="8.25" PointY="22.624746093750005" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_RoleScreens_Screens" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.5" PointY="34.086293945312505" />
+          <ConnectorPoint PointX="12.489230769230769" PointY="34.086293945312505" />
+          <ConnectorPoint PointX="12.489230769230769" PointY="25.105286458333339" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tSeries_tStudies" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.75" PointY="19.961253255208334" />
+          <ConnectorPoint PointX="13.5" PointY="19.961253255208334" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tStudies_tStations" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.5" PointY="28" />
+          <ConnectorPoint PointX="10.875" PointY="27.625" />
+          <ConnectorPoint PointX="10.875" PointY="22.050244694965684" />
+          <ConnectorPoint PointX="11.25" PointY="22.050244694965684" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tStudies_tUsers" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="20.225784404774508" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="20.225784404774508" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="20.225784404774508" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="20.225784404774508" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="20.225784404774508" />
+          <ConnectorPoint PointX="11.25" PointY="20.225784404774508" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tTemplateUsers_tTemplates" ManuallyRouted="false">
+          <ConnectorPoint PointX="5" PointY="13.283396809895834" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="13.283396809895834" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="13.283396809895834" />
+          <ConnectorPoint PointX="5.25" PointY="13.283396809895834" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tTemplateUsers_tUsers" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="16.951847500143693" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="16.951847500143693" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="16.951847500143693" />
+          <ConnectorPoint PointX="6" PointY="16.951847500143693" />
+          <ConnectorPoint PointX="6" PointY="15.105286458333339" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_UserClients_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="21.335917968750003" />
+          <ConnectorPoint PointX="3.75" PointY="39.143992513020834" />
+          <ConnectorPoint PointX="5.25" PointY="39.143992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tUserHospitals_tUsers" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="15.151537461538466" />
+          <ConnectorPoint PointX="4.9375" PointY="14.714037461538467" />
+          <ConnectorPoint PointX="4.9375" PointY="15.864889322916667" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="15.864889322916667" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="15.864889322916667" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="15.864889322916667" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="15.864889322916667" />
+          <ConnectorPoint PointX="7.7753836153846159" PointY="15.864889322916667" />
+          <ConnectorPoint PointX="7.8160744349011209" PointY="15.824198503400162" />
+          <ConnectorPoint PointX="7.9339255650988791" PointY="15.706347373202405" />
+          <ConnectorPoint PointX="7.9410744349011209" PointY="15.699198503400162" />
+          <ConnectorPoint PointX="8.0589255650988783" PointY="15.581347373202405" />
+          <ConnectorPoint PointX="8.2753836153846159" PointY="15.364889322916667" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_UserHospitals_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.4757692307692336" PointY="15.125" />
+          <ConnectorPoint PointX="4.875" PointY="14.725769230769235" />
+          <ConnectorPoint PointX="4.875" PointY="15.739889322916667" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="15.739889322916667" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="15.739889322916667" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="15.739889322916667" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="15.739889322916667" />
+          <ConnectorPoint PointX="7.8507692307692309" PointY="15.739889322916667" />
+          <ConnectorPoint PointX="7.9410744349011209" PointY="15.649584118784777" />
+          <ConnectorPoint PointX="8.0589255650988783" PointY="15.53173298858702" />
+          <ConnectorPoint PointX="8.25" PointY="15.340658553685898" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_tUserRoles_tUsers" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="20.946808268229169" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="20.946808268229169" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="20.946808268229169" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="20.946808268229169" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="20.946808268229169" />
+          <ConnectorPoint PointX="8.25" PointY="20.946808268229169" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Studies_StudyStatusTypes" >
+          <ConnectorPoint PointX="7.25" PointY="2.7689925130208337" />
+          <ConnectorPoint PointX="8.5" PointY="2.7689925130208337" />
+          <ConnectorPoint PointX="8.5" PointY="6.625" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="6.6249999999999991" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="6.625" />
+          <ConnectorPoint PointX="11.125" PointY="6.625" />
+          <ConnectorPoint PointX="11.125" PointY="14.125" />
+          <ConnectorPoint PointX="11.393073883233635" PointY="14.125" />
+          <ConnectorPoint PointX="11.559740549900303" PointY="14.125" />
+          <ConnectorPoint PointX="11.619481099800606" PointY="14.125" />
+          <ConnectorPoint PointX="11.786147766467273" PointY="14.125" />
+          <ConnectorPoint PointX="11.899587746546532" PointY="14.125" />
+          <ConnectorPoint PointX="12.0662544132132" PointY="14.125" />
+          <ConnectorPoint PointX="12.156981103352525" PointY="14.125" />
+          <ConnectorPoint PointX="12.323647770019193" PointY="14.125" />
+          <ConnectorPoint PointX="12.497707793491852" PointY="14.125" />
+          <ConnectorPoint PointX="12.497707793491852" PointY="14.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Studies_Hospitals" >
+          <ConnectorPoint PointX="7.5" PointY="9.5221208950320513" />
+          <ConnectorPoint PointX="7.875" PointY="9.8971208950320513" />
+          <ConnectorPoint PointX="7.875" PointY="16.057444661458334" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="16.057444661458334" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="16.057444661458334" />
+          <ConnectorPoint PointX="11.25" PointY="16.057444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Studies_Clients" >
+          <ConnectorPoint PointX="5.25" PointY="7.9836110264006468" />
+          <ConnectorPoint PointX="5.75" PointY="7.9836110264006468" />
+          <ConnectorPoint PointX="5.75" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="6.9166785927836107" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="7.0833452594502768" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="7.1666726297251389" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="7.3333392963918049" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="7.642435897435897" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="7.8587189487179483" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="11.393073883233635" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="11.559740549900303" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="11.808460218255172" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="11.97512688492184" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="12.240314436685859" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="12.240314436685859" PointY="14.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Studies_Templates" >
+          <ConnectorPoint PointX="5" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="6.9166785927836107" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="7.0833452594502768" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="7.1666726297251389" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="7.3333392963918049" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="11.233099344355269" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="11.393073883233635" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="11.559740549900303" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="11.702814433133939" PointY="11.233099344355271" />
+          <ConnectorPoint PointX="11.702814433133939" PointY="14.5" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="RISModel.BodyPart" Width="1.5" PointX="11.375" PointY="6.875" Height="1.7879850260416674" />
+        <AssociationConnector Association="RISModel.FK_Templates_BodyParts" >
+          <ConnectorPoint PointX="12.556999238946144" PointY="9.2398893229166656" />
+          <ConnectorPoint PointX="12.556999238946144" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="12.323647770019193" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="12.156981103352525" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="11.786147766467273" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="11.619481099800606" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="11.559740549900303" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="11.393073883233635" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="12.028703688710525" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="7.3333392963918049" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="7.1666726297251389" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="7.0833452594502768" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="6.9166785927836107" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="5" PointY="12.028703688710527" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Studies_BodyParts" >
+          <ConnectorPoint PointX="11.476407216566969" PointY="9.2398893229166656" />
+          <ConnectorPoint PointX="11.476407216566969" PointY="14.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_BodyParts_Modalities" >
+          <ConnectorPoint PointX="2.25" PointY="10.501152846153847" />
+          <ConnectorPoint PointX="2.6261528461538468" PointY="10.125" />
+          <ConnectorPoint PointX="3.1354166666666665" PointY="10.125" />
+          <ConnectorPoint PointX="3.3020833333333335" PointY="10.125" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="10.125" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="10.125" />
+          <ConnectorPoint PointX="6.9166785927836107" PointY="10.125" />
+          <ConnectorPoint PointX="7.0833452594502768" PointY="10.125" />
+          <ConnectorPoint PointX="7.1666726297251389" PointY="10.125" />
+          <ConnectorPoint PointX="7.3333392963918049" PointY="10.125" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="10.125" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="10.125" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="10.125" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="10.125" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="10.125" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="10.125" />
+          <ConnectorPoint PointX="11.393073883233635" PointY="10.125" />
+          <ConnectorPoint PointX="11.559740549900303" PointY="10.125" />
+          <ConnectorPoint PointX="11.891793551588506" PointY="10.125" />
+          <ConnectorPoint PointX="11.891793551588506" PointY="9.2398893229166656" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Studies_Radiologist" >
+          <ConnectorPoint PointX="4.5" PointY="19.639086863845588" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="19.639086863845588" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="19.639086863845588" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="19.639086863845588" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="19.639086863845588" />
+          <ConnectorPoint PointX="11.25" PointY="19.639086863845588" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Series_ModalityDetail" >
+          <ConnectorPoint PointX="4.5" PointY="2.2208968098958328" />
+          <ConnectorPoint PointX="5.5" PointY="2.2208968098958328" />
+          <ConnectorPoint PointX="5.5" PointY="4.6821907552083282" />
+          <ConnectorPoint PointX="8.4166666666666661" PointY="4.6821907552083273" />
+          <ConnectorPoint PointX="8.5833333333333339" PointY="4.6821907552083282" />
+          <ConnectorPoint PointX="10.5" PointY="4.6821907552083282" />
+          <ConnectorPoint PointX="10.5" PointY="13.5" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="13.5" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="13.5" />
+          <ConnectorPoint PointX="11.393073883233635" PointY="13.5" />
+          <ConnectorPoint PointX="11.559740549900303" PointY="13.5" />
+          <ConnectorPoint PointX="11.619481099800606" PointY="13.5" />
+          <ConnectorPoint PointX="11.786147766467273" PointY="13.5" />
+          <ConnectorPoint PointX="11.899587746546532" PointY="13.5" />
+          <ConnectorPoint PointX="12.0662544132132" PointY="13.5" />
+          <ConnectorPoint PointX="12.156981103352525" PointY="13.5" />
+          <ConnectorPoint PointX="12.323647770019193" PointY="13.5" />
+          <ConnectorPoint PointX="13.25" PointY="13.5" />
+          <ConnectorPoint PointX="13.25" PointY="17.25" />
+          <ConnectorPoint PointX="14.25" PointY="17.25" />
+          <ConnectorPoint PointX="14.25" PointY="17.625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="RISModel.Image" Width="1.5" PointX="15.75" PointY="17.375" Height="5.2494108072916674" />
+        <AssociationConnector Association="RISModel.FK_tImages_tSeries" >
+          <ConnectorPoint PointX="15" PointY="19.961253255208334" />
+          <ConnectorPoint PointX="15.75" PointY="19.961253255208334" />
+        </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_Studies_Studies" >
+          <ConnectorPoint PointX="11.781923076923077" PointY="24.941549479166667" />
+          <ConnectorPoint PointX="11.781923076923077" PointY="25.191549479166667" />
+          <ConnectorPoint PointX="12.228461538461538" PointY="25.191549479166667" />
+          <ConnectorPoint PointX="12.228461538461538" PointY="24.941549479166667" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

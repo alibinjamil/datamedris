@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RISModelStoreContainer" CdmEntityContainer="RISEntities">
+    <EntitySetMapping Name="Attachments">
+      <EntityTypeMapping TypeName="RISModel.Attachment">
+        <MappingFragment StoreEntitySet="Attachments">
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+          <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ScannedBy" ColumnName="ScannedBy" />
+          <ScalarProperty Name="ScannedTime" ColumnName="ScannedTime" />
+          <ScalarProperty Name="AttachmentData" ColumnName="AttachmentData" />
+          <ScalarProperty Name="AttachmentType" ColumnName="AttachmentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carriers">
+      <EntityTypeMapping TypeName="RISModel.Carrier">
+        <MappingFragment StoreEntitySet="Carriers">
+          <ScalarProperty Name="CarrierId" ColumnName="CarrierId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmailServer" ColumnName="EmailServer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="RISModel.Client">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ClientGUID" ColumnName="ClientGUID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hospitals">
+      <EntityTypeMapping TypeName="RISModel.Hospital">
+        <MappingFragment StoreEntitySet="Hospitals">
+          <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="RISModel.Log">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="LogId" ColumnName="LogId" />
+          <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modalities">
+      <EntityTypeMapping TypeName="RISModel.Modality">
+        <MappingFragment StoreEntitySet="Modalities">
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModalityDetails">
+      <EntityTypeMapping TypeName="RISModel.ModalityDetail">
+        <MappingFragment StoreEntitySet="ModalityDetails">
+          <ScalarProperty Name="ModalityDetailId" ColumnName="ModalityDetailId" />
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="LastUpdatedby" ColumnName="LastUpdatedby" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Procedures">
+      <EntityTypeMapping TypeName="RISModel.Procedure">
+        <MappingFragment StoreEntitySet="Procedures">
+          <ScalarProperty Name="ProcedureId" ColumnName="ProcedureId" />
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CPTCode" ColumnName="CPTCode" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleManagements">
+      <EntityTypeMapping TypeName="RISModel.RoleManagement">
+        <MappingFragment StoreEntitySet="RoleManagements">
+          <ScalarProperty Name="RoleManagementId" ColumnName="RoleManagementId" />
+          <ScalarProperty Name="ManagerRoleId" ColumnName="ManagerRoleId" />
+          <ScalarProperty Name="NormalRoleId" ColumnName="NormalRoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="RISModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleScreens">
+      <EntityTypeMapping TypeName="RISModel.RoleScreen">
+        <MappingFragment StoreEntitySet="RoleScreens">
+          <ScalarProperty Name="RoleScreenId" ColumnName="RoleScreenId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Screens">
+      <EntityTypeMapping TypeName="RISModel.Screen">
+        <MappingFragment StoreEntitySet="Screens">
+          <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Series">
+      <EntityTypeMapping TypeName="RISModel.Series">
+        <MappingFragment StoreEntitySet="Series">
+          <ScalarProperty Name="SeriesId" ColumnName="SeriesId" />
+          <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+          <ScalarProperty Name="SeriesInstance" ColumnName="SeriesInstance" />
+          <ScalarProperty Name="SeriesNumber" ColumnName="SeriesNumber" />
+          <ScalarProperty Name="SeriesDate" ColumnName="SeriesDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ModalityDetailId" ColumnName="ModalityDetailId" />
+          <ScalarProperty Name="PatientPosition" ColumnName="PatientPosition" />
+          <ScalarProperty Name="Contrast" ColumnName="Contrast" />
+          <ScalarProperty Name="BodyPartExamined" ColumnName="BodyPartExamined" />
+          <ScalarProperty Name="ProtocolName" ColumnName="ProtocolName" />
+          <ScalarProperty Name="FrameOfReference" ColumnName="FrameOfReference" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stations">
+      <EntityTypeMapping TypeName="RISModel.Station">
+        <MappingFragment StoreEntitySet="Stations">
+          <ScalarProperty Name="StationId" ColumnName="StationId" />
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="StationName" ColumnName="StationName" />
+          <ScalarProperty Name="Instituition" ColumnName="Instituition" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Studies">
+      <EntityTypeMapping TypeName="RISModel.Study">
+        <MappingFragment StoreEntitySet="Studies">
+          <ScalarProperty Name="IsLatest" ColumnName="IsLatest" />
+          <ScalarProperty Name="Amendment" ColumnName="Amendment" />
+          <ScalarProperty Name="PatientGender" ColumnName="PatientGender" />
+          <ScalarProperty Name="PatientDOB" ColumnName="PatientDOB" />
+          <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+          <ScalarProperty Name="ExternalPatientId" ColumnName="ExternalPatientId" />
+          <ScalarProperty Name="OriginalPatientId" ColumnName="OriginalPatientId" />
+          <ScalarProperty Name="Impression" ColumnName="Impression" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Heading" ColumnName="Heading" />
+          <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+          <ScalarProperty Name="RadiologistId" ColumnName="RadiologistId" />
+          <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+          <ScalarProperty Name="ParentStudyId" ColumnName="ParentStudyId" />
+          <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+          <ScalarProperty Name="StudyInstance" ColumnName="StudyInstance" />
+          <ScalarProperty Name="StudyDate" ColumnName="StudyDate" />
+          <ScalarProperty Name="ProcedureId" ColumnName="ProcedureId" />
+          <ScalarProperty Name="ReferringPhysicianId" ColumnName="ReferringPhysicianId" />
+          <ScalarProperty Name="PatientWeight" ColumnName="PatientWeight" />
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="StationId" ColumnName="StationId" />
+          <ScalarProperty Name="StudyStatusId" ColumnName="StudyStatusId" />
+          <ScalarProperty Name="LatestSeriesId" ColumnName="LatestSeriesId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="IsManual" ColumnName="IsManual" />
+          <ScalarProperty Name="AccessionNumber" ColumnName="AccessionNumber" />
+          <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+          <ScalarProperty Name="TechComments" ColumnName="TechComments" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+          <ScalarProperty Name="RejectionReason" ColumnName="RejectionReason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudyStatusTypes">
+      <EntityTypeMapping TypeName="RISModel.StudyStatusType">
+        <MappingFragment StoreEntitySet="StudyStatusTypes">
+          <ScalarProperty Name="StudyStatusTypeId" ColumnName="StudyStatusTypeId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ColumnOrder" ColumnName="ColumnOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Templates">
+      <EntityTypeMapping TypeName="RISModel.Template">
+        <MappingFragment StoreEntitySet="Templates">
+          <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+          <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Heading" ColumnName="Heading" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Impression" ColumnName="Impression" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TemplateUsers">
+      <EntityTypeMapping TypeName="RISModel.TemplateUser">
+        <MappingFragment StoreEntitySet="TemplateUsers">
+          <ScalarProperty Name="TemplateUserId" ColumnName="TemplateUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="RISModel.Type">
+        <MappingFragment StoreEntitySet="Types">
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Group" ColumnName="Group" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserClients">
+      <EntityTypeMapping TypeName="RISModel.UserClient">
+        <MappingFragment StoreEntitySet="UserClients">
+          <ScalarProperty Name="UserClientId" ColumnName="UserClientId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserHospitals">
+      <EntityTypeMapping TypeName="RISModel.UserHospital">
+        <MappingFragment StoreEntitySet="UserHospitals">
+          <ScalarProperty Name="UserHospitalId" ColumnName="UserHospitalId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="RISModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="RISModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="AllowOthers" ColumnName="AllowOthers" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="SecretQuestionId" ColumnName="SecretQuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="CarrierId" ColumnName="CarrierId" />
+          <ScalarProperty Name="SendSMS" ColumnName="SendSMS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkLists">
+      <EntityTypeMapping TypeName="RISModel.WorkList">
+        <MappingFragment StoreEntitySet="WorkLists">
+          <ScalarProperty Name="WorkListId" ColumnName="WorkListId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="RequestingPhysicianId" ColumnName="RequestingPhysicianId" />
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="ProcedureId" ColumnName="ProcedureId" />
+          <ScalarProperty Name="StationId" ColumnName="StationId" />
+          <ScalarProperty Name="PerformingPhysicianId" ColumnName="PerformingPhysicianId" />
+          <ScalarProperty Name="ExternalPatientId" ColumnName="ExternalPatientId" />
+          <ScalarProperty Name="StudyInstance" ColumnName="StudyInstance" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BodyParts">
+      <EntityTypeMapping TypeName="RISModel.BodyPart">
+        <MappingFragment StoreEntitySet="BodyParts">
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="RISModel.Image">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="BitsStored" ColumnName="BitsStored" />
+          <ScalarProperty Name="Columns" ColumnName="Columns" />
+          <ScalarProperty Name="Rows" ColumnName="Rows" />
+          <ScalarProperty Name="PhotoMetric" ColumnName="PhotoMetric" />
+          <ScalarProperty Name="NumberOfSamples" ColumnName="NumberOfSamples" />
+          <ScalarProperty Name="SliceLocation" ColumnName="SliceLocation" />
+          <ScalarProperty Name="AcquiredDate" ColumnName="AcquiredDate" />
+          <ScalarProperty Name="NumberOfFrames" ColumnName="NumberOfFrames" />
+          <ScalarProperty Name="EchoNumber" ColumnName="EchoNumber" />
+          <ScalarProperty Name="ImageDate" ColumnName="ImageDate" />
+          <ScalarProperty Name="ImageNumber" ColumnName="ImageNumber" />
+          <ScalarProperty Name="ImageClassUI" ColumnName="ImageClassUI" />
+          <ScalarProperty Name="ImageInstance" ColumnName="ImageInstance" />
+          <ScalarProperty Name="SeriesId" ColumnName="SeriesId" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
