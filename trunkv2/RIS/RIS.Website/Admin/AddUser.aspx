@@ -24,7 +24,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td>
-                            <asp:ListBox ID="lbNotHospitals" runat="server" DataSourceID="odsNotHospitals" 
+                            <asp:ListBox ID="lbNotHospitals" runat="server"  
                                 DataTextField="Name" DataValueField="HospitalId" Width="250px"></asp:ListBox>
                         
                         </td>
@@ -33,7 +33,7 @@
                             <asp:Button ID="btnRemoveHospital" runat="server" Text="<< Remove Hospital(s)" onclick="btnRemoveHospital_Click" CssClass="buttonStyle" Width="150px" ValidationGroup="Hospital"/>
                         </td>
                         <td>
-                            <asp:ListBox ID="lbHospitals" runat="server" DataSourceID="odsHospitals" 
+                            <asp:ListBox ID="lbHospitals" runat="server"  
                                 DataTextField="Name" DataValueField="HospitalId" Width="250px"></asp:ListBox>
 
                         </td>
@@ -64,7 +64,7 @@
             <td align="right">Carrier: </td>
             <td align="left">
                 <asp:DropDownList ID="ddlCarriers" runat="server"                    
-                    DataSourceID="odsCarriers" DataTextField="Name" DataValueField="CarrierId" OnDataBound="ddlCarriers_DataBound"></asp:DropDownList>
+                     DataTextField="Name" DataValueField="CarrierId" OnDataBound="ddlCarriers_DataBound"></asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvCarrier" runat="server"
                     ErrorMessage="*" CssClass="errorText" ControlToValidate="ddlCarriers" InitialValue="0" ValidationGroup="Add" Enabled="false"></asp:RequiredFieldValidator>
                 
@@ -165,46 +165,5 @@
         </tr>        
     </table>
 
-    <asp:ObjectDataSource ID="odsHospitals" runat="server" 
-    OldValuesParameterFormatString="original_{0}" 
-    SelectMethod="GetHospitalsForUser" 
-    TypeName="HospitalsTableAdapters.tHospitalsTableAdapter">
-        <SelectParameters>
-            <asp:QueryStringParameter DefaultValue="0" Name="userId" 
-                QueryStringField="userId" Type="Int32" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="odsNotHospitals" runat="server" 
-        OldValuesParameterFormatString="original_{0}" 
-        SelectMethod="GetHospitalsNotForUser" 
-        TypeName="HospitalsTableAdapters.tHospitalsTableAdapter" >
-        <SelectParameters>
-            <asp:QueryStringParameter DefaultValue="0" Name="userId" 
-                QueryStringField="userId" Type="Int32" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="odsClients" runat="server" 
-    OldValuesParameterFormatString="original_{0}" SelectMethod="GetAllClients" 
-    TypeName="ClientTableAdapters.tClientsTableAdapter">
-    </asp:ObjectDataSource>
-
-    <asp:ObjectDataSource ID="odsCarriers" runat="server" DeleteMethod="Delete" 
-        InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" 
-        SelectMethod="GetAllCarriers" 
-        TypeName="CarriersTableAdapters.tCarriersTableAdapter" UpdateMethod="Update">
-        <DeleteParameters>
-            <asp:Parameter Name="Original_CarrierId" Type="Int32" />
-        </DeleteParameters>
-        <UpdateParameters>
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="EmailServer" Type="String" />
-            <asp:Parameter Name="Original_CarrierId" Type="Int32" />
-        </UpdateParameters>
-        <InsertParameters>
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="EmailServer" Type="String" />
-        </InsertParameters>
-    </asp:ObjectDataSource>
-
-</asp:Content>
+    </asp:Content>
 

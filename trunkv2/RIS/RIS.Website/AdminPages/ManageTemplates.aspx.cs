@@ -16,7 +16,7 @@ public partial class AdminPages_ManageTemplates : AuthenticatedPage
 {
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
-        gvTemplates.DataSource = (from tu in DatabaseContext.TemplateUsers
+        /*gvTemplates.DataSource = (from tu in DatabaseContext.TemplateUsers
                                   where tu.UserId == loggedInUserId
                                   select new 
                                   { 
@@ -28,7 +28,7 @@ public partial class AdminPages_ManageTemplates : AuthenticatedPage
                                       Description = tu.Template.Description,
                                       Impression = tu.Template.Impression
                                   });
-        gvTemplates.DataBind();
+        gvTemplates.DataBind();*/
     }
     protected override bool IsPopUp()
     {

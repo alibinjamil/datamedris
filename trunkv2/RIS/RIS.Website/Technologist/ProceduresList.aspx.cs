@@ -13,7 +13,7 @@ public partial class Technologist_ProceduresList : AuthenticatedPage
 {
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
-        LabelError.Visible = false;
+        /*LabelError.Visible = false;
         if (Request["ProcedureId"] != null && Request["ProcedureId"].Length > 0)
         {
             ButtonSave.Text = "Update Procedure";
@@ -32,7 +32,7 @@ public partial class Technologist_ProceduresList : AuthenticatedPage
                 catch (StrongTypingException ex)
                 { }
             }            
-        }
+        }*/
     }
 
     protected override bool IsPopUp()
@@ -41,7 +41,7 @@ public partial class Technologist_ProceduresList : AuthenticatedPage
     }
     protected void ButtonSave_Click(object sender, EventArgs e)
     {
-        ProceduresTableAdapters.ProcedureSelectCommandTableAdapter procTA = new ProceduresTableAdapters.ProcedureSelectCommandTableAdapter();
+        /*ProceduresTableAdapters.ProcedureSelectCommandTableAdapter procTA = new ProceduresTableAdapters.ProcedureSelectCommandTableAdapter();
         if (Request["ProcedureId"] != null && Request["ProcedureId"].Length > 0)
         {
             procTA.ProcedureUpdateCommand(TextBoxProcedureName.Text,int.Parse(DropDownListModalities.SelectedValue),TextBoxCPTCode.Text,loggedInUserId,int.Parse(Request["ProcedureId"]));
@@ -50,7 +50,7 @@ public partial class Technologist_ProceduresList : AuthenticatedPage
         else
         {
             procTA.ProcedureInsertCommand(int.Parse(DropDownListModalities.SelectedValue), TextBoxProcedureName.Text, TextBoxCPTCode.Text, loggedInUserId);
-        }
+        }*/
     }
     protected void GridViewProcedures_RowDeleted(object sender, GridViewDeletedEventArgs e)
     {

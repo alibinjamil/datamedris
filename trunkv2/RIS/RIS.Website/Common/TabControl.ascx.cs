@@ -24,7 +24,7 @@ public partial class Common_TabControl : System.Web.UI.UserControl
         string currentPage = urls[urls.Length - 1].Split('?')[0];
         
         menuItems.Add("Dashboard", "../SharedPages/Dashboard.aspx");
-        menuItems.Add("Patients List", "../Radiologist/StudyList.aspx");
+        menuItems.Add("Patients List", "../Exams/StudyList.aspx");
 
         if (Session[ParameterNames.Session.LoggedInUserRoleId] != null)
         {

@@ -18,8 +18,7 @@
             <td align="right">Client:</td>
             <td align="left">
                 <asp:DropDownList ID="ddlClients" runat="server" 
-                    DataSourceID="odsClients" DataTextField="Name" 
-                    DataValueField="ClientId" ondatabound="ddlClients_DataBound"></asp:DropDownList>                
+                    ondatabound="ddlClients_DataBound"></asp:DropDownList>                
             </td>
         </tr>
         <tr>
@@ -149,13 +148,5 @@
             </td>
         </tr>        
     </table>
-    <asp:ObjectDataSource ID="odsClients" runat="server" 
-        OldValuesParameterFormatString="original_{0}" SelectMethod="GetClientsForUser" 
-        TypeName="ClientTableAdapters.tClientsTableAdapter">
-        <SelectParameters>
-            <asp:SessionParameter DefaultValue="0" Name="userId" 
-                SessionField="LoggedInUserId" Type="Int32" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
-</asp:Content>
+    </asp:Content>
 

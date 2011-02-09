@@ -11,10 +11,12 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using RIS.RISLibrary.Utilities;
-using RIS.RISLibrary.Objects.RIS;
+
+using RIS.Common;
+
 public partial class Admin_AddUser : AuthenticatedPage
 {
-    UserObject user = null;
+    
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
         if (loggedInUserRoleId != Constants.Roles.ClientAdmin
@@ -25,6 +27,11 @@ public partial class Admin_AddUser : AuthenticatedPage
         }
         if (IsPostBack == false)
         {
+            ddlCarriers.DataSource = (from c in DatabaseContext.Carriers select c);
+            ddlCarriers.DataTextField = "Name";
+            ddlCarriers.DataValueField = "CarrierId";
+            ddlCarriers.DataBind();
+
             ddlRoles.Items.Insert(0, new ListItem("[--Select--]", "0"));
             if (loggedInUserRoleId == Constants.Roles.ClientAdmin)
             {
@@ -46,66 +53,75 @@ public partial class Admin_AddUser : AuthenticatedPage
                 ddlRoles.Items.Add(new ListItem("Radiologist", Constants.Roles.Radiologist.ToString()));
                 ddlRoles.Items.Add(new ListItem("Referring Physician", Constants.Roles.ReferringPhysician.ToString()));
             }
-            if (Request["userId"] != null)
+
+            
+
+          
+            User user = GetUser();
+            if (user != null)
             {
-                user = new UserObject();
-                user.UserId.Value = Request["userId"];
-                user.Load(loggedInUserId);
-                if (user.IsLoaded)
+                BindLists(user);     
+
+                btnUpdate.Visible = true;
+                btnSave.Visible = false;
+                pnlChangePassword.Visible = false;
+                lbChangePassword.Visible = true;
+                pnlHospital.Visible = true;
+
+                tbName.Text = user.Name;
+                tbLoginName.Text = user.LoginName;
+                cbActive.Checked = user.IsActive;
+
+
+                if (user.SecretQuestionId.HasValue)
                 {
-                    btnUpdate.Visible = true;
-                    btnSave.Visible = false;
-                    pnlChangePassword.Visible = false;
-                    lbChangePassword.Visible = true;
-                    pnlHospital.Visible = true;
+                    SecretQuestions1.SecretQuestionId = user.SecretQuestionId.Value; 
+                }
+                if (user.Answer != null)
+                {
+                    tbAnswer.Text = user.Answer;
+                }
+                if (user.ResetPassword.HasValue)
+                {
+                    cbResetPassword.Checked = user.ResetPassword.Value;
+                }
 
-                    tbName.Text = user.Name.Value.ToString();
-                    tbLoginName.Text = user.LoginName.Value.ToString();
-                    cbActive.Checked = (bool)user.IsActive.Value;
-
-
-                    if (user.SecretQuestionId.Value != null)
+                UserRole userRole = user.UserRoles.FirstOrDefault();
+                if (userRole != null)
+                {
+                    ddlRoles.SelectedValue = userRole.RoleId.ToString() ;
+                    if (user.SendSMS.HasValue)
                     {
-                        SecretQuestions1.SecretQuestionId = (int)user.SecretQuestionId.Value;
-                    }
-                    if (user.Answer.Value != null)
-                    {
-                        tbAnswer.Text = (string)user.Answer.Value;
-                    }
-                    if (user.ResetPassword.Value != null)
-                    {
-                        cbResetPassword.Checked = (bool)user.ResetPassword.Value;
-                    }
-
-                    UserRoleObject userRole = new UserRoleObject();
-                    userRole.UserId.Value = user.UserId.Value;
-                    userRole.Load(loggedInUserId);
-                    if (userRole.IsLoaded)
-                    {
-                        ddlRoles.SelectedValue = userRole.RoleId.Value.ToString() ;
-                        if (user.SendSMS.Value != null)
+                        cbSms.Checked = (bool)user.SendSMS.Value;
+                        if (cbSms.Checked)
                         {
-                            cbSms.Checked = (bool)user.SendSMS.Value;
-                            if (cbSms.Checked)
-                            {
-                                rfvCarrier.Enabled = true;
-                                rfvCellNumber.Enabled = true;
-                            }
+                            rfvCarrier.Enabled = true;
+                            rfvCellNumber.Enabled = true;
                         }
-                        if (user.CarrierId.Value != null)
-                        {
-                            ddlCarriers.SelectedValue = user.CarrierId.Value.ToString();
-                        }
-                        if (user.Mobile.Value != null)
-                        {
-                            tbCellNumber.Text = (string)user.Mobile.Value;
-                        }
+                    }
+                    if (user.CarrierId.HasValue)
+                    {
+                        ddlCarriers.SelectedValue = user.CarrierId.Value.ToString();
+                    }
+                    if (user.Mobile != null)
+                    {
+                        tbCellNumber.Text = user.Mobile;
                     }
                 }
             }
-
+          
         }
         
+    }
+
+    private User GetUser()
+    {
+        if(Request["userId"] != null)
+        {
+            int userId = int.Parse(Request["userId"]);
+            return  (from u in DatabaseContext.Users where u.UserId == userId select u).FirstOrDefault();
+        }
+        return null;
     }
     protected override bool IsPopUp()
     {
@@ -142,168 +158,146 @@ public partial class Admin_AddUser : AuthenticatedPage
     {
         if (ValidData())
         {
-            UserObject user = new UserObject();
-            user.Name.Value = tbName.Text;
-            user.Password.Value = tbPassword.Text;
-            user.LoginName.Value = tbLoginName.Text;
-            user.IsActive.Value = cbActive.Checked;
+            User user = new User();
+            user.Name = tbName.Text;
+            user.Password = tbPassword.Text;
+            user.LoginName = tbLoginName.Text;
+            user.IsActive = cbActive.Checked;
             /*if (ddlClients.SelectedIndex > 0)
             {
                 user.ClientId.Value = ddlClients.SelectedValue;
             }*/
-            user.Answer.Value = tbAnswer.Text;
-            user.SecretQuestionId.Value = SecretQuestions1.SecretQuestionId;
-            user.ResetPassword.Value = cbResetPassword.Checked;
+            user.Answer = tbAnswer.Text;
+            user.SecretQuestionId = SecretQuestions1.SecretQuestionId;
+            user.ResetPassword = cbResetPassword.Checked;
             /*if (ddlHospitals.SelectedIndex > 0)
             {
                 user.HospitalId.Value = ddlHospitals.SelectedValue;
             }*/
-            user.SendSMS.Value = cbSms.Checked;
-            user.Mobile.Value = tbCellNumber.Text;
+            user.SendSMS = cbSms.Checked;
+            user.Mobile = tbCellNumber.Text;
             if (ddlCarriers.SelectedValue != "0")
             {
-                user.CarrierId.Value = ddlCarriers.SelectedValue;
+                user.CarrierId = int.Parse(ddlCarriers.SelectedValue);
             }
+            user.CreatedBy = loggedInUserId;
+            user.CreationDate = DateTime.Now;
+            user.LastUpdatedBy = loggedInUserId;
+            user.LastUpdateDate = DateTime.Now;
 
+            //user role
+            UserRole userRole = new UserRole();                
+            userRole.RoleId = int.Parse(ddlRoles.SelectedValue);
+            userRole.CreatedBy = loggedInUserId;
+            userRole.CreationDate = DateTime.Now;
+            userRole.LastUpdateDate = DateTime.Now;
+            userRole.LastUpdatedBy = loggedInUserId;
+            user.UserRoles.Add(userRole);
 
-            user.Save(loggedInUserId);
-            if (user.IsLoaded)
+            foreach(UserClient loggedInUserClient in loggedInUser.UserClients)
             {
-                UserRoleObject userRole = new UserRoleObject();
-                userRole.UserId.Value = user.UserId.Value;
-                userRole.RoleId.Value = ddlRoles.SelectedValue;
-                userRole.Save(loggedInUserId);
-                UsersTableAdapters.tUsersTableAdapter userTA = new UsersTableAdapters.tUsersTableAdapter();
-                userTA.AssignClientsToUser(int.Parse(user.UserId.Value.ToString()),loggedInUserId);
-                /*
-                UsersTableAdapters.tUsersTableAdapter userTA = new UsersTableAdapters.tUsersTableAdapter();
-                if (user.HospitalId.Value != null)
-                {
-                    Nullable<int> userId = int.Parse(user.UserId.Value.ToString());
-                    Nullable<int> hospitalId = int.Parse(user.HospitalId.Value.ToString());
-                    userTA.AssignHospitalToUser(userId, hospitalId, false, loggedInUserId);
-                }
-                else
-                {
-                    userTA.AssignHospitalToUser((Nullable<int>)user.UserId.Value, null, false, loggedInUserId);
-                }
-                */
-                Response.Redirect("~/Admin/AddUser.aspx?userId=" + user.UserId.Value);
+                UserClient userClient = new UserClient();
+                userClient.ClientId = loggedInUserClient.ClientId;
+                user.UserClients.Add(userClient);
             }
-            
+            DatabaseContext.AddToUsers(user);
+            DatabaseContext.SaveChanges();
+            Response.Redirect("~/Admin/AddUser.aspx?userId=" + user.UserId.ToString());
+                        
             SetInfoMessage("User saved successfully");
         }
     }
+
+    private void BindLists(User user)
+    {
+        var hospitals = (from uh in DatabaseContext.UserHospitals where uh.UserId == user.UserId select uh.Hospital);
+        lbHospitals.DataSource = hospitals;
+        lbHospitals.DataTextField = "Name";
+        lbHospitals.DataValueField = "HospitalId";
+        lbHospitals.DataBind();
+
+        lbNotHospitals.DataSource = (from h in DatabaseContext.Hospitals select h).Except(hospitals);
+        lbNotHospitals.DataTextField = "Name";
+        lbNotHospitals.DataValueField = "HospitalId";
+        lbNotHospitals.DataBind();
+    }
     protected void btnAddHospital_Click(object sender, EventArgs e)
     {
-        foreach (ListItem listItem in lbNotHospitals.Items)
+        User user = GetUser();
+        if (user != null)
         {
-            if (listItem.Selected)
+            foreach (ListItem listItem in lbNotHospitals.Items)
             {
-                UserHospitalObject userHospital = new UserHospitalObject();
-                userHospital.UserId.Value = Request["userId"];
-                userHospital.HospitalId.Value = listItem.Value;
-                userHospital.Save();
+                if (listItem.Selected)
+                {
+                    UserHospital userHospital = new UserHospital();
+                    userHospital.HospitalId = int.Parse(listItem.Value);
+                    user.UserHospitals.Add(userHospital);
+                }
             }
+            DatabaseContext.SaveChanges();
+            BindLists(user);
         }
-        lbHospitals.DataBind();
-        lbNotHospitals.DataBind();
     }
 
     protected void btnRemoveHospital_Click(object sender, EventArgs e)
     {
-        foreach (ListItem listItem in lbHospitals.Items)
+        User user = GetUser();
+        if(user != null)
         {
-            if (listItem.Selected)
+            foreach (ListItem listItem in lbHospitals.Items)
             {
-                UserHospitalObject userHospital = new UserHospitalObject();
-                userHospital.UserId.Value = Request["userId"];
-                userHospital.HospitalId.Value = listItem.Value;
-                userHospital.Load(loggedInUserId);
-                if (userHospital.IsLoaded)
-                {
-                    userHospital.Remove(loggedInUserId);                
-                }
+                if (listItem.Selected)
+                {               
+                    int hospitalId = int.Parse(listItem.Value);
+                    UserHospital userHospital = (from uh in DatabaseContext.UserHospitals where uh.UserId == user.UserId && uh.HospitalId == hospitalId select uh).FirstOrDefault();
+                    if(userHospital != null)
+                    {
+                        DatabaseContext.DeleteObject(userHospital);
+                    }
+               }
             }
+            DatabaseContext.SaveChanges();
+            BindLists(user);
         }
-        lbHospitals.DataBind();
-        lbNotHospitals.DataBind();
+        
     }
 
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
+
         if (ValidData())
         {
-            UserObject user = new UserObject();
-            user.UserId.Value = Request["userId"];
-            user.Load(loggedInUserId);
-            if (user.IsLoaded)
+            User user = GetUser();
+            if (user != null)
             {
-                user.LoginName.Value = tbLoginName.Text;
-                /*if(ddlClients.SelectedIndex > 0)
-                {
-                    user.ClientId.Value = ddlClients.SelectedValue;
-                }
-                else
-                {
-                    user.ClientId.Value = null;
-                }*/
-
-                /*if (ddlHospitals.SelectedIndex > 0)
-                {
-                    user.HospitalId.Value = ddlHospitals.SelectedValue;
-                }
-                else
-                {
-                    user.HospitalId.Value = null;
-                }
-                */
-                user.Name.Value = tbName.Text;
-                user.IsActive.Value = cbActive.Checked;
+                user.LoginName = tbLoginName.Text;
+                
+                user.Name = tbName.Text;
+                user.IsActive = cbActive.Checked;
                 if (pnlChangePassword.Visible == true)
                 {
-                    user.Password.Value = tbPassword.Text;
+                    user.Password = tbPassword.Text;
                 }
-                user.Answer.Value = tbAnswer.Text;
-                user.SecretQuestionId.Value = SecretQuestions1.SecretQuestionId;
-                user.ResetPassword.Value = cbResetPassword.Checked;
-                user.SendSMS.Value = cbSms.Checked;
-                user.Mobile.Value = tbCellNumber.Text;
+                user.Answer = tbAnswer.Text;
+                user.SecretQuestionId = SecretQuestions1.SecretQuestionId;
+                user.ResetPassword = cbResetPassword.Checked;
+                user.SendSMS = cbSms.Checked;
+                user.Mobile = tbCellNumber.Text;
                 if (ddlCarriers.SelectedValue != "0")
                 {
-                    user.CarrierId.Value = ddlCarriers.SelectedValue;
+                    user.CarrierId = int.Parse(ddlCarriers.SelectedValue);
                 }
-                user.Update(loggedInUserId);
-                if (user.IsLoaded)
-                {
-                    UserRoleObject userRole = new UserRoleObject();
-                    userRole.UserId.Value = user.UserId.Value;
-                    userRole.Load(loggedInUserId);
-                    if (userRole.IsLoaded)
-                    {
-                        userRole.RoleId.Value = ddlRoles.SelectedValue;
-                        userRole.Update(loggedInUserId);
-                    }
-                    
-                    //this is not good. we should remove
-                
-                    UsersTableAdapters.tUsersTableAdapter userTA = new UsersTableAdapters.tUsersTableAdapter();
-                    /*if (user.HospitalId.Value != null)
-                    {
-                        userTA.AssignHospitalToUser(int.Parse(user.UserId.Value.ToString()), int.Parse(user.HospitalId.Value.ToString()), true, loggedInUserId);
-                    }
-                    else
-                    {
-                        userTA.AssignHospitalToUser(int.Parse(user.UserId.Value.ToString()), null, true, loggedInUserId);
-                    }*/
-                }
+                user.UserRoles.FirstOrDefault().RoleId = int.Parse(ddlRoles.SelectedValue);
+                DatabaseContext.SaveChanges();
                 SetInfoMessage("User updated successfully");
             }
         }
     }
     private bool ValidData()
     {
-        if (Request["userId"] != null)
+        User user = GetUser();
+        if (user != null)
         {
             if (lbCancelChangePassword.Visible == true)
             {
@@ -313,10 +307,8 @@ public partial class Admin_AddUser : AuthenticatedPage
                     return false;
                 }
             }
-            UserObject anotherUserObject = new UserObject();
-            anotherUserObject.LoginName.Value = tbLoginName.Text;
-            anotherUserObject.Load(loggedInUserId);
-            if (anotherUserObject.IsLoaded && anotherUserObject.UserId.Value.ToString().Equals(Request["userId"]) == false)
+            User anotherUser = (from u in DatabaseContext.Users where u.LoginName == tbLoginName.Text && u.UserId != user.UserId select u).FirstOrDefault();
+            if (anotherUser != null)
             {
                 SetErrorMessage("User with the given user name already exists");
                 return false;
@@ -329,10 +321,8 @@ public partial class Admin_AddUser : AuthenticatedPage
                 SetErrorMessage("Passwords do not match");
                 return false;
             }
-            UserObject anotherUserObject = new UserObject();
-            anotherUserObject.LoginName.Value = tbLoginName.Text;
-            anotherUserObject.Load(loggedInUserId);
-            if (anotherUserObject.IsLoaded)
+            User anotherUser = (from u in DatabaseContext.Users where u.LoginName == tbLoginName.Text select u).FirstOrDefault();
+            if (anotherUser != null)
             {
                 SetErrorMessage("User with the given user name already exists");
                 return false;

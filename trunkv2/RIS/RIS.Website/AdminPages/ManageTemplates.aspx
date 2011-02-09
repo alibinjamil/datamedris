@@ -7,36 +7,36 @@
         </tr>
         <tr>
             <td>
-                <asp:GridView ID="gvTemplates" runat="server" AllowPaging="True"  AllowSorting="true"
+                <asp:GridView ID="gvTemplates" runat="server" AllowPaging="True"  AllowSorting="True"
                     AutoGenerateColumns="False" BackColor="White" 
                     BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" 
-                    ForeColor="Black" GridLines="Vertical" Width="1000px" DataKeyNames="TemplateId">
+                    ForeColor="Black" GridLines="Vertical" Width="1000px" 
+                    DataSourceID="edsTemplates">
                   
                     <Columns>
                         
-                        <asp:TemplateField HeaderText="TemplateId" InsertVisible="False" 
-                            SortExpression="TemplateId">
+                        <asp:TemplateField HeaderText="Edit" SortExpression="TemplateId">
                             <EditItemTemplate>
-                                
                                 <asp:Label ID="Label1" runat="server" Text='<%# Eval("TemplateId") %>'></asp:Label>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%#"~/AdminPages/AddTemplate.aspx?TemplateId=" + Eval("TemplateId") %>'>Edit</asp:HyperLink>
+                                <asp:HyperLink ID="hl1" runat="server" NavigateUrl='<%#"~/AdminPages/AddTemplate.aspx?templateId=" + Eval("TemplateId")%>'>Edit</asp:HyperLink>
+                                
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="ModalityName" HeaderText="ModalityName" 
-                            SortExpression="ModalityName" />
                         <asp:BoundField DataField="TemplateName" HeaderText="TemplateName" 
-                            SortExpression="TemplateName" />
+                            SortExpression="TemplateName" ReadOnly="True" />
                                       
-                        <asp:BoundField DataField="BodyPart" HeaderText="BodyPart" 
-                            SortExpression="BodyPart" />
                         <asp:BoundField DataField="Heading" HeaderText="Heading" 
-                            SortExpression="Heading" />
+                            SortExpression="Heading" ReadOnly="True" />
                         <asp:BoundField DataField="Description" HeaderText="Description" 
-                            SortExpression="Description" />
+                            SortExpression="Description" ReadOnly="True" />
                         <asp:BoundField DataField="Impression" HeaderText="Impression" 
-                            SortExpression="Impression" />
+                            SortExpression="Impression" ReadOnly="True" />
+                        <asp:BoundField DataField="BodyPartName" HeaderText="BodyPartName" 
+                            SortExpression="BodyPartName" ReadOnly="True" />
+                        <asp:BoundField DataField="ModalityName" HeaderText="ModalityName" 
+                            ReadOnly="True" SortExpression="ModalityName" />
                     </Columns>
                     <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
                     <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
@@ -44,12 +44,21 @@
                     <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
                     <HeaderStyle BackColor="Gray" Font-Bold="True" ForeColor="White" />
                     <AlternatingRowStyle BackColor="Gainsboro" />
-                </asp:GridView>
+                </asp:GridView>               
             </td>
         </tr>
         <tr>
             <td>
-                &nbsp;</td>
+                <asp:EntityDataSource ID="edsTemplates" runat="server" 
+                    AutoGenerateOrderByClause="True" ConnectionString="name=RISEntities" 
+                    DefaultContainerName="RISEntities" EnableFlattening="False" 
+                    EntitySetName="TemplateDetails" OrderBy="" 
+                    Select="it.[TemplateId], it.[TemplateName], it.[Heading], it.[Description], it.[Impression], it.[BodyPartName], it.[ModalityName]">
+                    <OrderByParameters>
+                        <asp:Parameter DefaultValue="TemplateId" />
+                    </OrderByParameters>
+                </asp:EntityDataSource>
+            </td>
         </tr>
     </table>
 </asp:Content>

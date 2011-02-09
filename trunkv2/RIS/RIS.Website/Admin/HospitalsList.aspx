@@ -16,19 +16,20 @@
         <tr>
             <td align="right">Client:</td> 
             <td align="left"><asp:DropDownList ID="ddlClients" runat="server" 
-                    DataSourceID="odsClients" DataTextField="Name" 
-                    DataValueField="ClientId" ondatabound="ddlClients_DataBound" AutoPostBack="true"></asp:DropDownList></td>
+                    ondatabound="ddlClients_DataBound" AutoPostBack="True" 
+                    onselectedindexchanged="ddlClients_SelectedIndexChanged"></asp:DropDownList></td>
         </tr>
         <tr>
             <td colspan="2">&nbsp;</td>
         </tr>        
         <tr>
             <td colspan="2" align="left">
-                <asp:GridView ID="gvUsers" runat="server" AllowPaging="True" 
+                <asp:GridView ID="gvHospitals" runat="server" AllowPaging="True" 
                     AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" 
-                    DataKeyNames="HospitalId" DataSourceID="odsHospitals" ForeColor="#333333" 
-                    GridLines="None">
-                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                    DataKeyNames="HospitalId" ForeColor="Black" 
+                    GridLines="Vertical" BackColor="White" BorderColor="#DEDFDE" 
+                    BorderStyle="None" BorderWidth="1px" DataSourceID="edsHospital">
+                    <RowStyle BackColor="#F7F7DE" />
                     <Columns>
        
                         <asp:TemplateField HeaderText="Edit" InsertVisible="False" 
@@ -63,68 +64,29 @@
                         <asp:BoundField DataField="Phone" HeaderText="Phone" SortExpression="Phone" />
                         <asp:BoundField DataField="Fax" HeaderText="Fax" SortExpression="Fax" />
                     </Columns>
-                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <EditRowStyle BackColor="#999999" />
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <FooterStyle BackColor="#CCCC99" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                    <AlternatingRowStyle BackColor="White" />
+                    <SortedAscendingCellStyle BackColor="#FBFBF2" />
+                    <SortedAscendingHeaderStyle BackColor="#848384" />
+                    <SortedDescendingCellStyle BackColor="#EAEAD3" />
+                    <SortedDescendingHeaderStyle BackColor="#575357" />
                 </asp:GridView>
             </td>
         </tr>
     </table>
-      <asp:ObjectDataSource ID="odsClients" runat="server" 
-    OldValuesParameterFormatString="original_{0}" SelectMethod="GetClientsForUser" 
-    TypeName="ClientTableAdapters.tClientsTableAdapter">
-          <SelectParameters>
-              <asp:SessionParameter DefaultValue="0" Name="userId" 
-                  SessionField="LoggedInUserId" Type="Int32" />
-          </SelectParameters>
-    </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="odsHospitals" runat="server" 
-        OldValuesParameterFormatString="original_{0}" 
-        SelectMethod="GetHospitalByClient" 
-        TypeName="HospitalsTableAdapters.tHospitalsTableAdapter" 
-        DeleteMethod="Delete" InsertMethod="Insert" UpdateMethod="Update">
-        <DeleteParameters>
-            <asp:Parameter Name="Original_HospitalId" Type="Int32" />
-        </DeleteParameters>
-        <UpdateParameters>
-            <asp:Parameter Name="ClientId" Type="Int32" />
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Address" Type="String" />
-            <asp:Parameter Name="State" Type="String" />
-            <asp:Parameter Name="Zip" Type="String" />
-            <asp:Parameter Name="Code" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="Int32" />
-            <asp:Parameter Name="CreationDate" Type="DateTime" />
-            <asp:Parameter Name="LastUpdatedBy" Type="Int32" />
-            <asp:Parameter Name="LastUpdateDate" Type="DateTime" />
-            <asp:Parameter Name="City" Type="String" />
-            <asp:Parameter Name="Phone" Type="String" />
-            <asp:Parameter Name="Fax" Type="String" />
-            <asp:Parameter Name="Original_HospitalId" Type="Int32" />
-        </UpdateParameters>
-        <SelectParameters>
-            <asp:ControlParameter ControlID="ddlClients" DefaultValue="0" Name="clientId" 
-                PropertyName="SelectedValue" Type="Int32" />
-        </SelectParameters>
-        <InsertParameters>
-            <asp:Parameter Name="ClientId" Type="Int32" />
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Address" Type="String" />
-            <asp:Parameter Name="State" Type="String" />
-            <asp:Parameter Name="Zip" Type="String" />
-            <asp:Parameter Name="Code" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="Int32" />
-            <asp:Parameter Name="CreationDate" Type="DateTime" />
-            <asp:Parameter Name="LastUpdatedBy" Type="Int32" />
-            <asp:Parameter Name="LastUpdateDate" Type="DateTime" />
-            <asp:Parameter Name="City" Type="String" />
-            <asp:Parameter Name="Phone" Type="String" />
-            <asp:Parameter Name="Fax" Type="String" />
-        </InsertParameters>
-    </asp:ObjectDataSource>
+    <asp:EntityDataSource ID="edsHospital" runat="server" 
+        AutoGenerateOrderByClause="True" AutoGenerateWhereClause="True" 
+        ConnectionString="name=RISEntities" DefaultContainerName="RISEntities" 
+        EnableFlattening="False" EntitySetName="Hospitals" EntityTypeFilter="Hospital" 
+        Where="">
+        <WhereParameters>
+            <asp:ControlParameter ControlID="ddlClients" DbType="Int32" DefaultValue="0" 
+                Name="ClientId" PropertyName="SelectedValue" />
+        </WhereParameters>
+    </asp:EntityDataSource>
     <br />
 </asp:Content>
 

@@ -15,14 +15,20 @@
     <div>
         <asp:Label ID="Label6" runat="server" Text="Patient ID:" Font-Bold="true" Width="200px"></asp:Label>
         <asp:TextBox ID="tbPatientId" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="tbPatientId" runat="server" ErrorMessage="*" ValidationGroup="Update"></asp:RequiredFieldValidator>        
+        <asp:HyperLink ID="hlAddAttachment1" runat="server" Target="_blank">
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/attach.png" AlternateText="Attach a new document to this Exam"/>                        
+        </asp:HyperLink>
     </div>
     <div>
         <asp:Label ID="Label7" runat="server" Text="Patient Name:" Font-Bold="true" Width="200px"></asp:Label>
         <asp:TextBox ID="tbPatientName" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="tbPatientName" runat="server" ErrorMessage="*" ValidationGroup="Update"></asp:RequiredFieldValidator>
     </div>
     <div>
         <asp:Label ID="Label8" runat="server" Text="Patient Date of Birth:" Font-Bold="true" Width="200px"></asp:Label>
         <ew:CalendarPopup ID="tbDOB" runat="server"></ew:CalendarPopup>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="tbDOB" runat="server" ErrorMessage="*" ValidationGroup="Update"></asp:RequiredFieldValidator>
     </div>
     <div>
         <asp:Label ID="Label9" runat="server" Text="Patient Gender:" Font-Bold="true" Width="200px"></asp:Label>
@@ -35,23 +41,21 @@
     <div>
         <asp:Label ID="Label10" runat="server" Text="Patient Weight:" Font-Bold="true" Width="200px"></asp:Label>
         <ew:NumericBox ID="tbPatientWeight"  runat="server"></ew:NumericBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="tbPatientWeight" runat="server" ErrorMessage="*" ValidationGroup="Update"></asp:RequiredFieldValidator>
     </div>
     <div>
         <asp:Label ID="lblClient" runat="server" Text="Client:" Font-Bold="true" Width="200px"></asp:Label>
-        <asp:DropDownList ID="ddlClient" runat="server" DataSourceID="odsClients"
-            DataTextField="Name" DataValueField="ClientId" 
+        <asp:DropDownList ID="ddlClient" runat="server" 
             ondatabound="ddlClient_DataBound" >
         </asp:DropDownList>
         <asp:RequiredFieldValidator ID="rfv3" ControlToValidate="ddlClient" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Update"></asp:RequiredFieldValidator>        
-        <asp:HyperLink ID="hlAddAttachment1" runat="server" Target="_blank">
-            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/attach.png" AlternateText="Attach a new document to this Exam"/>                        
-        </asp:HyperLink>
+        
     </div>
     <div>
         <asp:Label ID="Label3" runat="server" Text="Hospital:" Font-Bold="true" Width="200px"></asp:Label>
-        <asp:DropDownList ID="ddlHospitals" runat="server" DataSourceID="odsHospitals" AutoPostBack="True"
-            DataTextField="Name" DataValueField="HospitalId" 
-            ondatabound="ddlHospitals_DataBound" >
+        <asp:DropDownList ID="ddlHospitals" runat="server" AutoPostBack="True" 
+            ondatabound="ddlHospitals_DataBound" 
+            onselectedindexchanged="ddlHospitals_SelectedIndexChanged" >
         </asp:DropDownList>
         <asp:RequiredFieldValidator ID="rfv1" ControlToValidate="ddlHospitals" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Update"></asp:RequiredFieldValidator>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlHospitals" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Hospital"></asp:RequiredFieldValidator>
@@ -59,8 +63,7 @@
     <div>
         <asp:Label ID="Label1" runat="server" Text="Referring Physician:" Font-Bold="true" Width="200px"></asp:Label>
         <asp:DropDownList ID="ddlRefPhy" runat="server" 
-            ondatabound="ddlRefPhy_DataBound" DataSourceID="odsUsers" DataTextField="Name" 
-            DataValueField="UserId" ></asp:DropDownList>
+            ondatabound="ddlRefPhy_DataBound" ></asp:DropDownList>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlRefPhy" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Update"></asp:RequiredFieldValidator>
     </div>
     <div>
@@ -88,30 +91,7 @@
         <asp:Button ID="btnHospital" runat="server" Text="Update Hospital Only" onclick="btnHospital_Click" ValidationGroup="Hospital" Visible="false"/>
         <asp:Button ID="btnUnrelease" runat="server" Text="Call Back this Exam" onclick="btnUnrelease_Click" Visible="false"/>
         <input type="button" value="Cancel" onclick="parent.closeStudyEditWindow();" />
-        <asp:ObjectDataSource ID="odsHospitals" runat="server" 
-            OldValuesParameterFormatString="original_{0}" SelectMethod="GetHospitalsForUser" 
-            TypeName="HospitalsTableAdapters.tHospitalsTableAdapter">
-            <SelectParameters>
-                <asp:SessionParameter DefaultValue="0" Name="userId" SessionField="LoggedInUserId" 
-                    Type="Int32" />
-            </SelectParameters>
-        </asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="odsUsers" runat="server" 
-            OldValuesParameterFormatString="original_{0}" 
-            SelectMethod="GetUsersForHospital" 
-            TypeName="UsersTableAdapters.tUsersTableAdapter">
-            <SelectParameters>
-                <asp:ControlParameter ControlID="ddlClient" DefaultValue="0" Name="clientId" 
-                    PropertyName="SelectedValue" Type="Int32" />
-                <asp:ControlParameter ControlID="ddlHospitals" DefaultValue="0" 
-                    Name="hospitalId" PropertyName="SelectedValue" Type="Int32" />
-                <asp:Parameter DefaultValue="3" Name="roleId" Type="Int32" />
-            </SelectParameters>
-        </asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="odsClients" runat="server" 
-            OldValuesParameterFormatString="original_{0}" SelectMethod="GetAllClients" 
-            TypeName="ClientTableAdapters.tClientsTableAdapter"></asp:ObjectDataSource>
-    </div>
+        </div>
     
     </form>
 </body>

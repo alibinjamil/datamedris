@@ -16,7 +16,21 @@ public partial class Admin_HospitalsList : AuthenticatedPage
 {
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
-        
+        if (IsPostBack == false)
+        {
+            ddlClients.DataSource = (from u in DatabaseContext.UserClients where u.UserId == loggedInUserId select u.Client);
+            ddlClients.DataTextField = "Name";
+            ddlClients.DataValueField = "ClientId";
+            ddlClients.DataBind();
+
+            BindGrid();
+        }
+    }
+    private void BindGrid()
+    {
+        //int clientId = int.Parse(ddlClients.SelectedValue);
+        //gvHospitals.DataSource = (from h in DatabaseContext.Hospitals where h.ClientId == clientId select h);
+        gvHospitals.DataBind();
     }
     protected override bool IsPopUp()
     {
@@ -36,4 +50,47 @@ public partial class Admin_HospitalsList : AuthenticatedPage
             ddlClients.SelectedValue = loggedInUserClientId.ToString();
         }*/
     }
+    protected void ddlClients_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindGrid();
+    }
+    /*protected void gvHospitals_PageIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void gvHospitals_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvHospitals.PageIndex = e.NewPageIndex;
+        gvHospitals.DataBind();
+    }
+    protected void gvHospitals_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        DataTable dataTable = gvHospitals.DataSource as DataTable;
+
+        if (dataTable != null)
+        {
+            DataView dataView = new DataView(dataTable);
+            dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
+
+            gvHospitals.DataSource = dataView;
+            gvHospitals.DataBind();
+        }
+    }
+    private string ConvertSortDirectionToSql(SortDirection sortDirection)
+    {
+        string newSortDirection = String.Empty;
+
+        switch (sortDirection)
+        {
+            case SortDirection.Ascending:
+                newSortDirection = "ASC";
+                break;
+
+            case SortDirection.Descending:
+                newSortDirection = "DESC";
+                break;
+        }
+
+        return newSortDirection;
+    }*/
 }

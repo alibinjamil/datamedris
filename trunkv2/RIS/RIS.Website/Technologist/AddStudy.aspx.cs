@@ -44,14 +44,14 @@ public partial class Technologist_AddStudy : AuthenticatedPage
         get
         {
             StringBuilder radiologists = new StringBuilder();
-            UsersTableAdapters.tUsersTableAdapter rads = new UsersTableAdapters.tUsersTableAdapter();
+            /*UsersTableAdapters.tUsersTableAdapter rads = new UsersTableAdapters.tUsersTableAdapter();
             IEnumerator iEnum = rads.GetActiveUsersByRole(Constants.Roles.Radiologist).GetEnumerator();
             while (iEnum.MoveNext())
             {
                 Users.tUsersRow rad = (Users.tUsersRow)iEnum.Current;
                 radiologists.Append("\"").Append(rad.Name).Append("\"").Append(",");
             }
-            //radiologists.Append("\"Alabama\"","\"Alaska\"");
+            //radiologists.Append("\"Alabama\"","\"Alaska\"");*/
             return radiologists.ToString();
         }
     }
@@ -240,19 +240,19 @@ public partial class Technologist_AddStudy : AuthenticatedPage
     }
     private void BindHospital()
     {
-        HospitalsTableAdapters.tHospitalsTableAdapter ta = new HospitalsTableAdapters.tHospitalsTableAdapter();
+        /*HospitalsTableAdapters.tHospitalsTableAdapter ta = new HospitalsTableAdapters.tHospitalsTableAdapter();
         ddlHospital.DataSource = ta.GetHospitalsForUser(loggedInUserId);
         ddlHospital.DataTextField = "Name";
         ddlHospital.DataValueField = "HospitalId";
-        ddlHospital.DataBind();
+        ddlHospital.DataBind();*/
     }
     private void BindRefPhy()
     {
-        UsersTableAdapters.tUsersTableAdapter ta = new UsersTableAdapters.tUsersTableAdapter();
+        /*UsersTableAdapters.tUsersTableAdapter ta = new UsersTableAdapters.tUsersTableAdapter();
         ddlRef.DataSource = ta.GetUsersForHospital(int.Parse(ddlClient.SelectedValue), int.Parse(ddlHospital.SelectedValue), Constants.Roles.ReferringPhysician);
         ddlRef.DataTextField = "Name";
         ddlRef.DataValueField = "UserId";
-        ddlRef.DataBind();
+        ddlRef.DataBind();*/
     }
     protected void ddlHospital_SelectedIndexChanged(object sender, EventArgs e)
     {

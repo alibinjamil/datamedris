@@ -16,11 +16,10 @@
         <tr>
             <td align="right">Client:</td> 
             <td align="left"><asp:DropDownList ID="ddlClients" runat="server" 
-                    DataSourceID="odsClients" DataTextField="Name" 
-                    DataValueField="ClientId" ondatabound="ddlClients_DataBound"></asp:DropDownList></td>
+                    ondatabound="ddlClients_DataBound"></asp:DropDownList></td>
             <td align="right">Hospital:</td>           
-            <td align="left"><asp:DropDownList ID="ddlHospitals" runat="server" 
-                    DataSourceID="odsHospitals" DataTextField="Name" DataValueField="HospitalId" 
+            <td align="left">
+                <asp:DropDownList ID="ddlHospitals" runat="server" 
                     ondatabound="ddlHospitals_DataBound"></asp:DropDownList></td>
             <td align="right">Role:</td>
             <td align="left"><asp:DropDownList ID="ddlRoles" runat="server"></asp:DropDownList></td>
@@ -32,9 +31,10 @@
             <td colspan="7" align="left">
                 <asp:GridView ID="gvUsers" runat="server" AllowPaging="True" 
                     AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" 
-                    DataKeyNames="UserId" DataSourceID="odsUsers" ForeColor="#333333" 
-                    GridLines="None">
-                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                    DataKeyNames="UserId" ForeColor="Black" 
+                    GridLines="Vertical" BackColor="White" BorderColor="#DEDFDE" 
+                    BorderStyle="None" BorderWidth="1px" style="margin-top: 0px">
+                    <RowStyle BackColor="#F7F7DE" />
                     <Columns>
        
                         <asp:TemplateField HeaderText="UserId" InsertVisible="False" 
@@ -64,80 +64,18 @@
                         <asp:BoundField DataField="LastUpdateDate" HeaderText="LastUpdateDate" 
                             SortExpression="LastUpdateDate" />
                     </Columns>
-                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <EditRowStyle BackColor="#999999" />
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <FooterStyle BackColor="#CCCC99" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                    <AlternatingRowStyle BackColor="White" />
+                    <SortedAscendingCellStyle BackColor="#FBFBF2" />
+                    <SortedAscendingHeaderStyle BackColor="#848384" />
+                    <SortedDescendingCellStyle BackColor="#EAEAD3" />
+                    <SortedDescendingHeaderStyle BackColor="#575357" />
                 </asp:GridView>
             </td>
         </tr>
     </table>
-    <asp:ObjectDataSource ID="odsUsers" runat="server" 
-    OldValuesParameterFormatString="original_{0}" 
-    SelectMethod="GetUsersForHospital" 
-    TypeName="UsersTableAdapters.tUsersTableAdapter">
-        <SelectParameters>
-            <asp:ControlParameter ControlID="ddlClients" DefaultValue="0" Name="clientId" 
-                PropertyName="SelectedValue" Type="Int32" />
-            <asp:ControlParameter ControlID="ddlHospitals" DefaultValue="0" 
-                Name="hospitalId" PropertyName="SelectedValue" Type="Int32" />
-            <asp:ControlParameter ControlID="ddlRoles" DefaultValue="0" Name="roleId" 
-                PropertyName="SelectedValue" Type="Int32" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="odsHospitals" runat="server" 
-    OldValuesParameterFormatString="original_{0}" 
-    SelectMethod="GetHospitalsForUser" 
-    TypeName="HospitalsTableAdapters.tHospitalsTableAdapter" DeleteMethod="Delete" 
-        InsertMethod="Insert" UpdateMethod="Update">
-        <DeleteParameters>
-            <asp:Parameter Name="Original_HospitalId" Type="Int32" />
-        </DeleteParameters>
-        <UpdateParameters>
-            <asp:Parameter Name="ClientId" Type="Int32" />
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Address" Type="String" />
-            <asp:Parameter Name="State" Type="String" />
-            <asp:Parameter Name="Zip" Type="String" />
-            <asp:Parameter Name="Code" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="Int32" />
-            <asp:Parameter Name="CreationDate" Type="DateTime" />
-            <asp:Parameter Name="LastUpdatedBy" Type="Int32" />
-            <asp:Parameter Name="LastUpdateDate" Type="DateTime" />
-            <asp:Parameter Name="City" Type="String" />
-            <asp:Parameter Name="Phone" Type="String" />
-            <asp:Parameter Name="Fax" Type="String" />
-            <asp:Parameter Name="Original_HospitalId" Type="Int32" />
-        </UpdateParameters>
-        <SelectParameters>
-            <asp:SessionParameter DefaultValue="0" Name="userId" 
-                SessionField="LoggedInUserId" Type="Int32" />
-        </SelectParameters>
-        <InsertParameters>
-            <asp:Parameter Name="ClientId" Type="Int32" />
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Address" Type="String" />
-            <asp:Parameter Name="State" Type="String" />
-            <asp:Parameter Name="Zip" Type="String" />
-            <asp:Parameter Name="Code" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="Int32" />
-            <asp:Parameter Name="CreationDate" Type="DateTime" />
-            <asp:Parameter Name="LastUpdatedBy" Type="Int32" />
-            <asp:Parameter Name="LastUpdateDate" Type="DateTime" />
-            <asp:Parameter Name="City" Type="String" />
-            <asp:Parameter Name="Phone" Type="String" />
-            <asp:Parameter Name="Fax" Type="String" />
-        </InsertParameters>
-    </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="odsClients" runat="server" 
-    OldValuesParameterFormatString="original_{0}" SelectMethod="GetClientsForUser" 
-    TypeName="ClientTableAdapters.tClientsTableAdapter">
-        <SelectParameters>
-            <asp:SessionParameter DefaultValue="0" Name="userId" SessionField="LoggedInUserId" 
-                Type="Int32" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
-   </asp:Content>
+    </asp:Content>
 

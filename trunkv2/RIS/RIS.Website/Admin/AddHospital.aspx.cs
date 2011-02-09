@@ -12,61 +12,72 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
 using RIS.RISLibrary.Utilities;
-using RIS.RISLibrary.Objects.RIS;
+
+using RIS.Common;
 public partial class Admin_AddHospital : AuthenticatedPage
 {
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
-        if (Request["hospitalId"] != null)
+        if (IsPostBack == false)
         {
-            if (IsPostBack == false)
+            ddlClients.DataSource = (from u in DatabaseContext.UserClients where u.UserId == loggedInUserId select u.Client);
+            ddlClients.DataTextField = "Name";
+            ddlClients.DataValueField = "ClientId";
+            ddlClients.DataBind();
+
+            Hospital hospital = GetHospital();
+            if (hospital != null)
             {
-                HospitalObject hospital = new HospitalObject();
-                hospital.HospitalId.Value = Request["hospitalId"];
-                hospital.Load(loggedInUserId);
-                if (hospital.IsLoaded)
-                {
-                    if (hospital.Zip.Value != null )
-                    {
-                        tbZip.Text = hospital.Zip.Value.ToString();
-                    }
-                    if (hospital.Phone.Value != null)
-                    {
-                        tbPhone.Text = hospital.Phone.Value.ToString();
-                    }
-                    if (hospital.Address.Value != null)
-                    {
-                        tbAddress.Text = hospital.Address.Value.ToString();
-                    }
-                    if (hospital.City.Value != null)
-                    {
-                        tbCity.Text = hospital.City.Value.ToString();
-                    }
-                    if (hospital.ClientId.Value != null)
-                    {
-                        ddlClients.SelectedValue = hospital.ClientId.Value.ToString();
-                    }
-                    if (hospital.Code.Value != null)
-                    {
-                        tbCode.Text = hospital.Code.Value.ToString();
-                    }
-                    if (hospital.Fax.Value != null)
-                    {
-                        tbFax.Text = hospital.Fax.Value.ToString();
-                    }
-                    if (hospital.Name.Value != null)
-                    {
-                        tbName.Text = hospital.Name.Value.ToString();
-                    }
-                    if (hospital.State.Value != null)
-                    {
-                        ddlStates.SelectedValue = hospital.State.Value.ToString();
-                    }
-                    btnSave.Visible = false;
-                    btnUpdate.Visible = true;
-                }
+                /*if (hospital.Zip != null )
+                {*/
+                    tbZip.Text = hospital.Zip;
+                //}
+                /*if (hospital.Phone != null)
+                {*/
+                    tbPhone.Text = hospital.Phone;
+                //}
+                /*if (hospital.Address.Value != null)
+                {*/
+                    tbAddress.Text = hospital.Address;
+                //}
+                /*if (hospital.City.Value != null)
+                {*/
+                    tbCity.Text = hospital.City;
+                //}
+                /*if (hospital.ClientId.Value != null)
+                {*/
+                    ddlClients.SelectedValue = hospital.ClientId.ToString();
+                //}
+                /*if (hospital.Code.Value != null)
+                {*/
+                    tbCode.Text = hospital.Code;
+                //}
+                /*if (hospital.Fax.Value != null)
+                {*/
+                    tbFax.Text = hospital.Fax;
+                //}
+                /*if (hospital.Name.Value != null)
+                {*/
+                    tbName.Text = hospital.Name;
+                //}
+                /*if (hospital.State.Value != null)
+                {*/
+                    ddlStates.SelectedValue = hospital.State;
+                //}
+                btnSave.Visible = false;
+                btnUpdate.Visible = true;
             }
         }
+    }
+
+    private Hospital GetHospital()
+    {
+        if (Request["hospitalId"] != null)
+        {
+            int hospitalId = int.Parse(Request["hospitalId"]);
+            return (from h in DatabaseContext.Hospitals where h.HospitalId == hospitalId select h).FirstOrDefault();
+        }
+        return null;
     }
     protected override bool IsPopUp()
     {
@@ -91,22 +102,28 @@ public partial class Admin_AddHospital : AuthenticatedPage
     {
         if (ValidData())
         {
-            HospitalObject hospital = new HospitalObject();
-            hospital.Name.Value = tbName.Text;
-            hospital.Code.Value = tbCode.Text;
-            hospital.Address.Value = tbAddress.Text;
-            hospital.City.Value = tbCity.Text;
-            hospital.ClientId.Value = ddlClients.SelectedValue;
-            hospital.Phone.Value = tbPhone.Text;
-            hospital.Fax.Value = tbFax.Text;
-            hospital.State.Value = ddlStates.SelectedValue;
-            hospital.Zip.Value = tbZip.Text;
-            hospital.Save(loggedInUserId);
+            Hospital hospital = new Hospital();
+            hospital.Name = tbName.Text;
+            hospital.Code = tbCode.Text;
+            hospital.Address = tbAddress.Text;
+            hospital.City = tbCity.Text;
+            hospital.ClientId = int.Parse(ddlClients.SelectedValue);
+            hospital.Phone = tbPhone.Text;
+            hospital.Fax = tbFax.Text;
+            hospital.State = ddlStates.SelectedValue;
+            hospital.Zip = tbZip.Text;
+            hospital.CreatedBy = loggedInUserId;
+            hospital.CreationDate = DateTime.Now;
+            hospital.LastUpdateDate = DateTime.Now;
+            hospital.LastUpdatedBy = loggedInUserId;
+            
+            UserHospital userHospital = new UserHospital();
+            userHospital.UserId = loggedInUserId;
+            
+            hospital.UserHospitals.Add(userHospital);
 
-            UserHospitalObject userHospital = new UserHospitalObject();
-            userHospital.HospitalId.Value = hospital.HospitalId.Value;
-            userHospital.UserId.Value = loggedInUserId;
-            userHospital.Save(loggedInUserId);
+            DatabaseContext.AddToHospitals(hospital);
+            DatabaseContext.SaveChanges();
         }
     }
     private bool ValidData()
@@ -118,23 +135,19 @@ public partial class Admin_AddHospital : AuthenticatedPage
     {
         if (ValidData())
         {
-            if (Request["hospitalId"] != null)
+            Hospital hospital = GetHospital();
+            if (hospital != null)
             {
-                HospitalObject hospital = new HospitalObject();
-                hospital.HospitalId.Value = Request["hospitalId"];
-                if (hospital.IsLoaded)
-                {
-                    hospital.Name.Value = tbName.Text;
-                    hospital.Code.Value = tbCode.Text;
-                    hospital.Address.Value = tbAddress.Text;
-                    hospital.City.Value = tbCity.Text;
-                    hospital.ClientId.Value = ddlClients.SelectedValue;
-                    hospital.Fax.Value = tbFax.Text;
-                    hospital.Phone.Value = tbPhone.Text;
-                    hospital.State.Value = ddlStates.SelectedValue;
-                    hospital.Zip.Value = tbZip.Text;
-                    hospital.Save(loggedInUserId);
-                }
+                hospital.Name = tbName.Text;
+                hospital.Code = tbCode.Text;
+                hospital.Address = tbAddress.Text;
+                hospital.City = tbCity.Text;
+                hospital.ClientId = int.Parse(ddlClients.SelectedValue);
+                hospital.Fax = tbFax.Text;
+                hospital.Phone = tbPhone.Text;
+                hospital.State = ddlStates.SelectedValue;
+                hospital.Zip = tbZip.Text;
+                DatabaseContext.SaveChanges();
             }
         }
     }

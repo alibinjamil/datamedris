@@ -49,6 +49,7 @@ public partial class Radiologist_EditStudy : StudyPage
                 if (study != null)
                 {
                     BindBodyPart((int)study.ModalityId);
+                    BindLists();
                     if (study.PatientDOB.HasValue)
                     {
                         tbDOB.SelectedDate = study.PatientDOB.Value;
@@ -102,12 +103,40 @@ public partial class Radiologist_EditStudy : StudyPage
             }            
         }
     }
+    private void BindLists()
+    {
+        ddlClient.DataSource = (from uc in DatabaseContext.UserClients where uc.UserId == loggedInUserId select uc.Client);
+        ddlClient.DataTextField = "Name";
+        ddlClient.DataValueField = "ClientId";
+        ddlClient.DataBind();
+
+        ddlHospitals.DataSource = (from uh in DatabaseContext.UserHospitals where uh.UserId == loggedInUserId select uh.Hospital);
+        ddlHospitals.DataTextField = "Name";
+        ddlHospitals.DataValueField = "HospitalId";
+        ddlHospitals.DataBind();
+    }
     protected void ddlHospitals_DataBound(object sender, EventArgs e)
     {
         ddlHospitals.Items.Insert(0,new ListItem("[-- Select --]","-1"));
         if (study != null && study.HospitalId != null )
         {
             ddlHospitals.SelectedValue = study.HospitalId.ToString();
+        }
+        BindRefPhyList();
+    }
+
+    private void BindRefPhyList()
+    {
+        //if (ddlHospitals.SelectedIndex > 0)
+        {
+            int hospitalId = int.Parse(ddlHospitals.SelectedValue);
+            ddlRefPhy.DataSource = (from uh in DatabaseContext.UserHospitals
+                                    where uh.HospitalId == hospitalId
+                                    && uh.User.UserRoles.FirstOrDefault().RoleId == Constants.Roles.ReferringPhysician
+                                    select uh.User);
+            ddlRefPhy.DataTextField = "Name";
+            ddlRefPhy.DataValueField = "UserId";
+            ddlRefPhy.DataBind();
         }
     }
     protected void btnSave_Click(object sender, EventArgs e)
@@ -244,5 +273,9 @@ public partial class Radiologist_EditStudy : StudyPage
     protected void ddlBodyParts_DataBound(object sender, EventArgs e)
     {
         ddlBodyParts.Items.Insert(0, new ListItem("[-- Select --]"));
+    }
+    protected void ddlHospitals_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindRefPhyList();
     }
 }

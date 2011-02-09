@@ -44,11 +44,38 @@ public partial class Admin_UsersList : AuthenticatedPage
                 ddlRoles.Items.Add(new ListItem("Radiologist", Constants.Roles.Radiologist.ToString()));
                 ddlRoles.Items.Add(new ListItem("Referring Physician", Constants.Roles.ReferringPhysician.ToString()));
             }
+            ddlClients.DataSource = (from u in DatabaseContext.UserClients where u.UserId == loggedInUserId select u.Client);
+            ddlClients.DataTextField = "Name";
+            ddlClients.DataValueField = "ClientId";
+            ddlClients.DataBind();
+
+            ddlHospitals.DataSource = (from u in DatabaseContext.UserHospitals where u.UserId == loggedInUserId select u.Hospital);
+            ddlHospitals.DataTextField = "Name";
+            ddlHospitals.DataValueField = "HospitalId";
+            ddlHospitals.DataBind();
+
+            BindGrid();
         }
     }
     protected override bool IsPopUp()
     {
         return false;
+    }
+
+    private void BindGrid()
+    {
+        int clientId = int.Parse(ddlClients.SelectedValue);
+        int hospitalId = int.Parse(ddlHospitals.SelectedValue);
+        int roleId = int.Parse(ddlRoles.SelectedValue);
+        gvUsers.DataSource = (from u in DatabaseContext.Users
+                              join uh in DatabaseContext.UserHospitals on u equals uh.User
+                              join uc in DatabaseContext.UserClients on u equals uc.User
+                              join ur in DatabaseContext.UserRoles on u equals ur.User
+                              where uh.HospitalId == hospitalId
+                                 && uc.ClientId == clientId
+                                 && ur.RoleId == roleId
+                              select u);
+        gvUsers.DataBind();
     }
     protected void ddlClients_DataBound(object sender, EventArgs e)
     {
@@ -71,6 +98,6 @@ public partial class Admin_UsersList : AuthenticatedPage
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        gvUsers.DataBind();
+        BindGrid();
     }
 }
