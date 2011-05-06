@@ -80,11 +80,11 @@ public class StudyListPageObject : GenericUIObject
     {
         get
         {
-            return m_patientId;
+            return originalPatientId;
         }
         set
         {
-            m_patientId = value;
+            originalPatientId = value;
         }
     }
 

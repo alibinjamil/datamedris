@@ -432,15 +432,21 @@ public class StudyListModal
         if (loggedInUserRoleId == Constants.Roles.Radiologist || loggedInUserRoleId == Constants.Roles.ClientAdmin)
         {
             joinQuery.Append(" INNER JOIN UserClients on Studies.ClientId = UserClients.ClientId ");
-            joinQuery.Append(" WHERE UserClients.UserId = @UserId ");            
+            joinQuery.Append(" WHERE UserClients.UserId = @UserId ");
+            joinQuery.Append(" AND IsLatest = 1 ");
         }
         else if (loggedInUserRoleId == Constants.Roles.ClientTechnologist || loggedInUserRoleId == Constants.Roles.HospitalAdmin
             || loggedInUserRoleId == Constants.Roles.HospitalStaff || loggedInUserRoleId == Constants.Roles.ReferringPhysician)
         {
             joinQuery.Append(" INNER JOIN UserHospitals on Studies.HospitalId = UserHospitals.HospitalId ");
             joinQuery.Append(" WHERE UserHospitals.UserId = @UserId ");
+            joinQuery.Append(" AND IsLatest = 1 ");
         }
-        joinQuery.Append(" AND IsLatest = 1 ");
+        else if (loggedInUserRoleId == Constants.Roles.Admin)
+        {
+            joinQuery.Append(" WHERE IsLatest = 1 ");
+        }
+        
         joinQuery.Append(" GROUP BY ExternalPatientId) tPatients ON tPatients.ExternalPatientId=Studies.ExternalPatientId ");
         joinQuery.Append(" INNER JOIN StudyStatusTypes ON StudyStatusTypes.StudyStatusTypeId = Studies.StudyStatusId ");
         joinQuery.Append(" LEFT OUTER JOIN Modalities ON Studies.ModalityId = Modalities.ModalityId ");

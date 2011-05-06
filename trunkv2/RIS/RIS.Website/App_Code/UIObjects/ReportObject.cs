@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.Xml;
 using System.Text;
 using System.Collections.Generic;
+using System.IO;
 
 using System.Linq;
 using System.Xml.Linq;
@@ -46,6 +47,10 @@ public class ReportObject : GenericUIObject
     private string _hospitalName;
     private string _patientId;
     private string _fax;
+    private string _headerUrl;
+    private string _ammendment;
+    //private string _footerText;
+
     public string ClientName { get { return _clientName; } }
     public string ClientAddress { get { return _clientAddress; } }
     public string Modality { get { return _modality; } }
@@ -62,6 +67,15 @@ public class ReportObject : GenericUIObject
     public string HospitalName { get { return _hospitalName; } }
     public string Fax { get { return _fax; } }
     public string PatientId { get { return _patientId; } }
+    public string HeaderUrl { get { return _headerUrl; } }
+    public string Ammendment { get { return _ammendment; } }
+    public string FooterText
+    {
+        get
+        {
+            return "This Facsimile may contain PRIVILEGED, CONFIDENTIAL AND/OR OTHERWISE PROTECTED INFORMATION intended only for the use of addressee. Unauthorized distribution of the Facsimile or its contents is strictly prohibited according to the Health Insurance Portability and Accountability Act(HIPAA) of 1996. If you are not the addressee, the person responsible for delivering the message to the addressee, or have received this facsimile in error, please immediately notify us by telephone at the number above and destroy the information. Thank you.";
+        }
+    }
     public bool Load()
     {
         if (study != null)
@@ -77,6 +91,15 @@ public class ReportObject : GenericUIObject
                     _clientAddress += study.Client.State + " ";
                 if (study.Client.Zip != null)
                     _clientAddress += study.Client.Zip;
+
+                if (File.Exists(HttpContext.Current.Server.MapPath("~/Images/" + study.Client.ClientGUID + "_Header.jpg")))
+                {
+                    _headerUrl = "~/Images/" + study.Client.ClientGUID + "_Header.jpg";
+                }
+                else
+                {
+                    _headerUrl = "~/Images/Datamed_Header.jpg";
+                }
             }            
             if (study.ModalityId.HasValue)
             {
@@ -107,6 +130,7 @@ public class ReportObject : GenericUIObject
 
             
             _transcription = GetTrascription(study);
+            _ammendment = GetAmmendment(study);
             if (study.ReportDate.HasValue)
             {
                 _reportDateTime = study.ReportDate.Value.ToString();
@@ -149,38 +173,74 @@ public class ReportObject : GenericUIObject
     private string GetTrascription(Study study)
     {   
         String html = null;
-        List<Study> parents = study.GetParents();
-        List<Study> amendments = (from s in parents where s.Amendment != null orderby s.ReportDate select s).ToList();
+        
+        
         if (isHTML)
         {
             html = "<b>" + study.Heading + "</b><br/><br/>";
             html += ReplaceNewLine(study.Description) + "<br/><br/>";
             html += "<b>IMPRESSION:</b>&nbsp;" + study.Impression;
-            foreach(Study amendment in amendments)
-            {
-                html += "<br/><br/>" + amendment.Amendment + "<br/>--" + amendment.Radiologist.Name + " " + amendment.ReportDate.ToString();
-            }
-            if (study.Amendment != null)
-            {
-                html += "<br/><br/>" + study.Amendment + "<br/>--" + study.Radiologist.Name + " " + study.ReportDate.ToString();
-            }
+            
         }
         else
         {
             html = study.Heading + "\n\n";
             html += study.Description + "\n\n";
             html += "IMPRESSION: " + study.Impression;
-            foreach (Study amendment in amendments)
-            {
-                html += "\n\n" + amendment.Amendment + "\n--" + amendment.Radiologist.Name + " " + amendment.ReportDate.ToString();
-            }
-            if (study.Amendment != null)
-            {
-                html += "\n\n" + study.Amendment + "\n--" + study.Radiologist.Name + " " + study.ReportDate.ToString();
-            }
+            
             
         }
         return html;
+    }
+    private string GetAmmendment(Study study)
+    {
+        string ammendment = null;
+        List<Study> parents = study.GetParents();
+        List<Study> amendments = (from s in parents where s.Amendment != null && s.Amendment.Length > 0  orderby s.ReportDate select s).ToList();
+        bool addedHeading = true;
+        if (isHTML)
+        {            
+            foreach (Study amendment in amendments)
+            {
+                if (addedHeading)
+                {
+                    ammendment += "<b>ADDENDUM:</b>&nbsp;";
+                    addedHeading = false;
+                }
+                ammendment += "<br/><br/>" + amendment.Amendment + "<br/>--" + amendment.Radiologist.Name + " " + amendment.ReportDate.ToString();
+            }
+            if (study.Amendment != null && study.Amendment.Length > 0)
+            {
+                if (addedHeading)
+                {
+                    ammendment += "<b>ADDENDUM:</b>&nbsp;";
+                    addedHeading = false;
+                }
+                ammendment += "<br/><br/>" + study.Amendment + "<br/>--" + study.Radiologist.Name + " " + study.ReportDate.ToString();
+            }
+        }
+        else
+        {            
+            foreach (Study amendment in amendments)
+            {
+                if (addedHeading)
+                {
+                    ammendment += "ADDENDUM: ";
+                    addedHeading = false;
+                }
+                ammendment += "\n\n" + amendment.Amendment + "\n--" + amendment.Radiologist.Name + " " + amendment.ReportDate.ToString();
+            }
+            if (study.Amendment != null && study.Amendment.Length > 0)
+            {
+                if (addedHeading)
+                {
+                    ammendment += "ADDENDUM: ";
+                    addedHeading = false;
+                }
+                ammendment += "\n\n" + study.Amendment + "\n--" + study.Radiologist.Name + " " + study.ReportDate.ToString();
+            }
+        }
+        return ammendment;
     }
     private string ReplaceNewLine(string transcription)
     {
