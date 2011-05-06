@@ -3,7 +3,7 @@
 .reportArea
 {
 	width: 100%;
-	font-size: 12pt;
+	font-size: 14pt;
 	color: black;
 	font-family: Arial;
 	margin: 0;
@@ -12,20 +12,20 @@
 .reportArea .pageHeading
 {
 	font-weight: bold;
-	font-size: 14pt;
+	font-size: 16pt;
 	color: black;
 	font-family: Arial;
 }
 .reportArea .heading
 {
 	font-weight: bold;
-	font-size: 12pt;
+	font-size: 14pt;
 	color: black;
 	font-family: Arial;
 }
 .reportArea .footer
 {
-	font-size: 10pt;
+	font-size: 12pt;
 	color: black;
 	font-family: Arial;
 }

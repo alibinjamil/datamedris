@@ -40,7 +40,7 @@ public partial class Common_TabControl : System.Web.UI.UserControl
             }
             if (roleId == Constants.Roles.ClientAdmin || roleId == Constants.Roles.ClientTechnologist)
             {
-                menuItems.Add("Manual Exam", "../Technologist/AddStudy.aspx");
+                //menuItems.Add("Manual Exam", "../Technologist/AddStudy.aspx");
             }
             if (roleId == Constants.Roles.Radiologist)
             {
@@ -54,8 +54,8 @@ public partial class Common_TabControl : System.Web.UI.UserControl
         menuGroups.Add("UsersList.aspx", "User Administration");
         menuGroups.Add("HospitalsList.aspx", "Hospital Administration");
         menuGroups.Add("AddHospital.aspx", "Hospital Administration");
-        menuGroups.Add("AddStudy.aspx", "Manual Exam");
-        menuGroups.Add("DataSave.aspx", "Manual Exam");
+        //menuGroups.Add("AddStudy.aspx", "Manual Exam");
+        //menuGroups.Add("DataSave.aspx", "Manual Exam");
         menuGroups.Add("ManageTemplates.aspx", "Manage Templates");
         menuGroups.Add("AddTemplate.aspx", "Manage Templates");
 
