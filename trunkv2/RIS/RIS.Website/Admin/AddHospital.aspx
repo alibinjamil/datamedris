@@ -132,9 +132,7 @@
         <tr>
             <td>Fax:</td>            
             <td align="left">
-                <asp:TextBox ID="tbFax" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" ControlToValidate="tbFax" ValidationGroup="Add"></asp:RequiredFieldValidator>                                 
-            
+                <asp:TextBox ID="tbFax" runat="server"></asp:TextBox>                
             </td>
         </tr>
         
