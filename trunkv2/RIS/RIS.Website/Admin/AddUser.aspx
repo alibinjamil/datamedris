@@ -47,7 +47,7 @@
             <td  align="right">Role:</td>
             <td align="left">
                 <asp:DropDownList ID="ddlRoles" runat="server" 
-                    onselectedindexchanged="ddlRoles_SelectedIndexChanged"></asp:DropDownList>
+                    onselectedindexchanged="ddlRoles_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfv3" runat="server" ErrorMessage="*" ControlToValidate="ddlRoles" InitialValue="0" ValidationGroup="Add"></asp:RequiredFieldValidator>                 </td>
         </tr>
         <tr>
@@ -58,6 +58,14 @@
                     AutoPostBack="True"/>
             </td>
         </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <asp:CheckBox ID="cbAllowOthersToViewExam" runat="server" 
+                    Text="Allow other Referring Physicians to view the Exams of this User" 
+                    oncheckedchanged="cbSms_CheckedChanged" Visible="false"        />            
+            </td>
+        </tr>
+
         <asp:Panel ID="pnlRefPhy" runat="server" Visible="true">
         
         <tr>

@@ -27,29 +27,30 @@ public partial class Admin_AddUser : AuthenticatedPage
         }
         if (IsPostBack == false)
         {
-            ddlCarriers.DataSource = (from c in DatabaseContext.Carriers select c);
+            ddlCarriers.DataSource = (from c in DatabaseContext.Carriers orderby c.Name select c);
             ddlCarriers.DataTextField = "Name";
             ddlCarriers.DataValueField = "CarrierId";
             ddlCarriers.DataBind();
 
             ddlRoles.Items.Insert(0, new ListItem("[--Select--]", "0"));
             if (loggedInUserRoleId == Constants.Roles.ClientAdmin)
-            {
-                ddlRoles.Items.Add(new ListItem("My Technologist", Constants.Roles.ClientTechnologist.ToString()));
+            {                
                 ddlRoles.Items.Add(new ListItem("Hospital Administrator", Constants.Roles.HospitalAdmin.ToString()));
+                ddlRoles.Items.Add(new ListItem("My Technologist", Constants.Roles.ClientTechnologist.ToString()));
                 ddlRoles.Items.Add(new ListItem("Referring Physician", Constants.Roles.ReferringPhysician.ToString()));
             }
             else if (loggedInUserRoleId == Constants.Roles.HospitalAdmin)
             {
-                ddlRoles.Items.Add(new ListItem("Referring Physician", Constants.Roles.ReferringPhysician.ToString()));
                 ddlRoles.Items.Add(new ListItem("Hospital Staff", Constants.Roles.HospitalStaff.ToString()));
+                ddlRoles.Items.Add(new ListItem("Referring Physician", Constants.Roles.ReferringPhysician.ToString()));
+                
             }
             else if (loggedInUserRoleId == Constants.Roles.Admin)
             {
                 
                 ddlRoles.Items.Add(new ListItem("Client Administrator", Constants.Roles.ClientAdmin.ToString()));
-                ddlRoles.Items.Add(new ListItem("My Technologist", Constants.Roles.ClientTechnologist.ToString()));
                 ddlRoles.Items.Add(new ListItem("Hospital Administrator", Constants.Roles.HospitalAdmin.ToString()));
+                ddlRoles.Items.Add(new ListItem("My Technologist", Constants.Roles.ClientTechnologist.ToString()));                
                 ddlRoles.Items.Add(new ListItem("Radiologist", Constants.Roles.Radiologist.ToString()));
                 ddlRoles.Items.Add(new ListItem("Referring Physician", Constants.Roles.ReferringPhysician.ToString()));
             }
@@ -71,7 +72,7 @@ public partial class Admin_AddUser : AuthenticatedPage
                 tbName.Text = user.Name;
                 tbLoginName.Text = user.LoginName;
                 cbActive.Checked = user.IsActive;
-
+                cbAllowOthersToViewExam.Checked = user.AllowOthers;
 
                 if (user.SecretQuestionId.HasValue)
                 {
@@ -90,6 +91,10 @@ public partial class Admin_AddUser : AuthenticatedPage
                 if (userRole != null)
                 {
                     ddlRoles.SelectedValue = userRole.RoleId.ToString() ;
+                    if (userRole.RoleId == Constants.Roles.ReferringPhysician)
+                    {
+                        cbAllowOthersToViewExam.Visible = true;
+                    }
                     if (user.SendSMS.HasValue)
                     {
                         cbSms.Checked = (bool)user.SendSMS.Value;
@@ -176,6 +181,7 @@ public partial class Admin_AddUser : AuthenticatedPage
             }*/
             user.SendSMS = cbSms.Checked;
             user.Mobile = tbCellNumber.Text;
+            user.AllowOthers = cbAllowOthersToViewExam.Checked;
             if (ddlCarriers.SelectedValue != "0")
             {
                 user.CarrierId = int.Parse(ddlCarriers.SelectedValue);
@@ -210,13 +216,13 @@ public partial class Admin_AddUser : AuthenticatedPage
 
     private void BindLists(User user)
     {
-        var hospitals = (from uh in DatabaseContext.UserHospitals where uh.UserId == user.UserId select uh.Hospital);
+        var hospitals = (from uh in DatabaseContext.UserHospitals where uh.UserId == user.UserId orderby uh.Hospital.Name select uh.Hospital);
         lbHospitals.DataSource = hospitals;
         lbHospitals.DataTextField = "Name";
         lbHospitals.DataValueField = "HospitalId";
         lbHospitals.DataBind();
 
-        lbNotHospitals.DataSource = (from h in DatabaseContext.Hospitals select h).Except(hospitals);
+        lbNotHospitals.DataSource = (from h in DatabaseContext.Hospitals select h).Except(hospitals).OrderBy(h => h.Name);
         lbNotHospitals.DataTextField = "Name";
         lbNotHospitals.DataValueField = "HospitalId";
         lbNotHospitals.DataBind();
@@ -289,6 +295,8 @@ public partial class Admin_AddUser : AuthenticatedPage
                     user.CarrierId = int.Parse(ddlCarriers.SelectedValue);
                 }
                 user.UserRoles.FirstOrDefault().RoleId = int.Parse(ddlRoles.SelectedValue);
+                user.AllowOthers = cbAllowOthersToViewExam.Checked;
+                
                 DatabaseContext.SaveChanges();
                 SetInfoMessage("User updated successfully");
             }
@@ -345,7 +353,8 @@ public partial class Admin_AddUser : AuthenticatedPage
     }
     protected void ddlRoles_SelectedIndexChanged(object sender, EventArgs e)
     {
-       cbSms.Visible = (int.Parse(ddlRoles.SelectedValue) == Constants.Roles.ReferringPhysician);
+       //cbSms.Visible = (int.Parse(ddlRoles.SelectedValue) == Constants.Roles.ReferringPhysician);
+        cbAllowOthersToViewExam.Visible = true;
     }
     
     protected void cbSms_CheckedChanged(object sender, EventArgs e)

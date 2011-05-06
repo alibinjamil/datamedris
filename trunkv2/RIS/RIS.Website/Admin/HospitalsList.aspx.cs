@@ -18,7 +18,14 @@ public partial class Admin_HospitalsList : AuthenticatedPage
     {
         if (IsPostBack == false)
         {
-            ddlClients.DataSource = (from u in DatabaseContext.UserClients where u.UserId == loggedInUserId select u.Client);
+            if (loggedInUserRoleId == Constants.Roles.Admin)
+            {
+                ddlClients.DataSource = (from c in DatabaseContext.Clients select c);
+            }
+            else
+            {
+                ddlClients.DataSource = (from u in DatabaseContext.UserClients where u.UserId == loggedInUserId select u.Client);
+            }
             ddlClients.DataTextField = "Name";
             ddlClients.DataValueField = "ClientId";
             ddlClients.DataBind();

@@ -16,7 +16,8 @@
         <tr>
             <td align="right">Client:</td> 
             <td align="left"><asp:DropDownList ID="ddlClients" runat="server" 
-                    ondatabound="ddlClients_DataBound"></asp:DropDownList></td>
+                    ondatabound="ddlClients_DataBound" AutoPostBack="True" 
+                    onselectedindexchanged="ddlClients_SelectedIndexChanged"></asp:DropDownList></td>
             <td align="right">Hospital:</td>           
             <td align="left">
                 <asp:DropDownList ID="ddlHospitals" runat="server" 
@@ -29,8 +30,8 @@
         </tr>
         <tr>
             <td colspan="7" align="left">
-                <asp:GridView ID="gvUsers" runat="server" AllowPaging="True" 
-                    AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" 
+                <asp:GridView ID="gvUsers" runat="server" AllowPaging="False" 
+                    AutoGenerateColumns="False" CellPadding="4" 
                     DataKeyNames="UserId" ForeColor="Black" 
                     GridLines="Vertical" BackColor="White" BorderColor="#DEDFDE" 
                     BorderStyle="None" BorderWidth="1px" style="margin-top: 0px">
