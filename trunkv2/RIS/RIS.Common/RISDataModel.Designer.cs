@@ -55,6 +55,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("RISModel", "FK_Series_ModalityDetail", "ModalityDetail", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(RIS.Common.ModalityDetail), "Series", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.Series), true)]
 [assembly: EdmRelationshipAttribute("RISModel", "FK_tImages_tSeries", "Series", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.Series), "Image", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.Image), true)]
 [assembly: EdmRelationshipAttribute("RISModel", "FK_Studies_Studies", "Study", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(RIS.Common.Study), "Study1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.Study), true)]
+[assembly: EdmRelationshipAttribute("RISModel", "FK_UserClients_Clients", "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.Client), "UserClient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.UserClient), true)]
 
 #endregion
 
@@ -521,6 +522,22 @@ namespace RIS.Common
             }
         }
         private ObjectSet<Image> _Images;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TemplateDetail> TemplateDetails
+        {
+            get
+            {
+                if ((_TemplateDetails == null))
+                {
+                    _TemplateDetails = base.CreateObjectSet<TemplateDetail>("TemplateDetails");
+                }
+                return _TemplateDetails;
+            }
+        }
+        private ObjectSet<TemplateDetail> _TemplateDetails;
 
         #endregion
         #region AddTo Methods
@@ -731,6 +748,14 @@ namespace RIS.Common
         public void AddToImages(Image image)
         {
             base.AddObject("Images", image);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TemplateDetails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTemplateDetails(TemplateDetail templateDetail)
+        {
+            base.AddObject("TemplateDetails", templateDetail);
         }
 
         #endregion
@@ -1797,6 +1822,28 @@ namespace RIS.Common
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_UserClients_Clients", "UserClient")]
+        public EntityCollection<UserClient> UserClients
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserClient>("RISModel.FK_UserClients_Clients", "UserClient");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserClient>("RISModel.FK_UserClients_Clients", "UserClient", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2260,28 +2307,6 @@ namespace RIS.Common
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserHospital>("RISModel.FK_tUserHospitals_tHospitals", "UserHospitals", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_UserHospitals_Hospitals", "UserHospitals")]
-        public EntityCollection<UserHospital> UserHospitals1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserHospital>("RISModel.FK_UserHospitals_Hospitals", "UserHospitals");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserHospital>("RISModel.FK_UserHospitals_Hospitals", "UserHospitals", value);
                 }
             }
         }
@@ -7521,6 +7546,307 @@ namespace RIS.Common
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="RISModel", Name="TemplateDetail")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TemplateDetail : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TemplateDetail object.
+        /// </summary>
+        /// <param name="templateId">Initial value of the TemplateId property.</param>
+        /// <param name="templateName">Initial value of the TemplateName property.</param>
+        /// <param name="text">Initial value of the Text property.</param>
+        /// <param name="bodyPartId">Initial value of the BodyPartId property.</param>
+        /// <param name="bodyPartName">Initial value of the BodyPartName property.</param>
+        /// <param name="modalityId">Initial value of the ModalityId property.</param>
+        /// <param name="modalityName">Initial value of the ModalityName property.</param>
+        public static TemplateDetail CreateTemplateDetail(global::System.Int32 templateId, global::System.String templateName, global::System.String text, global::System.Int32 bodyPartId, global::System.String bodyPartName, global::System.Int32 modalityId, global::System.String modalityName)
+        {
+            TemplateDetail templateDetail = new TemplateDetail();
+            templateDetail.TemplateId = templateId;
+            templateDetail.TemplateName = templateName;
+            templateDetail.Text = text;
+            templateDetail.BodyPartId = bodyPartId;
+            templateDetail.BodyPartName = bodyPartName;
+            templateDetail.ModalityId = modalityId;
+            templateDetail.ModalityName = modalityName;
+            return templateDetail;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TemplateId
+        {
+            get
+            {
+                return _TemplateId;
+            }
+            set
+            {
+                if (_TemplateId != value)
+                {
+                    OnTemplateIdChanging(value);
+                    ReportPropertyChanging("TemplateId");
+                    _TemplateId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TemplateId");
+                    OnTemplateIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _TemplateId;
+        partial void OnTemplateIdChanging(global::System.Int32 value);
+        partial void OnTemplateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String TemplateName
+        {
+            get
+            {
+                return _TemplateName;
+            }
+            set
+            {
+                if (_TemplateName != value)
+                {
+                    OnTemplateNameChanging(value);
+                    ReportPropertyChanging("TemplateName");
+                    _TemplateName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("TemplateName");
+                    OnTemplateNameChanged();
+                }
+            }
+        }
+        private global::System.String _TemplateName;
+        partial void OnTemplateNameChanging(global::System.String value);
+        partial void OnTemplateNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Text
+        {
+            get
+            {
+                return _Text;
+            }
+            set
+            {
+                if (_Text != value)
+                {
+                    OnTextChanging(value);
+                    ReportPropertyChanging("Text");
+                    _Text = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Text");
+                    OnTextChanged();
+                }
+            }
+        }
+        private global::System.String _Text;
+        partial void OnTextChanging(global::System.String value);
+        partial void OnTextChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Heading
+        {
+            get
+            {
+                return _Heading;
+            }
+            set
+            {
+                OnHeadingChanging(value);
+                ReportPropertyChanging("Heading");
+                _Heading = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Heading");
+                OnHeadingChanged();
+            }
+        }
+        private global::System.String _Heading;
+        partial void OnHeadingChanging(global::System.String value);
+        partial void OnHeadingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Impression
+        {
+            get
+            {
+                return _Impression;
+            }
+            set
+            {
+                OnImpressionChanging(value);
+                ReportPropertyChanging("Impression");
+                _Impression = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Impression");
+                OnImpressionChanged();
+            }
+        }
+        private global::System.String _Impression;
+        partial void OnImpressionChanging(global::System.String value);
+        partial void OnImpressionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BodyPartId
+        {
+            get
+            {
+                return _BodyPartId;
+            }
+            set
+            {
+                if (_BodyPartId != value)
+                {
+                    OnBodyPartIdChanging(value);
+                    ReportPropertyChanging("BodyPartId");
+                    _BodyPartId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("BodyPartId");
+                    OnBodyPartIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _BodyPartId;
+        partial void OnBodyPartIdChanging(global::System.Int32 value);
+        partial void OnBodyPartIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String BodyPartName
+        {
+            get
+            {
+                return _BodyPartName;
+            }
+            set
+            {
+                if (_BodyPartName != value)
+                {
+                    OnBodyPartNameChanging(value);
+                    ReportPropertyChanging("BodyPartName");
+                    _BodyPartName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("BodyPartName");
+                    OnBodyPartNameChanged();
+                }
+            }
+        }
+        private global::System.String _BodyPartName;
+        partial void OnBodyPartNameChanging(global::System.String value);
+        partial void OnBodyPartNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ModalityId
+        {
+            get
+            {
+                return _ModalityId;
+            }
+            set
+            {
+                if (_ModalityId != value)
+                {
+                    OnModalityIdChanging(value);
+                    ReportPropertyChanging("ModalityId");
+                    _ModalityId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ModalityId");
+                    OnModalityIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ModalityId;
+        partial void OnModalityIdChanging(global::System.Int32 value);
+        partial void OnModalityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ModalityName
+        {
+            get
+            {
+                return _ModalityName;
+            }
+            set
+            {
+                if (_ModalityName != value)
+                {
+                    OnModalityNameChanging(value);
+                    ReportPropertyChanging("ModalityName");
+                    _ModalityName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("ModalityName");
+                    OnModalityNameChanged();
+                }
+            }
+        }
+        private global::System.String _ModalityName;
+        partial void OnModalityNameChanging(global::System.String value);
+        partial void OnModalityNameChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="RISModel", Name="TemplateUser")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -8550,28 +8876,6 @@ namespace RIS.Common
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_UserHospitals_Users", "UserHospitals")]
-        public EntityCollection<UserHospital> UserHospitals1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserHospital>("RISModel.FK_UserHospitals_Users", "UserHospitals");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserHospital>("RISModel.FK_UserHospitals_Users", "UserHospitals", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_tUserRoles_tUsers", "UserRoles")]
         public EntityCollection<UserRole> UserRoles
         {
@@ -8757,6 +9061,44 @@ namespace RIS.Common
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_UserClients_Clients", "Client")]
+        public Client Client
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("RISModel.FK_UserClients_Clients", "Client").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("RISModel.FK_UserClients_Clients", "Client").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Client> ClientReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Client>("RISModel.FK_UserClients_Clients", "Client");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Client>("RISModel.FK_UserClients_Clients", "Client", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -8912,44 +9254,6 @@ namespace RIS.Common
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_UserHospitals_Hospitals", "Hospitals")]
-        public Hospital Hospital1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Hospital>("RISModel.FK_UserHospitals_Hospitals", "Hospitals").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Hospital>("RISModel.FK_UserHospitals_Hospitals", "Hospitals").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Hospital> Hospital1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Hospital>("RISModel.FK_UserHospitals_Hospitals", "Hospitals");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Hospital>("RISModel.FK_UserHospitals_Hospitals", "Hospitals", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_tUserHospitals_tUsers", "Users")]
         public User User
         {
@@ -8978,44 +9282,6 @@ namespace RIS.Common
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("RISModel.FK_tUserHospitals_tUsers", "Users", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_UserHospitals_Users", "Users")]
-        public User User1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("RISModel.FK_UserHospitals_Users", "Users").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("RISModel.FK_UserHospitals_Users", "Users").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> User1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("RISModel.FK_UserHospitals_Users", "Users");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("RISModel.FK_UserHospitals_Users", "Users", value);
                 }
             }
         }

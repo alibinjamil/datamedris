@@ -175,6 +175,11 @@
       <End Role="Study" EntitySet="Studies" />
       <End Role="Study1" EntitySet="Studies" />
     </AssociationSet>
+    <AssociationSet Name="FK_UserClients_Clients" Association="RISModel.FK_UserClients_Clients">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="UserClient" EntitySet="UserClients" />
+    </AssociationSet>
+    <EntitySet Name="TemplateDetails" EntityType="RISModel.TemplateDetail" />
   </EntityContainer>
   <EntityType Name="Attachment">
     <Key>
@@ -220,6 +225,7 @@
     <NavigationProperty Name="Hospitals" Relationship="RISModel.FK_tHospitals_tClients" FromRole="Clients" ToRole="Hospitals" />
     <NavigationProperty Name="Stations" Relationship="RISModel.FK_tStations_tClients" FromRole="Clients" ToRole="Stations" />
     <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Clients" FromRole="Client" ToRole="Study" />
+    <NavigationProperty Name="UserClients" Relationship="RISModel.FK_UserClients_Clients" FromRole="Client" ToRole="UserClient" />
   </EntityType>
   <EntityType Name="Hospital">
     <Key>
@@ -242,7 +248,6 @@
     <NavigationProperty Name="Client" Relationship="RISModel.FK_tHospitals_tClients" FromRole="Hospitals" ToRole="Clients" />
     <NavigationProperty Name="Stations" Relationship="RISModel.FK_tStations_tHospitals" FromRole="Hospitals" ToRole="Stations" />
     <NavigationProperty Name="UserHospitals" Relationship="RISModel.FK_tUserHospitals_tHospitals" FromRole="Hospitals" ToRole="UserHospitals" />
-    <NavigationProperty Name="UserHospitals1" Relationship="RISModel.FK_UserHospitals_Hospitals" FromRole="Hospitals" ToRole="UserHospitals" />
     <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Hospitals" FromRole="Hospital" ToRole="Study" />
   </EntityType>
   <EntityType Name="Log">
@@ -499,6 +504,7 @@
     <Property Name="ClientId" Type="Int32" Nullable="false" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="User" Relationship="RISModel.FK_UserClients_Users" FromRole="UserClients" ToRole="Users" />
+    <NavigationProperty Name="Client" Relationship="RISModel.FK_UserClients_Clients" FromRole="UserClient" ToRole="Client" />
   </EntityType>
   <EntityType Name="UserHospital">
     <Key>
@@ -508,9 +514,7 @@
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <Property Name="HospitalId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Hospital" Relationship="RISModel.FK_tUserHospitals_tHospitals" FromRole="UserHospitals" ToRole="Hospitals" />
-    <NavigationProperty Name="Hospital1" Relationship="RISModel.FK_UserHospitals_Hospitals" FromRole="UserHospitals" ToRole="Hospitals" />
     <NavigationProperty Name="User" Relationship="RISModel.FK_tUserHospitals_tUsers" FromRole="UserHospitals" ToRole="Users" />
-    <NavigationProperty Name="User1" Relationship="RISModel.FK_UserHospitals_Users" FromRole="UserHospitals" ToRole="Users" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -552,7 +556,6 @@
     <NavigationProperty Name="TemplateUsers" Relationship="RISModel.FK_tTemplateUsers_tUsers" FromRole="Users" ToRole="TemplateUsers" />
     <NavigationProperty Name="UserClients" Relationship="RISModel.FK_UserClients_Users" FromRole="Users" ToRole="UserClients" />
     <NavigationProperty Name="UserHospitals" Relationship="RISModel.FK_tUserHospitals_tUsers" FromRole="Users" ToRole="UserHospitals" />
-    <NavigationProperty Name="UserHospitals1" Relationship="RISModel.FK_UserHospitals_Users" FromRole="Users" ToRole="UserHospitals" />
     <NavigationProperty Name="UserRoles" Relationship="RISModel.FK_tUserRoles_tUsers" FromRole="Users" ToRole="UserRoles" />
     <Property Type="Boolean" Name="AllowOthers" Nullable="false" />
     <NavigationProperty Name="Studies_1" Relationship="RISModel.FK_Studies_Radiologist" FromRole="User" ToRole="Study" />
@@ -1058,4 +1061,37 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserClients_Clients">
+    <End Type="RISModel.Client" Role="Client" Multiplicity="1" />
+    <End Type="RISModel.UserClient" Role="UserClient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="UserClient">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TemplateDetail">
+    <Key>
+      <PropertyRef Name="TemplateId" />
+      <PropertyRef Name="TemplateName" />
+      <PropertyRef Name="Text" />
+      <PropertyRef Name="BodyPartId" />
+      <PropertyRef Name="BodyPartName" />
+      <PropertyRef Name="ModalityId" />
+      <PropertyRef Name="ModalityName" />
+    </Key>
+    <Property Type="Int32" Name="TemplateId" Nullable="false" />
+    <Property Type="String" Name="TemplateName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Heading" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Impression" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="BodyPartId" Nullable="false" />
+    <Property Type="String" Name="BodyPartName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="ModalityId" Nullable="false" />
+    <Property Type="String" Name="ModalityName" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

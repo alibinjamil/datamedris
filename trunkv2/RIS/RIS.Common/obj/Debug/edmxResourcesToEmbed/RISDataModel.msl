@@ -391,5 +391,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TemplateDetails">
+      <EntityTypeMapping TypeName="RISModel.TemplateDetail">
+        <MappingFragment StoreEntitySet="TemplateDetails">
+          <ScalarProperty Name="ModalityName" ColumnName="ModalityName" />
+          <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+          <ScalarProperty Name="BodyPartName" ColumnName="BodyPartName" />
+          <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+          <ScalarProperty Name="Impression" ColumnName="Impression" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Heading" ColumnName="Heading" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+          <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

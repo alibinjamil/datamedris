@@ -27,6 +27,20 @@
     <EntitySet Name="UserRoles" EntityType="RISModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="RISModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WorkLists" EntityType="RISModel.Store.WorkLists" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TemplateDetails" EntityType="RISModel.Store.TemplateDetails" store:Type="Views" store:Schema="dbo" store:Name="TemplateDetails">
+      <DefiningQuery>SELECT 
+      [TemplateDetails].[TemplateId] AS [TemplateId], 
+      [TemplateDetails].[TemplateName] AS [TemplateName], 
+      [TemplateDetails].[Text] AS [Text], 
+      [TemplateDetails].[Heading] AS [Heading], 
+      [TemplateDetails].[Description] AS [Description], 
+      [TemplateDetails].[Impression] AS [Impression], 
+      [TemplateDetails].[BodyPartId] AS [BodyPartId], 
+      [TemplateDetails].[BodyPartName] AS [BodyPartName], 
+      [TemplateDetails].[ModalityId] AS [ModalityId], 
+      [TemplateDetails].[ModalityName] AS [ModalityName]
+      FROM [dbo].[TemplateDetails] AS [TemplateDetails]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_Attachments_Studies" Association="RISModel.Store.FK_Attachments_Studies">
       <End Role="Studies" EntitySet="Studies" />
       <End Role="Attachments" EntitySet="Attachments" />
@@ -162,6 +176,10 @@
     <AssociationSet Name="FK_tUsers_tCarriers" Association="RISModel.Store.FK_tUsers_tCarriers">
       <End Role="Carriers" EntitySet="Carriers" />
       <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserClients_Clients" Association="RISModel.Store.FK_UserClients_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="UserClients" EntitySet="UserClients" />
     </AssociationSet>
     <AssociationSet Name="FK_UserClients_Users" Association="RISModel.Store.FK_UserClients_Users">
       <End Role="Users" EntitySet="Users" />
@@ -539,6 +557,30 @@
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdatedBy" Type="int" />
     <Property Name="LastUpdateDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'RIS.dbo.TemplateDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="TemplateDetails">
+    <Key>
+      <PropertyRef Name="TemplateId" />
+      <PropertyRef Name="TemplateName" />
+      <PropertyRef Name="Text" />
+      <PropertyRef Name="BodyPartId" />
+      <PropertyRef Name="BodyPartName" />
+      <PropertyRef Name="ModalityId" />
+      <PropertyRef Name="ModalityName" />
+    </Key>
+    <Property Name="TemplateId" Type="int" Nullable="false" />
+    <Property Name="TemplateName" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Text" Type="varchar(max)" Nullable="false" />
+    <Property Name="Heading" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Impression" Type="varchar(max)" />
+    <Property Name="BodyPartId" Type="int" Nullable="false" />
+    <Property Name="BodyPartName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="ModalityId" Type="int" Nullable="false" />
+    <Property Name="ModalityName" Type="varchar" Nullable="false" MaxLength="64" />
   </EntityType>
   <Association Name="FK_Attachments_Studies">
     <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="1" />
@@ -945,6 +987,18 @@
       </Principal>
       <Dependent Role="Users">
         <PropertyRef Name="CarrierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserClients_Clients">
+    <End Role="Clients" Type="RISModel.Store.Clients" Multiplicity="1" />
+    <End Role="UserClients" Type="RISModel.Store.UserClients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="UserClients">
+        <PropertyRef Name="ClientId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

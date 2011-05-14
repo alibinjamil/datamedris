@@ -55,6 +55,7 @@
       <DependentUpon>RISDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Study.cs" />
+    <Compile Include="Template.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

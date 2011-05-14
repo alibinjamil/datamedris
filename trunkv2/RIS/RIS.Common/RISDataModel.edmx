@@ -32,6 +32,20 @@
           <EntitySet Name="UserRoles" EntityType="RISModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="RISModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WorkLists" EntityType="RISModel.Store.WorkLists" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TemplateDetails" EntityType="RISModel.Store.TemplateDetails" store:Type="Views" store:Schema="dbo" store:Name="TemplateDetails">
+            <DefiningQuery>SELECT 
+      [TemplateDetails].[TemplateId] AS [TemplateId], 
+      [TemplateDetails].[TemplateName] AS [TemplateName], 
+      [TemplateDetails].[Text] AS [Text], 
+      [TemplateDetails].[Heading] AS [Heading], 
+      [TemplateDetails].[Description] AS [Description], 
+      [TemplateDetails].[Impression] AS [Impression], 
+      [TemplateDetails].[BodyPartId] AS [BodyPartId], 
+      [TemplateDetails].[BodyPartName] AS [BodyPartName], 
+      [TemplateDetails].[ModalityId] AS [ModalityId], 
+      [TemplateDetails].[ModalityName] AS [ModalityName]
+      FROM [dbo].[TemplateDetails] AS [TemplateDetails]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Attachments_Studies" Association="RISModel.Store.FK_Attachments_Studies">
             <End Role="Studies" EntitySet="Studies" />
             <End Role="Attachments" EntitySet="Attachments" />
@@ -167,6 +181,10 @@
           <AssociationSet Name="FK_tUsers_tCarriers" Association="RISModel.Store.FK_tUsers_tCarriers">
             <End Role="Carriers" EntitySet="Carriers" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClients_Clients" Association="RISModel.Store.FK_UserClients_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="UserClients" EntitySet="UserClients" />
           </AssociationSet>
           <AssociationSet Name="FK_UserClients_Users" Association="RISModel.Store.FK_UserClients_Users">
             <End Role="Users" EntitySet="Users" />
@@ -544,6 +562,30 @@
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="LastUpdatedBy" Type="int" />
           <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'RIS.dbo.TemplateDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="TemplateDetails">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+            <PropertyRef Name="TemplateName" />
+            <PropertyRef Name="Text" />
+            <PropertyRef Name="BodyPartId" />
+            <PropertyRef Name="BodyPartName" />
+            <PropertyRef Name="ModalityId" />
+            <PropertyRef Name="ModalityName" />
+          </Key>
+          <Property Name="TemplateId" Type="int" Nullable="false" />
+          <Property Name="TemplateName" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="Text" Type="varchar(max)" Nullable="false" />
+          <Property Name="Heading" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Impression" Type="varchar(max)" />
+          <Property Name="BodyPartId" Type="int" Nullable="false" />
+          <Property Name="BodyPartName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ModalityId" Type="int" Nullable="false" />
+          <Property Name="ModalityName" Type="varchar" Nullable="false" MaxLength="64" />
         </EntityType>
         <Association Name="FK_Attachments_Studies">
           <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="1" />
@@ -953,6 +995,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserClients_Clients">
+          <End Role="Clients" Type="RISModel.Store.Clients" Multiplicity="1" />
+          <End Role="UserClients" Type="RISModel.Store.UserClients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="UserClients">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserClients_Users">
           <End Role="Users" Type="RISModel.Store.Users" Multiplicity="1" />
           <End Role="UserClients" Type="RISModel.Store.UserClients" Multiplicity="*" />
@@ -1168,6 +1222,11 @@
             <End Role="Study" EntitySet="Studies" />
             <End Role="Study1" EntitySet="Studies" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserClients_Clients" Association="RISModel.FK_UserClients_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="UserClient" EntitySet="UserClients" />
+          </AssociationSet>
+          <EntitySet Name="TemplateDetails" EntityType="RISModel.TemplateDetail" />
           </EntityContainer>
         <EntityType Name="Attachment">
           <Key>
@@ -1213,6 +1272,7 @@
           <NavigationProperty Name="Hospitals" Relationship="RISModel.FK_tHospitals_tClients" FromRole="Clients" ToRole="Hospitals" />
           <NavigationProperty Name="Stations" Relationship="RISModel.FK_tStations_tClients" FromRole="Clients" ToRole="Stations" />
           <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Clients" FromRole="Client" ToRole="Study" />
+          <NavigationProperty Name="UserClients" Relationship="RISModel.FK_UserClients_Clients" FromRole="Client" ToRole="UserClient" />
         </EntityType>
         <EntityType Name="Hospital">
           <Key>
@@ -1235,7 +1295,6 @@
           <NavigationProperty Name="Client" Relationship="RISModel.FK_tHospitals_tClients" FromRole="Hospitals" ToRole="Clients" />
           <NavigationProperty Name="Stations" Relationship="RISModel.FK_tStations_tHospitals" FromRole="Hospitals" ToRole="Stations" />
           <NavigationProperty Name="UserHospitals" Relationship="RISModel.FK_tUserHospitals_tHospitals" FromRole="Hospitals" ToRole="UserHospitals" />
-          <NavigationProperty Name="UserHospitals1" Relationship="RISModel.FK_UserHospitals_Hospitals" FromRole="Hospitals" ToRole="UserHospitals" />
           <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Hospitals" FromRole="Hospital" ToRole="Study" />
         </EntityType>
         <EntityType Name="Log">
@@ -1460,7 +1519,7 @@
           <NavigationProperty Name="Studies" Relationship="RISModel.FK_Studies_Templates" FromRole="Template" ToRole="Study" />
           <Property Type="Int32" Name="BodyPartId" Nullable="false" />
           <NavigationProperty Name="BodyPart" Relationship="RISModel.FK_Templates_BodyParts" FromRole="Template" ToRole="BodyPart" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="TemplateUser">
           <Key>
             <PropertyRef Name="TemplateUserId" />
@@ -1492,6 +1551,7 @@
           <Property Name="ClientId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="RISModel.FK_UserClients_Users" FromRole="UserClients" ToRole="Users" />
+          <NavigationProperty Name="Client" Relationship="RISModel.FK_UserClients_Clients" FromRole="UserClient" ToRole="Client" />
         </EntityType>
         <EntityType Name="UserHospital">
           <Key>
@@ -1501,9 +1561,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="HospitalId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Hospital" Relationship="RISModel.FK_tUserHospitals_tHospitals" FromRole="UserHospitals" ToRole="Hospitals" />
-          <NavigationProperty Name="Hospital1" Relationship="RISModel.FK_UserHospitals_Hospitals" FromRole="UserHospitals" ToRole="Hospitals" />
           <NavigationProperty Name="User" Relationship="RISModel.FK_tUserHospitals_tUsers" FromRole="UserHospitals" ToRole="Users" />
-          <NavigationProperty Name="User1" Relationship="RISModel.FK_UserHospitals_Users" FromRole="UserHospitals" ToRole="Users" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -1545,7 +1603,6 @@
           <NavigationProperty Name="TemplateUsers" Relationship="RISModel.FK_tTemplateUsers_tUsers" FromRole="Users" ToRole="TemplateUsers" />
           <NavigationProperty Name="UserClients" Relationship="RISModel.FK_UserClients_Users" FromRole="Users" ToRole="UserClients" />
           <NavigationProperty Name="UserHospitals" Relationship="RISModel.FK_tUserHospitals_tUsers" FromRole="Users" ToRole="UserHospitals" />
-          <NavigationProperty Name="UserHospitals1" Relationship="RISModel.FK_UserHospitals_Users" FromRole="Users" ToRole="UserHospitals" />
           <NavigationProperty Name="UserRoles" Relationship="RISModel.FK_tUserRoles_tUsers" FromRole="Users" ToRole="UserRoles" />
           <Property Type="Boolean" Name="AllowOthers" Nullable="false" />
           <NavigationProperty Name="Studies_1" Relationship="RISModel.FK_Studies_Radiologist" FromRole="User" ToRole="Study" />
@@ -2051,6 +2108,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserClients_Clients">
+          <End Type="RISModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="RISModel.UserClient" Role="UserClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="UserClient">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TemplateDetail">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+            <PropertyRef Name="TemplateName" />
+            <PropertyRef Name="Text" />
+            <PropertyRef Name="BodyPartId" />
+            <PropertyRef Name="BodyPartName" />
+            <PropertyRef Name="ModalityId" />
+            <PropertyRef Name="ModalityName" />
+          </Key>
+          <Property Type="Int32" Name="TemplateId" Nullable="false" />
+          <Property Type="String" Name="TemplateName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Heading" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Impression" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="BodyPartId" Nullable="false" />
+          <Property Type="String" Name="BodyPartName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ModalityId" Nullable="false" />
+          <Property Type="String" Name="ModalityName" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2351,6 +2441,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TemplateDetails">
+            <EntityTypeMapping TypeName="RISModel.TemplateDetail">
+              <MappingFragment StoreEntitySet="TemplateDetails">
+                <ScalarProperty Name="ModalityName" ColumnName="ModalityName" />
+                <ScalarProperty Name="ModalityId" ColumnName="ModalityId" />
+                <ScalarProperty Name="BodyPartName" ColumnName="BodyPartName" />
+                <ScalarProperty Name="BodyPartId" ColumnName="BodyPartId" />
+                <ScalarProperty Name="Impression" ColumnName="Impression" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Heading" ColumnName="Heading" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2371,11 +2477,11 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="RISDataModel" ZoomLevel="55">
+      <Diagram Name="RISDataModel" ZoomLevel="50">
         <EntityTypeShape EntityType="RISModel.Attachment" Width="1.5" PointX="13.5" PointY="13.75" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.Carrier" Width="1.5" PointX="0.75" PointY="17.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.Client" Width="1.5" PointX="3.75" PointY="5.125" Height="4.0956022135416665" IsExpanded="true" />
-        <EntityTypeShape EntityType="RISModel.Hospital" Width="1.5" PointX="6" PointY="4.875" Height="4.4802050781250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.Hospital" Width="1.5" PointX="6" PointY="4.875" Height="4.4802050781250014" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.Log" Width="1.5" PointX="8.25" PointY="16.75" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.Modality" Width="1.5" PointX="0.75" PointY="10.5" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.ModalityDetail" Width="1.5" PointX="3" PointY="0.75" Height="2.7494921874999996" IsExpanded="true" />
@@ -2392,9 +2498,9 @@
         <EntityTypeShape EntityType="RISModel.TemplateUser" Width="1.5" PointX="5.25" PointY="13.125" Height="1.9802864583333388" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.Type" Width="1.5" PointX="8.75" PointY="1.875" Height="2.5571907552083282" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.UserClient" Width="1.5" PointX="5.25" PointY="38.25" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="RISModel.UserHospital" Width="1.5" PointX="8.25" PointY="13" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.UserHospital" Width="1.5" PointX="8.25" PointY="13" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.UserRole" Width="1.5" PointX="8.25" PointY="20.75" Height="2.7494921875000102" IsExpanded="true" />
-        <EntityTypeShape EntityType="RISModel.User" Width="1.5" PointX="3" PointY="15.125" Height="6.2109179687500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="RISModel.User" Width="1.5" PointX="3" PointY="15.125" Height="5.8263151041666674" IsExpanded="true" />
         <EntityTypeShape EntityType="RISModel.WorkList" Width="1.5" PointX="10.75" PointY="1.875" Height="3.5186979166666674" IsExpanded="true" />
         <AssociationConnector Association="RISModel.FK_Attachments_Studies" ManuallyRouted="false">
           <ConnectorPoint PointX="12.75" PointY="15.49974609375" />
@@ -2409,54 +2515,53 @@
           <ConnectorPoint PointX="3" PointY="18.143992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tHospitals_tClients" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="7.2689518229166667" />
-          <ConnectorPoint PointX="6" PointY="7.2689518229166667" />
+          <ConnectorPoint PointX="5.25" PointY="7.2401025390625007" />
+          <ConnectorPoint PointX="6" PointY="7.2401025390625007" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tStations_tClients" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.125" PointY="9.4129036458333335" />
-          <ConnectorPoint PointX="5.125" PointY="29.252596266312544" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="29.252596266312544" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="29.252596266312544" />
-          <ConnectorPoint PointX="9" PointY="29.252596266312544" />
+          <ConnectorPoint PointX="5.125" PointY="9.6052050781250014" />
+          <ConnectorPoint PointX="5.125" PointY="28.957288635270029" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="28.957288635270029" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="28.957288635270029" />
+          <ConnectorPoint PointX="9" PointY="28.957288635270029" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tStations_tHospitals" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.47576923076923" PointY="9.5475065104166656" />
-          <ConnectorPoint PointX="8" PointY="10.071737279647437" />
-          <ConnectorPoint PointX="8" PointY="30.513049807635433" />
-          <ConnectorPoint PointX="9" PointY="30.513049807635433" />
+          <ConnectorPoint PointX="7.47576923076923" PointY="9.3552050781250014" />
+          <ConnectorPoint PointX="7.875" PointY="9.7544358473557722" />
+          <ConnectorPoint PointX="7.875" PointY="30.875292809749183" />
+          <ConnectorPoint PointX="9" PointY="30.875292809749183" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tUserHospitals_tHospitals" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.0000119261169438" PointY="9.5475065104166656" />
-          <ConnectorPoint PointX="7.0000119261169438" PointY="15.21340144831732" />
-          <ConnectorPoint PointX="7.1666726297251389" PointY="15.21340144831732" />
-          <ConnectorPoint PointX="7.3333392963918049" PointY="15.21340144831732" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="15.213401448317319" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="15.21340144831732" />
-          <ConnectorPoint PointX="8.25" PointY="15.21340144831732" />
+          <ConnectorPoint PointX="6.9999967262738947" PointY="9.3552050781250014" />
+          <ConnectorPoint PointX="6.9999967262738947" PointY="13.041015625" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.041015624999998" />
+          <ConnectorPoint PointX="8.0520833333333339" PointY="13.041015625" />
+          <ConnectorPoint PointX="8.25" PointY="13.041015625" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_UserHospitals_Hospitals" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.2500059630584719" PointY="9.5475065104166656" />
-          <ConnectorPoint PointX="7.2500059630584719" PointY="15.321521438301289" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="15.321521438301287" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="15.321521438301289" />
-          <ConnectorPoint PointX="8.25" PointY="15.321521438301289" />
+          <ConnectorPoint PointX="7.2499983631369478" PointY="9.3552050781250014" />
+          <ConnectorPoint PointX="7.2499983631369478" PointY="13.0205078125" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.020507812499998" />
+          <ConnectorPoint PointX="8.0520833333333339" PointY="13.0205078125" />
+          <ConnectorPoint PointX="8.25" PointY="13.0205078125" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tLog_tStudies" ManuallyRouted="false">
           <ConnectorPoint PointX="11.25" PointY="17.932444661458334" />
           <ConnectorPoint PointX="9.75" PointY="17.932444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tLog_tUsers" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="18.142001496887211" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="18.142001496887211" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="18.142001496887211" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="18.142001496887211" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="18.142001496887211" />
-          <ConnectorPoint PointX="8.25" PointY="18.142001496887211" />
+          <ConnectorPoint PointX="4.5" PointY="17.898130425970066" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="17.898130425970066" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="17.898130425970066" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="17.898130425970066" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="17.898130425970066" />
+          <ConnectorPoint PointX="8.25" PointY="17.898130425970066" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tModalityDetails_tModalities" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="13.5691943359375" />
-          <ConnectorPoint PointX="3.21875" PointY="13.5691943359375" />
-          <ConnectorPoint PointX="3.21875" PointY="3.6917936197916661" />
+          <ConnectorPoint PointX="2.2257692307692305" PointY="10.5" />
+          <ConnectorPoint PointX="2.625" PointY="10.100769230769231" />
+          <ConnectorPoint PointX="2.625" PointY="2.2208968098958328" />
+          <ConnectorPoint PointX="3" PointY="2.2208968098958328" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tProcedures_tModalities" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="13.57755559054487" />
@@ -2464,48 +2569,50 @@
           <ConnectorPoint PointX="2.71875" PointY="25.939392403645833" />
           <ConnectorPoint PointX="3.6666666666666665" PointY="25.939392403645833" />
           <ConnectorPoint PointX="3.8333333333333335" PointY="25.939392403645833" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="25.939392403645833" />
           <ConnectorPoint PointX="5.208333333333333" PointY="25.939392403645833" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="25.939392403645833" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="25.939392403645833" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="25.939392403645833" />
           <ConnectorPoint PointX="9" PointY="25.939392403645833" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tStations_tModalities" ManuallyRouted="false">
           <ConnectorPoint PointX="2.2257692307692305" PointY="13.634095052083332" />
           <ConnectorPoint PointX="2.625" PointY="14.0333258213141" />
-          <ConnectorPoint PointX="2.625" PointY="28.595046133156281" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="28.595046133156281" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="28.595046133156281" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="28.595046133156281" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="28.595046133156281" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="28.595046133156281" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="28.595046133156281" />
-          <ConnectorPoint PointX="9" PointY="28.595046133156281" />
+          <ConnectorPoint PointX="2.625" PointY="29.977082270540045" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="29.977082270540045" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="29.977082270540045" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="29.977082270540045" />
+          <ConnectorPoint PointX="5.145833333333333" PointY="29.977082270540045" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="29.977082270540045" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="29.977082270540045" />
+          <ConnectorPoint PointX="9" PointY="29.977082270540045" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tStudies_tModalities" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="12.035173591045673" />
-          <ConnectorPoint PointX="3.1354166666666665" PointY="12.035173591045673" />
-          <ConnectorPoint PointX="3.3020833333333335" PointY="12.035173591045673" />
-          <ConnectorPoint PointX="3.375" PointY="12.035173591045673" />
-          <ConnectorPoint PointX="3.375" PointY="13.691793619791667" />
+          <ConnectorPoint PointX="2.25" PointY="12.007525795272434" />
+          <ConnectorPoint PointX="3.25" PointY="12.007525795272434" />
+          <ConnectorPoint PointX="3.25" PointY="13.691793619791667" />
           <ConnectorPoint PointX="5" PointY="13.691793619791667" />
           <ConnectorPoint PointX="5" PointY="15.355286458333339" />
           <ConnectorPoint PointX="5.041666666666667" PointY="15.355286458333339" />
           <ConnectorPoint PointX="5.208333333333333" PointY="15.355286458333339" />
           <ConnectorPoint PointX="5.916666666666667" PointY="15.355286458333339" />
           <ConnectorPoint PointX="6.083333333333333" PointY="15.355286458333339" />
-          <ConnectorPoint PointX="7.9375" PointY="15.355286458333339" />
-          <ConnectorPoint PointX="7.9375" PointY="12.75" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="12.75" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="12.75" />
-          <ConnectorPoint PointX="11.041666666666666" PointY="12.75" />
-          <ConnectorPoint PointX="11.208333333333334" PointY="12.75" />
-          <ConnectorPoint PointX="11.393073883233635" PointY="12.75" />
-          <ConnectorPoint PointX="11.559740549900303" PointY="12.75" />
-          <ConnectorPoint PointX="11.619481099800606" PointY="12.75" />
-          <ConnectorPoint PointX="11.786147766467273" PointY="12.75" />
-          <ConnectorPoint PointX="11.982921079879866" PointY="12.75" />
-          <ConnectorPoint PointX="11.982921079879866" PointY="14.5" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="15.355286458333337" />
+          <ConnectorPoint PointX="8.0520833333333339" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="8.6158841666666657" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="8.7825508333333335" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="9.1276056666666658" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="9.2942723333333337" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="10.75" PointY="15.355286458333339" />
+          <ConnectorPoint PointX="10.75" PointY="14.25" />
+          <ConnectorPoint PointX="11.403659579535884" PointY="14.25" />
+          <ConnectorPoint PointX="11.570326246202551" PointY="14.25" />
+          <ConnectorPoint PointX="11.613077919923422" PointY="14.25" />
+          <ConnectorPoint PointX="11.779744586590089" PointY="14.25" />
+          <ConnectorPoint PointX="11.821217027566963" PointY="14.25" />
+          <ConnectorPoint PointX="11.987883694233631" PointY="14.25" />
+          <ConnectorPoint PointX="12.112689468543838" PointY="14.25" />
+          <ConnectorPoint PointX="12.112689468543838" PointY="14.5" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tStudies_tProcedures" ManuallyRouted="false">
           <ConnectorPoint PointX="10.5" PointY="24.658274739583334" />
@@ -2515,16 +2622,14 @@
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_RoleScreens_Roles" ManuallyRouted="false">
           <ConnectorPoint PointX="7.5" PointY="23.937246093750005" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="23.937246093750005" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="23.937246093750005" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="23.937246093750005" />
-          <ConnectorPoint PointX="10.958333333333334" PointY="23.937246093750005" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="23.937246093750005" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="23.937246093750005" />
           <ConnectorPoint PointX="11.25" PointY="23.937246093750005" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tUserRoles_tRoles" ManuallyRouted="false">
           <ConnectorPoint PointX="7.5" PointY="22.624746093750005" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="22.624746093750005" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="22.624746093750005" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="22.624746093750005" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="22.624746093750005" />
           <ConnectorPoint PointX="8.25" PointY="22.624746093750005" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_RoleScreens_Screens" ManuallyRouted="false">
@@ -2543,12 +2648,12 @@
           <ConnectorPoint PointX="11.25" PointY="22.050244694965684" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tStudies_tUsers" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="20.225784404774508" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="20.225784404774508" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="20.225784404774508" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="20.225784404774508" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="20.225784404774508" />
-          <ConnectorPoint PointX="11.25" PointY="20.225784404774508" />
+          <ConnectorPoint PointX="4.5" PointY="20.225795688709866" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="20.225795688709866" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="20.225795688709866" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="20.225795688709866" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="20.225795688709866" />
+          <ConnectorPoint PointX="11.25" PointY="20.225795688709866" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tTemplateUsers_tTemplates" ManuallyRouted="false">
           <ConnectorPoint PointX="5" PointY="13.283396809895834" />
@@ -2557,177 +2662,173 @@
           <ConnectorPoint PointX="5.25" PointY="13.283396809895834" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tTemplateUsers_tUsers" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="16.951847500143693" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="16.951847500143693" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="16.951847500143693" />
-          <ConnectorPoint PointX="6" PointY="16.951847500143693" />
+          <ConnectorPoint PointX="4.5" PointY="17.036782776928312" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="17.036782776928312" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="17.036782776928312" />
+          <ConnectorPoint PointX="6" PointY="17.036782776928312" />
           <ConnectorPoint PointX="6" PointY="15.105286458333339" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_UserClients_Users" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="21.335917968750003" />
-          <ConnectorPoint PointX="3.75" PointY="39.143992513020834" />
-          <ConnectorPoint PointX="5.25" PointY="39.143992513020834" />
+          <ConnectorPoint PointX="3.75" PointY="20.951315104166667" />
+          <ConnectorPoint PointX="3.75" PointY="39.240143229166669" />
+          <ConnectorPoint PointX="5.25" PointY="39.240143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tUserHospitals_tUsers" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="15.151537461538466" />
-          <ConnectorPoint PointX="4.9375" PointY="14.714037461538467" />
-          <ConnectorPoint PointX="4.9375" PointY="15.864889322916667" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="15.864889322916667" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="15.864889322916667" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="15.864889322916667" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="15.864889322916667" />
-          <ConnectorPoint PointX="7.7753836153846159" PointY="15.864889322916667" />
-          <ConnectorPoint PointX="7.8160744349011209" PointY="15.824198503400162" />
-          <ConnectorPoint PointX="7.9339255650988791" PointY="15.706347373202405" />
-          <ConnectorPoint PointX="7.9410744349011209" PointY="15.699198503400162" />
-          <ConnectorPoint PointX="8.0589255650988783" PointY="15.581347373202405" />
-          <ConnectorPoint PointX="8.2753836153846159" PointY="15.364889322916667" />
+          <ConnectorPoint PointX="4.5" PointY="18.744571162210519" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="18.744571162210519" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="18.744571162210519" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="18.744571162210519" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="18.744571162210519" />
+          <ConnectorPoint PointX="8" PointY="18.744571162210519" />
+          <ConnectorPoint PointX="8" PointY="16.5" />
+          <ConnectorPoint PointX="9.210939" PointY="16.5" />
+          <ConnectorPoint PointX="9.210939" PointY="14.980286458333334" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_UserHospitals_Users" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.4757692307692336" PointY="15.125" />
-          <ConnectorPoint PointX="4.875" PointY="14.725769230769235" />
-          <ConnectorPoint PointX="4.875" PointY="15.739889322916667" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="15.739889322916667" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="15.739889322916667" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="15.739889322916667" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="15.739889322916667" />
-          <ConnectorPoint PointX="7.8507692307692309" PointY="15.739889322916667" />
-          <ConnectorPoint PointX="7.9410744349011209" PointY="15.649584118784777" />
-          <ConnectorPoint PointX="8.0589255650988783" PointY="15.53173298858702" />
-          <ConnectorPoint PointX="8.25" PointY="15.340658553685898" />
+          <ConnectorPoint PointX="4.5" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="8.25" PointY="16.353655805022314" />
+          <ConnectorPoint PointX="8.25" PointY="16.25" />
+          <ConnectorPoint PointX="8.6992175" PointY="16.25" />
+          <ConnectorPoint PointX="8.6992175" PointY="14.980286458333334" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_tUserRoles_tUsers" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="20.946808268229169" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="20.946808268229169" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="20.946808268229169" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="20.946808268229169" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="20.946808268229169" />
-          <ConnectorPoint PointX="8.25" PointY="20.946808268229169" />
+          <ConnectorPoint PointX="4.1562525" PointY="20.951315104166667" />
+          <ConnectorPoint PointX="4.1562525" PointY="21.350660052083327" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="21.350660052083327" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="21.350660052083327" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="21.350660052083327" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="21.350660052083327" />
+          <ConnectorPoint PointX="8.25" PointY="21.350660052083327" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_Studies_StudyStatusTypes" >
           <ConnectorPoint PointX="7.25" PointY="2.7689925130208337" />
           <ConnectorPoint PointX="8.5" PointY="2.7689925130208337" />
-          <ConnectorPoint PointX="8.5" PointY="6.625" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="6.6249999999999991" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="6.625" />
-          <ConnectorPoint PointX="11.125" PointY="6.625" />
+          <ConnectorPoint PointX="8.5" PointY="5.6436979166666674" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="5.6436979166666665" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="5.6436979166666674" />
+          <ConnectorPoint PointX="11.125" PointY="5.6436979166666674" />
           <ConnectorPoint PointX="11.125" PointY="14.125" />
-          <ConnectorPoint PointX="11.393073883233635" PointY="14.125" />
-          <ConnectorPoint PointX="11.559740549900303" PointY="14.125" />
-          <ConnectorPoint PointX="11.619481099800606" PointY="14.125" />
-          <ConnectorPoint PointX="11.786147766467273" PointY="14.125" />
-          <ConnectorPoint PointX="11.899587746546532" PointY="14.125" />
-          <ConnectorPoint PointX="12.0662544132132" PointY="14.125" />
-          <ConnectorPoint PointX="12.156981103352525" PointY="14.125" />
-          <ConnectorPoint PointX="12.323647770019193" PointY="14.125" />
-          <ConnectorPoint PointX="12.497707793491852" PointY="14.125" />
-          <ConnectorPoint PointX="12.497707793491852" PointY="14.5" />
+          <ConnectorPoint PointX="11.403659579535884" PointY="14.125" />
+          <ConnectorPoint PointX="11.570326246202551" PointY="14.125" />
+          <ConnectorPoint PointX="11.613077919923422" PointY="14.125" />
+          <ConnectorPoint PointX="11.779744586590089" PointY="14.125" />
+          <ConnectorPoint PointX="11.821217027566963" PointY="14.125" />
+          <ConnectorPoint PointX="11.987883694233631" PointY="14.125" />
+          <ConnectorPoint PointX="12.462596734271919" PointY="14.125" />
+          <ConnectorPoint PointX="12.462596734271919" PointY="14.5" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_Studies_Hospitals" >
-          <ConnectorPoint PointX="7.5" PointY="9.5221208950320513" />
-          <ConnectorPoint PointX="7.875" PointY="9.8971208950320513" />
-          <ConnectorPoint PointX="7.875" PointY="16.057444661458334" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="16.057444661458334" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="16.057444661458334" />
-          <ConnectorPoint PointX="11.25" PointY="16.057444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="9.29866561658654" />
+          <ConnectorPoint PointX="7.96875" PointY="9.76741561658654" />
+          <ConnectorPoint PointX="7.96875" PointY="15.802643229166669" />
+          <ConnectorPoint PointX="8.6158841666666657" PointY="15.802643229166669" />
+          <ConnectorPoint PointX="8.7825508333333335" PointY="15.802643229166669" />
+          <ConnectorPoint PointX="9.1276056666666658" PointY="15.802643229166669" />
+          <ConnectorPoint PointX="9.2942723333333337" PointY="15.802643229166669" />
+          <ConnectorPoint PointX="11.25" PointY="15.802643229166669" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_Studies_Clients" >
-          <ConnectorPoint PointX="5.25" PointY="7.9836110264006468" />
-          <ConnectorPoint PointX="5.75" PointY="7.9836110264006468" />
-          <ConnectorPoint PointX="5.75" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="6.9166785927836107" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="7.0833452594502768" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="7.1666726297251389" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="7.3333392963918049" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="7.642435897435897" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="7.8587189487179483" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="11.041666666666666" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="11.208333333333334" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="11.393073883233635" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="11.559740549900303" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="11.808460218255172" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="11.97512688492184" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="12.240314436685859" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="12.240314436685859" PointY="14.5" />
+          <ConnectorPoint PointX="5.25" PointY="9.6052050781250014" />
+          <ConnectorPoint PointX="5.625" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="6.9166633929405616" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="7.0833300596072277" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="7.1666650298036148" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="7.3333316964702808" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.980205078125" />
+          <ConnectorPoint PointX="8.0520833333333339" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="11.403659579535884" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="11.570326246202551" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="11.904550360900297" PointY="9.9802050781250014" />
+          <ConnectorPoint PointX="11.904550360900297" PointY="14.5" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_Studies_Templates" >
-          <ConnectorPoint PointX="5" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="6.9166785927836107" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="7.0833452594502768" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="7.1666726297251389" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="7.3333392963918049" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="11.233099344355269" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="11.041666666666666" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="11.208333333333334" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="11.393073883233635" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="11.559740549900303" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="11.702814433133939" PointY="11.233099344355271" />
-          <ConnectorPoint PointX="11.702814433133939" PointY="14.5" />
+          <ConnectorPoint PointX="5" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="6.9166633929405616" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="7.0833300596072277" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="7.1666650298036148" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="7.3333316964702808" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="11.328839130380546" />
+          <ConnectorPoint PointX="8.0520833333333339" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="11.403659579535884" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="11.570326246202551" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="11.696411253256756" PointY="11.328839130380548" />
+          <ConnectorPoint PointX="11.696411253256756" PointY="14.5" />
         </AssociationConnector>
         <EntityTypeShape EntityType="RISModel.BodyPart" Width="1.5" PointX="11.375" PointY="6.875" Height="1.7879850260416674" />
         <AssociationConnector Association="RISModel.FK_Templates_BodyParts" >
-          <ConnectorPoint PointX="12.556999238946144" PointY="9.2398893229166656" />
-          <ConnectorPoint PointX="12.556999238946144" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="12.323647770019193" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="12.156981103352525" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="11.786147766467273" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="11.619481099800606" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="11.559740549900303" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="11.393073883233635" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="11.208333333333334" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="11.041666666666666" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="12.028703688710525" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="7.3333392963918049" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="7.1666726297251389" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="7.0833452594502768" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="6.9166785927836107" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="12.028703688710527" />
-          <ConnectorPoint PointX="5" PointY="12.028703688710527" />
+          <ConnectorPoint PointX="12.390414796822146" PointY="9.2398893229166656" />
+          <ConnectorPoint PointX="12.390414796822146" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.987883694233631" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.821217027566963" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.779744586590089" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.613077919923422" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.570326246202551" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.403659579535884" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="8.0520833333333339" PointY="12.164422065190266" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="7.3333316964702808" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="7.1666650298036148" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="7.0833300596072277" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="6.9166633929405616" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="12.164422065190268" />
+          <ConnectorPoint PointX="5" PointY="12.164422065190268" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_Studies_BodyParts" >
-          <ConnectorPoint PointX="11.476407216566969" PointY="9.2398893229166656" />
-          <ConnectorPoint PointX="11.476407216566969" PointY="14.5" />
+          <ConnectorPoint PointX="11.486992912869217" PointY="9.2398893229166656" />
+          <ConnectorPoint PointX="11.486992912869217" PointY="14.5" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_BodyParts_Modalities" >
-          <ConnectorPoint PointX="2.25" PointY="10.501152846153847" />
-          <ConnectorPoint PointX="2.6261528461538468" PointY="10.125" />
-          <ConnectorPoint PointX="3.1354166666666665" PointY="10.125" />
-          <ConnectorPoint PointX="3.3020833333333335" PointY="10.125" />
+          <ConnectorPoint PointX="2.25" PointY="10.526537461538462" />
+          <ConnectorPoint PointX="2.6515374615384619" PointY="10.125" />
+          <ConnectorPoint PointX="4.3229146666666667" PointY="10.125" />
+          <ConnectorPoint PointX="4.4895813333333328" PointY="10.125" />
           <ConnectorPoint PointX="5.041666666666667" PointY="10.125" />
           <ConnectorPoint PointX="5.208333333333333" PointY="10.125" />
-          <ConnectorPoint PointX="6.9166785927836107" PointY="10.125" />
-          <ConnectorPoint PointX="7.0833452594502768" PointY="10.125" />
-          <ConnectorPoint PointX="7.1666726297251389" PointY="10.125" />
-          <ConnectorPoint PointX="7.3333392963918049" PointY="10.125" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="10.125" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="10.125" />
+          <ConnectorPoint PointX="6.9166633929405616" PointY="10.125" />
+          <ConnectorPoint PointX="7.0833300596072277" PointY="10.125" />
+          <ConnectorPoint PointX="7.1666650298036148" PointY="10.125" />
+          <ConnectorPoint PointX="7.3333316964702808" PointY="10.125" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="10.124999999999998" />
+          <ConnectorPoint PointX="8.0520833333333339" PointY="10.125" />
           <ConnectorPoint PointX="10.416666666666666" PointY="10.125" />
           <ConnectorPoint PointX="10.583333333333334" PointY="10.125" />
           <ConnectorPoint PointX="11.041666666666666" PointY="10.125" />
           <ConnectorPoint PointX="11.208333333333334" PointY="10.125" />
-          <ConnectorPoint PointX="11.393073883233635" PointY="10.125" />
-          <ConnectorPoint PointX="11.559740549900303" PointY="10.125" />
-          <ConnectorPoint PointX="11.891793551588506" PointY="10.125" />
-          <ConnectorPoint PointX="11.891793551588506" PointY="9.2398893229166656" />
+          <ConnectorPoint PointX="11.403659579535884" PointY="10.125" />
+          <ConnectorPoint PointX="11.570326246202551" PointY="10.125" />
+          <ConnectorPoint PointX="11.821217027566963" PointY="10.125" />
+          <ConnectorPoint PointX="11.987883694233631" PointY="10.125" />
+          <ConnectorPoint PointX="12.116230078861221" PointY="10.125" />
+          <ConnectorPoint PointX="12.116230078861221" PointY="9.2398893229166656" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_Studies_Radiologist" >
-          <ConnectorPoint PointX="4.5" PointY="19.639086863845588" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="19.639086863845588" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="19.639086863845588" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="19.639086863845588" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="19.639086863845588" />
-          <ConnectorPoint PointX="11.25" PointY="19.639086863845588" />
+          <ConnectorPoint PointX="4.5" PointY="19.639092505813267" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="19.639092505813267" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="19.639092505813267" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="19.639092505813267" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="19.639092505813267" />
+          <ConnectorPoint PointX="11.25" PointY="19.639092505813267" />
         </AssociationConnector>
         <AssociationConnector Association="RISModel.FK_Series_ModalityDetail" >
           <ConnectorPoint PointX="4.5" PointY="2.2208968098958328" />
@@ -2739,14 +2840,12 @@
           <ConnectorPoint PointX="10.5" PointY="13.5" />
           <ConnectorPoint PointX="11.041666666666666" PointY="13.5" />
           <ConnectorPoint PointX="11.208333333333334" PointY="13.5" />
-          <ConnectorPoint PointX="11.393073883233635" PointY="13.5" />
-          <ConnectorPoint PointX="11.559740549900303" PointY="13.5" />
-          <ConnectorPoint PointX="11.619481099800606" PointY="13.5" />
-          <ConnectorPoint PointX="11.786147766467273" PointY="13.5" />
-          <ConnectorPoint PointX="11.899587746546532" PointY="13.5" />
-          <ConnectorPoint PointX="12.0662544132132" PointY="13.5" />
-          <ConnectorPoint PointX="12.156981103352525" PointY="13.5" />
-          <ConnectorPoint PointX="12.323647770019193" PointY="13.5" />
+          <ConnectorPoint PointX="11.403659579535884" PointY="13.5" />
+          <ConnectorPoint PointX="11.570326246202551" PointY="13.5" />
+          <ConnectorPoint PointX="11.613077919923422" PointY="13.5" />
+          <ConnectorPoint PointX="11.779744586590089" PointY="13.5" />
+          <ConnectorPoint PointX="11.821217027566963" PointY="13.5" />
+          <ConnectorPoint PointX="11.987883694233631" PointY="13.5" />
           <ConnectorPoint PointX="13.25" PointY="13.5" />
           <ConnectorPoint PointX="13.25" PointY="17.25" />
           <ConnectorPoint PointX="14.25" PointY="17.25" />
@@ -2763,6 +2862,14 @@
           <ConnectorPoint PointX="12.228461538461538" PointY="25.191549479166667" />
           <ConnectorPoint PointX="12.228461538461538" PointY="24.941549479166667" />
         </AssociationConnector>
+        <AssociationConnector Association="RISModel.FK_UserClients_Clients" >
+          <ConnectorPoint PointX="4.406248" PointY="9.6052050781250014" />
+          <ConnectorPoint PointX="4.406248" PointY="10.4375" />
+          <ConnectorPoint PointX="5.0625" PointY="10.4375" />
+          <ConnectorPoint PointX="5.0625" PointY="38.713819614583329" />
+          <ConnectorPoint PointX="5.25" PointY="38.713819614583329" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="RISModel.TemplateDetail" Width="1.5" PointX="8.375" PointY="6.75" Height="2.9417936197916674" />
         </Diagram>
     </Diagrams>
   </Designer>
