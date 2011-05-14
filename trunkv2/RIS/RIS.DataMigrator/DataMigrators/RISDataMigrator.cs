@@ -41,58 +41,75 @@ namespace RIS.RISService.DataMigrators
 
         public void MigrateData()
         {
-                List<DICOMStudy> dicomStudyList = (from s in conquestDB.DICOMStudies
-                                                   where s.SyncTime == null select s).ToList();
-                foreach (DICOMStudy dicomStudy in dicomStudyList)
+            MigrateStudies();
+            MigrateSeries();
+            MigrateImages();
+        }
+
+        private void MigrateStudies()
+        {
+            List<DICOMStudy> dicomStudyList = (from s in conquestDB.DICOMStudies
+                                               where s.SyncTime == null
+                                               select s).ToList();
+            foreach (DICOMStudy dicomStudy in dicomStudyList)
+            {
+                try
                 {
-                    try
+                    Study study = new Study();
+                    study.ExternalPatientId = dicomStudy.PatientID;
+                    study.OriginalPatientId = dicomStudy.PatientID;
+                    study.PatientName = ParseName(dicomStudy.PatientNam);
+                    study.PatientDOB = ParseDateTime(dicomStudy.PatientBir, null);
+                    study.PatientGender = dicomStudy.PatientSex;
+                    study.PatientWeight = dicomStudy.PatientsWe;
+                    study.IsLatest = true;
+                    //study.IsManual = "N";
+
+                    study.StudyStatusId = Constants.StudyStatusTypes.PreRelease;
+                    study.StudyInstance = dicomStudy.StudyInsta;
+                    study.AccessionNumber = dicomStudy.AccessionN;
+                    study.StudyDate = ParseDateTime(dicomStudy.StudyDate, dicomStudy.StudyTime);
+                    study = SetHospitalAndRefPhy(dicomStudy, study);
+
+                    study = SetModality(dicomStudy, study);
+
+                    if (dicomStudy.StudyDescr != null)
                     {
-                       
-                        Study study = new Study();
-                        study.PatientName = ParseName(dicomStudy.PatientNam);
-                        study.PatientDOB = ParseDateTime(dicomStudy.PatientBir, null);
-                        study.PatientGender = dicomStudy.PatientSex;
-                        study.PatientWeight = dicomStudy.PatientsWe;
-
-                        study.StudyStatusId = Constants.StudyStatusTypes.PreRelease;
-                        study.StudyInstance = dicomStudy.StudyInsta;
-                        study.AccessionNumber = dicomStudy.AccessionN;
-                        study.StudyDate = ParseDateTime(dicomStudy.StudyDate, dicomStudy.StudyTime);
-                        study = SetHospitalAndRefPhy(dicomStudy, study);
-
-                        study = SetModality(dicomStudy, study);
-
-                        if (dicomStudy.StudyDescr != null)
+                        Procedure procedure = (from p in risDB.Procedures
+                                               where p.Name == dicomStudy.StudyDescr
+                                                  && p.ModalityId == study.ModalityId
+                                               select p).FirstOrDefault();
+                        if (procedure == null)
                         {
-                            Procedure procedure = (from p in risDB.Procedures
-                                                   where p.Name == dicomStudy.StudyDescr
-                                                      && p.ModalityId == study.ModalityId
-                                                   select p).FirstOrDefault();
-                            if (procedure == null)
-                            {
-                                procedure = new Procedure();
-                                procedure.Name = dicomStudy.StudyDescr;
-                                procedure.ModalityId = study.ModalityId.Value;
-                            }
-                            study.Procedure = procedure;
+                            procedure = new Procedure();
+                            procedure.Name = dicomStudy.StudyDescr;
+                            procedure.ModalityId = study.ModalityId.Value;
+                            procedure.CreatedBy = AdminUserId;
+                            procedure.CreationDate = DateTime.Now;
+                            procedure.LastUpdatedBy = AdminUserId;
+                            procedure.LastUpdateDate = DateTime.Now;
                         }
-                        dicomStudy.SyncTime = DateTime.Now;
-                        study = SetAllSeries(dicomStudy, study);
-                        study.CreatedBy = AdminUserId;
-                        study.LastUpdatedBy = AdminUserId;
-                        study.CreationDate = DateTime.Now;
-                        study.LastUpdateDate = DateTime.Now;
-                        risDB.AddToStudies(study);
-                        risDB.SaveChanges();
-                        conquestDB.SaveChanges();
+                        study.Procedure = procedure;
                     }
-                    catch(Exception ex)
-                    {
-                        Console.Write(ex.StackTrace);
-                        risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, risDB);
-                        conquestDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, conquestDB);
-                    }
+                    dicomStudy.SyncTime = DateTime.Now;
+                    //study = SetAllSeries(dicomStudy, study);
+                    study.CreatedBy = AdminUserId;
+                    study.LastUpdatedBy = AdminUserId;
+                    study.CreationDate = DateTime.Now;
+                    study.LastUpdateDate = DateTime.Now;
+                    risDB.AddToStudies(study);
+                    risDB.SaveChanges();
+                    conquestDB.SaveChanges();
                 }
+                catch (Exception ex)
+                {
+                    Console.Write(ex.StackTrace);
+                    Console.WriteLine("-----Inner Exception------");
+                    Console.Write(ex.InnerException.StackTrace);
+                    risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, risDB);
+                    conquestDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, conquestDB);
+                }
+            }
         }
 
         private Study SetHospitalAndRefPhy(DICOMStudy dicomStudy, Study risStudy)
@@ -167,10 +184,12 @@ namespace RIS.RISService.DataMigrators
             User user = null;
             do
             {
-                user = (from u in risDB.Users where u.LoginName == userId.ToString() select u).FirstOrDefault();
+                string userIdStr = userId.ToString();
+                user = (from u in risDB.Users where u.LoginName == userIdStr select u).FirstOrDefault();
                 if (user == null)
                 {
                     quit = true;
+                    
                 }
                 else
                 {
@@ -179,75 +198,118 @@ namespace RIS.RISService.DataMigrators
                 }
             }
             while (!quit);
+            user = new User();
             user.Name = name;
+            user.LoginName = userId.ToString();
             user.Password = "password";
-            user.IsActive = true;            
+            user.IsActive = true;
+            user.CreatedBy = AdminUserId;
+            user.CreationDate = DateTime.Now;
+            user.LastUpdatedBy = AdminUserId;
+            user.LastUpdateDate = DateTime.Now;
             return user;
         }
 
-        private Study SetAllSeries(DICOMStudy dicomStudy,Study study)
+        private void MigrateSeries()
         {
             List<DICOMSeries> dicomSeriesList = (from s in conquestDB.DICOMSeries
-                                                 where s.StudyInsta == dicomStudy.StudyInsta select s).ToList();
+                                                 where s.SyncTime == null select s).ToList();
             foreach (DICOMSeries dicomSeries in dicomSeriesList)
-            {
-                Series series = new Series();
-                series.SeriesInstance = dicomSeries.SeriesInst;
-                series.SeriesNumber = dicomSeries.SeriesNumb;
-                series.SeriesDate = ParseDateTime(dicomSeries.SeriesDate, dicomSeries.SeriesTime);
-                series.Description = dicomSeries.SeriesDesc;
-                series.PatientPosition = dicomSeries.PatientPos;
-                series.Contrast = dicomSeries.ContrastBo;
-                series.ProtocolName = dicomSeries.ProtocolNa;
-                series.FrameOfReference = dicomSeries.FrameOfRef;
-                series.BodyPartExamined = dicomSeries.BodyPartEx;
-                series = SetModalityDetail(dicomSeries,study,series);
-                List<DICOMImage> dicomImageList = (from i in conquestDB.DICOMImages
-                                                   where i.SeriesInst == dicomSeries.SeriesInst
-                                                    select i).ToList();
-                foreach (DICOMImage dicomImage in dicomImageList)
-                {
-                    series = SetImage(dicomImage, series);
-                }
+            {                
+                try 
+	            {	
+                    Study study = (from s in risDB.Studies where s.StudyInstance == dicomSeries.StudyInsta select s).FirstOrDefault();
+                    if (study != null)
+                    {
+                        Series series = new Series();
+                        series.StudyId = study.StudyId;
+                        series.SeriesInstance = dicomSeries.SeriesInst;
+                        series.SeriesNumber = dicomSeries.SeriesNumb;
+                        series.SeriesDate = ParseDateTime(dicomSeries.SeriesDate, dicomSeries.SeriesTime);
+                        series.Description = dicomSeries.SeriesDesc;
+                        series.PatientPosition = dicomSeries.PatientPos;
+                        series.Contrast = dicomSeries.ContrastBo;
+                        series.ProtocolName = dicomSeries.ProtocolNa;
+                        series.FrameOfReference = dicomSeries.FrameOfRef;
+                        series.BodyPartExamined = dicomSeries.BodyPartEx;
+                        series = SetModalityDetail(dicomSeries, study, series);                      
 
-                series.CreatedBy = AdminUserId;
-                series.LastUpdateDate = DateTime.Now;
-                series.LastUpdatedBy = AdminUserId;
-                series.CreationDate = DateTime.Now;
-
-                study.Series.Add(series);
-                study = SetStationAndDetail(dicomSeries, study);
-            }
-            return study;
+                        series.CreatedBy = AdminUserId;
+                        series.LastUpdateDate = DateTime.Now;
+                        series.LastUpdatedBy = AdminUserId;
+                        series.CreationDate = DateTime.Now;
+                        
+                        dicomSeries.SyncTime = DateTime.Now;
+                        //study.Series.Add(series);
+                        risDB.AddToSeries(series);
+                        study = SetStationAndDetail(dicomSeries, study);
+                        risDB.SaveChanges();
+                        conquestDB.SaveChanges();
+                    }
+	            }
+	            catch (Exception ex)
+	            {
+		            Console.Write(ex.StackTrace);
+                    Console.WriteLine("-----Inner Exception------");
+                    Console.Write(ex.InnerException.StackTrace);
+                    risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, risDB);
+                    conquestDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, conquestDB);
+	            }
+            }            
         }
 
-        private Series SetImage(DICOMImage dicomImage, Series series)
+        private void MigrateImages()
         {
-            Image risImage = new Image();
-            risImage.ImageInstance = dicomImage.SOPInstanc;
+            List<DICOMImage> dicomImagesList = (from i in conquestDB.DICOMImages
+                                                 where i.SyncTime == null
+                                                 select i).ToList();
 
-            risImage.ImageClassUI = dicomImage.SOPClassUI;
-            risImage.ImageNumber = dicomImage.ImageNumbe;
-            risImage.ImageDate = ParseDateTime(dicomImage.ImageDate, dicomImage.ImageTime);
-            risImage.EchoNumber = dicomImage.EchoNumber;
-            risImage.NumberOfFrames = dicomImage.NumberOfFr;
-            risImage.AcquiredDate = ParseDateTime(dicomImage.AcqDate, dicomImage.AcqTime);
-            risImage.SliceLocation = dicomImage.SliceLocat;
-            risImage.NumberOfSamples = dicomImage.SamplesPer;
-            risImage.PhotoMetric = dicomImage.PhotoMetri;
-            risImage.Rows = dicomImage.Rows;
-            risImage.Columns = dicomImage.Colums;
-            risImage.BitsStored = dicomImage.BitsStored;
-            risImage.Path = dicomImage.ObjectFile;
-            risImage.DeviceName = dicomImage.DeviceName;
+            foreach (DICOMImage dicomImage in dicomImagesList)
+            {
+                try
+                {
+                    Series series = (from s in risDB.Series where s.SeriesInstance == dicomImage.SeriesInst select s).FirstOrDefault();
+                    if (series != null)
+                    {
+                        Image risImage = new Image();
+                        risImage.ImageInstance = dicomImage.SOPInstanc;
 
-            risImage.CreatedBy = AdminUserId;
-            risImage.LastUpdateDate = DateTime.Now;
-            risImage.CreationDate = DateTime.Now;
-            risImage.LastUpdatedBy = AdminUserId;
+                        risImage.ImageClassUI = dicomImage.SOPClassUI;
+                        risImage.ImageNumber = dicomImage.ImageNumbe;
+                        risImage.ImageDate = ParseDateTime(dicomImage.ImageDate, dicomImage.ImageTime);
+                        risImage.EchoNumber = dicomImage.EchoNumber;
+                        risImage.NumberOfFrames = dicomImage.NumberOfFr;
+                        risImage.AcquiredDate = ParseDateTime(dicomImage.AcqDate, dicomImage.AcqTime);
+                        risImage.SliceLocation = dicomImage.SliceLocat;
+                        risImage.NumberOfSamples = dicomImage.SamplesPer;
+                        risImage.PhotoMetric = dicomImage.PhotoMetri;
+                        risImage.Rows = dicomImage.Rows;
+                        risImage.Columns = dicomImage.Colums;
+                        risImage.BitsStored = dicomImage.BitsStored;
+                        risImage.Path = dicomImage.ObjectFile;
+                        risImage.DeviceName = dicomImage.DeviceName;
 
-            series.Images.Add(risImage);
-            return series;
+                        risImage.CreatedBy = AdminUserId;
+                        risImage.LastUpdateDate = DateTime.Now;
+                        risImage.CreationDate = DateTime.Now;
+                        risImage.LastUpdatedBy = AdminUserId;
+
+                        risImage.SeriesId = series.SeriesId;
+                        risDB.AddToImages(risImage);
+                        dicomImage.SyncTime = DateTime.Now;
+                        risDB.SaveChanges();
+                        conquestDB.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex.StackTrace);
+                    Console.WriteLine("-----Inner Exception------");
+                    Console.Write(ex.InnerException.StackTrace);
+                    risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, risDB);
+                    conquestDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, conquestDB);
+                }
+            }                        
         }
 
         private Study SetStationAndDetail(DICOMSeries dicomSeries,Study study)
