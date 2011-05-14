@@ -13,41 +13,28 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Text;
 
-using RIS.RISLibrary.Objects.RIS;
-using RIS.RISLibrary.Database;
-using RIS.RISLibrary.Fields;
+using RIS.Common;
 using RIS.RISLibrary.Utilities;
 
-public partial class WebViewer_DiplayStudyPage : AuthenticatedPage
+public partial class WebViewer_DiplayStudyPage : StudyPage
 {
     StringBuilder appletParams = new StringBuilder();
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
-        int studyId = int.Parse(Request[ParameterNames.Request.StudyId]);
-        SqlConnection connection = null;
-        SqlCommand command = null;
-        SqlDataReader reader = null;
-        try
+        Study study = GetStudy();
+        if(study != null)
         {
-           
-            StringBuilder query = new StringBuilder(" SELECT tImages.Path FROM tImages ");
-            query.Append(" INNER JOIN tSeries ON tSeries.SeriesId = tImages.SeriesId ");
-            query.Append(" WHERE tSeries.StudyId = @StudyId ");
-
-            RISDatabaseAccessLayer risDatabase = new RISDatabaseAccessLayer();
-            connection = (SqlConnection)risDatabase.GetConnection();
-            connection.Open();
-            command = new SqlCommand(query.ToString(), connection);
-            command.Parameters.AddWithValue("@StudyId", studyId);
-            reader = command.ExecuteReader();
             int count = 1;
-            while (reader.Read())
+            foreach(Series series in study.Series)
             {
-                appletParams.Append(getAppletParam(count++, reader.GetString(0)));
+                foreach(RIS.Common.Image image in series.Images)
+                {
+                    appletParams.Append(getAppletParam(count++,image.Path));
+                }
             }
             if (appletParams.Length > 0)
             {                
-                Log(studyId);
+                Log(study);
             }
             else
             {
@@ -55,29 +42,17 @@ public partial class WebViewer_DiplayStudyPage : AuthenticatedPage
                 Response.Redirect("~/SharedPages/ErrorPage.aspx");
             }
         }
-        finally
-        {
-            if (reader != null) reader.Close();
-            //if (command != null) command.Close();
-            if (connection != null) connection.Close();
-        }
     }
 
-    protected void Log(int studyId)
+    protected void Log(Study study)
     {
-        StudyObject study = new StudyObject();
-        study.StudyId.Value = studyId;
-        study.Load();
-        if (study.IsLoaded)
-        {
-            LogObject log = new LogObject();
-            log.Action.Value = Constants.LogActions.ViewedExam;
-            log.ActionTime.Value = DateTime.Now;
-            log.PatientId.Value = study.PatientId.Value;
-            log.StudyId.Value = studyId;
-            log.UserId.Value = loggedInUserId;
-            log.Save();
-        }
+        Log log = new Log();
+        log.Action =   Constants.LogActions.ViewedExam;
+        log.ActionTime = DateTime.Now;
+        log.StudyId = study.StudyId;
+        log.UserId = loggedInUserId;
+        DatabaseContext.AddToLogs(log);
+        DatabaseContext.SaveChanges();
     }
 
     protected string Parameters

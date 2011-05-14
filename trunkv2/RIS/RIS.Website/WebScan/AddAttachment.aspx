@@ -312,7 +312,9 @@ function btnUpload_onclick(){
         return;
     }
     strHTTPServer = "<%=Request.Url.Authority%>";
+    //strHTTPServer = "localhost:1148";
     strActionPage = "/WebScan/SaveAttachment.aspx";
+    //strActionPage = "/ris.v2/WebScan/SaveAttachment.aspx";
     for(i=0;i<5;i++){
         if(document.getElementsByName("ImageType").item(i).checked == true){
            strImageType  = i;
@@ -494,7 +496,7 @@ function DynamicWebTwain1_OnMouseClick(index) {
 											<param name="FTPPort" value="21" />
 											<param name="HTTPUserName" value="" />
 											<param name="HTTPPassword" value="" />
-											<param name="HTTPPort" value="443" />
+											<param name="HTTPPort" value='<%=ConfigurationManager.AppSettings["HTTPPort"]%>' />
 											<param name="ProxyServer" value="" />
 											<param name="IfDisableSourceAfterAcquire" value="0" />
 											<param name="IfShowUI" value="-1" />
@@ -504,7 +506,7 @@ function DynamicWebTwain1_OnMouseClick(index) {
 											<param name="MaxImagesInBuffer" value="1" />
 											<param name="TIFFCompressionType" value="0" />
 											<param name="IfFitWindow" value="-1" />
-											<param name="IfSSL" value="true" />
+											<param name="IfSSL" value="<%=ConfigurationManager.AppSettings["IsSSL"]%>" />
 										</object>
 									</td>
 								</tr>

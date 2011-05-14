@@ -57,6 +57,13 @@
                             SortExpression="ScannedTime" />
                         <asp:BoundField DataField="AttachmentType" HeaderText="AttachmentType" 
                             SortExpression="AttachmentType" />
+                        <asp:TemplateField HeaderText="Download">
+                            <ItemTemplate>
+                            
+                                                      
+                                <asp:HyperLink runat="server" NavigateUrl='<%#"~/WebScan/DownloadAttachment.aspx?attachmentId=" + Eval("AttachmentId")%>'>Download</asp:HyperLink>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                     <FooterStyle BackColor="#CCCC99" />
                     <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />

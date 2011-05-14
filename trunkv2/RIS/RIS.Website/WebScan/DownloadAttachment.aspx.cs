@@ -13,12 +13,13 @@ using System.Xml.Linq;
 
 using RIS.Common;
 
-public partial class WebScan_DownloadAttachment : GenericPage
+public partial class WebScan_DownloadAttachment : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
-    {          
+    {
+        RISEntities db = new RISEntities();
         int attachmentId = int.Parse(Request["attachmentId"]);
-        Attachment attachment = (from a in DatabaseContext.Attachments where a.AttachmentId == attachmentId select a).FirstOrDefault();
+        Attachment attachment = (from a in db.Attachments where a.AttachmentId == attachmentId select a).FirstOrDefault();
         if(attachment != null)
         {
             Response.Clear();

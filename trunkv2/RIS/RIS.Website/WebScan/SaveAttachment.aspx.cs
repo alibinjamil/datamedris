@@ -48,6 +48,7 @@ public partial class WebScan_SaveAttachment : GenericPage
             attachment.ScannedTime = DateTime.Now;
             attachment.StudyId = int.Parse(Request.Form[ParameterNames.Request.StudyId]);
             DatabaseContext.AddToAttachments(attachment);
+            DatabaseContext.SaveChanges();
 
         }
         catch (Exception ex)
