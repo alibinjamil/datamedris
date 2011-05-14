@@ -11,8 +11,8 @@ namespace RIS.RISLibrary.Database
     {
         public override DbConnection GetConnection()
         {
-            return new SqlConnection(@"Data Source=.\SQLEXPRESS;database=RIS;Persist Security Info=True;User ID=sa;Password=123;");            
-            //return new SqlConnection(@"Data Source=.;database=RIS;Persist Security Info=True;User ID=sa;Password=datamed;");
+            //return new SqlConnection(@"Data Source=.\SQLEXPRESS;database=RIS;Persist Security Info=True;User ID=sa;Password=123;");            
+            return new SqlConnection(@"Data Source=.;database=RIS;Persist Security Info=True;User ID=sa;Password=datamed;");
         }
 
         protected override DbCommand GetCommand()
