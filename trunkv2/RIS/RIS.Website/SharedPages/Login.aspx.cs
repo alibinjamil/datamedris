@@ -50,7 +50,7 @@ public partial class SharedPages_Login : GenericPage
                 Session.Add(ParameterNames.Session.LoggedInUser, user);
                 Session.Add(ParameterNames.Session.LoggedInUserId, user.UserId);
                 //Session.Add(ParameterNames.Session.LoggedInUserClientId, user.ClientId.Value);
-                if (user.LastLoginDate.Value != null)
+                if (user.LastLoginDate.HasValue)
                     Session.Add(ParameterNames.Session.LastLoginTime, user.LastLoginDate.Value.ToString());
                 else
                     Session.Add(ParameterNames.Session.LastLoginTime, DateTime.Now.ToString());

@@ -11,8 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-using RIS.RISLibrary.Objects.RIS;
-using RIS.RISLibrary.Database;
+using RIS.Common;
 using RIS.RISLibrary.Utilities;
 
 public partial class SharedPages_ResetPassword : GenericPage
@@ -28,28 +27,27 @@ public partial class SharedPages_ResetPassword : GenericPage
     {
         if (tbPassword.Text == tbConfirmPassword.Text)
         {
-            UserObject user = new UserObject();
-            user.UserId.Value = (int)Session["userId"];
-            user.Load();
-            if (user.IsLoaded)
+            int userId = (int)Session["userId"];
+            User user = (from u in DatabaseContext.Users where u.UserId == userId select u).FirstOrDefault();
+            if (user != null)
             {
-                user.SecretQuestionId.Value = SecretQuestions1.SecretQuestionId;
-                user.Answer.Value = tbAnswer.Text;
-                user.Password.Value = tbPassword.Text;
+                user.SecretQuestionId = SecretQuestions1.SecretQuestionId;
+                user.Answer = tbAnswer.Text;
+                user.Password = tbPassword.Text;
 
 
                 Session.Add(ParameterNames.Session.LoggedInUser, user);
-                Session.Add(ParameterNames.Session.LoggedInUserId, user.UserId.Value);
+                Session.Add(ParameterNames.Session.LoggedInUserId, user.UserId);
                 //Session.Add(ParameterNames.Session.LoggedInUserClientId, user.ClientId.Value);
                 if (user.LastLoginDate.Value != null)
                     Session.Add(ParameterNames.Session.LastLoginTime, user.LastLoginDate.Value.ToString());
                 else
                     Session.Add(ParameterNames.Session.LastLoginTime, DateTime.Now.ToString());
-                user.LastLoginDate.Value = DateTime.Now;
-                user.ResetPassword.Value = false;
-                user.Save();
+                user.LastLoginDate = DateTime.Now;
+                user.ResetPassword = false;
+                DatabaseContext.SaveChanges();
 
-                int numOfRoles = RISProcedureCaller.GetRoleCount((int)user.GetPrimaryKey().Value);
+                int numOfRoles = user.UserRoles.Count;
                 if (numOfRoles == 0)
                 {
                     Session[ParameterNames.Session.ExceptionString] = Messages.Error.NoRolesDefined;
@@ -58,10 +56,7 @@ public partial class SharedPages_ResetPassword : GenericPage
                 }
                 else if (numOfRoles == 1)
                 {
-                    UserRoleObject userRole = new UserRoleObject();
-                    userRole.UserId.Value = user.GetPrimaryKey().Value;
-                    userRole.Load(Constants.Database.NullUserId);
-                    int roleId = (int)userRole.RoleId.Value;
+                    int roleId = user.UserRoles.First().RoleId;
                     Session[ParameterNames.Session.LoggedInUserRoleId] = roleId;
                     PagesFactory.TransferAfterLogin(roleId);
                 }
