@@ -8,13 +8,19 @@ using System.Web.UI.WebControls;
 using RIS.Common;
 using RIS.RISLibrary.Utilities;
 
-public partial class Exams_ReviseStudy : AuthenticatedPage
+public partial class Exams_ReviseStudy : StudyPage
 {
     protected override bool IsPopUp()
     {
         return true;
     }
     protected override void Page_Load_Extended(object sender, EventArgs e)
+    {
+        
+    }
+
+    
+    protected void btnRevise_Click(object sender, EventArgs e)
     {
         if (loggedInUserRoleId == Constants.Roles.Radiologist)
         {
@@ -71,8 +77,8 @@ public partial class Exams_ReviseStudy : AuthenticatedPage
                 newStudy.Impression = study.Impression;
                 newStudy.BodyPartId = study.BodyPartId;
                 newStudy.TemplateId = study.TemplateId;
-                
-                foreach(Series series in study.Series)
+
+                foreach (Series series in study.Series)
                 {
                     Series newSeries = new Series();
                     newSeries.SeriesInstance = series.SeriesInstance;
@@ -120,20 +126,9 @@ public partial class Exams_ReviseStudy : AuthenticatedPage
 
                 DatabaseContext.AddToStudies(newStudy);
                 DatabaseContext.SaveChanges();
-                Response.Redirect("~/Exams/EditFinding.aspx?" + ParameterNames.Request.StudyId + "=" + newStudy.StudyId);
+                ClientScript.RegisterStartupScript(this.GetType(), "CloseFinding", "parent.document.aspnetForm.submit();", true);
+                //Response.Redirect("~/Exams/EditFinding.aspx?" + ParameterNames.Request.StudyId + "=" + newStudy.StudyId);
             }
         }
-    }
-
-    private Study GetStudy()
-    {
-        if (Request[ParameterNames.Request.StudyId] != null)
-        {
-            int studyId = int.Parse(Request[ParameterNames.Request.StudyId]);
-            return (from s in DatabaseContext.Studies
-                    where s.StudyId == studyId
-                    select s).FirstOrDefault();
-        }
-        return null;
     }
 }

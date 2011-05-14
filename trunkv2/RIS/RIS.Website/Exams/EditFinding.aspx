@@ -130,7 +130,7 @@
                 </tr>                
                 <asp:Panel ID="pnlAmendment" runat="server" Visible="false">
                 <tr>
-                    <td align="right" valign="middle"><b>Amendment:</b></td>
+                    <td align="right" valign="middle"><b>Addendum:</b></td>
                     <td align="left" colspan="5" >
                     <asp:TextBox ID="tbAmendment" runat="server" TextMode="MultiLine" 
                             Width="850px" Rows="3"></asp:TextBox>

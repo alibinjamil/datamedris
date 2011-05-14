@@ -146,29 +146,35 @@ public partial class Radiologist_EditFinding : StudyPage
         Study study = UpdateStudy(Constants.StudyStatusTypes.Verified);
         if(study != null)
         {
-            string filePath = ReportGenerator.Instance.Generate(study);
-            if(filePath != null && study.Hospital != null && study.Hospital.Fax != null)
+            if (ConfigurationManager.AppSettings["SendFax"].ToUpper().Equals("TRUE"))
             {
-                string name = (study.Hospital.Name == null)? "" : (string)study.Hospital.Name; 
-                FaxSender.Instance.SendFax(name,name,study.Hospital.Fax ,filePath);
+                string filePath = ReportGenerator.Instance.Generate(study);
+                if (filePath != null && study.Hospital != null && study.Hospital.Fax != null)
+                {
+                    string name = (study.Hospital.Name == null) ? "" : (string)study.Hospital.Name;
+                    FaxSender.Instance.SendFax(name, name, study.Hospital.Fax, filePath, study.HospitalId.Value);
+                }
             }
         
-        //send sms to ref phy
-        if (study.ReferringPhysician != null && study.ReferringPhysician.SendSMS != null 
-            && study.ReferringPhysician.SendSMS == true)
-        {
+            //send sms to ref phy
+            if (ConfigurationManager.AppSettings["SendSMS"].ToUpper().Equals("TRUE"))
+            {
+                if (study.ReferringPhysician != null && study.ReferringPhysician.SendSMS != null
+                    && study.ReferringPhysician.SendSMS == true)
+                {
 
-                string clientURL = "www.datamedusa.com";
-                string hospitalName = "DataMed";
-                if (study.Client != null && study.Client.Website != null)
-                {
-                    clientURL = study.Client.Website;
+                    string clientURL = "www.datamedusa.com";
+                    string hospitalName = "DataMed";
+                    if (study.Client != null && study.Client.Website != null)
+                    {
+                        clientURL = study.Client.Website;
+                    }
+                    if (study.Hospital != null)
+                    {
+                        hospitalName = study.Hospital.Name;
+                    }
+                    EmailSender.Instance.SendSMS(study.ReferringPhysician.CarrierId.Value, study.ReferringPhysician.Mobile, hospitalName, clientURL);
                 }
-                if (study.Hospital != null)
-                {
-                    hospitalName = study.Hospital.Name;
-                }
-                EmailSender.Instance.SendSMS(study.ReferringPhysician.CarrierId.Value,study.ReferringPhysician.Mobile, hospitalName, clientURL);
             }
         }
         ClientScript.RegisterStartupScript(this.GetType(), "CloseFinding", "parent.document.aspnetForm.submit();", true);

@@ -41,12 +41,13 @@
     <div>
         <asp:Label ID="Label10" runat="server" Text="Patient Weight:" Font-Bold="true" Width="200px"></asp:Label>
         <ew:NumericBox ID="tbPatientWeight"  runat="server"></ew:NumericBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="tbPatientWeight" runat="server" ErrorMessage="*" ValidationGroup="Update"></asp:RequiredFieldValidator>
+        
     </div>
     <div>
         <asp:Label ID="lblClient" runat="server" Text="Client:" Font-Bold="true" Width="200px"></asp:Label>
         <asp:DropDownList ID="ddlClient" runat="server" 
-            ondatabound="ddlClient_DataBound" >
+            ondatabound="ddlClient_DataBound" AutoPostBack="True" 
+            onselectedindexchanged="ddlClient_SelectedIndexChanged" >
         </asp:DropDownList>
         <asp:RequiredFieldValidator ID="rfv3" ControlToValidate="ddlClient" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Update"></asp:RequiredFieldValidator>        
         
@@ -57,6 +58,7 @@
             ondatabound="ddlHospitals_DataBound" 
             onselectedindexchanged="ddlHospitals_SelectedIndexChanged" >
         </asp:DropDownList>
+        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Admin/AddHospital.aspx" Target="_blank"><asp:Image runat="server" ID="Image21" ImageUrl="~/Images/add.png" /></asp:HyperLink>
         <asp:RequiredFieldValidator ID="rfv1" ControlToValidate="ddlHospitals" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Update"></asp:RequiredFieldValidator>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlHospitals" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Hospital"></asp:RequiredFieldValidator>
     </div>
@@ -64,6 +66,7 @@
         <asp:Label ID="Label1" runat="server" Text="Referring Physician:" Font-Bold="true" Width="200px"></asp:Label>
         <asp:DropDownList ID="ddlRefPhy" runat="server" 
             ondatabound="ddlRefPhy_DataBound" ></asp:DropDownList>
+        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Admin/AddUser.aspx" Target="_blank"><asp:Image runat="server" ID="Image2" ImageUrl="~/Images/add.png" /></asp:HyperLink>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlRefPhy" runat="server" ErrorMessage="*" InitialValue="-1" ValidationGroup="Update"></asp:RequiredFieldValidator>
     </div>
     <div>

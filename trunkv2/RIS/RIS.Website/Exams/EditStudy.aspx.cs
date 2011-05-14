@@ -49,7 +49,7 @@ public partial class Radiologist_EditStudy : StudyPage
                 if (study != null)
                 {
                     BindBodyPart((int)study.ModalityId);
-                    BindLists();
+                    BindClientList();
                     if (study.PatientDOB.HasValue)
                     {
                         tbDOB.SelectedDate = study.PatientDOB.Value;
@@ -103,14 +103,33 @@ public partial class Radiologist_EditStudy : StudyPage
             }            
         }
     }
-    private void BindLists()
+    private void BindClientList()
     {
-        ddlClient.DataSource = (from uc in DatabaseContext.UserClients where uc.UserId == loggedInUserId select uc.Client);
+        if (loggedInUserRoleId != Constants.Roles.Admin)
+        {
+            ddlClient.DataSource = (from uc in DatabaseContext.UserClients where uc.UserId == loggedInUserId orderby uc.Client.Name select uc.Client);
+        }
+        else
+        {
+            ddlClient.DataSource = (from c in DatabaseContext.Clients orderby c.Name select c);
+        }
         ddlClient.DataTextField = "Name";
         ddlClient.DataValueField = "ClientId";
         ddlClient.DataBind();
 
-        ddlHospitals.DataSource = (from uh in DatabaseContext.UserHospitals where uh.UserId == loggedInUserId select uh.Hospital);
+        
+    }
+    private void BindHospitalList()
+    {
+        if (loggedInUserRoleId != Constants.Roles.Admin)
+        {
+            ddlHospitals.DataSource = (from uh in DatabaseContext.UserHospitals where uh.UserId == loggedInUserId orderby uh.Hospital.Name select uh.Hospital);
+        }
+        else
+        {
+            int clientId = int.Parse(ddlClient.SelectedValue);
+            ddlHospitals.DataSource = (from h in DatabaseContext.Hospitals where h.ClientId == clientId orderby h.Name select h);
+        }
         ddlHospitals.DataTextField = "Name";
         ddlHospitals.DataValueField = "HospitalId";
         ddlHospitals.DataBind();
@@ -118,7 +137,7 @@ public partial class Radiologist_EditStudy : StudyPage
     protected void ddlHospitals_DataBound(object sender, EventArgs e)
     {
         ddlHospitals.Items.Insert(0,new ListItem("[-- Select --]","-1"));
-        if (study != null && study.HospitalId != null )
+        if (IsPostBack == false && study != null && study.HospitalId != null )
         {
             ddlHospitals.SelectedValue = study.HospitalId.ToString();
         }
@@ -133,6 +152,7 @@ public partial class Radiologist_EditStudy : StudyPage
             ddlRefPhy.DataSource = (from uh in DatabaseContext.UserHospitals
                                     where uh.HospitalId == hospitalId
                                     && uh.User.UserRoles.FirstOrDefault().RoleId == Constants.Roles.ReferringPhysician
+                                    orderby uh.User.Name
                                     select uh.User);
             ddlRefPhy.DataTextField = "Name";
             ddlRefPhy.DataValueField = "UserId";
@@ -242,7 +262,7 @@ public partial class Radiologist_EditStudy : StudyPage
     protected void ddlRefPhy_DataBound(object sender, EventArgs e)
     {
         ddlRefPhy.Items.Insert(0, new ListItem("[-- Select --]", "-1"));
-        if (study != null && study.ReferringPhysicianId != null && ddlRefPhy.Items.FindByValue(study.ReferringPhysicianId.ToString()) != null)
+        if (IsPostBack == false && study != null && study.ReferringPhysicianId != null && ddlRefPhy.Items.FindByValue(study.ReferringPhysicianId.ToString()) != null)
         {
                 ddlRefPhy.SelectedValue = study.ReferringPhysicianId.ToString();
         }
@@ -250,7 +270,7 @@ public partial class Radiologist_EditStudy : StudyPage
     protected void ddlClient_DataBound(object sender, EventArgs e)
     {
         ddlClient.Items.Insert(0, new ListItem("[-- Select --]", "-1"));
-        if (study != null && study.ClientId != null)
+        if (IsPostBack == false && study != null && study.ClientId != null)
         {
             ddlClient.SelectedValue = study.ClientId.ToString();
         }
@@ -258,10 +278,11 @@ public partial class Radiologist_EditStudy : StudyPage
         {
             ddlClient.Enabled = false;
         }
+        BindHospitalList();
     }
     private void BindBodyPart(int modalityId)
     {
-        ddlBodyParts.DataSource = (from bp in DatabaseContext.BodyParts where bp.ModalityId == modalityId select bp);
+        ddlBodyParts.DataSource = (from bp in DatabaseContext.BodyParts orderby bp.Name where bp.ModalityId == modalityId select bp);
         ddlBodyParts.DataTextField = "Name";
         ddlBodyParts.DataValueField = "BodyPartId";
         ddlBodyParts.DataBind();
@@ -277,5 +298,9 @@ public partial class Radiologist_EditStudy : StudyPage
     protected void ddlHospitals_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindRefPhyList();
+    }
+    protected void ddlClient_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindHospitalList();
     }
 }

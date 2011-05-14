@@ -5,11 +5,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link href="../Common/StyleSheet.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
+    <div style="text-align:center">    
+        This exam is already VERIFIED. Do you want to create a new Finding for this Exam?
+        <br />
+        <asp:Button ID="btnRevise" runat="server" Text="Revise Exam" 
+            CssClass="buttonStyle" onclick="btnRevise_Click"/>
+        <input type="button" class="buttonStyle" onclick="parent.document.aspnetForm.submit();" value="Cancel" />
     </div>
     </form>
 </body>

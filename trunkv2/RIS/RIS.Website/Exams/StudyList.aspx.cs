@@ -432,7 +432,7 @@ public partial class Radiologist_StudyList : StudyPage
             {
                 if (studyList.StatusId == Constants.StudyStatusTypes.Verified)
                 {
-                    currentRow.Cells.Add(GetNewFindingCell(studyList, rowCount));
+                    currentRow.Cells.Add(GetReviseExamCell(studyList, rowCount));
                 }
                 else
                 {
@@ -519,11 +519,11 @@ public partial class Radiologist_StudyList : StudyPage
         {
             cell.Text += "|<span class=\"";
             cell.Text += "normalPageLink";
-            cell.Text += "\" onclick=\"onPageLinkClick(1)\"> &nbsp;&nbsp; First &nbsp;&nbsp;</span>";
+            cell.Text += "\" onclick=\"onPageLinkClick(1)\"> &nbsp;&nbsp; First " + WebConstants.PageSize + "&nbsp;&nbsp;</span>";
   
             cell.Text += "|<span class=\"";
             cell.Text += "normalPageLink";
-            cell.Text += "\" onclick=\"onPageLinkClick(" + previousPage +")\"> &nbsp;&nbsp; Previous &nbsp;&nbsp;</span>";
+            cell.Text += "\" onclick=\"onPageLinkClick(" + previousPage +")\"> &nbsp;&nbsp; Previous " + WebConstants.PageSize + "&nbsp;&nbsp;</span>";
         }
         for (double i = startPage; i <= endPage; i++)
         {
@@ -540,10 +540,10 @@ public partial class Radiologist_StudyList : StudyPage
         {
             cell.Text += "|<span class=\"";
             cell.Text += "normalPageLink";
-            cell.Text += "\" onclick=\"onPageLinkClick(" + (endPage + 1) + ")\"> &nbsp;&nbsp; Next &nbsp;&nbsp;</span>";
+            cell.Text += "\" onclick=\"onPageLinkClick(" + (endPage + 1) + ")\"> &nbsp;&nbsp; Next " + WebConstants.PageSize +"&nbsp;&nbsp;</span>";
             cell.Text += "|<span class=\"";
             cell.Text += "normalPageLink";
-            cell.Text += "\" onclick=\"onPageLinkClick(" + totalPages + ")\"> &nbsp;&nbsp; Last &nbsp;&nbsp;</span>";
+            cell.Text += "\" onclick=\"onPageLinkClick(" + totalPages + ")\"> &nbsp;&nbsp; Last " + WebConstants.PageSize +"&nbsp;&nbsp;</span>";
 
         }
         cell.Text += "|&nbsp;&nbsp;";
@@ -618,7 +618,7 @@ public partial class Radiologist_StudyList : StudyPage
         cell.Text = "<img class='linkImage' onclick='showFindingDialog(" + currentRow + ",\"" + data.ToString() + "\");' alt='Click to Dictate' title='Click to Dictate' src='../Images/dictation_36.png'";
         return cell;
     }
-    private TableCell GetNewFindingCell(StudyListPageObject studyList, int currentRow)
+    private TableCell GetReviseExamCell(StudyListPageObject studyList, int currentRow)
     {
         StringBuilder data = new StringBuilder();
         data.Append(ParameterNames.Request.StudyId);
@@ -631,7 +631,7 @@ public partial class Radiologist_StudyList : StudyPage
 
         TableCell cell = new TableCell();
         cell.CssClass = "dataCellWhite";
-        cell.Text = "<img class='linkImage' onclick='showNewFindingDialog(" + currentRow + ",\"" + data.ToString() + "\");' alt='Click to Add a New Finding' title='Click to Add a New Finding' src='../Images/dictation_36.png'";
+        cell.Text = "<img class='linkImage' onclick='showReviseExamDialog(" + currentRow + ",\"" + data.ToString() + "\");' alt='Click to Add a New Finding' title='Click to Add a New Finding' src='../Images/dictation_36.png'";
         return cell;
     }
     private TableCell GetReportCell(StudyListPageObject studyList)

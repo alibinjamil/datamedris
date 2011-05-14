@@ -231,11 +231,14 @@
         <iframe id="editStudyFrm" frameborder="0" src="EditStudy.aspx" width=550px" height="510px"></iframe>     
     </div>
         
-    <div id="findingDialogDiv" title="Report">                
+    <div id="findingDialogDiv" title="Report">           
 
-            <iframe id="editFindingContentsDiv" frameborder="0"  width=990px" height="560px"></iframe>
+            <iframe id="findingFrame" frameborder="0"  width=990px" height="560px"></iframe>
 
     </div>    
+    <div id="reviseExamDiv" title="Revise Exam">
+        <iframe id="reviseExamFrame" frameborder="0"  width=600px" height="60px"></iframe>
+    </div>
     <div id="rejectExamDiv" title="Report">                
 
             <iframe id="rejectExamFrame" frameborder="0"  width=550px" height="300px"></iframe>

@@ -13,14 +13,11 @@ using System.Xml.Linq;
 using RIS.Common;
 using System.IO;
 
-public partial class Radiologist_DownloadReport : StudyPage
+public partial class Radiologist_DownloadReport : System.Web.UI.Page
 {
-    protected override bool IsPopUp()
-    {
-        return false;
-    }
+    
 
-    protected override void Page_Load_Extended(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         Study study = GetStudy();
         if (study != null)
@@ -34,5 +31,18 @@ public partial class Radiologist_DownloadReport : StudyPage
             Response.BinaryWrite(File.ReadAllBytes(filePath));
             Response.End();
         }
+    }
+    private Study GetStudy()
+    {
+        Study study = null;
+        RISEntities db = new RISEntities();
+        if(Request[ParameterNames.Request.StudyId] != null)
+        {
+            int studyId = int.Parse(Request[ParameterNames.Request.StudyId]);
+            study = (from s in db.Studies
+                     where s.StudyId == studyId
+                     select s).FirstOrDefault(); 
+        }
+        return study;
     }
 }
