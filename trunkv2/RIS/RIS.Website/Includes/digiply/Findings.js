@@ -190,9 +190,9 @@ function closeFindingWindow()
 }
 
 function showFindingDialog(currentIndex,data)
-{   
+{
 
-    document.getElementById("editFindingContentsDiv").src = "EditFinding.aspx?StudyId=" + studyList[currentIndex].StudyId;
+    document.getElementById("findingFrame").src = "EditFinding.aspx?StudyId=" + studyList[currentIndex].StudyId;
     
     $("#findingDialogDiv").dialog({ title: "Report | " + studyList[currentIndex].PatientId + " | " + studyList[currentIndex].PatientName });
     jQuery("#findingDialogDiv").dialog('open'); 
@@ -305,14 +305,14 @@ function showFindingDialog(currentIndex,data)
     //document.getElementById("header").style.display="none";*/
 }
 
-function showNewFindingDialog(currentIndex, data) {
+function showReviseExamDialog(currentIndex, data) {
 
-    if (confirm("This exam is already VERIFIED. Do you want to create a new Finding for this Exam?")) {
-        document.getElementById("editFindingContentsDiv").src = "ReviseStudy.aspx?StudyId=" + studyList[currentIndex].StudyId;
+    //if (confirm("This exam is already VERIFIED. Do you want to create a new Finding for this Exam?")) {
+        document.getElementById("reviseExamFrame").src = "ReviseStudy.aspx?StudyId=" + studyList[currentIndex].StudyId;
 
-        $("#findingDialogDiv").dialog({ title: "Report | " + studyList[currentIndex].PatientId + " | " + studyList[currentIndex].PatientName });
-        jQuery("#findingDialogDiv").dialog('open');
-    }
+        $("#reviseExamDiv").dialog({ title: "Report | " + studyList[currentIndex].PatientId + " | " + studyList[currentIndex].PatientName });
+        jQuery("#reviseExamDiv").dialog('open');
+    //}
 }
 
 

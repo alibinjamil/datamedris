@@ -17,7 +17,13 @@ $(document).ready(function() {
           close: function(ev, ui) {
              //do some thing
         }
-    });      
+      });
+      jQuery("#reviseExamDiv").dialog({
+          bgiframe: true, autoOpen: false, height: 100, width: 620, modal: true,
+          close: function (ev, ui) {
+              //do some thing
+          }
+      });     
 });
 
 function openStudyEditWindow(studyId,currentIndex){
