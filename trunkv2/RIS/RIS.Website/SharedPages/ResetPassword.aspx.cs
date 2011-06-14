@@ -44,7 +44,7 @@ public partial class SharedPages_ResetPassword : GenericPage
                 else
                     Session.Add(ParameterNames.Session.LastLoginTime, DateTime.Now.ToString());
                 user.LastLoginDate = DateTime.Now;
-                user.ResetPassword = false;
+                user.ResetPassword = false;                                
                 DatabaseContext.SaveChanges();
 
                 int numOfRoles = user.UserRoles.Count;

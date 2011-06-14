@@ -124,7 +124,17 @@ public class ReportGenerator
 
             defaultPhrase = new Phrase();
             defaultPhrase.Add(new Chunk("Date of Report:", defaultHeading));
-            defaultPhrase.Add(new Chunk(" " + study.ReportDate.Value.ToShortDateString(), defaultFont));
+            defaultPhrase.Add(new Chunk(" " + report.ReportDate, defaultFont));
+            table.AddCell(defaultPhrase);
+
+            defaultPhrase = new Phrase();
+            defaultPhrase.Add(new Chunk("Modality:", defaultHeading));
+            defaultPhrase.Add(new Chunk(" " + report.Modality, defaultFont));
+            table.AddCell(defaultPhrase);
+
+            defaultPhrase = new Phrase();
+            defaultPhrase.Add(new Chunk("Date of Last Addendum:", defaultHeading));
+            defaultPhrase.Add(new Chunk(" " + report.DateAmmendtment, defaultFont));
             table.AddCell(defaultPhrase);
 
             table.DefaultCell.Colspan = 2;
@@ -146,7 +156,7 @@ public class ReportGenerator
             table.AddCell(" ");
             
             defaultPhrase = new Phrase();
-            if (study.StudyStatusId == RIS.RISLibrary.Utilities.Constants.StudyStatusTypes.Verified)
+            if (study.StudyStatusId == RIS.RISLibrary.Utilities.Constants.StudyStatusTypes.Verified || report.Ammendments.Count > 0)
             {
                 defaultPhrase.Add(new Chunk("Electronically Approved and Signed by:", defaultFont));
             }
@@ -161,7 +171,32 @@ public class ReportGenerator
             table.AddCell(" ");
             table.AddCell(" ");
             table.AddCell(" ");
-            table.AddCell(report.Ammendment);
+            if (report.Ammendments.Count > 0)
+            {
+                table.AddCell(new Phrase("ADDENDUM:", defaultHeading));
+                
+                
+                foreach(Ammendment ammendment in report.Ammendments)
+                {
+                    table.AddCell(" ");
+                    table.AddCell(ammendment.Text);
+                    table.DefaultCell.BorderWidthBottom = 1;
+                    table.AddCell(" ");
+                    defaultPhrase = new Phrase();
+                    if (ammendment.Status == RIS.RISLibrary.Utilities.Constants.StudyStatusTypes.Verified)
+                    {
+                        defaultPhrase.Add(new Chunk("Electronically Approved and Signed by:", defaultFont));
+                    }
+                    else
+                    {
+                        defaultPhrase.Add(new Chunk("Unverified draft report:", defaultFont));
+                    }
+                    defaultPhrase.Add(new Chunk("\t" + ammendment.Radiologist + "\t" + ammendment.ReportDateTime, defaultFont));
+                    table.AddCell(defaultPhrase);
+                    table.DefaultCell.BorderWidthBottom = 0;
+                }
+            }
+            
             table.AddCell(" ");
             table.AddCell(" ");
             table.AddCell(" ");

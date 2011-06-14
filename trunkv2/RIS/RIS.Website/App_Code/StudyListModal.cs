@@ -250,7 +250,8 @@ public class StudyListModal
         //}
         if (loggedInUserRoleId != Constants.Roles.ClientAdmin 
             && loggedInUserRoleId != Constants.Roles.Admin 
-            && loggedInUserRoleId != Constants.Roles.ClientTechnologist)
+            && loggedInUserRoleId != Constants.Roles.ClientTechnologist
+            && loggedInUserRoleId != Constants.Roles.HospitalAdmin)
         {
             //do not show PreRelease studies
             whereQuery.Append(" AND Studies.StudyStatusId NOT IN (8,9)");//Qaed and Prerelease

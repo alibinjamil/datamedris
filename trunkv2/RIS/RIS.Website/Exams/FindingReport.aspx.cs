@@ -45,11 +45,13 @@ public partial class Radiologist_FindingReport : StudyPage
                     lblClientTelephone.Text = study.Client.Phone;
                     //lblClientName.Text = report.ClientName;
                     //lblClientAddress.Text = report.ClientAddress;
-                    lblReportDate.Text = study.ReportDate.Value.ToShortDateString();
+                    lblReportDate.Text = report.ReportDate;
                     lblRadiologist.Text = report.Radiologist;
-                    lblReportDateTime.Text = study.ReportDate.Value.ToString();
+                    lblReportDateTime.Text = report.ReportDateTime;
+                    lblModality.Text = report.Modality;
+                    lblDateAddendum.Text = report.DateAmmendtment;
                     
-                    if (study.StudyStatusId == Constants.StudyStatusTypes.Verified)
+                    if (study.StudyStatusId == Constants.StudyStatusTypes.Verified || report.Ammendments.Count > 0)
                     {
                         lblVerified.Text = "Electronically Approved and Signed by:";                        
                     }
@@ -80,7 +82,7 @@ public partial class Radiologist_FindingReport : StudyPage
                     
                     //lblStatus.Text = report.Status;
                     lblHospitalName.Text = report.HospitalName;
-                    lblAmmentment.Text = report.Ammendment;
+                    ammentmentPnl.Controls.Add(new LiteralControl(report.GetAmmendmentHTML()));
 
                     Log log = new Log();
                     log.UserId = loggedInUserId;
@@ -152,5 +154,9 @@ public partial class Radiologist_FindingReport : StudyPage
             Session[ParameterNames.Session.Template] = template;
             Response.Redirect("~/AdminPages/AddTemplate.aspx");
         }
+    }
+    protected void printBtn_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect("~/Exams/DownloadReport.aspx?" + ParameterNames.Request.StudyId + "=" + Request[ParameterNames.Request.StudyId]);
     }
 }

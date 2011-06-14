@@ -23,7 +23,9 @@
                 ImageUrl="~/Images/faxIcon.gif" AlternateText="Fax the report to Hopsital" 
                 onclick="faxBtn_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:ImageButton ID="printBtn"
-                runat="server" ImageUrl="~/Images/icon-print.jpg" OnClientClick="onPrint();return false;" AlternateText="Print the report"/>
+                runat="server" ImageUrl="~/Images/icon-print.jpg" 
+            AlternateText="Print the report" 
+            onclick="printBtn_Click"/>
     </div>
     <hr />
     <div id="contents" class="reportArea">
@@ -80,6 +82,15 @@
             </div>
             <div style="clear:both"></div>
         </div>
+        <div>
+            <div style="float:left;width:50%;">
+                <b>Modality:</b>&nbsp;<asp:Label ID="lblModality" runat="server" Text=""></asp:Label>
+            </div>
+            <div style="float:left;width:50%;">
+                <b>Date of Last Addendum:</b>&nbsp;<asp:Label ID="lblDateAddendum" runat="server" Text=""></asp:Label>
+            </div>
+            <div style="clear:both"></div>
+        </div>
         <br />
         <hr />
         <br />
@@ -105,7 +116,7 @@
         <br />
         <br />
         <div style="width:100%;margin-top:10px;">
-            <asp:Label ID="lblAmmentment" runat="server" Text=""></asp:Label>
+            <asp:Panel ID="ammentmentPnl" runat="server"></asp:Panel>
         </div>
         <br />
         <br />

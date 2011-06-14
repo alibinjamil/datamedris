@@ -193,12 +193,27 @@ public partial class Radiologist_EditFinding : StudyPage
             study.Heading = tbHeading.Text;
             study.Description = tbDescription.Text;
             study.Impression = tbImpression.Text;
-            study.Amendment = tbAmendment.Text;   
-            
+            study.Amendment = tbAmendment.Text;
+
+            Log log = new Log();
+            log.ActionTime = DateTime.Now;
+            log.Action = Constants.LogActions.Updated;
+            log.UserId = loggedInUserId;
+            log.Study = study;
+
             if (studyStatusId != null)
             {
                 study.StudyStatusId = studyStatusId;
+                if (studyStatusId == Constants.StudyStatusTypes.PendingVerification)
+                {
+                    log.Action = Constants.LogActions.MarkedStudyForVerification;
+                }
+                else if (studyStatusId == Constants.StudyStatusTypes.Verified)
+                {
+                    log.Action = Constants.LogActions.VerifiedStudy;
+                }
             }
+            DatabaseContext.AddToLogs(log);
             DatabaseContext.SaveChanges();
         }        
         return study;
@@ -228,6 +243,12 @@ public partial class Radiologist_EditFinding : StudyPage
             {
                 study.BodyPartId = int.Parse(ddlBodyParts.SelectedValue);
                 study.TemplateId = int.Parse(ddlTemplates.SelectedValue);
+                Log log = new Log();
+                log.Study = study;
+                log.Action = Constants.LogActions.AppliedTemplate;
+                log.ActionTime = DateTime.Now;
+                log.UserId = loggedInUserId;
+                DatabaseContext.AddToLogs(log);
                 DatabaseContext.SaveChanges();
             }
 

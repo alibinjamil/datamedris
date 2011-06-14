@@ -48,6 +48,15 @@ public partial class Radiologist_EditStudy : StudyPage
 
                 if (study != null)
                 {
+                    if (loggedInUserRoleId == Constants.Roles.ClientAdmin
+                        || loggedInUserRoleId == Constants.Roles.Admin)
+                    {
+                        hlAddHospital.Visible = true;
+                    }
+                    else
+                    {
+                        hlAddHospital.Visible = false;
+                    }
                     BindBodyPart((int)study.ModalityId);
                     BindClientList();
                     if (study.PatientDOB.HasValue)
@@ -141,6 +150,10 @@ public partial class Radiologist_EditStudy : StudyPage
         {
             ddlHospitals.SelectedValue = study.HospitalId.ToString();
         }
+        if (loggedInUserRoleId == Constants.Roles.HospitalAdmin)
+        {
+            ddlHospitals.Enabled = false;
+        }
         BindRefPhyList();
     }
 
@@ -196,7 +209,7 @@ public partial class Radiologist_EditStudy : StudyPage
                 }
                 else
                 {
-                    study.HospitalId = null;
+                    //study.HospitalId = null;
                 }
             }
             else
@@ -214,9 +227,23 @@ public partial class Radiologist_EditStudy : StudyPage
                 study.BodyPartId = null;
             }
             study.TechComments = tbTechComments.Text;
+
+
+            Log log = new Log();
+            log.UserId = loggedInUserId;
+            log.ActionTime = DateTime.Now;
+            log.Action = Constants.LogActions.Updated;
             if (studyStatusId != null)
             {
                 study.StudyStatusId = studyStatusId;
+                if (studyStatusId.Value == Constants.StudyStatusTypes.Qaed)
+                {
+                    log.Action = Constants.LogActions.Qaed;
+                }
+                else if(studyStatusId.Value == Constants.StudyStatusTypes.New)
+                {
+                    log.Action = Constants.LogActions.ReleasedToRad;    
+                }
             }
 
             study.ExternalPatientId = tbPatientId.Text;
@@ -224,6 +251,11 @@ public partial class Radiologist_EditStudy : StudyPage
             study.PatientGender = rbGender.SelectedValue;
             study.PatientWeight = tbPatientWeight.Text;
             study.PatientName = tbPatientName.Text;
+            study.LastUpdateDate = DateTime.Now;
+            study.LastUpdatedBy = loggedInUserId;
+
+            log.Study = study;
+            DatabaseContext.AddToLogs(log);
             DatabaseContext.SaveChanges();
             /*RISDatabaseAccessLayer databaseAccessLayer = new RISDatabaseAccessLayer();
             SqlConnection connection = (SqlConnection)databaseAccessLayer.GetConnection();
@@ -255,6 +287,12 @@ public partial class Radiologist_EditStudy : StudyPage
         if (study != null)
         {
             study.StudyStatusId = Constants.StudyStatusTypes.PreRelease;
+            Log log = new Log();
+            log.UserId = loggedInUserId;
+            log.ActionTime = DateTime.Now;
+            log.Study = study;
+            log.Action = Constants.LogActions.CallbackExam;
+            DatabaseContext.AddToLogs(log);
             DatabaseContext.SaveChanges();
         }
         ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeStudyEditWindow();parent.aspnetForm.submit();", true);

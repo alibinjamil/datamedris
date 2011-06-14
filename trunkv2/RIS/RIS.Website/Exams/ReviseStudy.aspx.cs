@@ -123,7 +123,23 @@ public partial class Exams_ReviseStudy : StudyPage
                 }
                 newStudy.IsLatest = true;
                 study.IsLatest = false;
+                study.LastUpdateDate = DateTime.Now;
+                study.LastUpdatedBy = loggedInUserId;
+                
+                Log newLog = new Log();
+                newLog.UserId = loggedInUserId;
+                newLog.Study = newStudy;
+                newLog.Action = Constants.LogActions.Created;
+                newLog.ActionTime = DateTime.Now;
 
+                Log log = new Log();
+                log.UserId = loggedInUserId;
+                log.Study = study;
+                log.Action = Constants.LogActions.Revised;
+                log.ActionTime = DateTime.Now;
+
+                DatabaseContext.AddToLogs(newLog);
+                DatabaseContext.AddToLogs(log);
                 DatabaseContext.AddToStudies(newStudy);
                 DatabaseContext.SaveChanges();
                 ClientScript.RegisterStartupScript(this.GetType(), "CloseFinding", "parent.document.aspnetForm.submit();", true);

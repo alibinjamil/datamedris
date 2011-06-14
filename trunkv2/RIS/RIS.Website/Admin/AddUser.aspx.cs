@@ -222,7 +222,19 @@ public partial class Admin_AddUser : AuthenticatedPage
         lbHospitals.DataValueField = "HospitalId";
         lbHospitals.DataBind();
 
-        lbNotHospitals.DataSource = (from h in DatabaseContext.Hospitals select h).Except(hospitals).OrderBy(h => h.Name);
+        if (loggedInUserRoleId == Constants.Roles.Admin)
+        {
+            lbNotHospitals.DataSource = (from h in DatabaseContext.Hospitals select h).Except(hospitals).OrderBy(h => h.Name);
+        }
+        else if (loggedInUserRoleId == Constants.Roles.ClientAdmin)
+        {
+            int clientId = loggedInUser.UserClients.FirstOrDefault().ClientId;
+            lbNotHospitals.DataSource = (from h in DatabaseContext.Hospitals where h.ClientId == clientId select h).Except(hospitals).OrderBy(h => h.Name);
+        }
+        else
+        {
+            lbNotHospitals.DataSource = (from uh in DatabaseContext.UserHospitals where uh.UserId == loggedInUserId select uh.Hospital).Except(hospitals).OrderBy(h => h.Name);
+        }
         lbNotHospitals.DataTextField = "Name";
         lbNotHospitals.DataValueField = "HospitalId";
         lbNotHospitals.DataBind();

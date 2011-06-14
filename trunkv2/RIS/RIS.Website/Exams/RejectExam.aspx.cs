@@ -42,6 +42,14 @@ public partial class Radiologist_RejectExam : StudyPage
         {
             study.RejectionReason = tbRejectionReason.Text;
             study.StudyStatusId = Constants.StudyStatusTypes.Rejected;
+
+            Log log = new Log();
+            log.Action = Constants.LogActions.RejectedExam;
+            log.UserId = loggedInUserId;
+            log.ActionTime = DateTime.Now;
+            log.Study = study;
+
+            DatabaseContext.AddToLogs(log);
             DatabaseContext.SaveChanges();
         }
         ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeRejectionWindow();parent.aspnetForm.submit();", true);

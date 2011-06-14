@@ -18,9 +18,44 @@ using System.Linq;
 using System.Xml.Linq;
 
 using RIS.Common;
+
+public class Ammendment
+{
+    private string _text;
+    private int _status;
+    private string _statusText;
+    private string _radliogist;
+    private string _reportDateTime;
+    public string Text
+    {
+        get { return _text; }
+        set { _text = value; }
+    }
+    public int Status
+    {
+        get { return _status; }
+        set { _status = value; }
+    }
+    public string StatusText
+    {
+        get { return _statusText; }
+        set { _statusText = value; }
+    }
+    public string Radiologist
+    {
+        get { return _radliogist; }
+        set { _radliogist = value; }
+    }
+    public string ReportDateTime
+    {
+        get { return _reportDateTime; }
+        set { _reportDateTime = value; }
+    }
+}
 /// <summary>
 /// Summary description for ReportObject
 /// </summary>
+///
 public class ReportObject : GenericUIObject
 {
     private Study study;
@@ -48,7 +83,9 @@ public class ReportObject : GenericUIObject
     private string _patientId;
     private string _fax;
     private string _headerUrl;
-    private string _ammendment;
+    private string _dateAmmendment = "No Addendum";
+    private List<Ammendment> _ammendments = null;
+    //private string _ammendment;
     //private string _footerText;
 
     public string ClientName { get { return _clientName; } }
@@ -68,12 +105,14 @@ public class ReportObject : GenericUIObject
     public string Fax { get { return _fax; } }
     public string PatientId { get { return _patientId; } }
     public string HeaderUrl { get { return _headerUrl; } }
-    public string Ammendment { get { return _ammendment; } }
+    public List<Ammendment> Ammendments { get {return _ammendments;}}
+    public string DateAmmendtment { get { return _dateAmmendment; } }
+    //public string Ammendment { get { return _ammendment; } }
     public string FooterText
     {
         get
         {
-            return "This Facsimile may contain PRIVILEGED, CONFIDENTIAL AND/OR OTHERWISE PROTECTED INFORMATION intended only for the use of addressee. Unauthorized distribution of the Facsimile or its contents is strictly prohibited according to the Health Insurance Portability and Accountability Act(HIPAA) of 1996. If you are not the addressee, the person responsible for delivering the message to the addressee, or have received this facsimile in error, please immediately notify us by telephone at the number above and destroy the information. Thank you.";
+            return "This Facsimile may contain PRIVILEGED, CONFIDENTIAL AND/OR OTHERWISE PROTECTED INFORMATION intended only for the use of addressee. Unauthorized distribution of the Facsimile or its contents is strictly prohibited according to the Health Insurance Portability and Accountability Act (HIPAA) of 1996. If you are not the addressee, the person responsible for delivering the message to the addressee, or have received this facsimile in error, please immediately notify us by telephone at the number above and destroy the information. Thank you.";
         }
     }
     public bool Load()
@@ -130,26 +169,17 @@ public class ReportObject : GenericUIObject
 
             
             _transcription = GetTrascription(study);
-            _ammendment = GetAmmendment(study);
+            
             if (study.ReportDate.HasValue)
             {
                 _reportDateTime = study.ReportDate.Value.ToString();
                 _reportDate = study.ReportDate.Value.ToShortDateString();
             }
+            _ammendments = GetAmmendments(study);
 
             if (study.Radiologist != null)
-            {                   
-                string[] names = study.Radiologist.Name.Split(',');
-                if (names != null && names.Length == 2)
-                {
-                    string space = " ";
-                    if (isHTML) space = "&nbsp;" ;
-                    _radiologist = names[1] + space + names[0] + "," + space + "M.D.";
-                }
-                else
-                {
-                    _radiologist = study.Radiologist.Name;
-                }                    
+            {
+                _radiologist = GetRadName(study.Radiologist.Name);
             }
             
 
@@ -169,6 +199,23 @@ public class ReportObject : GenericUIObject
             return true;
         }
         return false;
+    }
+
+    private string GetRadName(string name)
+    {
+        
+        string[] names = name.Split(',');
+        if (names != null && names.Length == 2)
+        {
+            string space = " ";
+            if (isHTML) space = "&nbsp;" ;
+            name = names[1] + space + names[0] + "," + space + "M.D.";
+        }
+        else
+        {
+            name = study.Radiologist.Name;
+        }
+        return name;
     }
     private string GetTrascription(Study study)
     {   
@@ -192,25 +239,26 @@ public class ReportObject : GenericUIObject
         }
         return html;
     }
-    private string GetAmmendment(Study study)
+    private List<Ammendment> GetAmmendments(Study study)
     {
-        string ammendment = null;
-        List<Study> parents = study.GetParents();
-        List<Study> amendments = (from s in parents where s.Amendment != null && s.Amendment.Length > 0  orderby s.ReportDate select s).ToList();
-        bool addedHeading = true;
-        if (isHTML)
-        {            
-            foreach (Study amendment in amendments)
-            {
-                if (addedHeading)
-                {
-                    ammendment += "<b>ADDENDUM:</b>&nbsp;";
-                    addedHeading = false;
-                }
-                ammendment += "<br/><br/>" + amendment.Amendment + "<br/>--" + amendment.Radiologist.Name + " " + amendment.ReportDate.ToString();
-            }
-            if (study.Amendment != null && study.Amendment.Length > 0)
-            {
+        List<Study> parents = study.GetAllParents();
+        _reportDate = parents[parents.Count - 1].ReportDate.Value.ToShortDateString();
+        _reportDateTime = parents[parents.Count - 1].ReportDate.Value.ToString();
+        List<Study> allStudies = (from s in parents where s.Amendment != null && s.Amendment.Length > 0  orderby s.ReportDate select s).ToList();
+        List<Ammendment> ammendments = new List<Ammendment>();
+        foreach (Study currentStudy in allStudies)
+        {
+            Ammendment ammendment = new Ammendment();
+            ammendment.Text = currentStudy.Amendment;
+            ammendment.Radiologist = GetRadName(currentStudy.Radiologist.Name);
+            ammendment.ReportDateTime = currentStudy.ReportDate.Value.ToString();
+            ammendment.Status = currentStudy.StudyStatusId.Value;
+            ammendment.StatusText = currentStudy.StudyStatusType.Status;
+            ammendments.Add(ammendment);
+            _dateAmmendment = currentStudy.ReportDate.Value.ToShortDateString();
+        }
+        /*if (study.Amendment != null && study.Amendment.Length > 0)
+        {
                 if (addedHeading)
                 {
                     ammendment += "<b>ADDENDUM:</b>&nbsp;";
@@ -239,8 +287,30 @@ public class ReportObject : GenericUIObject
                 }
                 ammendment += "\n\n" + study.Amendment + "\n--" + study.Radiologist.Name + " " + study.ReportDate.ToString();
             }
+        }*/
+        return ammendments;
+    }
+    public string GetAmmendmentHTML()
+    {
+        string html = "";
+        if (_ammendments.Count > 0)
+        {
+            html += "<b>ADDENDUM</b><br/>";
+            foreach(Ammendment ammendment in _ammendments)
+            {
+                html += "<br/>" + ammendment.Text + "<br/><hr/><div><div style='float:left;width:40%;'>";
+                if (ammendment.Status == RIS.RISLibrary.Utilities.Constants.StudyStatusTypes.Verified)
+                {
+                    html += "Electronically Approved and Signed by:";
+                }
+                else
+                {
+                    html += "Unverified draft report:";
+                }
+                html += "</div><div style='float:left;width:30%'>" + ammendment.Radiologist + "</div><div style='float:left;width:30%'>" + ammendment.ReportDateTime + "</div><div style='clear:both'></div></div><hr/>";
+            }
         }
-        return ammendment;
+        return html;
     }
     private string ReplaceNewLine(string transcription)
     {

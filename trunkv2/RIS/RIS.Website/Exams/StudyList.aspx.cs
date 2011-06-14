@@ -117,6 +117,13 @@ public partial class Radiologist_StudyList : StudyPage
                             if (study.Hospital != null && study.ReferringPhysician != null)
                             {
                                 study.StudyStatusId = Constants.StudyStatusTypes.New;
+
+                                Log log = new Log();
+                                log.Study = study;
+                                log.ActionTime = DateTime.Now;
+                                log.Action = Constants.LogActions.ReleasedToRad;
+                                log.UserId = loggedInUserId;
+                                DatabaseContext.AddToLogs(log);
                             }
                             else
                             {
@@ -442,7 +449,8 @@ public partial class Radiologist_StudyList : StudyPage
             else if (studyList.StatusId != Constants.StudyStatusTypes.Verified 
                 && (loggedInUserRoleId == Constants.Roles.ClientAdmin 
                 || loggedInUserRoleId == Constants.Roles.Admin 
-                || loggedInUserRoleId == Constants.Roles.ClientTechnologist))
+                || loggedInUserRoleId == Constants.Roles.ClientTechnologist
+                || loggedInUserRoleId == Constants.Roles.HospitalAdmin))
             {
                 currentRow.Cells.Add(GetEditCell(studyList,rowCount));
             }

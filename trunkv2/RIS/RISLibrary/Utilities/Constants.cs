@@ -55,6 +55,15 @@ namespace RIS.RISLibrary.Utilities
             public static string MarkedStudyForVerification = "Marked Study for Verification";
             public static string VerifiedStudy = "Verified Study";
             public static string RedictatedStudy = "Re-dictated Study";
+            public static string Created = "Created";
+            public static string Revised = "Revised";
+            public static string Updated = "Updated";
+            public static string Qaed = "Qaed";
+            public static string ReleasedToRad = "Released to Radiologist";
+            public static string AppliedTemplate = "Applied Template";
+            public static string AddedAttachment = "Added Attachment";
+            public static string CallbackExam = "Called back Exam";
+            public static string RejectedExam = "Exam was rejected";
         }
     }
 }

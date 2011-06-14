@@ -22,5 +22,17 @@ namespace RIS.Common
             }
             return parentList;
         }
+
+        public List<Study> GetAllParents()
+        {
+            List<Study> parentList = new List<Study>();
+            Study currentStudy = this;
+            while (currentStudy != null)
+            {
+                parentList.Add(currentStudy);
+                currentStudy = currentStudy.ParentStudy;                
+            }
+            return parentList;
+        }
     }
 }
