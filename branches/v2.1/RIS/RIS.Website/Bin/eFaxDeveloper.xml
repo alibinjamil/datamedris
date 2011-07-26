@@ -1,0 +1,1893 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>eFaxDeveloper</name>
+    </assembly>
+    <members>
+        <member name="T:J2.eFaxDeveloper.Outbound.DispositionControl">
+            <summary>
+            Fax disposition control
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:J2.eFaxDeveloper.Outbound.DispositionControl"/> class.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionControl.DispositionURL">
+            <summary>
+            the destination URL to receive final disposition notifications.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionControl.DispositionLevel">
+            <summary>
+            Defines the level at which
+            final disposition notifications
+            should be received. Clients
+            can suppress the notification
+            completely, or generate the
+            notification upon <see cref="F:J2.eFaxDeveloper.Outbound.DispositionLevel.Success">success</see>,
+            <see cref="F:J2.eFaxDeveloper.Outbound.DispositionLevel.Error">failure</see>, or <see cref="F:J2.eFaxDeveloper.Outbound.DispositionLevel.Both">both</see>,.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionControl.DispositionMethod">
+            <summary>
+            Defines delivery method for the final disposition. 
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionControl.DispositionEmails">
+            <summary>
+            List of DispositionEmail
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.OutboundRequest">
+            <summary>
+            Outbound fax request
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:J2.eFaxDeveloper.Outbound.OutboundRequest"/> class.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundRequest.TransmissionControl">
+            <summary>
+            Fax <see cref="T:J2.eFaxDeveloper.Outbound.RequestTransmissionControl">transmission</see> parameter
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundRequest.DispositionControl">
+            <summary>
+            Fax <see cref="T:J2.eFaxDeveloper.Outbound.DispositionControl">disposition</see> parameter
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundRequest.Recipient">
+            <summary>
+            Fax <see cref="T:J2.eFaxDeveloper.Outbound.Recipient">recipient</see> parameter
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundRequest.Files">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Outbound.FaxFiles">Files List</see> to fax 
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.RequestType">
+            <summary>
+            The type of request that generated the XML POST
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Inbound.RequestType.NewInbound">
+            <summary>
+            New inbound request
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Inbound.RequestType.ManualRepost">
+            <summary>
+            Manually repost inbound request
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.StatusCode">
+            <summary>
+            Status code
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.StatusCode.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.StatusCode.Failure">
+            <summary>
+            Failure
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.DispositionEmail">
+            <summary>
+            Email disposition
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionEmail.DispositionRecipient">
+            <summary>
+            The recipient's friendly name
+            to be displayed as part of the
+            disposition email address.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionEmail.DispositionAddress">
+            <summary>
+            The recipient's disposition email address.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.DispositionEmails">
+            <summary>
+            List of <see cref="T:J2.eFaxDeveloper.Outbound.DispositionEmail">DispositionEmail</see>
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.IndexOf(J2.eFaxDeveloper.Outbound.DispositionEmail)">
+            <summary>
+            Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+            <returns>The index of item if found in the list; otherwise, -1.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.Insert(System.Int32,J2.eFaxDeveloper.Outbound.DispositionEmail)">
+            <summary>
+            Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be inserted.</param>
+            <param name="item">The object to insert into the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:System.Collections.Generic.IList`1"/> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.Add(J2.eFaxDeveloper.Outbound.DispositionEmail)">
+            <summary>
+            Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.Contains(J2.eFaxDeveloper.Outbound.DispositionEmail)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            	<c>true</c> if item is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.CopyTo(J2.eFaxDeveloper.Outbound.DispositionEmail[],System.Int32)">
+            <summary>
+            Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1"/>. 
+            The <see cref="T:System.Array"/> must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.Remove(J2.eFaxDeveloper.Outbound.DispositionEmail)">
+            <summary>
+            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            <c>true</c> if item was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; 
+            otherwise, <c>false</c>. This method also returns false if item is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1"/> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.DispositionEmails.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionEmails.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:J2.eFaxDeveloper.Outbound.DispositionEmail"/> at the specified index.
+            </summary>
+            <value>The zero-based index of the element to get or set.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionEmails.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <value>The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/></value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.DispositionEmails.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </summary>
+            <value>
+            	<c>true</c> if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.Barcodes">
+            <summary>
+            List of <see cref="T:J2.eFaxDeveloper.Inbound.Barcode"/>
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.IndexOf(J2.eFaxDeveloper.Inbound.Barcode)">
+            <summary>
+            Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+            <returns>The index of item if found in the list; otherwise, -1.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.Insert(System.Int32,J2.eFaxDeveloper.Inbound.Barcode)">
+            <summary>
+            Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be inserted.</param>
+            <param name="item">The object to insert into the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:System.Collections.Generic.IList`1"/> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.Add(J2.eFaxDeveloper.Inbound.Barcode)">
+            <summary>
+            Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.Contains(J2.eFaxDeveloper.Inbound.Barcode)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            	<c>true</c> if item is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.CopyTo(J2.eFaxDeveloper.Inbound.Barcode[],System.Int32)">
+            <summary>
+            Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1"/>. 
+            The <see cref="T:System.Array"/> must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.Remove(J2.eFaxDeveloper.Inbound.Barcode)">
+            <summary>
+            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            <c>true</c> if item was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; 
+            otherwise, <c>false</c>. This method also returns false if item is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1"/> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Barcodes.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Barcodes.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:J2.eFaxDeveloper.Inbound.Barcode"/> at the specified index.
+            </summary>
+            <value>The zero-based index of the element to get or set.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Barcodes.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <value>The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/></value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Barcodes.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </summary>
+            <value>
+            	<c>true</c> if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.Barcode">
+            <summary>
+            Barcode
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Barcode.Key">
+            <summary>
+            The interpreted barcode value
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Barcode.AdditionalInfo">
+            <summary>
+             Additional information about the barcode <see cref="T:J2.eFaxDeveloper.Inbound.AdditionalInfo"></see>
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.eFaxDeveloperException">
+            <summary>
+            eFaxDeveloper exception
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.eFaxDeveloperException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:J2.eFaxDeveloper.eFaxDeveloperException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.eFaxDeveloperException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:J2.eFaxDeveloper.eFaxDeveloperException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="P:J2.eFaxDeveloper.eFaxDeveloperException.ErrorLevel">
+            <summary>
+            Gets or sets the error level.
+            </summary>
+            <value>The error level.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.eFaxDeveloperException.ErrorMessage">
+            <summary>
+            Gets or sets the error message.
+            </summary>
+            <value>The error message.</value>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.ErrorLevel">
+            <summary>
+            Defines the level of error. A <see cref="F:J2.eFaxDeveloper.Outbound.ErrorLevel.User">User</see> level can be handled by the client, 
+            while <see cref="F:J2.eFaxDeveloper.Outbound.ErrorLevel.System">System</see> generated errors will require eFax Developer™ Support intervention.
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.ErrorLevel.Undefined">
+            <summary>
+            Undefined
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.ErrorLevel.User">
+            <summary>
+            User error
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.ErrorLevel.System">
+            <summary>
+            System error
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.FaxControl">
+            <summary>
+            Inbound fax
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.FaxControl.GetFileContentsCOM">
+            <summary>
+            FileContents (use from COM), if your account is set to received multipages document use this else use <see cref="P:J2.eFaxDeveloper.Inbound.FaxControl.Pages">Pages</see>
+            (this might me null)
+            </summary>
+            <returns>an array of bytes</returns>
+            <remarks>
+            <para>Use this method from COM, from .NET use the <see cref="P:J2.eFaxDeveloper.Inbound.FaxControl.FileContents">FileContents</see></para>
+            </remarks>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.AccountID">
+            <summary>
+            eFax Developer™ account identifier.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.NumberDialed">
+            <summary>
+            The fax number that was dialed.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.DateReceived">
+            <summary>
+            The original fax received date. Pacific Time Zone
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.FaxName">
+            <summary>
+            The actual fax name given to this fax by eFax Developer™ as changed by the client.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.FileType">
+            <summary>
+            The document type as stored based on the "Inbound File Format" setting.
+            <see cref="F:J2.eFaxDeveloper.FaxFileType.tif">Tif</see> or <see cref="F:J2.eFaxDeveloper.FaxFileType.pdf">Pdf</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.PageCount">
+            <summary>
+            The number of pages received.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.CSID">
+            <summary>
+            The station identifier, when supplied by the receiving fax machine upon successful transmission.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.ANI">
+            <summary>
+            The automatic number identification (caller id) contains the calling party's fax number.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.Status">
+            <summary>
+            Numeric field indicating the fax status. "0" indicates a successful transmission while all other values indicate an
+            error code which can be crossreferenced with am eFax Developer™ supplied table.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.MCFID">
+            <summary>
+            eFax Developer™ fax ID.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.UserFields">
+            <summary>
+            User Fields (this might me null)
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.Barcodes">
+            <summary>
+            Barcodes (this might me null)
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.FileContents">
+            <summary>
+            FileContents, if your account is set to received multipages document use this else use <see cref="P:J2.eFaxDeveloper.Inbound.FaxControl.Pages">Pages</see>
+            (this might me null)
+            </summary>
+            <remarks>
+            <para>Use this property from .NET, from COM use <see cref="M:J2.eFaxDeveloper.Inbound.FaxControl.GetFileContentsCOM">GetFileContentsCOM</see>
+            </para>
+            </remarks>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.FaxControl.Pages">
+            <summary>
+            Pages, if your account is set to received single page document use this else use <see cref="P:J2.eFaxDeveloper.Inbound.FaxControl.FileContents">FileContents</see>
+            (this might me null)
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.EndEdge">
+            <summary>
+            End edge of the barcode
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.EndEdge.XEndPointA">
+            <summary>
+            Coordinate grid x-axis for ending edge point A.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.EndEdge.YEndPointA">
+            <summary>
+            Coordinate grid y-axis for ending edge point A.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.EndEdge.XEndPointB">
+            <summary>
+            Coordinate grid x-axis for ending edge point B.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.EndEdge.YEndPointB">
+            <summary>
+            Coordinate grid y-axis for ending edge point B.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.XmlUtils">
+            <summary>
+            Help class to decode URL encoded XML
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.XmlUtils.ExtractXMLFromURLEncodedData(System.String)">
+            <summary>
+            Extracts the XML from URL encoded data.
+            </summary>
+            <param name="data">data</param>
+            <returns>XML</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.XmlUtils.ExtractXMLFromURLEncodedData(System.IO.Stream)">
+            <summary>
+            Extracts the XML from URL encoded data.
+            </summary>
+            <param name="stream">stream</param>
+            <returns>XML</returns>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.SelfBusy">
+            <summary>
+            By default, the system prevents multiple fax channels from simultaneously dialing the same fax number. Disabling this option will allow a single fax number to be dialed simultaneously by multiple fax channels.
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.SelfBusy.Undefined">
+            <summary>
+            Use default system setting, this is the same as Enable
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.SelfBusy.Enable">
+            <summary>
+            Enable
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.SelfBusy.Disable">
+            <summary>
+            Disable
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.Priority">
+            <summary>
+            Priority desired for this transmission. By default, transmissions will be sent with normal priority. Transmissions requested with high priority will incur a price premium. 
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.Priority.Undefined">
+            <summary>
+            Use default system setting, this is the same as Normal
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.Priority.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.Priority.High">
+            <summary>
+            High
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.OutboundClient">
+            <summary>
+            Use OutboundClient to send <see cref="T:J2.eFaxDeveloper.Outbound.OutboundRequest">OutboundRequest</see>,
+            <see cref="T:J2.eFaxDeveloper.Outbound.OutboundStatusRequest">OutboundStatusRequest</see> and parse outbound disposition xml
+            </summary>
+            <remarks>
+            <para>
+            Outbound fax transmission example: 
+            <code lang="C#" source="OutboundExample.cs">
+            </code>
+            </para>
+            <para>
+            Save efaxDeveloper settings example:
+            </para>
+            <code lang="C#" source="OutboundLoadExample.cs">
+            </code>
+            </remarks>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.LoadWebConfiguration">
+            <summary>
+            Load the Configuration from a web application
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.SaveWebConfiguration(System.Boolean)">
+            <summary>
+            Save the Configuration from a web application
+            </summary>
+            <param name="protect">if set to <c>true</c> the configuration will be encrypted 
+            using the <see cref="T:System.Configuration.DpapiProtectedConfigurationProvider">DataProtectionConfigurationProvider</see></param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.LoadConfiguration">
+            <summary>
+            Load the Configuration
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.SaveConfiguration(System.Boolean)">
+            <summary>
+            Save the Configuration
+            </summary>
+            <param name="protect">if set to <c>true</c> the configuration will be encrypted 
+            using the <see cref="T:System.Configuration.DpapiProtectedConfigurationProvider">DataProtectionConfigurationProvider</see></param>
+            <remarks>
+            <para>
+            Save efaxDeveloper settings example:
+            </para>
+            <code lang="C#" source="OutboundLoadExample.cs">
+            </code>
+            </remarks>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.DeserializeOutboundDisposition(System.IO.Stream)">
+            <summary>
+            Deserialize <see cref="T:J2.eFaxDeveloper.Outbound.OutboundDisposition">OutboundDisposition</see>
+            </summary>
+            <param name="stream">stream</param>
+            <returns><see cref="T:J2.eFaxDeveloper.Outbound.OutboundDisposition">OutboundDisposition</see></returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.DeserializeOutboundDisposition(System.String)">
+            <summary>
+            Deserialize <see cref="T:J2.eFaxDeveloper.Outbound.OutboundDisposition">OutboundDisposition</see>
+            </summary>
+            <param name="xml">xml</param>
+            <returns><see cref="T:J2.eFaxDeveloper.Outbound.OutboundDisposition">OutboundDisposition</see></returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.SendOutboundRequest(J2.eFaxDeveloper.Outbound.OutboundRequest)">
+            <summary>
+            Send <see cref="T:J2.eFaxDeveloper.Outbound.OutboundRequest">OutboundRequest</see>.
+            Use this method to send a fax.
+            </summary>
+            <param name="outboundRequest">outboundRequest</param>
+            <returns><see cref="T:J2.eFaxDeveloper.Outbound.OutboundResponse"/>Outbound response</returns>
+            <remarks>
+            <para>
+            Outbound fax transmission example:
+            <code lang="C#" source="OutboundExample.cs">
+            </code>
+            </para>
+            <para>
+            Outbound fax transmission example:
+            <code lang="VBScript" source="OutboundExample.vbs">
+            </code>
+            </para>
+            </remarks>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.OutboundClient.SendOutboundStatusRequest(System.String,System.String)">
+            <summary>
+            Send <see cref="T:J2.eFaxDeveloper.Outbound.OutboundStatusResponse">OutboundStatusResponse</see>.
+            Use this method to get the status on a fax transmission, you just have to specify one of the possible two inputs
+            </summary>
+            <param name="transmissionId">transmissionId</param>
+            <param name="docId">docId</param>
+            <returns>OutboundStatusResponse</returns>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundClient.UserName">
+            <summary>
+            Gets or sets UserName
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundClient.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundClient.AccountId">
+            <summary>
+            Gets or sets the account id.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundClient.ServiceUrl">
+            <summary>
+            Gets or sets the service URL.
+            Use the <see cref="F:J2.eFaxDeveloper.EfaxDeveloperConfig.DEFAULT_URL">HTTP</see> or <see cref="F:J2.eFaxDeveloper.EfaxDeveloperConfig.DEFAULT_URL_SSL">HTTPS</see> URL
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.StartEdge">
+            <summary>
+            Start edge of the barcode
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.StartEdge.XStartPointA">
+            <summary>
+            Coordinate grid x-axis for starting edge point A.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.StartEdge.YStartPointA">
+            <summary>
+            Coordinate grid y-axis for starting edge point A.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.StartEdge.XStartPointB">
+            <summary>
+            Coordinate grid x-axis for starting edge point B.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.StartEdge.YStartPointB">
+            <summary>
+            Coordinate grid y-axis for starting edge point B.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.InboundPostRequest">
+            <summary>
+            Inbound fax request
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.InboundPostRequest.FaxControl">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Inbound.FaxControl">Inbound fax</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.InboundPostRequest.UserName">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.InboundPostRequest.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.InboundPostRequest.RequestDate">
+            <summary>
+            The XML generation date. Pacific Time Zone
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.InboundPostRequest.RequestType">
+            <summary>
+            The <see cref="T:J2.eFaxDeveloper.Inbound.RequestType">type of request</see> that generated the XML POST.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.AdditionalInfo">
+            <summary>
+            Additional information about the <see cref="T:J2.eFaxDeveloper.Inbound.Barcode">barcode</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.AdditionalInfo.ReadSequence">
+            <summary>
+            A per-page sequence number given to each barcode as it is read on a given page.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.AdditionalInfo.ReadDirection">
+            <summary>
+            The <see cref="T:J2.eFaxDeveloper.Inbound.ReadDirection">read direction</see> used to interpret the barcode stored within this container.
+            
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.AdditionalInfo.Symbology">
+            <summary>
+            The symbology or protocol used to generate the barcode stored within this container.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.AdditionalInfo.CodeLocation">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Inbound.CodeLocation">Location</see> of the barcode
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.RequestTransmissionControl">
+            <summary>
+            Fax transmission parameter
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.RequestTransmissionControl.TransmissionID">
+            <summary>
+            Unique client specified transmission identifier.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.RequestTransmissionControl.CustomerID">
+            <summary>
+            Client specified customer identifier.
+            The CustomerID is optional. It is not required or validated by eFax Developer™.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.RequestTransmissionControl.NoDuplicates">
+            <summary>
+            By default, the system will
+            allow duplicate transmission
+            identifiers to be submitted.
+            Enabling this option causes
+            eFax Developer™ to verify
+            that the transmission identifier
+            has not already been used by a
+            past transmission.
+            When enabled, eFax
+            Developer™ will fail the
+            transmission if a duplicate
+            transmission identifier exists.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.RequestTransmissionControl.Resolution">
+            <summary>
+            Resolution desired for this
+            transmission.
+            Transmissions requested with
+            <see cref="F:J2.eFaxDeveloper.Outbound.Resolution.Fine">Fine resolution</see> will incur a
+            price premium.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.RequestTransmissionControl.Priority">
+            <summary>
+            Priority desired for this
+            transmission.
+            By default, transmissions will
+            be sent with <see cref="F:J2.eFaxDeveloper.Outbound.Priority.Normal">normal priority</see>.
+            Transmissions requested with
+            <see cref="F:J2.eFaxDeveloper.Outbound.Priority.High"> high priority</see> will incur a
+            price premium.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.RequestTransmissionControl.SelfBusy">
+            <summary>
+            By default, the system
+            prevents multiple fax channels
+            from simultaneously dialing
+            the same fax number.
+            Disabling this option will
+            allow a single fax number to
+            be dialed simultaneously by
+            multiple fax channels.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.RequestTransmissionControl.FaxHeader">
+            <summary>
+            Dynamic Fax Header
+            Client defined fax header to be
+            used during this transmission.
+            If no value is supplied, a
+            default fax header will be used.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.FaxFiles">
+            <summary>
+             List of <see cref="T:J2.eFaxDeveloper.Outbound.FaxFile">files to fax</see>
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.IndexOf(J2.eFaxDeveloper.Outbound.FaxFile)">
+            <summary>
+            Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+            <returns>The index of item if found in the list; otherwise, -1.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.Insert(System.Int32,J2.eFaxDeveloper.Outbound.FaxFile)">
+            <summary>
+            Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be inserted.</param>
+            <param name="item">The object to insert into the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:System.Collections.Generic.IList`1"/> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.Add(J2.eFaxDeveloper.Outbound.FaxFile)">
+            <summary>
+            Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.Contains(J2.eFaxDeveloper.Outbound.FaxFile)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            	<c>true</c> if item is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.CopyTo(J2.eFaxDeveloper.Outbound.FaxFile[],System.Int32)">
+            <summary>
+            Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1"/>. 
+            The <see cref="T:System.Array"/> must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.Remove(J2.eFaxDeveloper.Outbound.FaxFile)">
+            <summary>
+            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            <c>true</c> if item was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; 
+            otherwise, <c>false</c>. This method also returns false if item is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1"/> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFiles.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.FaxFiles.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:J2.eFaxDeveloper.Outbound.FaxFile"/> at the specified index.
+            </summary>
+            <value>The zero-based index of the element to get or set.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.FaxFiles.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <value>The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/></value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.FaxFiles.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </summary>
+            <value>
+            	<c>true</c> if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.FaxFile">
+            <summary>
+            Fax file
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFile.GetFileContentsCOM">
+            <summary>
+            Get FileContents from COM
+            </summary>
+            <returns>an array of bytes</returns>
+            <remarks>
+            <para>Use this method from COM, from .NET use the <see cref="P:J2.eFaxDeveloper.Outbound.FaxFile.FileContents">FileContents</see></para>
+            </remarks>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Outbound.FaxFile.SetFileContentsCOM(System.Object)">
+            <summary>
+            Set FileContents from COM
+            </summary>
+            <param name="data">an array of bytes</param>
+            <remarks>
+            <para>Use this method from COM, from .NET use the <see cref="P:J2.eFaxDeveloper.Outbound.FaxFile.FileContents">FileContents</see></para>
+            </remarks>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.FaxFile.FileContents">
+            <summary>
+            FileContents
+            </summary>
+            <remarks>
+            <para>Use this property from .NET, from COM use <see cref="M:J2.eFaxDeveloper.Outbound.FaxFile.SetFileContentsCOM(System.Object)">SetFileContentsCOM</see>
+            and <see cref="M:J2.eFaxDeveloper.Outbound.FaxFile.GetFileContentsCOM">GetFileContentsCOM</see></para>
+            </remarks>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.FaxFile.FileType">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.FaxFileType">FaxFileType</see>
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.Recipient">
+            <summary>
+            Fax recipient
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.Recipient.RecipientName">
+            <summary>
+            The recipient's name when supplied will be merged into the fax header line.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.Recipient.RecipientCompany">
+            <summary>
+            The recipient's company name when supplied will be merged into the fax header line.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.Recipient.RecipientFax">
+            <summary>
+            The recipient’s fax number.
+            Designate international fax numbers by using the "011" international dialing prefix or start the fax number with a plus sign ("+").
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.OutboundDisposition">
+            <summary>
+            This will get posted to the <see cref="P:J2.eFaxDeveloper.Outbound.DispositionControl.DispositionURL">URL</see> provided 
+            on the <see cref="T:J2.eFaxDeveloper.Outbound.OutboundRequest">outbound request</see> when you set the disposition method to <see cref="F:J2.eFaxDeveloper.Outbound.DispositionMethod.Post">post</see>.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.UserName">
+            <summary>
+            Gets the UserName
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.Password">
+            <summary>
+            Gets the password.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.TransmissionID">
+            <summary>
+            Gets the Unique client specified transmission identifier
+            </summary>
+            <value>The transmission ID.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.DOCID">
+            <summary>
+            Gets eFax Developer™ transmission identifier.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.FaxNumber">
+            <summary>
+            Gets The recipient's fax number.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.RecipientCSID">
+            <summary>
+            Gets The station identifier, when supplied by the receiving fax machine upon successful transmission
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.CompletionDate">
+            <summary>
+            Gets Fax completion date and time.
+            Time zone is PST.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.FaxStatus">
+            <summary>
+            Gets the fax status.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.Duration">
+            <summary>
+            Gets transmission time in minutes.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.PagesSent">
+            <summary>
+            Gets the number of pages sent.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.NumberOfRetries">
+            <summary>
+            Gets number of times the fax was attempted before success or failure.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal">
+            <summary>
+            Hide in doc
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.UserName">
+            <summary>
+            Gets the UserName
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.Password">
+            <summary>
+            Gets the password.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.TransmissionID">
+            <summary>
+            Gets the Unique client specified transmission identifier
+            </summary>
+            <value>The transmission ID.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.DOCID">
+            <summary>
+            Gets eFax Developer™ transmission identifier.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.FaxNumber">
+            <summary>
+            Gets The recipient's fax number.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.CompletionDate">
+            <summary>
+            Use <see cref="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.CompletionDate"></see> instead
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.FaxStatus">
+            <summary>
+            Use <see cref="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.FaxStatus"></see> instead
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.RecipientCSID">
+            <summary>
+            Gets The station identifier, when supplied by the receiving fax machine upon successful transmission
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.Duration">
+            <summary>
+            Use <see cref="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.Duration"></see> instead
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.PagesSent">
+            <summary>
+            Use <see cref="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.PagesSent"></see> instead
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundDispositionInternal.NumberOfRetries">
+            <summary>
+            Use <see cref="P:J2.eFaxDeveloper.Outbound.OutboundDisposition.NumberOfRetries"></see> instead
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.FaxFileType">
+            <summary>
+            Defines the file type being transmitted.
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.doc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.docx">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.xls">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.xlsx">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.ppt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.pptx">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.html">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.tif">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.jpg">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.txt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.pdf">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.rtf">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.snp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.png">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.FaxFileType.gif">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.ReadDirection">
+            <summary>
+            The read direction used to interpret the barcode stored within this container
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Inbound.ReadDirection.TwoD">
+            <summary>
+            2 Dimentianal
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Inbound.ReadDirection.LeftToRight">
+            <summary>
+            Left to right
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Inbound.ReadDirection.TopToBottom">
+            <summary>
+            Top to bottom
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Inbound.ReadDirection.RightToLeft">
+            <summary>
+            Right to left
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Inbound.ReadDirection.BottomToTop">
+            <summary>
+            Bottom to top
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.OutboundStatusResponse">
+            <summary>
+            Outbound status response
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundStatusResponse.TransmissionID">
+            <summary>
+            Gets the transmission ID.
+            </summary>
+            <value>The transmission ID.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundStatusResponse.CustomerID">
+            <summary>
+            Gets the customer ID.
+            </summary>
+            <value>The customer ID.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundStatusResponse.Recipient">
+            <summary>
+            Gets the recipient.
+            </summary>
+            <value>The recipient.</value>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.UserFieldControl">
+            <summary>
+            UserFields information
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.UserFieldControl.UserFieldsRead">
+            <summary>
+            The total number of fields
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.UserFieldControl.UserFields">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Inbound.UserFields">List of UserField</see>
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.NoDuplicates">
+            <summary>
+            By default, the system will allow duplicate transmission identifiers to be submitted. Enabling this option causes eFax Developer™ to verify that the transmission identifier has not already been used by a past transmission. When enabled, eFax Developer™ will fail the transmission if a duplicate transmission identifier exists. 
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.NoDuplicates.Undefined">
+            <summary>
+            Use default system setting, this is the same as disabled
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.NoDuplicates.Enable">
+            <summary>
+            Enable
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.NoDuplicates.Disable">
+            <summary>
+            Disable
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.AccessControl">
+            <summary>
+            Defines credentials
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.AccessControl.UserName">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.AccessControl.Password">
+            <summary>
+            User password
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.Pages">
+            <summary>
+            List of <see cref="T:J2.eFaxDeveloper.Inbound.Page">Page</see>
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.IndexOf(J2.eFaxDeveloper.Inbound.Page)">
+            <summary>
+            Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+            <returns>The index of item if found in the list; otherwise, -1.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.Insert(System.Int32,J2.eFaxDeveloper.Inbound.Page)">
+            <summary>
+            Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be inserted.</param>
+            <param name="item">The object to insert into the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:System.Collections.Generic.IList`1"/> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.Add(J2.eFaxDeveloper.Inbound.Page)">
+            <summary>
+            Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.Contains(J2.eFaxDeveloper.Inbound.Page)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            	<c>true</c> if item is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.CopyTo(J2.eFaxDeveloper.Inbound.Page[],System.Int32)">
+            <summary>
+            Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1"/>. 
+            The <see cref="T:System.Array"/> must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.Remove(J2.eFaxDeveloper.Inbound.Page)">
+            <summary>
+            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            <c>true</c> if item was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; 
+            otherwise, <c>false</c>. This method also returns false if item is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1"/> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Pages.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Pages.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:J2.eFaxDeveloper.Inbound.Page"/> at the specified index.
+            </summary>
+            <value>The zero-based index of the element to get or set.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Pages.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <value>The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/></value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Pages.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </summary>
+            <value>
+            	<c>true</c> if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.Page">
+            <summary>
+            Page
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.Page.GetPageContentsCOM">
+            <summary>
+            Get contents for a physical page from COM
+            </summary>
+            <returns>an array of bytes</returns>
+            <remarks>
+            <para>Use this method from COM, from .NET use the <see cref="P:J2.eFaxDeveloper.Inbound.Page.PageContents">PageContents</see></para>
+            </remarks>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Page.PageNumber">
+            <summary>
+            The physical page number within the fax document
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.Page.PageContents">
+            <summary>
+            Contents for a physical page
+            </summary>
+            <remarks>
+            <para>Use this property from .NET, from COM use <see cref="M:J2.eFaxDeveloper.Inbound.Page.GetPageContentsCOM">GetPageContentsCOM</see>
+            </para>
+            </remarks>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.InboundClient">
+            <summary>
+            Use InboundClient to parse inbound xml files 
+            </summary>
+            <remarks>
+            <para>
+            InboundClient example:
+            <code lang="C#" source="InboundExample.cs">
+            </code>
+            </para>
+            </remarks>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.InboundClient.DeserializeInboundPostRequest(System.String)">
+            <summary>
+            Deserializes the inbound post request.
+            </summary>
+            <param name="xml">XML</param>
+            <returns><see cref="T:J2.eFaxDeveloper.Inbound.InboundPostRequest">InboundPostRequest</see></returns>
+            <remarks>
+            <para>
+            InboundClient example:
+            <code lang="C#" source="InboundExample.cs">
+            </code>
+            </para>
+            <para>
+            InboundClient example:
+            <code lang="VBScript" source="InboundExample.vbs">
+            </code>
+            </para>
+            </remarks>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.InboundClient.DeserializeInboundPostRequest(System.IO.Stream)">
+            <summary>
+            Deserializes the inbound post request.
+            </summary>
+            <param name="stream">stream</param>
+            <returns><see cref="T:J2.eFaxDeveloper.Inbound.InboundPostRequest">InboundPostRequest</see></returns>
+            <remarks>
+            <para>
+            InboundClient example:
+            <code lang="C#" source="InboundExample.cs">
+            </code>
+            </para>
+            <para>
+            InboundClient example:
+            <code lang="VBScript" source="InboundExample.vbs">
+            </code>
+            </para>
+            </remarks>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.BarcodeControl">
+            <summary>
+            Barcode information
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.BarcodeControl.BarcodesRead">
+            <summary>
+            The total number of barcodes
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.BarcodeControl.Barcodes">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Inbound.Barcodes">List of barcodes</see>
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.EfaxDeveloperConfig">
+            <summary>
+            Configuration Section with settings for EfaxDeveloper
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.EfaxDeveloperConfig.DEFAULT_URL">
+            <summary>
+            Defauft unsecure Url for eFaxDeveloper
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.EfaxDeveloperConfig.DEFAULT_URL_SSL">
+            <summary>
+            Defauft secure Url for eFaxDeveloper
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.EfaxDeveloperConfig.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:J2.eFaxDeveloper.EfaxDeveloperConfig"/> class.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.LockItem">
+            <summary>
+             hide
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.ElementInformation">
+            <summary>
+             hide
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.LockAllAttributesExcept">
+            <summary>
+             hide
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.LockAllElementsExcept">
+            <summary>
+             hide
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.LockAttributes">
+            <summary>
+             hide
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.LockElements">
+            <summary>
+             hide
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.SectionInformation">
+            <summary>
+             hide
+            </summary>
+            <exclude/>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.UserName">
+            <summary>
+            EfaxDeveloper username
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.Password">
+            <summary>
+            EfaxDeveloper password
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.AccountId">
+            <summary>
+            EfaxDeveloper account Id
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.EfaxDeveloperConfig.ServiceUrl">
+            <summary>
+            EfaxDeveloper service Url use the <see cref="F:J2.eFaxDeveloper.EfaxDeveloperConfig.DEFAULT_URL">default url</see> or the <see cref="F:J2.eFaxDeveloper.EfaxDeveloperConfig.DEFAULT_URL_SSL">default secure url</see>
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.StatusResponseRecipient">
+            <summary>
+            Status of an outbound transmission 
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.DOCID">
+            <summary>
+            Gets the DOCID.
+            eFax Developer™ transmission identifier.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.Name">
+            <summary>
+            Gets the recipient's name.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.Company">
+            <summary>
+            Gets  the recipient's company name.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.Fax">
+            <summary>
+            Gets the recipient's fax number.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.Status">
+            <summary>
+            Gets the <see cref="T:J2.eFaxDeveloper.Outbound.Status">status</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.RemoteCSID">
+            <summary>
+            Gets the CSID transmitted to
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.LastAttempt">
+            <summary>
+            Gets the last attempt DateTime for this fax.
+            If not available this will be set to <see cref="F:System.DateTime.MinValue">DateTime.MinValue</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.NextAttempt">
+            <summary>
+            Gets the next attempt DateTime for this fax.
+            If not available this will be set to <see cref="F:System.DateTime.MinValue">DateTime.MinValue</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.Duration">
+            <summary>
+            Gets the duration in minutes for this fax transmission.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.Retries">
+            <summary>
+            Gets the number of retry attempts for this fax transmission.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.BaudRate">
+            <summary>
+            Gets the baud rate used for this fax transmission.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.PagesScheduled">
+            <summary>
+            Gets Scheduled number of pages for this fax transmission.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.StatusResponseRecipient.PagesSent">
+            <summary>
+            Number of pages successfully sent for this fax transmission.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.Status">
+            <summary>
+            Status of an outbound transmission
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.Status.Message">
+            <summary>
+            Gets the status message for this fax transmission.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.Status.Classification">
+            <summary>
+            Gets the status classification.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.Status.Outcome">
+            <summary>
+            Gets the outcome text message.
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.DispositionLevel">
+            <summary>
+            Defines the level at which final disposition notifications should be received. Clients can suppress the notification
+            completely, or generate the notification upon success, failure or both.
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.DispositionLevel.Error">
+            <summary>
+            Disposition notificationfor for error only
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.DispositionLevel.Success">
+            <summary>
+            Disposition notificationfor for success only
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.DispositionLevel.Both">
+            <summary>
+            Disposition notification for for both error and success
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.DispositionLevel.None">
+            <summary>
+            Disposition notification suppressed
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.PageCoordinates">
+            <summary>
+            Coordinates of the barcode on the page
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.PageCoordinates.StartEdge">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Inbound.StartEdge">Start edge</see> of the barcode
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.PageCoordinates.EndEdge">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Inbound.EndEdge">End edge</see> of the barcode
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.CodeLocation">
+            <summary>
+            Location of the barcode
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.CodeLocation.PageNumber">
+            <summary>
+            The physical page location of the barcode stored within this container.
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.CodeLocation.PageCoordinates">
+            <summary>
+            <see herf="J2.eFaxDeveloper.Inbound.PageCoordinates">Coordinates</see> of the barcode on the page
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.OutboundResponse">
+            <summary>
+            oubound response
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundResponse.TransmissionID">
+            <summary>
+            Unique client specified transmission identifier
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundResponse.DOCID">
+            <summary>
+            eFax Developer™ transmission identifier
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundResponse.StatusCode">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Outbound.StatusCode">Status code</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundResponse.StatusDescription">
+            <summary>
+            Status description
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundResponse.ErrorLevel">
+            <summary>
+            <see cref="T:J2.eFaxDeveloper.Outbound.ErrorLevel">Error level</see>
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Outbound.OutboundResponse.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.UserFields">
+            <summary>
+            List of <see cref="T:J2.eFaxDeveloper.Inbound.UserField">UserField</see>
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.IndexOf(J2.eFaxDeveloper.Inbound.UserField)">
+            <summary>
+            Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+            <returns>The index of item if found in the list; otherwise, -1.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.Insert(System.Int32,J2.eFaxDeveloper.Inbound.UserField)">
+            <summary>
+            Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be inserted.</param>
+            <param name="item">The object to insert into the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:System.Collections.Generic.IList`1"/> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.Add(J2.eFaxDeveloper.Inbound.UserField)">
+            <summary>
+            Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.Contains(J2.eFaxDeveloper.Inbound.UserField)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            	<c>true</c> if item is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.CopyTo(J2.eFaxDeveloper.Inbound.UserField[],System.Int32)">
+            <summary>
+            Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
+            </summary>
+            <param name="array">The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1"/>. 
+            The <see cref="T:System.Array"/> must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.Remove(J2.eFaxDeveloper.Inbound.UserField)">
+            <summary>
+            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.</param>
+            <returns>
+            <c>true</c> if item was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>; 
+            otherwise, <c>false</c>. This method also returns false if item is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1"/> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:J2.eFaxDeveloper.Inbound.UserFields.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.UserFields.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:J2.eFaxDeveloper.Inbound.UserField"/> at the specified index.
+            </summary>
+            <value>The zero-based index of the element to get or set.</value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.UserFields.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <value>The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/></value>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.UserFields.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </summary>
+            <value>
+            	<c>true</c> if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Inbound.UserField">
+            <summary>
+            UserFiled holds the name and value of a client defined field
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.UserField.FieldName">
+            <summary>
+            Client defined field name
+            </summary>
+        </member>
+        <member name="P:J2.eFaxDeveloper.Inbound.UserField.FieldValue">
+            <summary>
+            An associated value for the client defined field
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.Resolution">
+            <summary>
+            Resolution desired for this transmission. Transmissions requested with Fine resolution will incur a price premium. 
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.Resolution.Standard">
+            <summary>
+            Standard resolution
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.Resolution.Fine">
+            <summary>
+            Fine resolution
+            </summary>
+        </member>
+        <member name="T:J2.eFaxDeveloper.Outbound.DispositionMethod">
+            <summary>
+            Defines delivery method for the final disposition
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.DispositionMethod.Undefined">
+            <summary>
+            Undefined use this with <see cref="F:J2.eFaxDeveloper.Outbound.DispositionLevel.None">DispositionLevel.None</see>
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.DispositionMethod.Post">
+            <summary>
+            Http POST, set <see cref="P:J2.eFaxDeveloper.Outbound.DispositionControl.DispositionURL">DispositionURL</see> for the URL
+            where efaxDeveloper will post the Outbound disposition XML
+            </summary>
+        </member>
+        <member name="F:J2.eFaxDeveloper.Outbound.DispositionMethod.Email">
+            <summary>
+            Email, add <see cref="T:J2.eFaxDeveloper.Outbound.DispositionEmail">DispositionEmail</see> to 
+            <see cref="P:J2.eFaxDeveloper.Outbound.DispositionControl.DispositionEmails">DispositionEmails</see> 
+            </summary>
+        </member>
+    </members>
+</doc>

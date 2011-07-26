@@ -1,0 +1,10 @@
+E:\MyProjects\RIS\trunk\RISLibrary\bin\Debug\RISLibrary.dll
+E:\MyProjects\RIS\trunk\RISLibrary\bin\Debug\RISLibrary.pdb
+E:\MyProjects\RIS\trunk\RISLibrary\obj\Debug\ResolveAssemblyReference.cache
+E:\MyProjects\RIS\trunk\RISLibrary\obj\Debug\RISLibrary.dll
+E:\MyProjects\RIS\trunk\RISLibrary\obj\Debug\RISLibrary.pdb
+E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\bin\Debug\RISLibrary.dll
+E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\bin\Debug\RISLibrary.pdb
+E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\obj\Debug\ResolveAssemblyReference.cache
+E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\obj\Debug\RISLibrary.dll
+E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\obj\Debug\RISLibrary.pdb
