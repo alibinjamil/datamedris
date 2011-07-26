@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ConquestModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="ConquestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DICOMImages" EntityType="ConquestModel.DICOMImage" />
+    <EntitySet Name="DICOMPatients" EntityType="ConquestModel.DICOMPatient" />
+    <EntitySet Name="DICOMStudies" EntityType="ConquestModel.DICOMStudy" />
+    <EntitySet Name="DICOMWorkLists" EntityType="ConquestModel.DICOMWorkList" />
+    <EntitySet Name="UIDMODS" EntityType="ConquestModel.UIDMOD" />
+    <EntitySet Name="DICOMSeries" EntityType="ConquestModel.DICOMSeries" />
+  </EntityContainer>
+  <EntityType Name="DICOMImage">
+    <Key>
+      <PropertyRef Name="SOPInstanc" />
+    </Key>
+    <Property Name="SOPInstanc" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="SOPClassUI" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="ImageNumbe" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+    <Property Name="ImageDate" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+    <Property Name="ImageTime" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="EchoNumber" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="NumberOfFr" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+    <Property Name="AcqDate" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+    <Property Name="AcqTime" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="ReceivingC" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="AcqNumber" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+    <Property Name="SliceLocat" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="SamplesPer" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+    <Property Name="PhotoMetri" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="Rows" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+    <Property Name="Colums" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+    <Property Name="BitsStored" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+    <Property Name="ImageType" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+    <Property Name="ImageID" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="ImagePat" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="SeriesInst" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="AccessTime" Type="Int32" />
+    <Property Name="qTimeStamp" Type="Int32" />
+    <Property Name="qFlags" Type="Int32" />
+    <Property Name="qSpare" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="ObjectFile" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+    <Property Name="DeviceName" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+    <Property Name="SyncTime" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="DICOMPatient">
+    <Key>
+      <PropertyRef Name="PatientID" />
+    </Key>
+    <Property Name="PatientID" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="PatientNam" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="PatientBir" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+    <Property Name="PatientSex" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="AccessTime" Type="Int32" />
+    <Property Name="qTimeStamp" Type="Int32" />
+    <Property Name="qFlags" Type="Int32" />
+    <Property Name="qSpare" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="SyncTime" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="DICOMStudy">
+    <Key>
+      <PropertyRef Name="StudyInsta" />
+    </Key>
+    <Property Name="StudyInsta" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="StudyDate" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+    <Property Name="StudyTime" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="StudyID" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="StudyDescr" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="AccessionN" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="ReferPhysi" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="PatientsAg" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="PatientsWe" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="StudyModal" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="PatientNam" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="PatientBir" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+    <Property Name="PatientSex" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="PatientID" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="AccessTime" Type="Int32" />
+    <Property Name="qTimeStamp" Type="Int32" />
+    <Property Name="qFlags" Type="Int32" />
+    <Property Name="qSpare" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="SyncTime" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="DICOMWorkList">
+    <Key>
+      <PropertyRef Name="AccessionN" />
+    </Key>
+    <Property Name="AccessionN" Type="String" Nullable="false" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="PatientID" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="PatientNam" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="PatientBir" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+    <Property Name="PatientSex" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="MedicalAle" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="ContrastAl" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="StudyInsta" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="ReqPhysici" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="ReqProcDes" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="Modality" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="ReqContras" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="ScheduledA" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="StartDate" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+    <Property Name="StartTime" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="PerfPhysic" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="SchedPSDes" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="SchedPSID" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="SchedStati" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="SchedPSLoc" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="PreMedicat" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="SchedPSCom" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="ReqProcID" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="ReqProcPri" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+    <Property Name="AccessTime" Type="Int32" />
+    <Property Name="qTimeStamp" Type="Int32" />
+    <Property Name="qFlags" Type="Int32" />
+    <Property Name="qSpare" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UIDMOD">
+    <Key>
+      <PropertyRef Name="OldUID" />
+    </Key>
+    <Property Name="MODTime" Type="Int32" />
+    <Property Name="OldUID" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+    <Property Name="MODType" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+    <Property Name="NewUID" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="DICOMSeries">
+    <Key>
+      <PropertyRef Name="SeriesInst" />
+    </Key>
+    <Property Type="String" Name="SeriesInst" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SeriesNumb" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SeriesDate" MaxLength="8" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="SeriesTime" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SeriesDesc" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Modality" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PatientPos" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ContrastBo" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Manufactur" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ModelName" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="BodyPartEx" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ProtocolNa" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="StationNam" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Institutio" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="FrameOfRef" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SeriesPat" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="StudyInsta" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="AccessTime" />
+    <Property Type="Int32" Name="qTimeStamp" />
+    <Property Type="Int32" Name="qFlags" />
+    <Property Type="String" Name="qSpare" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="SyncTime" />
+  </EntityType>
+</Schema>

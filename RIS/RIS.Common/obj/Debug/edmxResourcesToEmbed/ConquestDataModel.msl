@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ConquestModelStoreContainer" CdmEntityContainer="ConquestEntities">
+    <EntitySetMapping Name="DICOMImages">
+      <EntityTypeMapping TypeName="ConquestModel.DICOMImage">
+        <MappingFragment StoreEntitySet="DICOMImages">
+          <ScalarProperty Name="SOPInstanc" ColumnName="SOPInstanc" />
+          <ScalarProperty Name="SOPClassUI" ColumnName="SOPClassUI" />
+          <ScalarProperty Name="ImageNumbe" ColumnName="ImageNumbe" />
+          <ScalarProperty Name="ImageDate" ColumnName="ImageDate" />
+          <ScalarProperty Name="ImageTime" ColumnName="ImageTime" />
+          <ScalarProperty Name="EchoNumber" ColumnName="EchoNumber" />
+          <ScalarProperty Name="NumberOfFr" ColumnName="NumberOfFr" />
+          <ScalarProperty Name="AcqDate" ColumnName="AcqDate" />
+          <ScalarProperty Name="AcqTime" ColumnName="AcqTime" />
+          <ScalarProperty Name="ReceivingC" ColumnName="ReceivingC" />
+          <ScalarProperty Name="AcqNumber" ColumnName="AcqNumber" />
+          <ScalarProperty Name="SliceLocat" ColumnName="SliceLocat" />
+          <ScalarProperty Name="SamplesPer" ColumnName="SamplesPer" />
+          <ScalarProperty Name="PhotoMetri" ColumnName="PhotoMetri" />
+          <ScalarProperty Name="Rows" ColumnName="Rows" />
+          <ScalarProperty Name="Colums" ColumnName="Colums" />
+          <ScalarProperty Name="BitsStored" ColumnName="BitsStored" />
+          <ScalarProperty Name="ImageType" ColumnName="ImageType" />
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="ImagePat" ColumnName="ImagePat" />
+          <ScalarProperty Name="SeriesInst" ColumnName="SeriesInst" />
+          <ScalarProperty Name="AccessTime" ColumnName="AccessTime" />
+          <ScalarProperty Name="qTimeStamp" ColumnName="qTimeStamp" />
+          <ScalarProperty Name="qFlags" ColumnName="qFlags" />
+          <ScalarProperty Name="qSpare" ColumnName="qSpare" />
+          <ScalarProperty Name="ObjectFile" ColumnName="ObjectFile" />
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DICOMPatients">
+      <EntityTypeMapping TypeName="ConquestModel.DICOMPatient">
+        <MappingFragment StoreEntitySet="DICOMPatients">
+          <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+          <ScalarProperty Name="PatientNam" ColumnName="PatientNam" />
+          <ScalarProperty Name="PatientBir" ColumnName="PatientBir" />
+          <ScalarProperty Name="PatientSex" ColumnName="PatientSex" />
+          <ScalarProperty Name="AccessTime" ColumnName="AccessTime" />
+          <ScalarProperty Name="qTimeStamp" ColumnName="qTimeStamp" />
+          <ScalarProperty Name="qFlags" ColumnName="qFlags" />
+          <ScalarProperty Name="qSpare" ColumnName="qSpare" />
+          <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DICOMStudies">
+      <EntityTypeMapping TypeName="ConquestModel.DICOMStudy">
+        <MappingFragment StoreEntitySet="DICOMStudies">
+          <ScalarProperty Name="StudyInsta" ColumnName="StudyInsta" />
+          <ScalarProperty Name="StudyDate" ColumnName="StudyDate" />
+          <ScalarProperty Name="StudyTime" ColumnName="StudyTime" />
+          <ScalarProperty Name="StudyID" ColumnName="StudyID" />
+          <ScalarProperty Name="StudyDescr" ColumnName="StudyDescr" />
+          <ScalarProperty Name="AccessionN" ColumnName="AccessionN" />
+          <ScalarProperty Name="ReferPhysi" ColumnName="ReferPhysi" />
+          <ScalarProperty Name="PatientsAg" ColumnName="PatientsAg" />
+          <ScalarProperty Name="PatientsWe" ColumnName="PatientsWe" />
+          <ScalarProperty Name="StudyModal" ColumnName="StudyModal" />
+          <ScalarProperty Name="PatientNam" ColumnName="PatientNam" />
+          <ScalarProperty Name="PatientBir" ColumnName="PatientBir" />
+          <ScalarProperty Name="PatientSex" ColumnName="PatientSex" />
+          <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+          <ScalarProperty Name="AccessTime" ColumnName="AccessTime" />
+          <ScalarProperty Name="qTimeStamp" ColumnName="qTimeStamp" />
+          <ScalarProperty Name="qFlags" ColumnName="qFlags" />
+          <ScalarProperty Name="qSpare" ColumnName="qSpare" />
+          <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DICOMWorkLists">
+      <EntityTypeMapping TypeName="ConquestModel.DICOMWorkList">
+        <MappingFragment StoreEntitySet="DICOMWorkList">
+          <ScalarProperty Name="AccessionN" ColumnName="AccessionN" />
+          <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+          <ScalarProperty Name="PatientNam" ColumnName="PatientNam" />
+          <ScalarProperty Name="PatientBir" ColumnName="PatientBir" />
+          <ScalarProperty Name="PatientSex" ColumnName="PatientSex" />
+          <ScalarProperty Name="MedicalAle" ColumnName="MedicalAle" />
+          <ScalarProperty Name="ContrastAl" ColumnName="ContrastAl" />
+          <ScalarProperty Name="StudyInsta" ColumnName="StudyInsta" />
+          <ScalarProperty Name="ReqPhysici" ColumnName="ReqPhysici" />
+          <ScalarProperty Name="ReqProcDes" ColumnName="ReqProcDes" />
+          <ScalarProperty Name="Modality" ColumnName="Modality" />
+          <ScalarProperty Name="ReqContras" ColumnName="ReqContras" />
+          <ScalarProperty Name="ScheduledA" ColumnName="ScheduledA" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="PerfPhysic" ColumnName="PerfPhysic" />
+          <ScalarProperty Name="SchedPSDes" ColumnName="SchedPSDes" />
+          <ScalarProperty Name="SchedPSID" ColumnName="SchedPSID" />
+          <ScalarProperty Name="SchedStati" ColumnName="SchedStati" />
+          <ScalarProperty Name="SchedPSLoc" ColumnName="SchedPSLoc" />
+          <ScalarProperty Name="PreMedicat" ColumnName="PreMedicat" />
+          <ScalarProperty Name="SchedPSCom" ColumnName="SchedPSCom" />
+          <ScalarProperty Name="ReqProcID" ColumnName="ReqProcID" />
+          <ScalarProperty Name="ReqProcPri" ColumnName="ReqProcPri" />
+          <ScalarProperty Name="AccessTime" ColumnName="AccessTime" />
+          <ScalarProperty Name="qTimeStamp" ColumnName="qTimeStamp" />
+          <ScalarProperty Name="qFlags" ColumnName="qFlags" />
+          <ScalarProperty Name="qSpare" ColumnName="qSpare" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UIDMODS">
+      <EntityTypeMapping TypeName="ConquestModel.UIDMOD">
+        <MappingFragment StoreEntitySet="UIDMODS">
+          <ScalarProperty Name="MODTime" ColumnName="MODTime" />
+          <ScalarProperty Name="OldUID" ColumnName="OldUID" />
+          <ScalarProperty Name="MODType" ColumnName="MODType" />
+          <ScalarProperty Name="NewUID" ColumnName="NewUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DICOMSeries">
+      <EntityTypeMapping TypeName="ConquestModel.DICOMSeries">
+        <MappingFragment StoreEntitySet="DICOMSeries">
+          <ScalarProperty Name="SyncTime" ColumnName="SyncTime" />
+          <ScalarProperty Name="qSpare" ColumnName="qSpare" />
+          <ScalarProperty Name="qFlags" ColumnName="qFlags" />
+          <ScalarProperty Name="qTimeStamp" ColumnName="qTimeStamp" />
+          <ScalarProperty Name="AccessTime" ColumnName="AccessTime" />
+          <ScalarProperty Name="StudyInsta" ColumnName="StudyInsta" />
+          <ScalarProperty Name="SeriesPat" ColumnName="SeriesPat" />
+          <ScalarProperty Name="FrameOfRef" ColumnName="FrameOfRef" />
+          <ScalarProperty Name="Institutio" ColumnName="Institutio" />
+          <ScalarProperty Name="StationNam" ColumnName="StationNam" />
+          <ScalarProperty Name="ProtocolNa" ColumnName="ProtocolNa" />
+          <ScalarProperty Name="BodyPartEx" ColumnName="BodyPartEx" />
+          <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+          <ScalarProperty Name="Manufactur" ColumnName="Manufactur" />
+          <ScalarProperty Name="ContrastBo" ColumnName="ContrastBo" />
+          <ScalarProperty Name="PatientPos" ColumnName="PatientPos" />
+          <ScalarProperty Name="Modality" ColumnName="Modality" />
+          <ScalarProperty Name="SeriesDesc" ColumnName="SeriesDesc" />
+          <ScalarProperty Name="SeriesTime" ColumnName="SeriesTime" />
+          <ScalarProperty Name="SeriesDate" ColumnName="SeriesDate" />
+          <ScalarProperty Name="SeriesNumb" ColumnName="SeriesNumb" />
+          <ScalarProperty Name="SeriesInst" ColumnName="SeriesInst" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
