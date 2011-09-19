@@ -58,7 +58,8 @@ namespace RIS.RISService.DataMigrators
                     Study study = new Study();
                     study.ExternalPatientId = dicomStudy.PatientID;
                     study.OriginalPatientId = dicomStudy.PatientID;
-                    study.PatientName = ParseName(dicomStudy.PatientNam);
+                    //study.PatientName = ParseName(dicomStudy.PatientNam);
+                    study.PatientName = dicomStudy.PatientNam;
                     study.PatientDOB = ParseDateTime(dicomStudy.PatientBir, null);
                     study.PatientGender = dicomStudy.PatientSex;
                     study.PatientWeight = dicomStudy.PatientsWe;
@@ -322,8 +323,14 @@ namespace RIS.RISService.DataMigrators
             if (station != null)
             {
                 study.StationId = station.StationId;
-                study.HospitalId = station.HospitalId;
-                study.ClientId = station.ClientId;
+                if (study.HospitalId.HasValue == false)
+                {
+                    study.HospitalId = station.HospitalId;                    
+                }
+                if (study.ClientId.HasValue == false)
+                {
+                    study.ClientId = station.ClientId;
+                }
             }
             return study;
         }

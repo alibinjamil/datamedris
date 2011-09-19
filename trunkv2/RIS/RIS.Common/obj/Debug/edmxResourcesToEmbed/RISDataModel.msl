@@ -407,5 +407,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="StudyUsers">
+      <EntityTypeMapping TypeName="RISModel.StudyUser">
+        <MappingFragment StoreEntitySet="StudyUsers">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StudyId" ColumnName="StudyId" />
+          <ScalarProperty Name="StudyUserId" ColumnName="StudyUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

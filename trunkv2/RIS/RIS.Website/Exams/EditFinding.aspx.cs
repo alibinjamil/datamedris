@@ -182,41 +182,49 @@ public partial class Radiologist_EditFinding : StudyPage
 
     private Study UpdateStudy(Nullable<int> studyStatusId)
     {
-        Study study = GetStudy();                 
-        if(study != null)
-        {                 
-            study.LastUpdateDate = DateTime.Now;
-            study.LastUpdatedBy = loggedInUserId;
-            //adding this code to put in radiologist is and name. 
-            study.ReportDate = DateTime.Now;
-            study.RadiologistId = loggedInUserId;
-            study.Heading = tbHeading.Text;
-            study.Description = tbDescription.Text;
-            study.Impression = tbImpression.Text;
-            study.Amendment = tbAmendment.Text;
-
-            Log log = new Log();
-            log.ActionTime = DateTime.Now;
-            log.Action = Constants.LogActions.Updated;
-            log.UserId = loggedInUserId;
-            log.Study = study;
-
-            if (studyStatusId != null)
+        try
+        {
+            Study study = GetStudy();
+            if (study != null)
             {
-                study.StudyStatusId = studyStatusId;
-                if (studyStatusId == Constants.StudyStatusTypes.PendingVerification)
+                study.LastUpdateDate = DateTime.Now;
+                study.LastUpdatedBy = loggedInUserId;
+                //adding this code to put in radiologist is and name. 
+                study.ReportDate = DateTime.Now;
+                study.RadiologistId = loggedInUserId;
+                study.Heading = tbHeading.Text;
+                study.Description = tbDescription.Text;
+                study.Impression = tbImpression.Text;
+                study.Amendment = tbAmendment.Text;
+
+                Log log = new Log();
+                log.ActionTime = DateTime.Now;
+                log.Action = Constants.LogActions.Updated;
+                log.UserId = loggedInUserId;
+                log.Study = study;
+
+                if (studyStatusId != null)
                 {
-                    log.Action = Constants.LogActions.MarkedStudyForVerification;
+                    study.StudyStatusId = studyStatusId;
+                    if (studyStatusId == Constants.StudyStatusTypes.PendingVerification)
+                    {
+                        log.Action = Constants.LogActions.MarkedStudyForVerification;
+                    }
+                    else if (studyStatusId == Constants.StudyStatusTypes.Verified)
+                    {
+                        log.Action = Constants.LogActions.VerifiedStudy;
+                    }
                 }
-                else if (studyStatusId == Constants.StudyStatusTypes.Verified)
-                {
-                    log.Action = Constants.LogActions.VerifiedStudy;
-                }
+                DatabaseContext.AddToLogs(log);
+                DatabaseContext.SaveChanges();
             }
-            DatabaseContext.AddToLogs(log);
-            DatabaseContext.SaveChanges();
-        }        
-        return study;
+            return study;
+        }
+        catch (OptimisticConcurrencyException)
+        {
+            HandleConcurrencyException();
+            return null;
+        }
     }
     
     
@@ -269,8 +277,9 @@ public partial class Radiologist_EditFinding : StudyPage
                 }
             }
         }
-        catch
+        catch (OptimisticConcurrencyException)
         {
+            HandleConcurrencyException();            
         }
     }
     protected void btnAmendments_Click(object sender, ImageClickEventArgs e)

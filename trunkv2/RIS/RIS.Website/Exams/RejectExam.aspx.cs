@@ -37,21 +37,28 @@ public partial class Radiologist_RejectExam : StudyPage
     }
     protected void btnReject_Click(object sender, EventArgs e)
     {
-        Study study = GetStudy();
-        if (study != null)
+        try
         {
-            study.RejectionReason = tbRejectionReason.Text;
-            study.StudyStatusId = Constants.StudyStatusTypes.Rejected;
+            Study study = GetStudy();
+            if (study != null)
+            {
+                study.RejectionReason = tbRejectionReason.Text;
+                study.StudyStatusId = Constants.StudyStatusTypes.Rejected;
 
-            Log log = new Log();
-            log.Action = Constants.LogActions.RejectedExam;
-            log.UserId = loggedInUserId;
-            log.ActionTime = DateTime.Now;
-            log.Study = study;
+                Log log = new Log();
+                log.Action = Constants.LogActions.RejectedExam;
+                log.UserId = loggedInUserId;
+                log.ActionTime = DateTime.Now;
+                log.Study = study;
 
-            DatabaseContext.AddToLogs(log);
-            DatabaseContext.SaveChanges();
+                DatabaseContext.AddToLogs(log);
+                DatabaseContext.SaveChanges();
+            }
+            ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeRejectionWindow();parent.aspnetForm.submit();", true);
         }
-        ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeRejectionWindow();parent.aspnetForm.submit();", true);
+        catch (OptimisticConcurrencyException)
+        {
+            HandleConcurrencyException();
+        }
     }
 }

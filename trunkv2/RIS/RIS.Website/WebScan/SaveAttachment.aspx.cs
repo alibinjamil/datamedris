@@ -57,7 +57,7 @@ public partial class WebScan_SaveAttachment : GenericPage
             DatabaseContext.SaveChanges();
 
         }
-        catch (Exception ex)
+        catch (Exception)
         {
         }		
 

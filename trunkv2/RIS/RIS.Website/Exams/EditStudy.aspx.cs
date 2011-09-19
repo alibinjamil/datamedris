@@ -107,6 +107,7 @@ public partial class Radiologist_EditStudy : StudyPage
                             btnRelease.Visible = false;
                         }
                     }
+                    BindRadiologistPanel(study);
 
                 }
             }            
@@ -155,6 +156,7 @@ public partial class Radiologist_EditStudy : StudyPage
             ddlHospitals.Enabled = false;
         }
         BindRefPhyList();
+        
     }
 
     private void BindRefPhyList()
@@ -189,89 +191,137 @@ public partial class Radiologist_EditStudy : StudyPage
     }
     private void UpdateStudy(Nullable<int> studyStatusId)
     {
-        study = GetStudy();
-        if (study != null)
+        try
         {
-            if (ddlClient.SelectedIndex > 0)
+            study = GetStudy();
+            if (study != null)
             {
-                study.ClientId = int.Parse(ddlClient.SelectedValue);
-                if (ddlHospitals.SelectedIndex > 0)
+                if (ddlClient.SelectedIndex > 0)
                 {
-                    study.HospitalId = int.Parse(ddlHospitals.SelectedValue);
-                    if (ddlRefPhy.SelectedIndex > 0)
+                    study.ClientId = int.Parse(ddlClient.SelectedValue);
+                    if (ddlHospitals.SelectedIndex > 0)
                     {
-                        study.ReferringPhysicianId = int.Parse(ddlRefPhy.SelectedValue);
+                        study.HospitalId = int.Parse(ddlHospitals.SelectedValue);
+                        if (ddlRefPhy.SelectedIndex > 0)
+                        {
+                            study.ReferringPhysicianId = int.Parse(ddlRefPhy.SelectedValue);
+                        }
+                        else
+                        {
+                            study.ReferringPhysicianId = null;
+                        }
                     }
                     else
                     {
-                        study.ReferringPhysicianId = null;
+                        //study.HospitalId = null;
                     }
                 }
                 else
                 {
-                    //study.HospitalId = null;
+                    study.ClientId = null;
+                    study.HospitalId = null;
+                    study.ReferringPhysicianId = null;
                 }
-            }
-            else
-            {
-                study.ClientId = null;
-                study.HospitalId = null;
-                study.ReferringPhysicianId = null;
-            }
-            if (ddlBodyParts.SelectedIndex > 0)
-            {
-                study.BodyPartId = int.Parse(ddlBodyParts.SelectedValue);
-            }
-            else
-            {
-                study.BodyPartId = null;
-            }
-            study.TechComments = tbTechComments.Text;
-
-
-            Log log = new Log();
-            log.UserId = loggedInUserId;
-            log.ActionTime = DateTime.Now;
-            log.Action = Constants.LogActions.Updated;
-            if (studyStatusId != null)
-            {
-                study.StudyStatusId = studyStatusId;
-                if (studyStatusId.Value == Constants.StudyStatusTypes.Qaed)
+                if (ddlBodyParts.SelectedIndex > 0)
                 {
-                    log.Action = Constants.LogActions.Qaed;
+                    study.BodyPartId = int.Parse(ddlBodyParts.SelectedValue);
                 }
-                else if(studyStatusId.Value == Constants.StudyStatusTypes.New)
+                else
                 {
-                    log.Action = Constants.LogActions.ReleasedToRad;    
+                    study.BodyPartId = null;
                 }
+                study.TechComments = tbTechComments.Text;
+
+
+                Log log = new Log();
+                log.UserId = loggedInUserId;
+                log.ActionTime = DateTime.Now;
+                log.Action = Constants.LogActions.Updated;
+                if (studyStatusId != null)
+                {
+                    study.StudyStatusId = studyStatusId;
+                    if (studyStatusId.Value == Constants.StudyStatusTypes.Qaed)
+                    {
+                        log.Action = Constants.LogActions.Qaed;
+                    }
+                    else if (studyStatusId.Value == Constants.StudyStatusTypes.New)
+                    {
+                        log.Action = Constants.LogActions.ReleasedToRad;
+                    }
+                }
+
+                study.ExternalPatientId = tbPatientId.Text;
+                study.PatientDOB = tbDOB.SelectedDate;
+                study.PatientGender = rbGender.SelectedValue;
+                study.PatientWeight = tbPatientWeight.Text;
+                study.PatientName = tbPatientName.Text;
+                study.LastUpdateDate = DateTime.Now;
+                study.LastUpdatedBy = loggedInUserId;
+
+                log.Study = study;
+                DatabaseContext.AddToLogs(log);
+                DatabaseContext.SaveChanges();
+                /*RISDatabaseAccessLayer databaseAccessLayer = new RISDatabaseAccessLayer();
+                SqlConnection connection = (SqlConnection)databaseAccessLayer.GetConnection();
+                connection.Open();
+                SqlCommand command = new SqlCommand("sp_insert_study_group", connection);
+                command.Parameters.AddWithValue("@studyId", Request["studyId"]);
+                command.Parameters.AddWithValue("@hospitalId", ddlHospitals.SelectedValue);
+                command.Parameters.AddWithValue("@adminUserId", loggedInUserId);
+                command.CommandType = CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+                connection.Close();*/
             }
-
-            study.ExternalPatientId = tbPatientId.Text;
-            study.PatientDOB = tbDOB.SelectedDate;
-            study.PatientGender = rbGender.SelectedValue;
-            study.PatientWeight = tbPatientWeight.Text;
-            study.PatientName = tbPatientName.Text;
-            study.LastUpdateDate = DateTime.Now;
-            study.LastUpdatedBy = loggedInUserId;
-
-            log.Study = study;
-            DatabaseContext.AddToLogs(log);
-            DatabaseContext.SaveChanges();
-            /*RISDatabaseAccessLayer databaseAccessLayer = new RISDatabaseAccessLayer();
-            SqlConnection connection = (SqlConnection)databaseAccessLayer.GetConnection();
-            connection.Open();
-            SqlCommand command = new SqlCommand("sp_insert_study_group", connection);
-            command.Parameters.AddWithValue("@studyId", Request["studyId"]);
-            command.Parameters.AddWithValue("@hospitalId", ddlHospitals.SelectedValue);
-            command.Parameters.AddWithValue("@adminUserId", loggedInUserId);
-            command.CommandType = CommandType.StoredProcedure;
-            command.ExecuteNonQuery();
-            connection.Close();*/
+        }
+        catch (OptimisticConcurrencyException)
+        {
+            HandleConcurrencyException();            
         }
         ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeStudyEditWindow();parent.aspnetForm.submit();", true);
     }
+private void BindRadiologistPanel(Study study)
+    {          
+        BindRadiologistLists(study);
+        
+        if (study.StudyStatusId == Constants.StudyStatusTypes.PreRelease
+            || study.StudyStatusId == Constants.StudyStatusTypes.Qaed)
+        {
+            btnAddRadiologist.Enabled = true;
+            btnRemoveRadiologist.Enabled = true;
+        }
+        else
+        {
+            btnAddRadiologist.Enabled = false;
+            btnRemoveRadiologist.Enabled = false;  
+        }
+    }
+    private void BindRadiologistLists(Study study)
+    {
+        int clientId = int.Parse(ddlClient.SelectedValue);
+        int studyId = study.StudyId;
+        var radiologists = (from u in DatabaseContext.StudyUsers
+                            where u.StudyId == studyId
+                            select u.User);
+        lbRadiologists.DataSource = radiologists;
+        lbRadiologists.DataBind();
+
+        lbNotRadiologists.DataSource = (from u in DatabaseContext.Users
+                                        join ur in DatabaseContext.UserRoles on u equals ur.User
+                                        join uc in DatabaseContext.UserClients on u equals uc.User
+                                        where ur.RoleId == Constants.Roles.Radiologist
+                                        && uc.ClientId == clientId
+                                        select u).Distinct().Except(radiologists);
+        lbNotRadiologists.DataBind();
+ 
+    }
     protected void btnRelease_Click(object sender, EventArgs e)
     {
+if (lbRadiologists.Items.Count == 0)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "noRadSelected", "var showRadError = true;var selectedTab = 1;", true);
+        }
+        else
+        {
         if (loggedInUserRoleId == Constants.Roles.Admin)
         {
             UpdateStudy(null);
@@ -280,22 +330,31 @@ public partial class Radiologist_EditStudy : StudyPage
         {
             UpdateStudy(Constants.StudyStatusTypes.New);
         }
+}
     }
     protected void btnUnrelease_Click(object sender, EventArgs e)
     {
-        study = GetStudy();
-        if (study != null)
+        try
         {
-            study.StudyStatusId = Constants.StudyStatusTypes.PreRelease;
-            Log log = new Log();
-            log.UserId = loggedInUserId;
-            log.ActionTime = DateTime.Now;
-            log.Study = study;
-            log.Action = Constants.LogActions.CallbackExam;
-            DatabaseContext.AddToLogs(log);
-            DatabaseContext.SaveChanges();
+            study = GetStudy();
+            if (study != null)
+            {
+                study.StudyStatusId = Constants.StudyStatusTypes.PreRelease;
+                Log log = new Log();
+                log.UserId = loggedInUserId;
+                log.ActionTime = DateTime.Now;
+                log.Study = study;
+                log.Action = Constants.LogActions.CallbackExam;
+                DatabaseContext.AddToLogs(log);
+                DatabaseContext.SaveChanges();
+            }
+            ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeStudyEditWindow();parent.aspnetForm.submit();", true);
         }
-        ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeStudyEditWindow();parent.aspnetForm.submit();", true);
+        catch (OptimisticConcurrencyException)
+        {
+            HandleConcurrencyException();
+            
+        }
     }
     protected void ddlRefPhy_DataBound(object sender, EventArgs e)
     {
@@ -331,14 +390,80 @@ public partial class Radiologist_EditStudy : StudyPage
     }
     protected void ddlBodyParts_DataBound(object sender, EventArgs e)
     {
-        ddlBodyParts.Items.Insert(0, new ListItem("[-- Select --]"));
+        ddlBodyParts.Items.Insert(0, new ListItem("[-- Select --]","-1"));
     }
     protected void ddlHospitals_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindRefPhyList();
+        ClientScript.RegisterStartupScript(this.GetType(), "showTab", "var selectedTab = 1;", true);
     }
     protected void ddlClient_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindHospitalList();
+        ClientScript.RegisterStartupScript(this.GetType(), "showTab", "var selectedTab = 1;", true);
+    }
+    protected void btnAddRadiologist_Click(object sender, EventArgs e)
+    {
+        Study study = GetStudy();
+        if(study != null)
+        {
+            bool needToSave = false;
+            foreach(ListItem li in lbNotRadiologists.Items)
+            {
+                if(li.Selected)
+                {
+                    needToSave = true;
+                    StudyUser studyUser = new StudyUser();
+                    studyUser.StudyId = study.StudyId;
+                    studyUser.UserId = int.Parse(li.Value);
+                    study.StudyUsers.Add(studyUser);
+                }
+            }
+            if (needToSave)
+            {
+                DatabaseContext.SaveChanges();
+                BindRadiologistLists(study);
+            }
+        }
+        ClientScript.RegisterStartupScript(this.GetType(), "showTab", "var selectedTab = 1;", true);
+    }
+    protected void btnRemoveRadiologist_Click(object sender, EventArgs e)
+    {
+        Study study = GetStudy();
+        if (study != null)
+        {
+            bool needToSave = false;
+            foreach (ListItem li in lbRadiologists.Items)
+            {
+                if (li.Selected)
+                {
+                    needToSave = true;
+                    int userId = int.Parse(li.Value);
+                    StudyUser studyUser = (from su in DatabaseContext.StudyUsers
+                                           where su.UserId == userId
+                                              && su.StudyId == study.StudyId
+                                           select su).FirstOrDefault();
+                    if (studyUser != null)
+                    {
+                        DatabaseContext.DeleteObject(studyUser);
+                    }
+                }
+            }
+            if (needToSave)
+            {
+                DatabaseContext.SaveChanges();
+                BindRadiologistLists(study);
+            }
+        }
+        ClientScript.RegisterStartupScript(this.GetType(), "showTab", "var selectedTab = 1;", true);
+    }
+    protected void cbAllowAll_CheckedChanged(object sender, EventArgs e)
+    {
+        Study study = GetStudy();
+        if (study != null)
+        {
+            BindRadiologistPanel(study);
+        }
+        ClientScript.RegisterStartupScript(this.GetType(), "showTab", "var selectedTab = 1;", true);
     }
 }

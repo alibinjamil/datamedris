@@ -180,6 +180,15 @@
       <End Role="UserClient" EntitySet="UserClients" />
     </AssociationSet>
     <EntitySet Name="TemplateDetails" EntityType="RISModel.TemplateDetail" />
+    <EntitySet Name="StudyUsers" EntityType="RISModel.StudyUser" />
+    <AssociationSet Name="FK_StudyUsers_Studies" Association="RISModel.FK_StudyUsers_Studies">
+      <End Role="Study" EntitySet="Studies" />
+      <End Role="StudyUser" EntitySet="StudyUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudyUsers_Users" Association="RISModel.FK_StudyUsers_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="StudyUser" EntitySet="StudyUsers" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Attachment">
     <Key>
@@ -411,7 +420,7 @@
     <Property Name="CreatedBy" Type="Int32" Nullable="false" />
     <Property Name="CreationDate" Type="DateTime" Nullable="false" />
     <Property Name="LastUpdatedBy" Type="Int32" Nullable="false" />
-    <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" />
+    <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" ConcurrencyMode="Fixed" />
     <Property Name="IsManual" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
     <Property Name="AccessionNumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
     <Property Name="HospitalId" Type="Int32" />
@@ -448,6 +457,7 @@
     <NavigationProperty Name="ChildStudies" Relationship="RISModel.FK_Studies_Studies" FromRole="Study" ToRole="Study1" />
     <NavigationProperty Name="ParentStudy" Relationship="RISModel.FK_Studies_Studies" FromRole="Study1" ToRole="Study" />
     <Property Type="Boolean" Name="IsLatest" Nullable="false" />
+    <NavigationProperty Name="StudyUsers" Relationship="RISModel.FK_StudyUsers_Studies" FromRole="Study" ToRole="StudyUser" />
   </EntityType>
   <EntityType Name="StudyStatusType">
     <Key>
@@ -559,6 +569,7 @@
     <NavigationProperty Name="UserRoles" Relationship="RISModel.FK_tUserRoles_tUsers" FromRole="Users" ToRole="UserRoles" />
     <Property Type="Boolean" Name="AllowOthers" Nullable="false" />
     <NavigationProperty Name="Studies_1" Relationship="RISModel.FK_Studies_Radiologist" FromRole="User" ToRole="Study" />
+    <NavigationProperty Name="StudyUsers" Relationship="RISModel.FK_StudyUsers_Users" FromRole="User" ToRole="StudyUser" />
   </EntityType>
   <EntityType Name="WorkList">
     <Key>
@@ -1094,4 +1105,38 @@
     <Property Type="Int32" Name="ModalityId" Nullable="false" />
     <Property Type="String" Name="ModalityName" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="StudyUser">
+    <Key>
+      <PropertyRef Name="StudyUserId" />
+    </Key>
+    <Property Type="Int32" Name="StudyUserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="StudyId" Nullable="false" />
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <NavigationProperty Name="Study" Relationship="RISModel.FK_StudyUsers_Studies" FromRole="StudyUser" ToRole="Study" />
+    <NavigationProperty Name="User" Relationship="RISModel.FK_StudyUsers_Users" FromRole="StudyUser" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_StudyUsers_Studies">
+    <End Type="RISModel.Study" Role="Study" Multiplicity="1" />
+    <End Type="RISModel.StudyUser" Role="StudyUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Study">
+        <PropertyRef Name="StudyId" />
+      </Principal>
+      <Dependent Role="StudyUser">
+        <PropertyRef Name="StudyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudyUsers_Users">
+    <End Type="RISModel.User" Role="User" Multiplicity="1" />
+    <End Type="RISModel.StudyUser" Role="StudyUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="StudyUser">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

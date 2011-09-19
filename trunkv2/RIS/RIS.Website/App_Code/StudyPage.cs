@@ -35,6 +35,11 @@ public abstract class StudyPage : AuthenticatedPage
                 where s.StudyId == studyId
                 select s).FirstOrDefault();
     }
+    protected void HandleConcurrencyException()
+    {
+        HttpContext.Current.Session[ParameterNames.Session.ExceptionString] = "Data concurrency issue, Study has been saved before you could make your changes. Please refresh your screen";
+        Response.Redirect("~/SharedPages/ErrorPage.aspx");
+    }
 
     /*protected List<Study> GetAllParents(int studyId)
     {

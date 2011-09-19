@@ -256,10 +256,10 @@ public class StudyListModal
             //do not show PreRelease studies
             whereQuery.Append(" AND Studies.StudyStatusId NOT IN (8,9)");//Qaed and Prerelease
         }
-        if (loggedInUserRoleId == Constants.Roles.Radiologist && clientId != null)
+        if (loggedInUserRoleId == Constants.Roles.Radiologist)
         {
-            whereQuery.Append(" AND Studies.ClientId = @ClientId");
-            command.Parameters.Add(new SqlParameter("@ClientId", clientId));
+            whereQuery.Append(" AND StudyUsers.UserId = @UserId");
+            //command.Parameters.Add(new SqlParameter("@UserId", clientId));
         }
         /*if (loggedInUserRoleId == Constants.Roles.ClientTechnologist)//show studies 
         {
@@ -267,7 +267,7 @@ public class StudyListModal
             command.Parameters.Add(new SqlParameter("@HospitalId", hospitalId));
         }*/
 
-        if (loggedInUserRoleId == Constants.Roles.Radiologist || loggedInUserRoleId == Constants.Roles.ClientAdmin)
+        if (loggedInUserRoleId == Constants.Roles.ClientAdmin)
         {
             whereQuery.Append(" AND UserClients.UserId = @UserId ");
         }
@@ -415,7 +415,12 @@ public class StudyListModal
         StringBuilder joinQuery = new StringBuilder();
         //Commeting this code as this is causing perfomance issue. Replacing by EXISTS in WHERE 
 
-        if (loggedInUserRoleId == Constants.Roles.Radiologist || loggedInUserRoleId == Constants.Roles.ClientAdmin)
+        if (loggedInUserRoleId == Constants.Roles.Radiologist)
+        {
+            joinQuery.Append(" INNER JOIN StudyUsers On Studies.StudyId = StudyUsers.StudyId ");
+            command.Parameters.Add(new SqlParameter("@UserId", loggedInUserId));
+        }
+        else if (loggedInUserRoleId == Constants.Roles.ClientAdmin)
         {
             joinQuery.Append(" INNER JOIN UserClients on Studies.ClientId = UserClients.ClientId ");
             command.Parameters.Add(new SqlParameter("@UserId", loggedInUserId));
@@ -430,7 +435,13 @@ public class StudyListModal
         joinQuery.Append(" INNER JOIN ");
         joinQuery.Append(" (SELECT COUNT(0) AS PatRecCount,ExternalPatientId from Studies ");
         
-        if (loggedInUserRoleId == Constants.Roles.Radiologist || loggedInUserRoleId == Constants.Roles.ClientAdmin)
+        if(loggedInUserRoleId == Constants.Roles.Radiologist)
+        {
+            joinQuery.Append(" INNER JOIN StudyUsers on Studies.StudyId = StudyUsers.StudyId ");
+            joinQuery.Append(" WHERE StudyUsers.UserId = @UserId ");
+            joinQuery.Append(" AND IsLatest = 1 ");
+        }
+        else if (loggedInUserRoleId == Constants.Roles.ClientAdmin)
         {
             joinQuery.Append(" INNER JOIN UserClients on Studies.ClientId = UserClients.ClientId ");
             joinQuery.Append(" WHERE UserClients.UserId = @UserId ");

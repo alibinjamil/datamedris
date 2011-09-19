@@ -228,7 +228,7 @@
     <input id="hfSearchArea" name="hfSearchArea" type="hidden" value='<%=(Request["hfSearchArea"] == null)?"1":Request["hfSearchArea"]%>'/>
     
     <div id="editStudyDiv" title="Add notes &amp; information">
-        <iframe id="editStudyFrm" frameborder="0" src="" width=550px" height="510px"></iframe>     
+        <iframe id="editStudyFrm" frameborder="0" src="" width=600px" height="510px"></iframe>     
     </div>
         
     <div id="findingDialogDiv" title="Report">           

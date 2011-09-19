@@ -56,6 +56,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("RISModel", "FK_tImages_tSeries", "Series", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.Series), "Image", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.Image), true)]
 [assembly: EdmRelationshipAttribute("RISModel", "FK_Studies_Studies", "Study", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(RIS.Common.Study), "Study1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.Study), true)]
 [assembly: EdmRelationshipAttribute("RISModel", "FK_UserClients_Clients", "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.Client), "UserClient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.UserClient), true)]
+[assembly: EdmRelationshipAttribute("RISModel", "FK_StudyUsers_Studies", "Study", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.Study), "StudyUser", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.StudyUser), true)]
+[assembly: EdmRelationshipAttribute("RISModel", "FK_StudyUsers_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.User), "StudyUser", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.StudyUser), true)]
 
 #endregion
 
@@ -538,6 +540,22 @@ namespace RIS.Common
             }
         }
         private ObjectSet<TemplateDetail> _TemplateDetails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<StudyUser> StudyUsers
+        {
+            get
+            {
+                if ((_StudyUsers == null))
+                {
+                    _StudyUsers = base.CreateObjectSet<StudyUser>("StudyUsers");
+                }
+                return _StudyUsers;
+            }
+        }
+        private ObjectSet<StudyUser> _StudyUsers;
 
         #endregion
         #region AddTo Methods
@@ -756,6 +774,14 @@ namespace RIS.Common
         public void AddToTemplateDetails(TemplateDetail templateDetail)
         {
             base.AddObject("TemplateDetails", templateDetail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the StudyUsers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToStudyUsers(StudyUser studyUser)
+        {
+            base.AddObject("StudyUsers", studyUser);
         }
 
         #endregion
@@ -7117,6 +7143,28 @@ namespace RIS.Common
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_StudyUsers_Studies", "StudyUser")]
+        public EntityCollection<StudyUser> StudyUsers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<StudyUser>("RISModel.FK_StudyUsers_Studies", "StudyUser");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<StudyUser>("RISModel.FK_StudyUsers_Studies", "StudyUser", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -7246,6 +7294,192 @@ namespace RIS.Common
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Study>("RISModel.FK_Studies_StudyStatusTypes", "Study", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="RISModel", Name="StudyUser")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class StudyUser : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new StudyUser object.
+        /// </summary>
+        /// <param name="studyUserId">Initial value of the StudyUserId property.</param>
+        /// <param name="studyId">Initial value of the StudyId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        public static StudyUser CreateStudyUser(global::System.Int32 studyUserId, global::System.Int32 studyId, global::System.Int32 userId)
+        {
+            StudyUser studyUser = new StudyUser();
+            studyUser.StudyUserId = studyUserId;
+            studyUser.StudyId = studyId;
+            studyUser.UserId = userId;
+            return studyUser;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StudyUserId
+        {
+            get
+            {
+                return _StudyUserId;
+            }
+            set
+            {
+                if (_StudyUserId != value)
+                {
+                    OnStudyUserIdChanging(value);
+                    ReportPropertyChanging("StudyUserId");
+                    _StudyUserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("StudyUserId");
+                    OnStudyUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _StudyUserId;
+        partial void OnStudyUserIdChanging(global::System.Int32 value);
+        partial void OnStudyUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StudyId
+        {
+            get
+            {
+                return _StudyId;
+            }
+            set
+            {
+                OnStudyIdChanging(value);
+                ReportPropertyChanging("StudyId");
+                _StudyId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StudyId");
+                OnStudyIdChanged();
+            }
+        }
+        private global::System.Int32 _StudyId;
+        partial void OnStudyIdChanging(global::System.Int32 value);
+        partial void OnStudyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_StudyUsers_Studies", "Study")]
+        public Study Study
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Study>("RISModel.FK_StudyUsers_Studies", "Study").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Study>("RISModel.FK_StudyUsers_Studies", "Study").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Study> StudyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Study>("RISModel.FK_StudyUsers_Studies", "Study");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Study>("RISModel.FK_StudyUsers_Studies", "Study", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_StudyUsers_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("RISModel.FK_StudyUsers_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("RISModel.FK_StudyUsers_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("RISModel.FK_StudyUsers_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("RISModel.FK_StudyUsers_Users", "User", value);
                 }
             }
         }
@@ -8910,6 +9144,28 @@ namespace RIS.Common
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Study>("RISModel.FK_Studies_Radiologist", "Study", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_StudyUsers_Users", "StudyUser")]
+        public EntityCollection<StudyUser> StudyUsers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<StudyUser>("RISModel.FK_StudyUsers_Users", "StudyUser");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<StudyUser>("RISModel.FK_StudyUsers_Users", "StudyUser", value);
                 }
             }
         }

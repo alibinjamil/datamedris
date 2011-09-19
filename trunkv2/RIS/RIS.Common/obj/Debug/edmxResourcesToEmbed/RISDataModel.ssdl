@@ -19,6 +19,7 @@
     <EntitySet Name="Stations" EntityType="RISModel.Store.Stations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Studies" EntityType="RISModel.Store.Studies" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="StudyStatusTypes" EntityType="RISModel.Store.StudyStatusTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudyUsers" EntityType="RISModel.Store.StudyUsers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Templates" EntityType="RISModel.Store.Templates" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TemplateUsers" EntityType="RISModel.Store.TemplateUsers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Types" EntityType="RISModel.Store.Types" store:Type="Tables" Schema="dbo" />
@@ -88,6 +89,14 @@
     <AssociationSet Name="FK_Studies_Templates" Association="RISModel.Store.FK_Studies_Templates">
       <End Role="Templates" EntitySet="Templates" />
       <End Role="Studies" EntitySet="Studies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudyUsers_Studies" Association="RISModel.Store.FK_StudyUsers_Studies">
+      <End Role="Studies" EntitySet="Studies" />
+      <End Role="StudyUsers" EntitySet="StudyUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudyUsers_Users" Association="RISModel.Store.FK_StudyUsers_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="StudyUsers" EntitySet="StudyUsers" />
     </AssociationSet>
     <AssociationSet Name="FK_Templates_BodyParts" Association="RISModel.Store.FK_Templates_BodyParts">
       <End Role="BodyParts" EntitySet="BodyParts" />
@@ -457,6 +466,14 @@
     <Property Name="Status" Type="varchar" Nullable="false" MaxLength="64" />
     <Property Name="ColumnOrder" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="StudyUsers">
+    <Key>
+      <PropertyRef Name="StudyUserId" />
+    </Key>
+    <Property Name="StudyUserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StudyId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Templates">
     <Key>
       <PropertyRef Name="TemplateId" />
@@ -723,6 +740,30 @@
       </Principal>
       <Dependent Role="Studies">
         <PropertyRef Name="TemplateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudyUsers_Studies">
+    <End Role="Studies" Type="RISModel.Store.Studies" Multiplicity="1" />
+    <End Role="StudyUsers" Type="RISModel.Store.StudyUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Studies">
+        <PropertyRef Name="StudyId" />
+      </Principal>
+      <Dependent Role="StudyUsers">
+        <PropertyRef Name="StudyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudyUsers_Users">
+    <End Role="Users" Type="RISModel.Store.Users" Multiplicity="1" />
+    <End Role="StudyUsers" Type="RISModel.Store.StudyUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="StudyUsers">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

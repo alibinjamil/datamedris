@@ -108,30 +108,37 @@ public partial class Radiologist_StudyList : StudyPage
             {
                 if (Request["releaseToRad"] != null)
                 {
-                    string[] studyIds = Request["releaseToRad"].Split(',');
-                    foreach (string studyId in studyIds)
+                    try
                     {
-                        Study study = GetStudy(int.Parse(studyId));
-                        if (study != null)
+                        string[] studyIds = Request["releaseToRad"].Split(',');
+                        foreach (string studyId in studyIds)
                         {
-                            if (study.Hospital != null && study.ReferringPhysician != null)
+                            Study study = GetStudy(int.Parse(studyId));
+                            if (study != null)
                             {
-                                study.StudyStatusId = Constants.StudyStatusTypes.New;
+                                if (study.Hospital != null && study.ReferringPhysician != null)
+                                {
+                                    study.StudyStatusId = Constants.StudyStatusTypes.New;
 
-                                Log log = new Log();
-                                log.Study = study;
-                                log.ActionTime = DateTime.Now;
-                                log.Action = Constants.LogActions.ReleasedToRad;
-                                log.UserId = loggedInUserId;
-                                DatabaseContext.AddToLogs(log);
-                            }
-                            else
-                            {
-                                SetErrorMessage("One or more exams could not be released to Radiologists as they have missing data");
+                                    Log log = new Log();
+                                    log.Study = study;
+                                    log.ActionTime = DateTime.Now;
+                                    log.Action = Constants.LogActions.ReleasedToRad;
+                                    log.UserId = loggedInUserId;
+                                    DatabaseContext.AddToLogs(log);
+                                }
+                                else
+                                {
+                                    SetErrorMessage("One or more exams could not be released to Radiologists as they have missing data");
+                                }
                             }
                         }
+                        DatabaseContext.SaveChanges();
                     }
-                    DatabaseContext.SaveChanges();
+                    catch (OptimisticConcurrencyException)
+                    {
+                        HandleConcurrencyException();
+                    }
                 }
             }
         }

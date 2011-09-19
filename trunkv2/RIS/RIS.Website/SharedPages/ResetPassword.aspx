@@ -26,7 +26,7 @@
           </td> 
       </tr>
       <tr> 
-        <td><div align="right"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">Answer:</font></div></td> 
+        <td><div align="right"><font size="-1" face="Verdana, Arial, Helvetica, sans-serif">Confirm Password:</font></div></td> 
         <td>
             <asp:TextBox ID="tbConfirmPassword" runat="server" Width="149px" TextMode="Password"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfv3" runat="server" ErrorMessage="*" ControlToValidate="tbConfirmPassword"></asp:RequiredFieldValidator>                                    
