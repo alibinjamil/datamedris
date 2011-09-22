@@ -8,3 +8,8 @@ E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\bin\Debug\RISLibrary.pdb
 E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\obj\Debug\ResolveAssemblyReference.cache
 E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\obj\Debug\RISLibrary.dll
 E:\MyProjects\RIS\trunkv2\RIS\RISLibrary\obj\Debug\RISLibrary.pdb
+F:\RIS\trunkv2\RIS\RISLibrary\bin\Debug\RISLibrary.dll
+F:\RIS\trunkv2\RIS\RISLibrary\bin\Debug\RISLibrary.pdb
+F:\RIS\trunkv2\RIS\RISLibrary\obj\Debug\ResolveAssemblyReference.cache
+F:\RIS\trunkv2\RIS\RISLibrary\obj\Debug\RISLibrary.dll
+F:\RIS\trunkv2\RIS\RISLibrary\obj\Debug\RISLibrary.pdb

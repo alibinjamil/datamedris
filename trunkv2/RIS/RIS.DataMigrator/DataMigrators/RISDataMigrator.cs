@@ -58,8 +58,7 @@ namespace RIS.RISService.DataMigrators
                     Study study = new Study();
                     study.ExternalPatientId = dicomStudy.PatientID;
                     study.OriginalPatientId = dicomStudy.PatientID;
-                    //study.PatientName = ParseName(dicomStudy.PatientNam);
-                    study.PatientName = dicomStudy.PatientNam;
+                    study.PatientName = ParseName(dicomStudy.PatientNam);
                     study.PatientDOB = ParseDateTime(dicomStudy.PatientBir, null);
                     study.PatientGender = dicomStudy.PatientSex;
                     study.PatientWeight = dicomStudy.PatientsWe;
@@ -99,8 +98,12 @@ namespace RIS.RISService.DataMigrators
                     study.CreationDate = DateTime.Now;
                     study.LastUpdateDate = DateTime.Now;
                     risDB.AddToStudies(study);
+                    
                     risDB.SaveChanges();
+                    risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, study);
+                    
                     conquestDB.SaveChanges();
+                    conquestDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, dicomStudy);
                 }
                 catch (Exception ex)
                 {
@@ -245,7 +248,10 @@ namespace RIS.RISService.DataMigrators
                         risDB.AddToSeries(series);
                         study = SetStationAndDetail(dicomSeries, study);
                         risDB.SaveChanges();
+                        risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, series);
+                        risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, study);
                         conquestDB.SaveChanges();
+                        conquestDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, dicomSeries);
                     }
 	            }
 	            catch (Exception ex)
@@ -299,7 +305,9 @@ namespace RIS.RISService.DataMigrators
                         risDB.AddToImages(risImage);
                         dicomImage.SyncTime = DateTime.Now;
                         risDB.SaveChanges();
+                        risDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, risImage);
                         conquestDB.SaveChanges();
+                        conquestDB.Refresh(System.Data.Objects.RefreshMode.StoreWins, dicomImage);
                     }
                 }
                 catch (Exception ex)
@@ -373,14 +381,18 @@ namespace RIS.RISService.DataMigrators
             name = name.Replace("^", " ");
             char [] sep = new char[1];
             sep[0] = ' ';
-            string[] names = name.Split(sep);
-            for(int i=0;i<names.Length;i++)
+            string[] splitNames = name.Split(sep);
+            List<string> names = new List<string>();
+            foreach(string splitName in splitNames)
             {
-                names[i] = names[i].Trim();
+                if (splitName.Trim().Length > 0)
+                {
+                    names.Add(splitName);
+                }
             }
-            if (names.Length == 2)
+            if (names.Count >= 2)
             {
-                return names[1] + "," + names[0];
+                return names[1] + ", " + names[0];
             }
             return names[0];
         }

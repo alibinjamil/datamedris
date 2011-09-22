@@ -8,3 +8,13 @@ E:\MyProjects\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RISLibrary.pdb
 E:\MyProjects\RIS\trunkv2\RIS\RIS.DataMigrator\obj\Debug\ResolveAssemblyReference.cache
 E:\MyProjects\RIS\trunkv2\RIS\RIS.DataMigrator\obj\Debug\RISDataMigrator.exe
 E:\MyProjects\RIS\trunkv2\RIS\RIS.DataMigrator\obj\Debug\RISDataMigrator.pdb
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RISDataMigrator.exe.config
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RISDataMigrator.exe
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RISDataMigrator.pdb
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RIS.Common.dll
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RISLibrary.dll
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RIS.Common.pdb
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\bin\Debug\RISLibrary.pdb
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\obj\Debug\ResolveAssemblyReference.cache
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\obj\Debug\RISDataMigrator.exe
+F:\RIS\trunkv2\RIS\RIS.DataMigrator\obj\Debug\RISDataMigrator.pdb

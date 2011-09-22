@@ -4,3 +4,9 @@ E:\MyProjects\RIS\trunkv2\RIS\RIS.Common\bin\Debug\RIS.Common.pdb
 E:\MyProjects\RIS\trunkv2\RIS\RIS.Common\obj\Debug\ResolveAssemblyReference.cache
 E:\MyProjects\RIS\trunkv2\RIS\RIS.Common\obj\Debug\RIS.Common.dll
 E:\MyProjects\RIS\trunkv2\RIS\RIS.Common\obj\Debug\RIS.Common.pdb
+F:\RIS\trunkv2\RIS\RIS.Common\bin\Debug\RIS.Common.dll.config
+F:\RIS\trunkv2\RIS\RIS.Common\bin\Debug\RIS.Common.dll
+F:\RIS\trunkv2\RIS\RIS.Common\bin\Debug\RIS.Common.pdb
+F:\RIS\trunkv2\RIS\RIS.Common\obj\Debug\ResolveAssemblyReference.cache
+F:\RIS\trunkv2\RIS\RIS.Common\obj\Debug\RIS.Common.dll
+F:\RIS\trunkv2\RIS\RIS.Common\obj\Debug\RIS.Common.pdb
