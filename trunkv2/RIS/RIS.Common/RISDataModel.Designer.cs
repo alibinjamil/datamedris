@@ -58,6 +58,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("RISModel", "FK_UserClients_Clients", "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.Client), "UserClient", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.UserClient), true)]
 [assembly: EdmRelationshipAttribute("RISModel", "FK_StudyUsers_Studies", "Study", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.Study), "StudyUser", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.StudyUser), true)]
 [assembly: EdmRelationshipAttribute("RISModel", "FK_StudyUsers_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RIS.Common.User), "StudyUser", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.StudyUser), true)]
+[assembly: EdmRelationshipAttribute("RISModel", "FK_Studies_Attachments", "Attachment", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(RIS.Common.Attachment), "Study", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RIS.Common.Study), true)]
 
 #endregion
 
@@ -1059,6 +1060,28 @@ namespace RIS.Common
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Study>("RISModel.FK_Attachments_Studies", "Studies", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_Studies_Attachments", "Study")]
+        public EntityCollection<Study> Studies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Study>("RISModel.FK_Studies_Attachments", "Study");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Study>("RISModel.FK_Studies_Attachments", "Study", value);
                 }
             }
         }
@@ -6135,7 +6158,7 @@ namespace RIS.Common
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String IsManual
+        public Nullable<global::System.Boolean> IsManual
         {
             get
             {
@@ -6145,13 +6168,13 @@ namespace RIS.Common
             {
                 OnIsManualChanging(value);
                 ReportPropertyChanging("IsManual");
-                _IsManual = StructuralObject.SetValidValue(value, true);
+                _IsManual = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IsManual");
                 OnIsManualChanged();
             }
         }
-        private global::System.String _IsManual;
-        partial void OnIsManualChanging(global::System.String value);
+        private Nullable<global::System.Boolean> _IsManual;
+        partial void OnIsManualChanging(Nullable<global::System.Boolean> value);
         partial void OnIsManualChanged();
     
         /// <summary>
@@ -6633,6 +6656,54 @@ namespace RIS.Common
         private global::System.Boolean _IsLatest;
         partial void OnIsLatestChanging(global::System.Boolean value);
         partial void OnIsLatestChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Byte> ReportType
+        {
+            get
+            {
+                return _ReportType;
+            }
+            set
+            {
+                OnReportTypeChanging(value);
+                ReportPropertyChanging("ReportType");
+                _ReportType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReportType");
+                OnReportTypeChanged();
+            }
+        }
+        private Nullable<global::System.Byte> _ReportType;
+        partial void OnReportTypeChanging(Nullable<global::System.Byte> value);
+        partial void OnReportTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AttachmentId
+        {
+            get
+            {
+                return _AttachmentId;
+            }
+            set
+            {
+                OnAttachmentIdChanging(value);
+                ReportPropertyChanging("AttachmentId");
+                _AttachmentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AttachmentId");
+                OnAttachmentIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AttachmentId;
+        partial void OnAttachmentIdChanging(Nullable<global::System.Int32> value);
+        partial void OnAttachmentIdChanged();
 
         #endregion
     
@@ -7162,6 +7233,44 @@ namespace RIS.Common
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<StudyUser>("RISModel.FK_StudyUsers_Studies", "StudyUser", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RISModel", "FK_Studies_Attachments", "Attachment")]
+        public Attachment Attachment
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attachment>("RISModel.FK_Studies_Attachments", "Attachment").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attachment>("RISModel.FK_Studies_Attachments", "Attachment").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Attachment> AttachmentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attachment>("RISModel.FK_Studies_Attachments", "Attachment");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Attachment>("RISModel.FK_Studies_Attachments", "Attachment", value);
                 }
             }
         }
