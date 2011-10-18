@@ -40,7 +40,7 @@
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                     AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
                     BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" 
-                    DataKeyNames="AttachmentId" DataSourceID="edsAttachments" ForeColor="Black" 
+                    DataKeyNames="AttachmentId" ForeColor="Black" 
                     GridLines="Vertical">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
@@ -77,17 +77,6 @@
                 </asp:GridView>
             
                 
-            
-                <asp:EntityDataSource ID="edsAttachments" runat="server" 
-                    ConnectionString="name=RISEntities" DefaultContainerName="RISEntities" 
-                    EnableDelete="True" EnableFlattening="False" EntitySetName="Attachments" 
-                    EnableUpdate="True" EntityTypeFilter="Attachment" Where="" 
-                    AutoGenerateWhereClause="True">
-                    <WhereParameters>
-                        <asp:QueryStringParameter DefaultValue="0" Name="StudyId" 
-                            QueryStringField="studyId" DbType="Int32" />
-                    </WhereParameters>
-                </asp:EntityDataSource>
             
             </div>
             

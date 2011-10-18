@@ -230,10 +230,11 @@
     <div id="editStudyDiv" title="Add notes &amp; information">
         <iframe id="editStudyFrm" frameborder="0" src="" width=600px" height="510px"></iframe>     
     </div>
+    
         
     <div id="findingDialogDiv" title="Report">           
 
-            <iframe id="findingFrame" frameborder="0"  width=990px" height="560px"></iframe>
+            <iframe id="findingFrame" frameborder="0"  width="990px" height="560px"></iframe>
 
     </div>    
     <div id="reviseExamDiv" title="Revise Exam">
@@ -399,11 +400,13 @@
             <asp:HiddenField ID="isAsc" runat="server" Value="0"/>
             <asp:HiddenField ID="doLog" runat="server" Value="0" />
             <asp:HiddenField ID="hfPatientId" runat="server" /><asp:HiddenField ID="hfCarryStatus" runat="server" Value="x" /><asp:HiddenField ID="hfCarryModality" runat="server" Value="x" />
-            <div style="text-align:left">
+            <div style="text-align:left;width:100%;">
             <%if (loggedInUserRoleId == RIS.RISLibrary.Utilities.Constants.Roles.ClientAdmin
                   || loggedInUserRoleId == RIS.RISLibrary.Utilities.Constants.Roles.ClientTechnologist)
               { %>
             <input type="button" value="Release to Radiologist(s)" onclick="releaseToRadsClick();" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="../Technologist/AddStudy.aspx" target="_blank">Add a new Exam</a>
             <%} %>
             </div>
             <asp:Table ID="Table1" runat="server" CssClass="dataTable" CellPadding="0" CellSpacing="0" Width="100%" style="margin-top:3px;" Visible="false">

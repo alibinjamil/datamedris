@@ -124,6 +124,14 @@ public partial class Exams_ReviseStudy : StudyPage
                         }
                         newStudy.Series.Add(newSeries);
                     }
+
+                    foreach (StudyUser studyUser in study.StudyUsers)
+                    {
+                        StudyUser newStudyUser = new StudyUser();
+                        newStudyUser.UserId = studyUser.UserId;
+                        newStudy.StudyUsers.Add(newStudyUser);
+                    }
+
                     newStudy.IsLatest = true;
                     study.IsLatest = false;
                     study.LastUpdateDate = DateTime.Now;

@@ -144,7 +144,7 @@ public class ReportObject : GenericUIObject
             {
                 _modality = study.Modality.Name;
             }
-            if (study.IsManual != null && study.IsManual.ToUpper().Equals("Y"))
+            if (study.IsManual.HasValue && study.IsManual.Value)
             {
                 _manualStatus = "This report was imported from another system.";
             }            

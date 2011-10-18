@@ -28,11 +28,23 @@ public partial class WebScan_AttachmentsList : StudyPage
             study = GetStudy();
             hlAddAttachment1.Visible = CanUpdate();
             hlAddAttachment2.Visible = CanUpdate();
+            BindGrid();
         }
         if (IsPostBack == false)
         {
             hlAddAttachment1.NavigateUrl = GetAddURL();
             hlAddAttachment2.NavigateUrl = GetAddURL();
+        }
+    }
+    private void BindGrid()
+    {
+        if (study != null)
+        {
+            GridView1.DataSource = (from a in DatabaseContext.Attachments
+                                    where a.StudyId == study.StudyId
+                                    && a.AttachmentType != "REPORT"
+                                    select a);
+            GridView1.DataBind();
         }
     }
     protected override bool IsPopUp()

@@ -125,9 +125,7 @@ public partial class Radiologist_EditStudy : StudyPage
         }
         ddlClient.DataTextField = "Name";
         ddlClient.DataValueField = "ClientId";
-        ddlClient.DataBind();
-
-        
+        ddlClient.DataBind();        
     }
     private void BindHospitalList()
     {
@@ -279,7 +277,7 @@ public partial class Radiologist_EditStudy : StudyPage
         }
         ClientScript.RegisterStartupScript(this.GetType(), "Close", "parent.closeStudyEditWindow();parent.aspnetForm.submit();", true);
     }
-private void BindRadiologistPanel(Study study)
+    private void BindRadiologistPanel(Study study)
     {          
         BindRadiologistLists(study);
         

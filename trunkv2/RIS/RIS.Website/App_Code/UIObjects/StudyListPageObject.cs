@@ -21,7 +21,19 @@ public class StudyListPageObject : GenericUIObject
         //m_findingId = 0;
         m_physician = null;
     }
+    private Nullable<byte> _reportType;
+    public Nullable<byte> ReportType
+    {
+        get { return _reportType; }
+        set { _reportType = value; }
+    }
 
+    private Nullable<int> _attachmentId;
+    public Nullable<int> AttachmentId
+    {
+        get { return _attachmentId; }
+        set { _attachmentId = value; }
+    }
     /*private int m_findingId;
     public int FindingId
     {
@@ -233,8 +245,8 @@ public class StudyListPageObject : GenericUIObject
         }
     }
 
-    private string m_isManual;
-    public string IsManual
+    private bool m_isManual;
+    public bool IsManual
     {
         get
         {

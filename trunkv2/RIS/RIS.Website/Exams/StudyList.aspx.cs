@@ -603,6 +603,14 @@ public partial class Radiologist_StudyList : StudyPage
             text.Append("</a>");
             return text.ToString();
         }
+        else if (studyList.IsManual && loggedInUserRoleId == Constants.Roles.ClientAdmin)
+        {
+            StringBuilder text = new StringBuilder();
+            text.Append("<a href='../Technologist/AddStudy.aspx?studyId=" + studyList.StudyId + "'>");
+            text.Append(studyList.PatientName);
+            text.Append("</a>");
+            return text.ToString();
+        }
         else
         {
             return studyList.PatientName;
@@ -652,11 +660,19 @@ public partial class Radiologist_StudyList : StudyPage
     private TableCell GetReportCell(StudyListPageObject studyList)
     {
         StringBuilder url = new StringBuilder();
-        url.Append(PagesFactory.GetUrl(PagesFactory.Pages.FindingReportPage));
-        url.Append("?");
-        url.Append(ParameterNames.Request.StudyId);
-        url.Append("=");
-        url.Append(studyList.StudyId);
+        if (studyList.ReportType != null
+            && (studyList.ReportType == Constants.ReportTypes.Scan || studyList.ReportType == Constants.ReportTypes.Upload))
+        {
+            url.Append("../WebScan/DownloadAttachment.aspx?attachmentId=" + studyList.AttachmentId);
+        }
+        else
+        {
+            url.Append(PagesFactory.GetUrl(PagesFactory.Pages.FindingReportPage));
+            url.Append("?");
+            url.Append(ParameterNames.Request.StudyId);
+            url.Append("=");
+            url.Append(studyList.StudyId);
+        }
 
         TableCell cell = new TableCell();
         cell.CssClass = "dataCellWhite";

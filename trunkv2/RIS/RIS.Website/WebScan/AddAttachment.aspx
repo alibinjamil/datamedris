@@ -324,7 +324,8 @@ function btnUpload_onclick(){
     frmScan.DynamicWebTwain1.SetHTTPFormField("<%=ParameterNames.Request.StudyId%>","<%=Request[ParameterNames.Request.StudyId]%>");
     frmScan.DynamicWebTwain1.SetHTTPFormField("<%=ParameterNames.Request.UserId%>","<%=loggedInUserId%>");
     frmScan.DynamicWebTwain1.SetHTTPFormField("<%=ParameterNames.Request.Name%>",escape(frmScan.tbFileName.value));
-    frmScan.DynamicWebTwain1.SetHTTPFormField("<%=ParameterNames.Request.Description%>",escape(frmScan.tbDescription.value));
+    frmScan.DynamicWebTwain1.SetHTTPFormField("<%=ParameterNames.Request.Description%>", escape(frmScan.tbDescription.value));
+    <%=GetIsReportField()%> 
     if(strImageType == 2 && document.all.MultiPageTIFF.checked){
         frmScan.DynamicWebTwain1.HTTPUploadAllThroughPostAsMultiPageTIFF(
              strHTTPServer, 

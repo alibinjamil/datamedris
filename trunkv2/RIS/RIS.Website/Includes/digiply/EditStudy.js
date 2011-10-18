@@ -23,14 +23,20 @@ $(document).ready(function() {
           close: function (ev, ui) {
               //do some thing
           }
+      });
+      jQuery("#addExamDiv").dialog({
+          bgiframe: true, autoOpen: false, height: 550, width: 660, modal: true,
+          close: function (ev, ui) {
+              //do some thing
+          }
       });     
 });
 
-function openStudyEditWindow(studyId,currentIndex){
+  function openStudyEditWindow(studyId, currentIndex) {
     var data = "EditStudy.aspx?studyId=" + studyId;
-    $('#editStudyFrm').attr("src",data); 
+    $('#editStudyFrm').attr("src", data);
     $("#editStudyDiv").dialog({ title: "Add notes &amp; information | " + studyList[currentIndex].PatientId + " | " + studyList[currentIndex].PatientName });
-    jQuery("#editStudyDiv").dialog('open'); 
+    $("#editStudyDiv").dialog('open'); 
 }
 
 /*function openRejectionWindow(studyId,currentIndex){
@@ -50,5 +56,12 @@ function closeStudyEditWindow(){
 }
 
 function closeRejectionWindow(){
-    jQuery("#rejectExamDiv").dialog('close'); 
+    jQuery("#rejectExamDiv").dialog('close');
+}
+
+function addExamClick() {
+    var data = "../Technologist/AddStudy.aspx";
+    $('#addExamFrame').attr("src", "../Technologist/AddStudy.aspx");
+    $("#addExamDiv").dialog({ title: "Add a new Exam | Step 1: Add Exam Information" });
+    jQuery("#addExamDiv").dialog('open');
 }

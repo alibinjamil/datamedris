@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-
+using RIS.RISLibrary.Utilities;
 using RIS.Common;
 /// <summary>
 /// This class assumes that a StudyId has been passed to this page and has a function to load that study
@@ -25,6 +25,17 @@ public abstract class StudyPage : AuthenticatedPage
         {
             int studyId = int.Parse(Request[ParameterNames.Request.StudyId]);
             study = GetStudy(studyId);
+        }
+        return study;
+    }
+
+    protected Study GetManualStudy()
+    {
+        Study study = GetStudy();
+        if (study != null && (study.IsManual.HasValue == false || study.IsManual.Value == false))
+        {
+            Session[ParameterNames.Session.ErrorMessage] = "Exam not found, please create a new Exam from Patients List page";
+            PagesFactory.Transfer(PagesFactory.Pages.ErrorPage);
         }
         return study;
     }

@@ -47,6 +47,15 @@ public partial class WebScan_SaveAttachment : GenericPage
             attachment.ScannedBy = int.Parse(Request.Form[ParameterNames.Request.UserId]);
             attachment.ScannedTime = DateTime.Now;
             attachment.StudyId = int.Parse(Request.Form[ParameterNames.Request.StudyId]);
+            if (Request.Form["isReport"] != null && Request.Form["isReport"] == "true")
+            {
+                Study study = (from s in DatabaseContext.Studies where s.StudyId == attachment.StudyId select s).FirstOrDefault();
+                if (study != null)
+                {
+                    attachment.AttachmentType = "REPORT";
+                    study.Attachment = attachment;
+                }
+            }
             Log log = new Log();
             log.Action = RIS.RISLibrary.Utilities.Constants.LogActions.AddedAttachment;
             log.ActionTime = DateTime.Now;

@@ -15,6 +15,14 @@ using RIS.Common;
 using RIS.RISLibrary.Utilities;
 public partial class WebScan_AddAttachment : StudyPage
 {
+    protected string GetIsReportField()
+    {
+        if (Request["isReport"] != null && Request["isReport"] == "true")
+        {
+            return "frmScan.DynamicWebTwain1.SetHTTPFormField(\"isReport\", \"true\");";
+        }
+        return "";
+    }
     protected override void Page_Load_Extended(object sender, EventArgs e)
     {
         Study study = GetStudy();

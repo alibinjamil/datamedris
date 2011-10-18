@@ -45,7 +45,7 @@
   
     <div id="tabs" style="font-size:10pt;width:100%;">
 	    <ul>
-		    <li><a href="#tabs-1" >Patient Information</a></li>
+		    <li><a href="#tabs-1">Patient Information</a></li>
 		    <li><a href="#tabs-2">Exam Information</a></li>
 	    </ul>
 	    <div id="tabs-1" style="height:370px">

@@ -170,7 +170,7 @@ public class StudyListModal
                 break;
             case QueryType.SELECT:
                 sqlQuery.Append(" SELECT TOP ").Append(WebConstants.PageSize).Append(" * FROM ( ");
-                sqlQuery.Append(" SELECT ROW_NUMBER() OVER (").Append(orderByQuery).Append(") AS rowNum, Studies.StudyId,Studies.PatientName AS PatientName,Studies.ExternalPatientId,Studies.StudyStatusId,StudyStatusTypes.Status,convert(varchar(10),Studies.StudyDate,101) AS StudyDate,Studies.StudyDate AS StudyTimestamp,Modalities.Name AS Modality,Procedures.Name AS ProcedureName, Radiologists.Name AS RadiologistName, Users.Name AS ReferringPhysicianName,tPatients.PatRecCount,Studies.RadiologistId,Studies.IsManual,Studies.AccessionNumber,Studies.TechComments,Studies.OriginalPatientId from Studies ");
+                sqlQuery.Append(" SELECT ROW_NUMBER() OVER (").Append(orderByQuery).Append(") AS rowNum, Studies.StudyId,Studies.PatientName AS PatientName,Studies.ExternalPatientId,Studies.StudyStatusId,StudyStatusTypes.Status,convert(varchar(10),Studies.StudyDate,101) AS StudyDate,Studies.StudyDate AS StudyTimestamp,Modalities.Name AS Modality,Procedures.Name AS ProcedureName, Radiologists.Name AS RadiologistName, Users.Name AS ReferringPhysicianName,tPatients.PatRecCount,Studies.RadiologistId,Studies.IsManual,Studies.AccessionNumber,Studies.TechComments,Studies.OriginalPatientId,Studies.ReportType,Studies.AttachmentId from Studies ");
                 //queryCommand.Parameters.Add(new SqlParameter("@PageSize", PageSize));
                 break;
             case QueryType.LOG:
@@ -489,6 +489,25 @@ public class StudyListModal
         {
             studyList.AccessionNumber = null;
         }
+
+        if (reader.IsDBNull(reader.GetOrdinal("ReportType")) == false)
+        {
+            studyList.ReportType = (byte)reader["ReportType"];
+        }
+        else
+        {
+            studyList.ReportType = null;
+        }
+        if (reader.IsDBNull(reader.GetOrdinal("AttachmentId")) == false)
+        {
+            studyList.AttachmentId = (int)reader["AttachmentId"];
+        }
+        else
+        {
+            studyList.AttachmentId = null;
+        }
+
+
         studyList.PatientId = reader["ExternalPatientId"].ToString();
         studyList.PatientName = reader["PatientName"].ToString();
         studyList.OriginalPatientId = reader["OriginalPatientId"].ToString();
@@ -510,11 +529,11 @@ public class StudyListModal
         }
         if (reader.IsDBNull(reader.GetOrdinal("IsManual")) == false)
         {
-            studyList.IsManual = (string)reader["IsManual"];
+            studyList.IsManual = (bool)reader["IsManual"];
         }
         else
         {
-            studyList.IsManual = "N";
+            studyList.IsManual = false;
         }
         if (reader.IsDBNull(reader.GetOrdinal("TechComments")) || reader["TechComments"].ToString().Trim().Length == 0)
         {
