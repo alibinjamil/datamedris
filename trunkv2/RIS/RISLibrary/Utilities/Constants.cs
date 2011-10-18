@@ -65,5 +65,11 @@ namespace RIS.RISLibrary.Utilities
             public static string CallbackExam = "Called back Exam";
             public static string RejectedExam = "Exam was rejected";
         }
+        public static class ReportTypes
+        {
+            public static byte Manual = 1;
+            public static byte Upload = 2;
+            public static byte Scan = 3;
+        }
     }
 }
